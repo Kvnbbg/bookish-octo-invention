@@ -4,7 +4,7 @@
 Empowering commerce with mobile inventory management.
 
 ## Project Context
-This project is an exercise related to the development of a web-oriented mobile application as part of a training evaluation. It simulates a real-world scenario focusing on building an application for a nutritionist, Sandrine Coupart, who wants to share recipes online and provide additional recipes tailored to patients' dietary needs.
+This project is an exercise related to the development of a web-oriented mobile application as part of a training evaluation. It simulates a real-world scenario focusing on building an application for a nutritionist, who wants to share recipes online and provide additional recipes tailored to patients' dietary needs.
 
 ## Installation
 To deploy the project locally, follow these steps:
