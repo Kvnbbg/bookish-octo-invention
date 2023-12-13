@@ -44,8 +44,9 @@ def internal_error(error):
 
 if __name__ == '__main__':
     # Check if templates exist
-    if not all(os.path.exists(f'templates/{template}') for template in ['index.html', 'recipe.html', '404.html, 500.html']):
-        print('One or more templates are missing')
+    missing_templates = [template for template in ['index.html', 'recipe.html', '404.html', '500.html'] if not os.path.exists(f'templates/{template}')]
+    if missing_templates:
+        print(f"One or more templates are missing: {', '.join(missing_templates)}")
         exit(1)
 
     app.run(debug=True)
