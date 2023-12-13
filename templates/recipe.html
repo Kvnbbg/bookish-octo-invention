@@ -3,22 +3,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{ recipe.title }}</title>
+    <title>Recipes</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  </head>
-  <body>
-    <p>Go back to <a href="/">homepage</a>.</p>
-    <h1>{{ recipe.title }}</h1>
-    <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
-    <h2>Ingredients:</h2>
-    <ul>
-        {% for ingredient in recipe.ingredients %}
-            <li>{{ ingredient }}</li>
+</head>
+<body>
+    <div class="container">
+        {% for recipe in recipes %}
+            <div class="card" id="card{{ loop.index }}">
+                <h2>{{ recipe.title }}</h2>
+                <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+                <button class="toggleButton">Hide</button>
+                <div class="hidden">
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li>{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h3>Instructions:</h3>
+                    <p>{{ recipe.instructions }}</p>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
-    <h2>Instructions:</h2>
-    <p>{{ recipe.instructions }}</p>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
