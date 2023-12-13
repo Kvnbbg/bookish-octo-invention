@@ -1,0 +1,14 @@
+recipes = [
+  {
+    'title': 'Pasta Carbonara',
+    'image': 'https://example.com/pasta-carbonara.jpg',
+    'ingredients': ['Spaghetti', 'Eggs', 'Bacon', 'Parmesan Cheese'],
+    'instructions': 'Cook spaghetti. Fry bacon. Mix eggs and cheese. Combine all.'
+  },
+  {
+    'title': 'Chocolate Cake',
+    'image': 'https://example.com/chocolate-cake.jpg',
+    'ingredients': ['Flour', 'Sugar', 'Cocoa Powder', 'Eggs', 'Milk'],
+    'instructions': 'Mix dry ingredients. Add wet ingredients. Bake at 350°F.'
+  }
+]
