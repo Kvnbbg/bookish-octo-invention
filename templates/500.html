@@ -1,9 +1,14 @@
+{% import 'macros.html' as macros %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>500 Internal Server Error</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <p>Go back to <a href="/">homepage</a>.</p>
   <h1>500 Internal Server Error</h1>
   <p>Sorry, something went wrong on our server.</p>
 </body>

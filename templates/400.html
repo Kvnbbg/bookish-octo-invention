@@ -1,9 +1,14 @@
+{% import 'macros.html' as macros %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>400 Bad Request</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <p>Go back to <a href="/">homepage</a>.</p>
   <h1>400 Bad Request</h1>
   <p>The server could not understand the request due to invalid syntax.</p>
 </body>
