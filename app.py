@@ -37,6 +37,11 @@ def not_found_error(error):
     app.logger.error('Page not found: %s', (request.path))
     return render_template('404.html'), 404
 
+@app.errorhandler(400)
+def bad_request_error(error):
+    app.logger.error('Bad Request: %s', (error))
+    return render_template('400.html'), 400
+
 @app.errorhandler(500)
 def internal_error(error):
     app.logger.error('Server Error: %s', (error))
@@ -44,7 +49,7 @@ def internal_error(error):
 
 if __name__ == '__main__':
     # Check if templates exist
-    missing_templates = [template for template in ['index.html', 'recipe.html', '404.html', '500.html'] if not os.path.exists(f'templates/{template}')]
+    missing_templates = [template for template in ['index.html', 'recipe.html', '404.html', '404.html', '500.html'] if not os.path.exists(f'templates/{template}')]
     if missing_templates:
         print(f"One or more templates are missing: {', '.join(missing_templates)}")
         exit(1)
