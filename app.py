@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, abort
 
 app = Flask(__name__)
@@ -25,6 +26,7 @@ def index():
 @app.route('/recipe/<int:recipe_id>')
 def show_recipe(recipe_id):
     if recipe_id < 0 or recipe_id >= len(recipes):
+        app.logger.error(f'Recipe with id {recipe_id} not found')
         abort(404)  # Recipe not found
 
     recipe = recipes[recipe_id]
@@ -32,7 +34,18 @@ def show_recipe(recipe_id):
 
 @app.errorhandler(404)
 def not_found_error(error):
+    app.logger.error('Page not found: %s', (request.path))
     return render_template('404.html'), 404
 
+@app.errorhandler(500)
+def internal_error(error):
+    app.logger.error('Server Error: %s', (error))
+    return render_template('500.html'), 500
+
 if __name__ == '__main__':
+    # Check if templates exist
+    if not all(os.path.exists(f'templates/{template}') for template in ['index.html', 'recipe.html', '404.html, 500.html']):
+        print('One or more templates are missing')
+        exit(1)
+
     app.run(debug=True)
