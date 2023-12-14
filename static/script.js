@@ -1,8 +1,9 @@
-document.querySelectorAll(".card").forEach((card, index) => {
+document.querySelectorAll(".card").forEach((card) => {
   const toggleButton = card.querySelector(".toggleButton");
-  const hiddenSection = card.querySelector(".hidden");
 
-  toggleButton.addEventListener("click", () => {
+  if (toggleButton) {
+    toggleButton.addEventListener("click", () => {
       card.classList.toggle("active");
-  });
+    });
+  }
 });

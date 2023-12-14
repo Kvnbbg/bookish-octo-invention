@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from flask import Flask, render_template, abort, request
-from recipe import initialize_database
+from recipe import initialize_database, get_recipe
 
 app = Flask(__name__)
 

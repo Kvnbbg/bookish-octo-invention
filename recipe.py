@@ -1,5 +1,6 @@
 import sqlite3
 import json
+
 def initialize_database():
   # Connect to the SQLite database or create it if it doesn't exist
   conn = sqlite3.connect('recipes.db')

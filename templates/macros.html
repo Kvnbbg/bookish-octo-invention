@@ -1,0 +1,11 @@
+{% import 'flask' as flask %}
+{% macro recipe_card(recipe) %}
+  <div class="card mb-4">
+    <img class="card-img-top" src="{{ recipe.image }}" alt="{{ recipe.title }}">
+    <div class="card-body">
+      <h5 class="card-title">{{ recipe.title }}</h5>
+      <p class="card-text">{{ recipe.instructions }}</p>
+      <a href="{{ flask.url_for('recipe', id=recipe.id) }}" class="btn btn-primary">View Recipe</a>
+    </div>
+  </div>
+{% endmacro %}
