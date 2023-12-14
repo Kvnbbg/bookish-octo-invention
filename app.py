@@ -21,6 +21,18 @@ def index():
 
 @app.route('/recipe/<int:recipe_id>')
 def show_recipe(recipe_id):
+    """
+    Display a specific recipe based on its ID.
+
+    Args:
+        recipe_id (int): The ID of the recipe to display.
+
+    Returns:
+        str: The rendered HTML template for the recipe.
+
+    Raises:
+        404: If the recipe with the given ID is not found in the database.
+    """
     # Fetch a specific recipe by its ID from the database
     cursor.execute('SELECT * FROM recipes WHERE id = ?', (recipe_id,))
     recipe = cursor.fetchone()
