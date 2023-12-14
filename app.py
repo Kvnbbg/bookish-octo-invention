@@ -1,13 +1,16 @@
 import os
 import sqlite3
 from flask import Flask, render_template, abort, request
-
 from recipe import initialize_database
 
 app = Flask(__name__)
 
 # Initialize the database by running the code from recipe.py
 initialize_database()
+
+# Establish a connection to the SQLite database
+conn = sqlite3.connect('database.db')
+cursor = conn.cursor()
 
 @app.route('/')
 def index():
