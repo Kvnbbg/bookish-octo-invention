@@ -1,7 +1,8 @@
 import os
 import sqlite3
+import Jinja2
 from flask import Flask, render_template, abort, request
-from recipe import initialize_database, get_recipe
+from recipe import initialize_database
 
 app = Flask(__name__)
 

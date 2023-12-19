@@ -3,7 +3,7 @@ import json
 
 def initialize_database():
   # Connect to the SQLite database or create it if it doesn't exist
-  conn = sqlite3.connect('recipes.db')
+  conn = sqlite3.connect('database.db')
   cursor = conn.cursor()
 
   # Create a 'recipes' table in the database if it doesn't exist
