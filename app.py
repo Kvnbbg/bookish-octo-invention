@@ -1,10 +1,16 @@
 import os
 import sqlite3
-import Jinja2
 from flask import Flask, render_template, abort, request
 from recipe import initialize_database
 
+# Change the working directory to the directory of this file
+print(os.getcwd())
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+print(os.getcwd())
+
+# Initialize the Flask application
 app = Flask(__name__)
+
 
 # Initialize the database by running the code from recipe.py
 initialize_database()
@@ -13,12 +19,16 @@ initialize_database()
 conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
+# Create a route for the index page
 @app.route('/')
 def index():
-    # Fetch all recipes from the database
-    cursor.execute('SELECT * FROM recipes')
-    recipes = cursor.fetchall()
-    return render_template('index.html', recipes=recipes)
+    try:
+        # Fetch all recipes from the database
+        cursor.execute('SELECT * FROM recipes')
+        recipes = cursor.fetchall()
+        return render_template('index.html')
+    except Exception as e:
+        return str(e)
 
 @app.route('/recipe/<int:recipe_id>')
 def show_recipe(recipe_id):
@@ -56,8 +66,8 @@ def bad_request_error(error):
 
 @app.errorhandler(500)
 def internal_error(error):
-    app.logger.error('Server Error: %s', error)
-    return render_template('500.html'), 500
+    app.logger.error('Server Error: %s', str(error))
+    return render_template('500.html', error=error), 500
 
 if __name__ == '__main__':
     # Check if templates exist
