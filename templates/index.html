@@ -1,4 +1,3 @@
-{% import 'macros.html' as macros %} // Add this line to import Jinja2 macros
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +26,7 @@
         <h1>Welcome to our Recipe Index</h1>
         <p>Click on a recipe card to view details:</p>
         <div class="row">
-            {% import 'macros.html' as macros %} // Add this line to import Jinja2 macros
+            {% import 'macros.html' as macros %} {# Add this line to import Jinja2 macros #}
             {% import 'flask' as flask %}
             {% block content %}
                 {% for recipe in recipes %}

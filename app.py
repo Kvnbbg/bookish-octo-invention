@@ -24,11 +24,10 @@ cursor = conn.cursor()
 @app.route('/')
 def index():
     try:
-        os.path.exists('templates/index.html')
-        print(os.getcwd())
-        print(os.listdir())
-        print(os.listdir())
-        return render_template('index.html')
+        # Fetch all recipes from the database
+        cursor.execute('SELECT * FROM recipes')
+        recipes = cursor.fetchall()
+        return render_template('index.html', recipes=recipes)
     except Exception as e:
         return str(e)
 
@@ -57,7 +56,7 @@ def show_recipe(recipe_id):
     return render_template('recipe.html', recipe=recipe)
 
 @app.errorhandler(404)
-def not_found_error(error):
+def not_found_error():
     app.logger.error('Page not found: %s', request.path)
     return render_template('404.html'), 404
 
@@ -90,5 +89,5 @@ if __name__ == '__main__':
         app.logger.error("Failed to initialize database: %s", str(e))
         exit(1)
 
-    app.run(debug=True)
-    app.run(debug=True)
+    app.run(debug=True, port=5500)
+

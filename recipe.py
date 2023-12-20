@@ -20,22 +20,22 @@ def initialize_database():
   # Sample data - Inserting some initial recipes into the table if it's empty
   cursor.execute("SELECT COUNT(*) FROM recipes")
   if cursor.fetchone()[0] == 0:
-    sample_recipes = [
+    recipes = [
       {
         'title': 'Pasta Carbonara',
-        'image': 'https://example.com/pasta-carbonara.jpg',
+        'image': '{{ url_for('static', filename='pasta-carbonara.jpg') }}',
         'ingredients': 'Spaghetti, Eggs, Bacon, Parmesan Cheese',
         'instructions': 'Cook spaghetti. Fry bacon. Mix eggs and cheese. Combine all.'
       },
       {
         'title': 'Chocolate Cake',
-        'image': 'https://example.com/chocolate-cake.jpg',
+        'image': '{{ url_for('static', filename='chocolate-cake.jpg') }}',
         'ingredients': 'Flour, Sugar, Cocoa Powder, Eggs, Milk',
         'instructions': 'Mix dry ingredients. Add wet ingredients. Bake at 350°F.'
       }
     ]
 
-    for recipe in sample_recipes:
+    for recipe in recipes:
       cursor.execute('''
         INSERT INTO recipes (title, image, ingredients, instructions)
         VALUES (?, ?, ?, ?)
