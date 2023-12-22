@@ -6,10 +6,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* Add any specific styling for the 500 error page */
+    /* For example: */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 20px;
+    }
+    h1 {
+      color: #ff6347;
+    }
+  </style>
 </head>
 <body>
-  <p>Go back to <a href="/">homepage</a>.</p>
-  <h1>500 Internal Server Error</h1>
-  <p>Sorry, something went wrong on our server.</p>
+  <div class="error-page">
+    <h1>500 Internal Server Error</h1>
+    <p>Sorry, something went wrong on our server. Our team has been notified and we are working to fix it.</p>
+    <p>You can go back to the <a href="/">homepage</a> or try again later.</p>
+  </div>
 </body>
 </html>

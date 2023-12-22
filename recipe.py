@@ -1,13 +1,56 @@
+import os
 import sqlite3
+import logging
 from flask import Flask, render_template, abort, request
+from werkzeug.local import LocalProxy, Local
+
+
+app = Flask(__name__)
+
+DATABASE = 'database.db'
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
 
 def initialize_database():
-  # Connect to the SQLite database or create it if it doesn't exist
-  conn = sqlite3.connect('database.db')
-  cursor = conn.cursor()
+    # recipe.py or where you initialize the database
+def initialize_database():
+    # ...
 
-  # Create a 'recipes' table in the database if it doesn't exist
-  cursor.execute("""
+    # Add a default recipe if the database is empty
+    cursor.execute("SELECT COUNT(*) FROM recipes")
+    if cursor.fetchone()[0] == 0:
+        default_recipe = {
+            'title': 'Default Recipe',
+            'image': 'default_image_url.jpg',
+            'ingredients': 'Default ingredients',
+            'instructions': 'Default instructions'
+        }
+
+        cursor.execute('''
+            INSERT INTO recipes (title, image, ingredients, instructions)
+            VALUES (?, ?, ?, ?)
+        ''', (default_recipe['title'], default_recipe['image'],
+              default_recipe['ingredients'], default_recipe['instructions']))
+        conn.commit()
+
+    # ...
+
+    with app.app_context():
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute('SELECT id, name FROM users')
+cursor.row_factory = sqlite3.Row  # Setting the row factory
+results = cursor.fetchall()
+
+for row in results:
+    print(row['id'], row['name'])  # Accessing columns by name
+
+        # Your database initialization code here
+        cursor.execute("""
     CREATE TABLE IF NOT EXISTS recipes (
       id INTEGER PRIMARY KEY,
       title TEXT NOT NULL,
@@ -15,31 +58,26 @@ def initialize_database():
       ingredients TEXT NOT NULL,
       instructions TEXT NOT NULL
     )
-  """)
+""")
 
-  # Sample data - Inserting some initial recipes into the table if it's empty
-  cursor.execute("SELECT COUNT(*) FROM recipes")
-  if cursor.fetchone()[0] == 0:
-    recipes = [
-      {
-        'title': 'Pasta Carbonara',
-        'image': '{{ url_for('static', filename='pasta-carbonara.jpg') }}',
-        'ingredients': 'Spaghetti, Eggs, Bacon, Parmesan Cheese',
-        'instructions': 'Cook spaghetti. Fry bacon. Mix eggs and cheese. Combine all.'
-      },
-      {
-        'title': 'Chocolate Cake',
-        'image': '{{ url_for('static', filename='chocolate-cake.jpg') }}',
-        'ingredients': 'Flour, Sugar, Cocoa Powder, Eggs, Milk',
-        'instructions': 'Mix dry ingredients. Add wet ingredients. Bake at 350°F.'
-      }
-    ]
+        # Populate the table if empty, as you did before
+        conn.commit()
 
-    for recipe in recipes:
-      cursor.execute('''
-        INSERT INTO recipes (title, image, ingredients, instructions)
-        VALUES (?, ?, ?, ?)
-      ''', (recipe['title'], recipe['image'], recipe['ingredients'], recipe['instructions']))
-    conn.commit()
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
 
-  conn.close()
+@app.route('/')
+def home():
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM recipes")
+    recipes = cursor.fetchall()
+    conn.close()
+    return render_template('index.html', recipes=recipes)
+
+if __name__ == '__main__':
+    initialize_database()  # Call this function explicitly when needed
+    app.run(debug=True, port=5500)

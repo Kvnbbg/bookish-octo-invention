@@ -6,10 +6,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* Add any specific styling for the 400 error page */
+    /* For example: */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 20px;
+    }
+    h1 {
+      color: #ff6347;
+    }
+  </style>
 </head>
 <body>
-  <p>Go back to <a href="/">homepage</a>.</p>
-  <h1>400 Bad Request</h1>
-  <p>The server could not understand the request due to invalid syntax.</p>
+  <div class="error-page">
+    <h1>400 Bad Request</h1>
+    <p>The server could not understand the request due to invalid syntax or missing information.</p>
+    <p>Please check your input and try again. If the issue persists, you can go back to the <a href="/">homepage</a>.</p>
+  </div>
 </body>
 </html>
