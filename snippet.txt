@@ -1,0 +1,23 @@
+#26 DEC 2023
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
+    app = Flask(__name__)
+    DATABASE = 'database.db'
+        logging.basicConfig(level=logging.DEBUG)
+            
+    app.run(debug=True, port=5000)
+
+    db.execute('insert into entries (title, text) values (?, ?)',
+                 [request.form['title'], request.form['text']])
+    db.commit()
+    flash('New entry was successfully posted')
+    return redirect(url_for('show_entries'))
+
+#2
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
+    app = Flask(__name__)
+    DATABASE = 'database.db'
+    logging.basicConfig(level=logging.DEBUG)
+            
+    app.run(debug=True, port=5000)

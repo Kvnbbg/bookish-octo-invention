@@ -61,7 +61,7 @@ def init_db():
 @app.cli.command('initdb')
 def initdb_command():
     init_db()
-    print('Initialized the database.')
+    app.logger.info("Database initialization...")
 
 def connect_db():
     return sqlite3.connect(DATABASE)
@@ -87,6 +87,9 @@ def show_entries():
     cursor.execute("SELECT * FROM recipes")
     recipes = cursor.fetchall()
     conn.close()
+    # Temporary demonstration of a logged-in session
+    session['logged_in'] = True  # Simulating a logged-in session
+    app.logger.info("App route '/' initialized successfully.")
     return render_template('index.html', recipes=recipes)
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
@@ -132,14 +135,3 @@ def internal_error(error):
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
-    app = Flask(__name__)
-    DATABASE = 'database.db'
-        logging.basicConfig(level=logging.DEBUG)
-            
-    app.run(debug=True, port=5000)
-
-    db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['title'], request.form['text']])
-    db.commit()
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
