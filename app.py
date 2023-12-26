@@ -7,7 +7,7 @@ from contextlib import closing
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
-DATABASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'database/database.db')
+DATABASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'database.db')
 
 logging.basicConfig(level=logging.DEBUG)
 
