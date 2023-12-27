@@ -106,7 +106,7 @@ def add_recipe():
         add_recipe_to_db(title, image, ingredients, instructions)
         return redirect(url_for('show_entries'))
     
-    return render_template('add_recipe.html')
+    return render_template('recipe.html')
 
 @app.route('/recipe/<int:recipe_id>')
 def show_recipe(recipe_id):
