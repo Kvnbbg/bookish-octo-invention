@@ -39,7 +39,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ recipe.title }}</h5>
                                 <p class="card-text">{{ recipe.instructions }}</p>
-                                <a href="{{ url_for('recipe', recipe_id=recipe.id) }}" class="btn btn-primary">View Recipe</a>
+                                <a href="{{ url_for('add_recipe', recipe_id=recipe.id) }}" class="btn btn-primary">View Recipe</a>
                             </div>
                         </div>
                     </div>
