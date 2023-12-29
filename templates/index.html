@@ -7,6 +7,18 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .card {
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-img-top {
+            height: 250px; /* Set a fixed height for the image */
+            object-fit: cover; /* Maintain aspect ratio while covering the area */
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -34,7 +46,7 @@
             {% block content %}
                 {% for recipe in recipes %}
                     <div class="col-md-4">
-                        <div class="card mb-4">
+                        <div class="card mb-4 shadow-sm">
                             <img class="card-img-top" src="{{ recipe.image }}" alt="{{ recipe.title }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ recipe.title }}</h5>
