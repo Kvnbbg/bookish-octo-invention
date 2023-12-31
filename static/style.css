@@ -1,17 +1,82 @@
-.hidden {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #5e9646;
-  border-radius: 0.5em;
-  padding: 1em;
-  box-sizing: border-box;
-  transition: opacity 0.3s ease-in-out;
-  display: flex; /* Add missing property */
-  justify-content: center; /* Add missing property */
-  align-items: center; /* Add missing property */
+:root {
+  --primary-bg-color: #f3f3f7;
+  --secondary-bg-color: #609a7d;
+  --accent-color: #bdb9b3;
+  --text-color: #0c0920;
+  --hover-color: #5e9646;
+  --active-color: #0c0920;
+}
+
+body {
+  background-image: linear-gradient(to bottom right, var(--primary-bg-color), var(--secondary-bg-color));
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin-top: 80px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card:active {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid var(--accent-color);
+}
+
+.btn-primary {
+  background-color: var(--secondary-bg-color);
+  border: none;
+  border-radius: 8px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--hover-color);
+  transform: scale(1.05);
+}
+
+h1 {
+  font-family: 'Baloo Bhaina', sans-serif;
+  font-weight: 600;
+  font-size: 2em;
+  color: var(--text-color);
+  margin: 0.5em 0;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+p {
+  font-family: 'Reenie Beanie', sans-serif;
+  font-weight: 400;
+  font-size: 1.1em;
+  color: var(--text-color);
+  margin: 0.5em 0;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
