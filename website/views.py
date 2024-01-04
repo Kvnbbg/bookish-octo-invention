@@ -1,37 +1,43 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, request, abort, redirect, url_for, session
+from __init__ import app, get_db, add_recipe_to_db, get_recipe_by_id
 
 views = Blueprint('views', __name__)
 
 # Routes
-@views.route('/') # Decorator for the index/home page
+@views.route('/')  # Decorator for the index/home page
 def show_entries():
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recipes")
-    recipes = cursor.fetchall()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM recipes")
+        recipes = cursor.fetchall()
+
     # Temporary demonstration of a logged-in session
     session['logged_in'] = True  # Simulating a logged-in session
     app.logger.info("App route '/' initialized successfully.")
+    
     return render_template('index.html', recipes=recipes)
 
-@view.route('/add_recipe', methods=['GET', 'POST'])
+@views.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
     if request.method == 'POST':
         if not session.get('logged_in'):
             abort(401)
 
-        title = request.form['title']
-        image = request.form['image']
-        ingredients = request.form['ingredients']
-        instructions = request.form['instructions']
+        title = request.form.get('title')
+        image = request.form.get('image')
+        ingredients = request.form.get('ingredients')
+        instructions = request.form.get('instructions')
+
+        if not title or not image or not ingredients or not instructions:
+            app.logger.error('Missing form data')
+            abort(400)
 
         add_recipe_to_db(title, image, ingredients, instructions)
-        return redirect(url_for('show_entries'))
+        return redirect(url_for('.show_entries'))
     
     return render_template('recipe.html')
 
-@view.route('/recipe/<int:recipe_id>')
+@views.route('/recipe/<int:recipe_id>')
 def show_recipe(recipe_id):
     recipe = get_recipe_by_id(recipe_id)
     if not recipe:

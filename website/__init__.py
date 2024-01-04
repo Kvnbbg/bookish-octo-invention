@@ -13,6 +13,13 @@ app.logger.info("App initialized successfully.")
 # Create the Flask application
 def create_app(n=1):
   if n == 0:
+    # Import the routes
+    from website.views import views as views_blueprint
+    from website.auth import auth as auth_blueprint
+    app.register_blueprint(views_blueprint)
+    app.register_blueprint(auth_blueprint)
+    app.logger.info("Blueprints registered successfully.")
+
     # Logging initialization
     logging.basicConfig(level=logging.DEBUG)
     app.logger.info("Logging initialized successfully.")
