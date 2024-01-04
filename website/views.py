@@ -15,7 +15,7 @@ def show_entries():
     session['logged_in'] = True  # Simulating a logged-in session
     app.logger.info("App route '/' initialized successfully.")
     
-    return render_template('index.html', recipes=recipes)
+    return render_template('/website/templates/index.html', recipes=recipes)
 
 @views.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
