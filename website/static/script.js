@@ -7,3 +7,9 @@ document.querySelectorAll(".card").forEach((card) => {
     });
   }
 });
+
+function deleteRecipe(recipe_id) {
+  if (confirm('Are you sure you want to delete this recipe?')) {
+      window.location.href = '/delete_recipe/' + recipe_id;
+  }
+}
