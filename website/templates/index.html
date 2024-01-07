@@ -1,44 +1,8 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
+
 {% block title %}Recipe Sharing{% endblock %}
-{% block head %}
-{% endblock %}
-{% block navbar %}
-{% endblock %}
+
 {% block content %}
+<!-- Add the content specific to this page here -->
+<h1>Welcome to Recipe Sharing!</h1>
 {% endblock %}
-{% block scripts %}
-{% endblock %}
-<!-- The above code is the same as the code in website/templates/base.html. -->
-<!-- The code below is the code for the index page. -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{% block title %}Recipe Sharing{% endblock %}</title>
-
-</head>
-<body>
-
-    <!-- Jinja2 template -->
-    <div class="container mt-4">
-        <h1>Welcome to our Recipe Index</h1>
-        <p>Click on a recipe card to view details:</p>
-        <div class="row">
-            {% block content %}
-                {% for recipe in recipes %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <img class="card-img-top" src="{{ recipe.image }}" alt="{{ recipe.title }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ recipe.title }}</h5>
-                                <p class="card-text">{{ recipe.instructions }}</p>
-                                <a href="{{ url_for('add_recipe', recipe_id=recipe.id) }}" class="btn btn-primary">View Recipe</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endblock %}
-        </div>
-    </div>
-
-</body>
-</html>

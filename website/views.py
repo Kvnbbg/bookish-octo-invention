@@ -1,18 +1,38 @@
-from flask import Blueprint, render_template, request, abort, redirect, url_for, session
-from __init__ import app, get_db, add_recipe_to_db, get_recipe_by_id
+from common import *
 
+# Blueprint
 views = Blueprint('views', __name__)
 
 # Routes
+
 @views.route('/')  # Decorator for the index/home page
+def index():
+    """Render the index page with a list of recipes."""
+    try:
+        # Fetch all recipes from the database
+        recipes = Recipe.query.all()
+    except Exception as e:
+        # Log the error and return an error message
+        app.logger.error(f"Failed to fetch recipes: {e}")
+        return "An error occurred while fetching recipes.", 500
+
+    # Render the index page with the list of recipes
+    return render_template('index.html', recipes=recipes)
+
 def show_entries():
-    with get_db() as conn:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM recipes")
-        recipes = cursor.fetchall()
+    try:
+        with get_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM recipes")
+            recipes = cursor.fetchall()
+    except Exception as e:
+        app.logger.error("Database error: %s", str(e))
+        recipes = []
 
     # Temporary demonstration of a logged-in session
     session['logged_in'] = True  # Simulating a logged-in session
+    app.logger.info("User logged in: %s", session['logged_in'])
+
     app.logger.info("App route '/' initialized successfully.")
     
     return render_template('index.html', recipes=recipes)
