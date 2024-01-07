@@ -1,4 +1,6 @@
-from common import *
+
+from models import Recipe
+
 
 # Blueprint
 views = Blueprint('views', __name__)
