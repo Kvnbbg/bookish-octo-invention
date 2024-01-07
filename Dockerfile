@@ -13,7 +13,7 @@ RUN pip install --upgrade pip && \
 
 # Set environment variables if needed
 # Adjust the line below according to your main Flask application file
-ENV FLASK_APP=main.py
+ENV FLASK_APP=website
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
