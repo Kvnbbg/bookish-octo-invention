@@ -1,43 +1,16 @@
+from flask import Blueprint, render_template, request, abort, redirect, url_for, session
+from website.models import Recipe  # Assuming a SQLAlchemy model named 'Recipe' for interacting with the database
 
-from models import Recipe
-
-
-# Blueprint
 views = Blueprint('views', __name__)
 
-# Routes
-
-@views.route('/')  # Decorator for the index/home page
+@views.route('/')
 def index():
-    """Render the index page with a list of recipes."""
     try:
-        # Fetch all recipes from the database
         recipes = Recipe.query.all()
+        return render_template('index.html', recipes=recipes)
     except Exception as e:
-        # Log the error and return an error message
         app.logger.error(f"Failed to fetch recipes: {e}")
         return "An error occurred while fetching recipes.", 500
-
-    # Render the index page with the list of recipes
-    return render_template('index.html', recipes=recipes)
-
-def show_entries():
-    try:
-        with get_db() as conn:
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM recipes")
-            recipes = cursor.fetchall()
-    except Exception as e:
-        app.logger.error("Database error: %s", str(e))
-        recipes = []
-
-    # Temporary demonstration of a logged-in session
-    session['logged_in'] = True  # Simulating a logged-in session
-    app.logger.info("User logged in: %s", session['logged_in'])
-
-    app.logger.info("App route '/' initialized successfully.")
-    
-    return render_template('index.html', recipes=recipes)
 
 @views.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
@@ -50,20 +23,31 @@ def add_recipe():
         ingredients = request.form.get('ingredients')
         instructions = request.form.get('instructions')
 
-        if not title or not image or not ingredients or not instructions:
+        if not all([title, image, ingredients, instructions]):
             app.logger.error('Missing form data')
             abort(400)
 
-        add_recipe_to_db(title, image, ingredients, instructions)
-        return redirect(url_for('.show_entries'))
-    
-    return render_template('recipe.html')
+        try:
+            recipe = Recipe(title=title, image=image, ingredients=ingredients, instructions=instructions)
+            db.session.add(recipe)
+            db.session.commit()
+            return redirect(url_for('.index')) # Redirect to the index page after adding the recipe 
+        
+        except Exception as e:
+            app.logger.error(f"Failed to add recipe: {e}")
+            abort(500)
+
+    return render_template('recipe.html') # Render the recipe form template for GET requests 
 
 @views.route('/recipe/<int:recipe_id>')
 def show_recipe(recipe_id):
-    recipe = get_recipe_by_id(recipe_id)
-    if not recipe:
-        app.logger.error(f'Recipe with id {recipe_id} not found')
-        abort(404)
+    try:
+        recipe = Recipe.query.get(recipe_id)
+        if not recipe:
+            app.logger.error(f'Recipe with id {recipe_id} not found')
+            abort(404)
 
-    return render_template('recipe.html', recipe=recipe)
+        return render_template('recipe.html', recipe=recipe)
+    except Exception as e:
+        app.logger.error(f"Failed to retrieve recipe: {e}")
+        abort(500)
