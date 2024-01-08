@@ -2,6 +2,13 @@ from flask import Blueprint, render_template, request, abort, redirect, url_for,
 from website.models import Recipe  # Assuming a SQLAlchemy model named 'Recipe' for interacting with the database
 
 views = Blueprint('views', __name__)
+# views.py
+from django.shortcuts import render
+from .models import User
+
+def user_list(request):
+    users = User.objects.all()  # Fetch all users from the database
+    return render(request, 'user_list.html', {'users': users})
 
 @views.route('/')
 def index():

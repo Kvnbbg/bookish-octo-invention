@@ -1,13 +1,14 @@
-from flask import Flask, g, render_template, request, abort, redirect, url_for, session
+_# bookish-octo-invention/website/_init__.py 
+
+from flask import Flask, render_template, request
 import logging
 import os
-from contextlib import closing
 from website.auth import auth as auth_blueprint
 from website.views import views as views_blueprint
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ['SECRET_KEY'] # TODO: Change this to a random string before deploying to production environment
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'hello') # TODO: Change this to a random string before deploying to production environment
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////' + os.path.join(os.path.dirname(os.path.abspath(__file__)), 'database.db')
 
 # Register Blueprints
@@ -19,7 +20,7 @@ logging.basicConfig(level=logging.DEBUG)
 app.logger.info("Logging initialized successfully.")
 
 # Check for Templates
-missing_templates = [template for template in ['index.html', 'recipe.html', '404.html', '500.html'] if not os.path.exists(f'website/templates/{template}')]
+missing_templates = [template for template in ['index.html', 'recipe.html', '404.html', '500.html', 'base.html', 'login.html', 'contact.html', '400.html'] if not os.path.exists(f'website/templates/{template}')]
 if missing_templates:
     raise FileNotFoundError(f"One or more templates are missing: {', '.join(missing_templates)}")
 
