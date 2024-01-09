@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, abort, redirect, url_for, session
-from website.models import Recipe  # Assuming a SQLAlchemy model named 'Recipe' for interacting with the database
+from website import recipe, db, app
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 def index():
     try:
-        recipes = Recipe.query.all()
+        recipes = recipe.query.all()
         return render_template('index.html', recipes=recipes)
     except Exception as e:
         app.logger.error(f"Failed to fetch recipes: {e}")
@@ -17,8 +17,6 @@ def add_recipe():
     if request.method == 'POST':
         if not session.get('logged_in'):
             abort(401)
-
-        return 
 
         if not all([title, image, ingredients, instructions]):
             app.logger.error('Missing form data')
@@ -39,7 +37,7 @@ def add_recipe():
 @views.route('/recipe/<int:recipe_id>')
 def show_recipe(recipe_id):
     try:
-        recipe = Recipe.query.get(recipe_id)
+        recipe = recipe.query.get(recipe_id)
         if not recipe:
             app.logger.error(f'Recipe with id {recipe_id} not found')
             abort(404)

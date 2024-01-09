@@ -1,1 +1,1 @@
-FLASK_APP=website
+FLASK_APP=app
