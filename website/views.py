@@ -2,13 +2,6 @@ from flask import Blueprint, render_template, request, abort, redirect, url_for,
 from website.models import Recipe  # Assuming a SQLAlchemy model named 'Recipe' for interacting with the database
 
 views = Blueprint('views', __name__)
-# views.py
-from django.shortcuts import render
-from .models import User
-
-def user_list(request):
-    users = User.objects.all()  # Fetch all users from the database
-    return render(request, 'user_list.html', {'users': users})
 
 @views.route('/')
 def index():
@@ -25,10 +18,7 @@ def add_recipe():
         if not session.get('logged_in'):
             abort(401)
 
-        title = request.form.get('title')
-        image = request.form.get('image')
-        ingredients = request.form.get('ingredients')
-        instructions = request.form.get('instructions')
+        return 
 
         if not all([title, image, ingredients, instructions]):
             app.logger.error('Missing form data')
