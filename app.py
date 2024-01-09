@@ -1,12 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, flash # Import Flask class from flask module
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
+import logging # Import logging module
+logging.basicConfig(filename='error.log', level=logging.DEBUG) # Configure logging module to write to error.log file
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) # Configure logging module to write SQL statements to the console
 from datetime import datetime # Import datetime class from datetime module
 from werkzeug.security import generate_password_hash # Import generate_password_hash and check_password_hash functions from werkzeug.security module
 
+## APP CONFIGURATION ##
 app = Flask(__name__) # Create a new instance of the Flask class called "app"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db' # Path to database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Silence the deprecation warning
+app.logger.setLevel('INFO') # Set the log level to INFO
 db = SQLAlchemy(app) # Instantiate the database object
 
 login_manager = LoginManager() # Instantiate a LoginManager object 
@@ -56,9 +61,13 @@ class Role(db.Model):
 
 ## ROUTES ##
 # Define the routes for your application below
-@app.route('/') # Home page route - displays nav bar, search bar, section about and my services from the administrator and footer
+@app.route('/') # Home page route - displays nav bar, search bar, section about and my services
 def index(): 
-    return render_template('index.html') # Render the template located in /templates/index.html
+    try:
+        return render_template('index.html') # Render the template located in /templates/index.html
+    except Exception as e:
+        app.logger.error('An error occurred: %s', (e))
+        return render_template('500.html'), 500
 
 @app.route('/recipe') # Recipes page route - displays all recipes creations from the administrator
 def recipes(): 
@@ -172,6 +181,25 @@ def about():
 def contact(): 
     return render_template('contact.html')
 
+@app.route('/search') # Search page route - displays search form for the administrator, author or  patient
+def search(): 
+    return render_template('search.html')
+
+@app.route('/search_results') # Search results page route - displays search results form for the administrator, author or  patient
+def search_results(): 
+    return render_template('search_results.html')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    app.logger.error('Page Not Found: %s', (e))
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    # note that we set the 500 status explicitly
+    app.logger.error('Server Error: %s', (e))
+    return render_template('500.html'), 500
 
 if __name__ == '__main__': # Runs the application 
     db.create_all() # Create the database tables for our data models defined above if they don't exist yet 

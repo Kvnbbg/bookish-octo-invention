@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "database": "${workspaceFolder:bookish-octo-invention}/recipes.db",
+      "name": "db"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
+}
