@@ -6,6 +6,9 @@ logging.basicConfig(filename='error.log', level=logging.DEBUG) # Configure loggi
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) # Configure logging module to write SQL statements to the console
 from datetime import datetime # Import datetime class from datetime module
 from werkzeug.security import generate_password_hash # Import generate_password_hash and check_password_hash functions from werkzeug.security module
+import jinja2 # Import jinja2 module for template inheritance 
+import os # Import os module for file path manipulation 
+
 
 ## APP CONFIGURATION ##
 app = Flask(__name__) # Create a new instance of the Flask class called "app"
