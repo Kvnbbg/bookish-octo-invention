@@ -1,20 +1,28 @@
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for, flash # Import Flask class from flask module
+from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
+from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
+from datetime import datetime # Import datetime class from datetime module
+from app import db # Import the db object from our app.py file
 
-app = Flask(__name__)
+login_manager = LoginManager() # Instantiate a LoginManager object 
+login_manager.init_app(app) # Configure it for our Flask application
+
+app = Flask(__name__) # Create a new instance of the Flask class called "app"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db' # Path to database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Silence the deprecation warning
 db = SQLAlchemy(app) # Instantiate the database object
 
+## CLASS DEFINITIONS ##
 # Define your models below
-class recipe(db.Model): # Define a recipe model by extending the db.Model class 
+class Recipe(db.Model): # Define a recipe model by extending the db.Model class 
     id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy 
     title = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes 
     # image = db.Column(db.image) # Column definitions are bound to model attributes 
     instructions = db.Column(db.Text) # Column definitions are bound to model attributes 
     description = db.Column(db.Text) # Column definitions are bound to model attributes 
     servings = db.Column(db.Integer) # Column definitions are bound to model attributes 
-    author = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes
+    author_id = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes
+    created_at = db.Column(db.DateTime, default=datetime.utcnow) # replace date_createed with created_at
     prep_time = db.Column(db.Integer)
     cook_time = db.Column(db.Integer)
     steps = db.Column(db.Integer)
@@ -32,6 +40,21 @@ class Ingredient(db.Model): # Define a Ingredient model by extending the db.Mode
     quantity = db.Column(db.String(50))
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
 
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
+    username = db.Column(db.String(50), unnique=True,  nullable=False) # Column definitions are bound to model attributes!!!!!!
+    email = db.Column(db.String(100), unique=True, nullable=False) # Column definitions are bound to model attributes!!!!!!
+    password = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes!!!!!!
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False) 
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    recipes = db.relationship('Recipe', backref='author', lazy=True)
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
+    name = db.Column(db.String(50), unique=True, nullable=False) # Column definitions are bound to model attributes!!!!!!
+
+## ROUTES ##
 # Define the routes for your application below
 @app.route('/') # Home page route - displays nav bar, search bar, section about and my services from the administrator and footer
 def index(): 
@@ -44,6 +67,59 @@ def recipes():
 @app.route('/authentication') # Login page route - displays login form for the administrator, author or  patient
 def authentication(): 
     return render_template('authentication.html')
+
+@app.route('/login') # Login page route - displays login form for the administrator, author or  patient
+def login(): 
+    # logic for login page goes here
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # logic for checking username and password goes here
+        user = User.query.filter_by(username=username).first()
+        if user and user.password == password:
+            login_user(user)
+            flash('Logged in successfully.')
+            return redirect(url_for('index'))
+        else:
+            flash('Username or Password is incorrect.')
+            return redirect(url_for('login'))
+    return render_template('login.html')
+
+@app.route('/logout') # Logout page route - displays logout form for the administrator, author or  patient
+def logout(): 
+    logout_user()
+    flash('Logged out successfully.')
+    return redirect(url_for('index'))
+
+@app.route('/register') # Register page route - displays register form for the administrator, author or  patient
+def register(): 
+    return render_template('register.html')
+
+@app.route('/profile') # Profile page route - displays profile form for the administrator, author or  patient
+def profile(): 
+    return render_template('profile.html')
+
+@app.route('/admin') # Admin page route - displays admin form for the administrator
+def admin(): 
+    return render_template('admin.html')
+
+@app.route('/author') # Author page route - displays author form for the author
+def author(): 
+    return render_template('author.html')
+
+@app.route('/patient') # Patient page route - displays patient form for the patient
+def patient(): 
+    return render_template('patient.html')
+
+@app.route('/about') # About page route - displays about form for the administrator, author or  patient
+def about(): 
+    return render_template('about.html')
+
+@app.route('/contact') # Contact page route - displays contact form for the administrator, author or  patient
+def contact(): 
+    return render_template('contact.html')
+
 
 if __name__ == '__main__': # Runs the application 
     db.create_all() # Create the database tables for our data models defined above if they don't exist yet 
