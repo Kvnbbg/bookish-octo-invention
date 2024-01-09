@@ -175,4 +175,4 @@ def contact():
 
 if __name__ == '__main__': # Runs the application 
     db.create_all() # Create the database tables for our data models defined above if they don't exist yet 
-    app.run(debug=True) # Run the app in debug mode if any code changes occur
+    app.run(debug=True, port=5000) # Run the app in debug mode on port 5000
