@@ -3,14 +3,15 @@ from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sql
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
 from datetime import datetime # Import datetime class from datetime module
 from app import db # Import the db object from our app.py file
-
-login_manager = LoginManager() # Instantiate a LoginManager object 
-login_manager.init_app(app) # Configure it for our Flask application
+from werkzeug.security import generate_password_hash # Import generate_password_hash and check_password_hash functions from werkzeug.security module
 
 app = Flask(__name__) # Create a new instance of the Flask class called "app"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db' # Path to database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Silence the deprecation warning
 db = SQLAlchemy(app) # Instantiate the database object
+
+login_manager = LoginManager() # Instantiate a LoginManager object 
+login_manager.init_app(app) # Configure it for our Flask application
 
 ## CLASS DEFINITIONS ##
 # Define your models below
@@ -64,11 +65,41 @@ def index():
 def recipes(): 
     return render_template('recipe.html') # Render the template located in /templates/recipe.html
 
+@app.route('/add_recipe', methods=['GET', 'POST']) # Recipe create page route - displays a form for the administrator to create a recipe
+@login_required
+def add_recipe():
+    if request.method == 'POST':
+        title = request.form['title']
+        instructions = request.form['instructions']
+        description = request.form['description']
+        servings = request.form['servings']
+        author_id = request.form['author_id']
+        prep_time = request.form['prep_time']
+        cook_time = request.form['cook_time']
+        steps = request.form['steps']
+        ingredients = request.form['ingredients']
+        allergens = request.form['allergens']
+        diet_type = request.form['diet_type']
+        nutritional_info = request.form['nutritional_info']
+        country = request.form['country']
+        history = request.form['history']
+        recipe = Recipe(title=title, instructions=instructions, description=description, servings=servings, author_id=author_id, prep_time=prep_time, cook_time=cook_time, steps=steps, ingredients=ingredients, allergens=allergens, diet_type=diet_type, nutritional_info=nutritional_info, country=country, history=history)
+        db.session.add(recipe)
+        db.session.commit()
+        flash('Recipe created successfully.')
+        return redirect(url_for('recipes'))
+    return render_template('add_recipe.html')
+
+@app.route('/recipe/<int:recipe_id>') # Recipe page route - displays a single recipe creation from the administrator
+def recipe_detail(recipe_id): # View recipe detail page
+    recipe = Recipe.query.get_or_404(recipe_id) # Get the recipe with the primary key equal to recipe_id or return 404
+    return render_template('recipe_detail.html', recipe=recipe) # Render the template located in /templates/recipe_detail.html
+
 @app.route('/authentication') # Login page route - displays login form for the administrator, author or  patient
 def authentication(): 
     return render_template('authentication.html')
 
-@app.route('/login') # Login page route - displays login form for the administrator, author or  patient
+@app.route('/login', methods=['GET', 'POST']) # Login page route - displays login form for the administrator, author or  patient
 def login(): 
     # logic for login page goes here
     if request.method == 'POST':
@@ -87,13 +118,35 @@ def login():
     return render_template('login.html')
 
 @app.route('/logout') # Logout page route - displays logout form for the administrator, author or  patient
+@login_required
 def logout(): 
     logout_user()
     flash('Logged out successfully.')
     return redirect(url_for('index'))
 
-@app.route('/register') # Register page route - displays register form for the administrator, author or  patient
-def register(): 
+@app.route('/register', methods=['GET', 'POST']) # Register page route - displays register form for the administrator, author or  patient
+def register():
+    # logic for register page goes here
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        # logic for checking username and password goes here
+        existing_user = User.query.filter_by(db.or_(User.username == username, User.email == email)).first()
+        if existing_user:  # if a user is found, we want to redirect back to signup page so user can try again
+            flash('Username already exists.')
+            return redirect(url_for('register'))
+        else:
+         # create new user
+            hashed_password = generate_password_hash(password)
+            new_user = User(username=username, email=email, password=hashed_password)
+            # add new user to database
+            db.session.add(new_user)
+            db.session.commit()
+            flash('User created successfully.')
+            # Redirect to login page here or a success page
+            return redirect(url_for('login'))
     return render_template('register.html')
 
 @app.route('/profile') # Profile page route - displays profile form for the administrator, author or  patient

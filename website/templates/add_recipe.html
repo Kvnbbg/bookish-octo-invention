@@ -1,0 +1,15 @@
+<form action="{{ url_for('add_recipe') }}" method="POST">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" required><br>
+
+  <label for="image">Image URL:</label>
+  <input type="text" id="image" name="image" required><br>
+
+  <label for="ingredients">Ingredients:</label>
+  <textarea id="ingredients" name="ingredients" required></textarea><br>
+
+  <label for="instructions">Instructions:</label>
+  <textarea id="instructions" name="instructions" required></textarea><br>
+
+  <input type="submit" value="Add Recipe">
+</form>
