@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash # Im
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
 from datetime import datetime # Import datetime class from datetime module
-from app import db # Import the db object from our app.py file
 from werkzeug.security import generate_password_hash # Import generate_password_hash and check_password_hash functions from werkzeug.security module
 
 app = Flask(__name__) # Create a new instance of the Flask class called "app"
@@ -43,7 +42,7 @@ class Ingredient(db.Model): # Define a Ingredient model by extending the db.Mode
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
-    username = db.Column(db.String(50), unnique=True,  nullable=False) # Column definitions are bound to model attributes!!!!!!
+    username = db.Column(db.String(50), unique=True,  nullable=False) # Column definitions are bound to model attributes!!!!!!
     email = db.Column(db.String(100), unique=True, nullable=False) # Column definitions are bound to model attributes!!!!!!
     password = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes!!!!!!
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False) 
