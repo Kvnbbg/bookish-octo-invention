@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash # Import Flask class from flask module
+from flask import Flask, session, render_template, request, redirect, url_for, flash # Import Flask class from flask module
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
 import logging # Import logging module
@@ -7,18 +7,29 @@ logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) # Configure loggin
 from datetime import datetime # Import datetime class from datetime module
 from werkzeug.security import generate_password_hash # Import generate_password_hash and check_password_hash functions from werkzeug.security module
 import jinja2 # Import jinja2 module for template inheritance 
-import os # Import os module for file path manipulation 
-
+import os # Import os module for file path manipulation
 
 ## APP CONFIGURATION ##
 app = Flask(__name__) # Create a new instance of the Flask class called "app"
+app.logger.setLevel('INFO') # Set the log level to INFO
+app.secret_key = 'your secret key' # Set the secret key to some random bytes. Keep this really secret!
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db' # Path to database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Silence the deprecation warning
-app.logger.setLevel('INFO') # Set the log level to INFO
+
 db = SQLAlchemy(app) # Instantiate the database object
 
 login_manager = LoginManager() # Instantiate a LoginManager object 
+
+@login_manager.user_loader # Create a user_loader callback function
+def load_user(user_id): # Accepts a user ID and returns the corresponding user object
+    return User.query.get(int(user_id)) # Returns the user object or None
+
 login_manager.init_app(app) # Configure it for our Flask application
+SESSION = 'my_session' # Set the session name
+
+
+
+
 
 ## CLASS DEFINITIONS ##
 # Define your models below
