@@ -27,10 +27,6 @@ def load_user(user_id): # Accepts a user ID and returns the corresponding user o
 login_manager.init_app(app) # Configure it for our Flask application
 SESSION = 'my_session' # Set the session name
 
-
-
-
-
 ## CLASS DEFINITIONS ##
 # Define your models below
 class Recipe(db.Model): # Define a recipe model by extending the db.Model class 
