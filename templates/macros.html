@@ -14,11 +14,14 @@
     {% endblock %}
 </head>
 <body>
+  {% block title_header %}
     <header>
         <div class="header-title">
-            <h1>{% block title-header %} Welcome {% endblock %}</h1>
+            <h1> Welcome</h1>
         </div>
-        {% block navbar %}
+     </header>
+  {% endblock %}
+    {% block navbar %}
         <nav class="navbar navbar-expand-md navbar-light bg-light">
             <a class="navbar-brand" href="{{ url_for('show_entries') }}">Menu</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,14 +52,17 @@
             </div>
         </nav>
         {% endblock %}
-    </header>
+
     <main>
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
         </div>
     </div>
     </main>
-    <footer>    
-        <p>&copy; 2024 Recipe Sharing Platform</p>
+    <footer> 
+      {% block footer %}
+      <p>&copy; 2024 Recipe Sharing Platform</p>
+        {% endblock %}   
     </footer>
     {% block scripts %}
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
