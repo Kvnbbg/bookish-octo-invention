@@ -1,16 +1,17 @@
 :root {
   --primary-bg-color: #f3f3f7;
   --secondary-bg-color: #609a7d;
-  --accent-color: #bdb9b3;
-  --text-color: #0c0920;
-  --hover-color: #5e9646;
-  --active-color: #0c0920;
+  --accent-color: #4d7b6c; /* Slightly darker green for accent */
+  --accent-color-light: #6fa78f; /* Lighter shade of accent color */
+  --text-color: #333333; /* Darker text color for better readability */
+  --hover-color: #0C0920;
+  --hover-color-light: #17142e; /* Lighter shade for hover effect */
 }
 
 body {
   background-image: linear-gradient(to bottom right, var(--primary-bg-color), var(--secondary-bg-color));
   font-family: 'Noto Sans', sans-serif;
-  margin: 0;
+  margin: 5% 10%;
   padding: 0;
 }
 
@@ -52,22 +53,23 @@ body {
   transform: scale(1.05);
 }
 
-h1 {
+h1,
+p {
   font-family: 'Baloo Bhaina', sans-serif;
   font-weight: 600;
-  font-size: 2em;
-  color: var(--text-color);
-  margin: 0.5em 0;
   animation: fadeInUp 1s ease-in-out;
 }
 
-p {
-  font-family: 'Reenie Beanie', sans-serif;
-  font-weight: 400;
-  font-size: 1.1em;
+h1 {
+  font-size: 2.5em; /* Adjusted font size for better emphasis */
   color: var(--text-color);
   margin: 0.5em 0;
-  animation: fadeInUp 1s ease-in-out;
+}
+
+p {
+  font-size: 1.2em; /* Adjusted font size for better readability */
+  color: var(--text-color);
+  margin: 0.5em 0;
 }
 
 @keyframes fadeInUp {

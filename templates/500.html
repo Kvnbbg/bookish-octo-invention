@@ -2,7 +2,17 @@
 
 {% block title %}Internal Server Error - Recipe Sharing Platform{% endblock %}
 
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block title_header %}
+
+{% endblock %}
+
 {% block navbar %}
+
 {% endblock %}
 
 {% block content %}
@@ -13,8 +23,10 @@
     <p>You can go back to the <a href="/">homepage</a> or try again later.</p>
   {% endblock %}
 
-{% block footer %}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+  {% block footer %}
+  {% endblock %}
+  
+  {% block scripts %}
+  {{ super() }}
+  <!-- Additional scripts go here -->
+  {% endblock %}
