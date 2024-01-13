@@ -117,25 +117,26 @@ def recipe_detail(recipe_id): # View recipe detail page
 def authentication(): 
     return render_template('authentication.html')
 
-@app.route('/login', methods=['GET', 'POST']) # Login page route - displays login form for the administrator, author or  patient
+# LOGIN AND REGISTRATION ROUTES
+@app.route('/login', methods=['GET', 'POST']) # Login page route - displays login form
 def login(): 
-    # logic for login page goes here
+    # Method for handling login page logic goes with POST method
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
         # logic for checking username and password goes here
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username).first() # TODO: Add email to query
         if user and user.password == password:
             login_user(user)
-            flash('Logged in successfully.')
+            flash(f'{username} logged in successfully.')
             return redirect(url_for('index'))
         else:
             flash('Username or Password is incorrect.')
             return redirect(url_for('login'))
     return render_template('login.html')
 
-@app.route('/logout') # Logout page route - displays logout form for the administrator, author or  patient
+@app.route('/logout') # Logout page route - displays logout form
 @login_required
 def logout(): 
     logout_user()

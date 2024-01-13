@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Recipe Sharing Platform{% endblock %}</title>
+    <title>{% block title %} Recipe Sharing Platform {% endblock %}</title>
     
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,7 +15,7 @@
 
     <header>
         <div class="header-title">
-            <h1> Welcome</h1>
+            <h1>Welcome</h1>
         </div>
      </header>
 
@@ -40,14 +40,13 @@
                         <a class="nav-link" href="/add_recipe">Add recipe</a>
                     </li>
                 </ul>
-            </div>
+             </div>
         </nav>
     <main>
 
         {% block content %}
         {% endblock %}
-        </div>
-    </div>
+   
     </main>
     <footer> 
 
