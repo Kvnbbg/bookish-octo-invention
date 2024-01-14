@@ -1,70 +1,41 @@
 {% extends 'macros.html' %}
 
-{% block title %}My Services - Recipe Sharing Platform{% endblock %}
-
-{% block head %}
-
-{% endblock %}
-
-{% block title_header %}
-{% endblock %}
-
-{% block navbar %}
-{% endblock %}
+{% block title %}Contact Us - Recipe Sharing Platform{% endblock %}
+{% block title_header %}Contact Us{% endblock %}
 
 {% block content %}
-<h1>Welcome to the Recipe Sharing Platform!</h1>
-<p>Here you can find a variety of delicious recipes, share your own culinary creations, and learn new cooking techniques.</p>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Feel free to reach out with any questions or feedback.</p>
 
-<p>Click <a href="/about">here</a> to view about</p>
-<p>Click <a href="/my_services">here</a> to view my services</p>
-<!--
-          - #CONTACT
-        -->
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Contact Form</h2>
+                <form action="{{ url_for('submit_contact_form') }}" method="post">
+                    <!-- Add your form fields here -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
 
-        <article class="contact" data-page="contact">
-
-          <header>
-            <h2 class="h2 article-title">Contact</h2>
-          </header>
-
-          <section class="mapbox" data-mapbox>
-            <figure>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d199666.5651251294!2d-121.58334177520186!3d38.56165006739519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ac672b28397f9%3A0x921f6aaa74197fdb!2sSacramento%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1647608789441!5m2!1sen!2sbd"
-                width="400" height="300" loading="lazy"></iframe>
-            </figure>
-          </section>
-
-          <section class="contact-form">
-
-            <h3 class="h3 form-title">Contact Form</h3>
-
-            <form action="#" class="form" data-form>
-
-              <div class="input-wrapper">
-                <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-                <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-              </div>
-
-              <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
-              <button class="form-btn" type="submit" disabled data-form-btn>
-                <ion-icon name="paper-plane"></ion-icon>
-                <span>Send Message</span>
-              </button>
-
-            </form>
-
-          </section>
-
-        </article>
+            <div class="col-md-6">
+                <h2>Contact Information</h2>
+                <p>If you prefer other means of communication, you can reach us via:</p>
+                <p>Email: info@recipes.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+                <p>Address: 123 Main Street, Cityville, State, ZIP</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
-{% block footer %}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
-

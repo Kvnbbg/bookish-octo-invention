@@ -1,37 +1,36 @@
 {% extends 'macros.html' %}
 
-{% block title %}Add - Recipe Sharing Platform{% endblock %}
+{% block title %}Add Recipe - Recipe Sharing Platform{% endblock %}
 
-{% block head %}
-
-{% endblock %}
-
-{% block title_header %}
-{% endblock %}
-
-{% block navbar %}
-{% endblock %}
+{% block title_header %}Add Recipe{% endblock %}
 
 {% block content %}
-<form action="{{ url_for('add_recipe') }}" method="POST">
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title" required><br>
+    <div class="container">
+        <h1>Add New Recipe</h1>
+        <p>Share your delicious recipe with the community!</p>
 
-  <label for="image">Image URL:</label>
-  <input type="text" id="image" name="image" required><br>
+        <form action="{{ url_for('add_recipe') }}" method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
 
-  <label for="ingredients">Ingredients:</label>
-  <textarea id="ingredients" name="ingredients" required></textarea><br>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image URL:</label>
+                <input type="text" class="form-control" id="image" name="image" required>
+            </div>
 
-  <label for="instructions">Instructions:</label>
-  <textarea id="instructions" name="instructions" required></textarea><br>
+            <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients:</label>
+                <textarea class="form-control" id="ingredients" name="ingredients" required></textarea>
+            </div>
 
-  <input type="submit" value="Add Recipe">
-</form>
-{% endblock %}
+            <div class="mb-3">
+                <label for="instructions" class="form-label">Instructions:</label>
+                <textarea class="form-control" id="instructions" name="instructions" required></textarea>
+            </div>
 
-{% block footer %}
-{% endblock %}
-
-{% block scripts %}
+            <button type="submit" class="btn btn-primary">Add Recipe</button>
+        </form>
+    </div>
 {% endblock %}

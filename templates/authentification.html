@@ -1,26 +1,32 @@
 {% extends 'macros.html' %}
 
-{% block title %}Auth - Recipe Sharing Platform{% endblock %}
-
-{% block head %}
-
-{% endblock %}
-
-{% block title_header %}
-{% endblock %}
-
-{% block navbar %}
-{% endblock %}
+{% block title %}Authentication - Recipe Sharing Platform{% endblock %}
+{% block title_header %}Authentication{% endblock %}
 
 {% block content %}
-<h1>Welcome to the Recipe Sharing Platform!</h1>
-<p>Here you can find a variety of delicious recipes, share your own culinary creations, and learn new cooking techniques.</p>
-<p>Click <a href="/login">here</a> to view my login.</p>
-<p>Click <a href="/logout">here</a> to view my logout.</p>
-{% endblock %}
+    <div class="container">
+        <h1>Login to Your Account</h1>
+        <p>Welcome back! Login to access your personalized recipes and more.</p>
 
-{% block footer %}
-{% endblock %}
+        <div class="row">
+            <div class="col-md-6">
+                <form action="{{ url_for('login') }}" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
 
-{% block scripts %}
+            <div class="col-md-6">
+                <h2>New to Recipe Sharing Platform?</h2>
+                <p>Explore a world of delicious recipes! <a href="{{ url_for('register') }}">Create an account</a> to get started.</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

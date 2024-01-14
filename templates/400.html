@@ -1,20 +1,19 @@
-{% extends 'macros.html' %}
+{% extends 'base.html' %}
 
-{% block title %}Home - Recipe Sharing Platform{% endblock %}
-
-{% block navbar %}
-{% endblock %}
+{% block title %}Bad Request - Recipe Sharing Platform{% endblock %}
+{% block title_header %}Bad Request{% endblock %}
 
 {% block content %}
-<h1>Welcome to the Recipe Sharing Platform!</h1>
-<p>Here you can find a variety of delicious recipes, share your own culinary creations, and learn new cooking techniques.</p>
-<h1>400 Bad Request</h1>
-<p>The server could not understand the request due to invalid syntax or missing information.</p>
-<p>Please check your input and try again. If the issue persists, you can go back to the <a href="/">homepage</a>.</p>
-  {% endblock %}
+    <div class="container">
+        <h1>Oops! Bad Request</h1>
+        <p>We're sorry, but the request could not be understood or was missing required parameters.</p>
+        
+        <p>You can try the following:</p>
+        <ul>
+            <li>Check the URL for any typos or errors.</li>
+            <li>Return to the <a href="{{ url_for('index') }}">home page</a>.</li>
+        </ul>
 
-{% block footer %}
-{% endblock %}
-
-{% block scripts %}
+        <img src="{{ url_for('static', filename='images/400_image.png') }}" alt="400 Image" class="img-fluid" style="max-width: 100%; height: auto; margin-top: 20px;">
+    </div>
 {% endblock %}

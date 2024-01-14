@@ -1,51 +1,36 @@
-{% extends 'index.html' %}
+{% extends 'macros.html' %}
 
-{% block title %}Recipes{% endblock %}
+{% block title %} Recipe - Sharing Platform {% endblock %}
+
+{% block title_header %} Recipe - Sharing Platform {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Welcome to our Recipe</h1>
+        <h1>Welcome to Our Recipe Platform</h1>
         <p>Click on a recipe card to view details:</p>
+
         <div class="row">
             {% for recipe in recipes %}
-            <div class="col-md-4 mb-4">
-                <div class="card" id="card{{ loop.index }}">
-                    <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ recipe.title }}</h5>
-                        <button class="toggleButton">View Details</button>
-                        <div class="hidden">
-                            <h3>Ingredients:</h3>
-                            <ul>
-                                {% for ingredient in recipe.ingredients %}
-                                    <li>{{ ingredient }}</li>
-                                {% endfor %}
-                            </ul>
-                            <h3>Instructions:</h3>
-                            <p>{{ recipe.instructions }}</p>
+                <div class="col-md-4 mb-4">
+                    <div class="card" id="card{{ loop.index }}">
+                        <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.title }}</h5>
+                            <button class="toggleButton">View Details</button>
+                            <div class="hidden">
+                                <h3>Ingredients:</h3>
+                                <ul>
+                                    {% for ingredient in recipe.ingredients %}
+                                        <li>{{ ingredient }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <h3>Instructions:</h3>
+                                <p>{{ recipe.instructions }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
-            <p>Click on a recipe card to view details:</p>
-            <div class="row">
-    
-                    {% if recipes %}
-                        {% for recipe in recipes %}
-                    
-                            <article class="col-md-4">
-                                <div class="card mb-4 shadow-sm">
-                                    <img class="card-img-top" src="{{ recipe.image }}" alt="Image of {{ recipe.title }}">
-                                    <div class="card-body">
-                                        <h2 class="card-title">{{ recipe.title }}</h2>
-                                        <p class="card-text">{{ recipe.instructions }}</p>
-                                        <a href="{{ url_for('add_recipe', recipe_id=recipe.id) }}" class="btn btn-primary">View Recipe</a>
-                                    </div>
-                                </div>
-                            </article>
-            <!-- recipe.html -->
-
         </div>
     </div>
 {% endblock %}

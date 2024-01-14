@@ -1,26 +1,33 @@
 {% extends 'macros.html' %}
 
-{% block title %}Legal - Recipe Sharing Platform{% endblock %}
-
-{% block head %}
-
-{% endblock %}
-
-{% block title_header %}
-{% endblock %}
-
-{% block navbar %}
-{% endblock %}
+{% block title %}Legal Information - Recipe Sharing Platform{% endblock %}
+{% block title_header %}Legal Information{% endblock %}
 
 {% block content %}
-<h1>Welcome to Legal</h1>
-<p>Here you can find a variety of delicious recipes, share your own culinary creations, and learn new cooking techniques.</p>
-<p>Click <a href="/about">here</a> to view about</p>
-<p>Click <a href="/my_services">here</a> to view my services</p>
-{% endblock %}
+    <div class="container">
+        <h1>Legal Information</h1>
 
-{% block footer %}
-{% endblock %}
+        <h2>Disclaimer</h2>
+        <p>This website provides information about recipes, nutrition, and general health. The content is for informational purposes only and should not be considered as professional advice. Consult with a qualified healthcare professional for personalized advice.</p>
 
-{% block scripts %}
+        <h2>Terms of Service</h2>
+        <p>By using this Recipe Sharing Platform, you agree to abide by our Terms of Service. Ensure you read and understand our terms to use our platform responsibly.</p>
+        <a href="{{ url_for('terms_of_service') }}" class="btn btn-primary">Read Terms of Service</a>
+
+        <h2>Privacy Policy</h2>
+        <p>We are committed to protecting your privacy. Our Privacy Policy outlines how we collect, use, and safeguard your personal information.</p>
+        <a href="{{ url_for('privacy_policy') }}" class="btn btn-primary">Read Privacy Policy</a>
+
+        <h2>Cookie Policy</h2>
+        <p>This website uses cookies to enhance user experience. Read our Cookie Policy to understand how we use cookies and how you can manage them.</p>
+        <a href="{{ url_for('cookie_policy') }}" class="btn btn-primary">Read Cookie Policy</a>
+
+        <h2>Intellectual Property</h2>
+        <p>All content on this platform is the intellectual property of Recipe Sharing Platform. Unauthorized use of any material is strictly prohibited.</p>
+
+        <h2>Contact Information</h2>
+        <p>If you have any questions regarding the legal information on this platform, please contact us:</p>
+        <p>Email: legal@recipes.com</p>
+
+    </div>
 {% endblock %}

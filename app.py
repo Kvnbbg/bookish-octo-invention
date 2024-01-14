@@ -132,7 +132,7 @@ def login():
             flash(f'{username} logged in successfully.')
             return redirect(url_for('index'))
         else:
-            flash('Username or Password is incorrect.')
+            flash('Username or Password is incorrect.') # TODO: Add email to flash message and link to registered or reset password
             return redirect(url_for('login'))
     return render_template('login.html')
 
