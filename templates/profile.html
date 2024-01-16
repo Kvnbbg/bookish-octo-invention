@@ -1,0 +1,20 @@
+<!-- profile.html -->
+
+{% extends "macros.html" %}
+
+{% block title %}Profile - Recipe Sharing Platform{% endblock %}
+{% block title_header %}Profile{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Profile</h1>
+        <p>Welcome back, {{ current_user.username }}!</p>
+
+        <p>Here a few things you can do:</p>
+        <ul>
+            <li><a href="{{ url_for('add_recipe') }}">Add a new recipe</a></li>
+            <li><a href="{{ url_for('my_recipes') }}">View your recipes</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,7 +1,7 @@
 from flask import Flask, session, render_template, request, redirect, url_for, flash # Import Flask class from flask module
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
-import logging # Import logging module
+import loggin g # Import logging module
 logging.basicConfig(filename='error.log', level=logging.DEBUG) # Configure logging module to write to error.log file
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) # Configure logging module to write SQL statements to the console
 from datetime import datetime # Import datetime class from datetime module
@@ -12,7 +12,7 @@ import os # Import os module for file path manipulation
 ## APP CONFIGURATION ##
 app = Flask(__name__) # Create a new instance of the Flask class called "app"
 app.logger.setLevel('INFO') # Set the log level to INFO
-app.secret_key = 'your secret key' # Set the secret key to some random bytes. Keep this really secret!
+app.secret_key = 'hello' # Set the secret key to some random bytes. Keep this really secret!
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db' # Path to database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Silence the deprecation warning
 
@@ -36,7 +36,6 @@ class Recipe(db.Model): # Define a recipe model by extending the db.Model class
     instructions = db.Column(db.Text) # Column definitions are bound to model attributes 
     description = db.Column(db.Text) # Column definitions are bound to model attributes 
     servings = db.Column(db.Integer) # Column definitions are bound to model attributes 
-    author_id = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes
     created_at = db.Column(db.DateTime, default=datetime.utcnow) # replace date_createed with created_at
     prep_time = db.Column(db.Integer)
     cook_time = db.Column(db.Integer)
@@ -48,6 +47,7 @@ class Recipe(db.Model): # Define a recipe model by extending the db.Model class
     country = db.Column(db.Text)
     history = db.Column(db.Text)
     is_editable_by_admin = db.Column(db.Boolean, default=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class Ingredient(db.Model): # Define a Ingredient model by extending the db.Model class 
     id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy 
@@ -55,15 +55,15 @@ class Ingredient(db.Model): # Define a Ingredient model by extending the db.Mode
     quantity = db.Column(db.String(50))
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
 
-class User(UserMixin, db.Model):
+class User(UserMixin, db.Model): # Define a User model by extending the db.Model class
     id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
-    username = db.Column(db.String(50), unique=True,  nullable=False) # Column definitions are bound to model attributes!!!!!!
-    email = db.Column(db.String(100), unique=True, nullable=False) # Column definitions are bound to model attributes!!!!!!
-    password = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes!!!!!!
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False) 
-    is_active = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    recipes = db.relationship('Recipe', backref='author', lazy=True)
+    username = db.Column(db.String(50), unique=True, nullable=False) # Column definitions are bound to model attributes
+    email = db.Column(db.String(100), unique=True, nullable=False) # Column definitions are bound to model attributes
+    password = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes
+    is_admin = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
+    is_author = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
+    is_patient = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
+    recipes = db.relationship('Recipe', backref='user', lazy=True) # Define a one-to-many relationship betw 
 
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
@@ -113,26 +113,25 @@ def recipe_detail(recipe_id): # View recipe detail page
     recipe = Recipe.query.get_or_404(recipe_id) # Get the recipe with the primary key equal to recipe_id or return 404
     return render_template('recipe_detail.html', recipe=recipe) # Render the template located in /templates/recipe_detail.html
 
-@app.route('/authentication') # Login page route - displays login form for the administrator, author or  patient
+@app.route('/authentification') # Login page route - displays login form for the administrator, author or  patient
 def authentication(): 
-    return render_template('authentication.html')
+    return render_template('authentification.html')
 
 # LOGIN AND REGISTRATION ROUTES
 @app.route('/login', methods=['GET', 'POST']) # Login page route - displays login form
 def login(): 
-    # Method for handling login page logic goes with POST method
+    # logic for login page goes here
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         # logic for checking username and password goes here
-        user = User.query.filter_by(username=username).first() # TODO: Add email to query
+        user = User.query.filter_by(username=username).first()
         if user and user.password == password:
             login_user(user)
-            flash(f'{username} logged in successfully.')
-            return redirect(url_for('index'))
+            flash('Logged in successfully.')
+            return redirect(url_for('profile'))
         else:
-            flash('Username or Password is incorrect.') # TODO: Add email to flash message and link to registered or reset password
+            flash('Invalid username/password combination.')
             return redirect(url_for('login'))
     return render_template('login.html')
 
@@ -168,8 +167,9 @@ def register():
             return redirect(url_for('login'))
     return render_template('register.html')
 
-@app.route('/profile') # Profile page route - displays profile form for the administrator, author or  patient
-def profile(): 
+@app.route('/profile')
+@login_required
+def profile():
     return render_template('profile.html')
 
 @app.route('/admin') # Admin page route - displays admin form for the administrator
