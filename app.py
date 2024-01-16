@@ -1,20 +1,20 @@
-from flask import Flask, session, render_template, request, redirect, url_for, flash # Import Flask class from flask module
+from flask import Flask, g, session, render_template, request, redirect, url_for, flash # Import Flask class from flask module
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
-import loggin g # Import logging module
-logging.basicConfig(filename='error.log', level=logging.DEBUG) # Configure logging module to write to error.log file
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) # Configure logging module to write SQL statements to the console
-from datetime import datetime # Import datetime class from datetime module
-from werkzeug.security import generate_password_hash # Import generate_password_hash and check_password_hash functions from werkzeug.security module
-import jinja2 # Import jinja2 module for template inheritance 
-import os # Import os module for file path manipulation
+import logging  # Import logging module
+logging.basicConfig(filename='error.log', level=logging.DEBUG)  # Configure logging module to write to error.log file
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)  # Configure logging module to write SQL statements to the console
+from datetime import datetime  # Import datetime class from datetime module
+from werkzeug.security import generate_password_hash  # Import generate_password_hash and check_password_hash functions from werkzeug.security module
+import jinja2  # Import jinja2 module for template inheritance
+import os  # Import os module for file path manipulation
 
 ## APP CONFIGURATION ##
-app = Flask(__name__) # Create a new instance of the Flask class called "app"
-app.logger.setLevel('INFO') # Set the log level to INFO
-app.secret_key = 'hello' # Set the secret key to some random bytes. Keep this really secret!
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db' # Path to database file
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Silence the deprecation warning
+app = Flask(__name__)  # Create a new instance of the Flask class called "app"
+app.logger.setLevel('INFO')  # Set the log level to INFO
+app.secret_key = 'hello'  # Set the secret key to some random bytes. Keep this really secret!
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'  # Path to database file
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Silence the deprecation warning
 
 db = SQLAlchemy(app) # Instantiate the database object
 
