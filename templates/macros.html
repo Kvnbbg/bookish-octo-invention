@@ -20,7 +20,7 @@
      </header>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <a class="navbar-brand" href="/index.html"><img src="/static/logo.jpeg" alt="Logo" class="navbar-logo"></a>
+            <a class="navbar-brand" href="/index"><img src="/static/favicon.ico" alt="Logo" class="navbar-logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,20 +29,20 @@
                 <ul class="navbar-nav">
                     {% if session['logged_in'] %}
                         <li class="nav-item">
-                            <a class="nav-link" id="logout" href="/logout.html">Logout</a>
+                            <a class="nav-link" id="logout" href="/logout">Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/add_recipe.html">Add recipe</a>
+                            <a class="nav-link" href="/add_recipe">Add recipe</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/profile.html">Profile</a>
+                            <a class="nav-link" href="/profile">Profile</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" id="login" href="/login.html">Login</a>
+                            <a class="nav-link" id="login" href="/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="register" href="/register.html">Register</a>
+                            <a class="nav-link" id="register" href="/register">Register</a>
                         </li>
                     {% endif %}
                 </ul>

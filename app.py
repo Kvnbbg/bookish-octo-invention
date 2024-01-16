@@ -4,6 +4,23 @@ from flask_login import UserMixin, LoginManager, login_user, logout_user, login_
 from werkzeug.security import check_password_hash, generate_password_hash
 import logging
 from datetime import datetime
+import json
+
+users = {
+    "scoupart": {
+        "password": "101790",
+        "role": "Diet Doctor",
+        "email": "scoupart@example.com"
+    },
+    "juju56": {
+        "password": "motdepasse",
+        "role": "patient",
+        "email": "juju56@example.com"
+    }
+}
+
+with open('users.json', 'w') as f:
+    json.dump(users, f)
 
 app = Flask(__name__)
 app.logger.setLevel(logging.INFO)
