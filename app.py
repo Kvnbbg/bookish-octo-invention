@@ -1,4 +1,4 @@
-from flask import Flask, g, session, render_template, request, redirect, url_for, flash # Import Flask class from flask module
+from flask import Flask, render_template, request, redirect, url_for, flash # Import Flask class from flask module
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
 import logging  # Import logging module
@@ -6,8 +6,6 @@ logging.basicConfig(filename='error.log', level=logging.DEBUG)  # Configure logg
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)  # Configure logging module to write SQL statements to the console
 from datetime import datetime  # Import datetime class from datetime module
 from werkzeug.security import generate_password_hash  # Import generate_password_hash and check_password_hash functions from werkzeug.security module
-import jinja2  # Import jinja2 module for template inheritance
-import os  # Import os module for file path manipulation
 
 ## APP CONFIGURATION ##
 app = Flask(__name__)  # Create a new instance of the Flask class called "app"
@@ -63,7 +61,11 @@ class User(UserMixin, db.Model): # Define a User model by extending the db.Model
     is_admin = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
     is_author = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
     is_patient = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
-    recipes = db.relationship('Recipe', backref='user', lazy=True) # Define a one-to-many relationship betw 
+    recipes = db.relationship('Recipe', backref='user', lazy=True) # Define a one-to-many relationship between User and Recipe models
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+
 
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
@@ -211,6 +213,10 @@ def internal_server_error(e):
     # note that we set the 500 status explicitly
     app.logger.error('Server Error: %s', (e))
     return render_template('500.html'), 500
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 if __name__ == '__main__': # Runs the application 
     db.create_all() # Create the database tables for our data models defined above if they don't exist yet 
