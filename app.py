@@ -1,44 +1,29 @@
-from flask import Flask, make_response, render_template, request, redirect, url_for, flash 
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
-import logging  
-logging.basicConfig(filename='error.log', level=logging.DEBUG)  
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
-from datetime import datetime 
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
+import logging
+from datetime import datetime
 
-## APP CONFIGURATION ##
-app = Flask(__name__)  # Create a new instance of the Flask class called "app"
-app.logger.setLevel('INFO')  # Set the log level to INFO
-app.secret_key = 'hello'  # Set the secret key to some random bytes. Keep this really secret!
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'  # Path to database file
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Silence the deprecation warning
+app = Flask(__name__)
+app.logger.setLevel(logging.INFO)
+app.secret_key = 'your_secret_key'  # Replace with a more secure secret key
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-## DATABASE CONFIGURATION ##
-db = SQLAlchemy(app) # Instantiate the database obje
-def create_tables():
-    db.create_all()
+db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+SESSION = 'my_session'
 
-## LOGIN CONFIGURATION ##
-login_manager = LoginManager() # Instantiate a LoginManager object 
 
-@login_manager.user_loader # Create a user_loader callback function
-def load_user(user_id): # Accepts a user ID and returns the corresponding user object
-    return User.query.get(int(user_id)) # Returns the user object or None
-
-login_manager.init_app(app) # Configure it for our Flask application
-SESSION = 'my_session' # Set the session name
-
-## CLASS DEFINITIONS ##
-# Define your models below
-class Recipe(db.Model): # Define a recipe model by extending the db.Model class 
-    id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy 
-    title = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes 
-    # image = db.Column(db.image) # Column definitions are bound to model attributes 
-    instructions = db.Column(db.Text) # Column definitions are bound to model attributes 
-    description = db.Column(db.Text) # Column definitions are bound to model attributes 
-    servings = db.Column(db.Integer) # Column definitions are bound to model attributes 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow) # replace date_createed with created_at
+class Recipe(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    instructions = db.Column(db.Text)
+    description = db.Column(db.Text)
+    servings = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     prep_time = db.Column(db.Integer)
     cook_time = db.Column(db.Integer)
     steps = db.Column(db.Integer)
@@ -51,45 +36,53 @@ class Recipe(db.Model): # Define a recipe model by extending the db.Model class
     is_editable_by_admin = db.Column(db.Boolean, default=False)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-class Ingredient(db.Model): # Define a Ingredient model by extending the db.Model class 
-    id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy 
-    name = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes
+
+class Ingredient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.String(50))
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
 
-class User(UserMixin, db.Model): # Define a User model by extending the db.Model class
-    id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
-    username = db.Column(db.String(50), unique=True, nullable=False) # Column definitions are bound to model attributes
-    email = db.Column(db.String(100), unique=True, nullable=False) # Column definitions are bound to model attributes
-    password = db.Column(db.String(100), nullable=False) # Column definitions are bound to model attributes
-    is_admin = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
-    is_author = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
-    is_patient = db.Column(db.Boolean, default=False) # Column definitions are bound to model attributes
-    recipes = db.relationship('Recipe', backref='user', lazy=True) # Define a one-to-many relationship between User and Recipe models
-    def __repr__(self):
-        return '<User %r>' % self.username
 
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    is_author = db.Column(db.Boolean, default=False)
+    is_patient = db.Column(db.Boolean, default=False)
+    recipes = db.relationship('Recipe', backref='user', lazy=True)
+
+    def __repr__(self):
+        return f'<User {self.username}>'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 class Role(db.Model):
-    id = db.Column(db.Integer, primary_key=True) # Primary keys are required by SQLAlchemy
-    name = db.Column(db.String(50), unique=True, nullable=False) # Column definitions are bound to model attributes!!!!!!
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
 
-## ROUTES ##
-# Define the routes for your application below
-@app.route('/') # Home page route - displays nav bar, search bar, section about and my services
-def index(): 
+
+@app.route('/')
+def index():
     try:
-        return render_template('index.html') # Render the template located in /templates/index.html
+        return render_template('index.html')
     except Exception as e:
-        app.logger.error('An error occurred: %s', (e))
+        app.logger.exception(e)
         return render_template('500.html'), 500
 
-@app.route('/recipe') # Recipes page route - displays all recipes creations from the administrator
-def recipes(): 
-    return render_template('recipe.html') # Render the template located in /templates/recipe.html
 
-@app.route('/add_recipe', methods=['GET', 'POST']) # Recipe create page route - displays a form for the administrator to create a recipe
+@app.route('/recipe')
+def recipes():
+    return render_template('recipe.html')
+
+
+@app.route('/add_recipe', methods=['GET', 'POST'])
 @login_required
 def add_recipe():
     if request.method == 'POST':
@@ -107,32 +100,35 @@ def add_recipe():
         nutritional_info = request.form['nutritional_info']
         country = request.form['country']
         history = request.form['history']
-        recipe = Recipe(title=title, instructions=instructions, description=description, servings=servings, author_id=author_id, prep_time=prep_time, cook_time=cook_time, steps=steps, ingredients=ingredients, allergens=allergens, diet_type=diet_type, nutritional_info=nutritional_info, country=country, history=history)
+        recipe = Recipe(title=title, instructions=instructions, description=description, servings=servings,
+                        author_id=author_id, prep_time=prep_time, cook_time=cook_time, steps=steps,
+                        ingredients=ingredients, allergens=allergens, diet_type=diet_type,
+                        nutritional_info=nutritional_info, country=country, history=history)
         db.session.add(recipe)
         db.session.commit()
         flash('Recipe created successfully.')
         return redirect(url_for('recipes'))
     return render_template('add_recipe.html')
 
-@app.route('/recipe/<int:recipe_id>') # Recipe page route - displays a single recipe creation from the administrator
-def recipe_detail(recipe_id): # View recipe detail page
-    recipe = Recipe.query.get_or_404(recipe_id) # Get the recipe with the primary key equal to recipe_id or return 404
-    return render_template('recipe_detail.html', recipe=recipe) # Render the template located in /templates/recipe_detail.html
 
-@app.route('/authentification') # Login page route - displays login form for the administrator, author or  patient
-def authentication(): 
+@app.route('/recipe/<int:recipe_id>')
+def recipe_detail(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    return render_template('recipe_detail.html', recipe=recipe)
+
+
+@app.route('/authentification')
+def authentication():
     return render_template('authentification.html')
 
-# LOGIN AND REGISTRATION ROUTES
-@app.route('/login', methods=['GET', 'POST']) # Login page route - displays login form
-def login(): 
-    # logic for login page goes here
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        # logic for checking username and password goes here
         user = User.query.filter_by(username=username).first()
-        if user and user.password == password:
+        if user and check_password_hash(user.password, password):
             login_user(user)
             flash('Logged in successfully.')
             return redirect(url_for('profile'))
@@ -141,95 +137,96 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html')
 
-@app.route('/logout') # Logout page route - displays logout form
+
+@app.route('/logout')
 @login_required
-def logout(): 
+def logout():
     logout_user()
     flash('Logged out successfully.')
     return redirect(url_for('index'))
 
-@app.route('/register', methods=['GET', 'POST']) # Register page route - displays register form for the administrator, author or  patient
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    # logic for register page goes here
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-
-        # logic for checking username and password goes here
-        existing_user = User.query.filter_by(db.or_(User.username == username, User.email == email)).first()
-        if existing_user:  # if a user is found, we want to redirect back to signup page so user can try again
+        existing_user = User.query.filter(or_(User.username == username, User.email == email)).first()
+        if existing_user:
             flash('Username already exists.')
             return redirect(url_for('register'))
         else:
-         # create new user
             hashed_password = generate_password_hash(password)
             new_user = User(username=username, email=email, password=hashed_password)
-            # add new user to database
             db.session.add(new_user)
             db.session.commit()
             flash('User created successfully.')
-            # Redirect to login page here or a success page
             return redirect(url_for('login'))
     return render_template('register.html')
+
 
 @app.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html')
 
-@app.route('/admin') # Admin page route - displays admin form for the administrator
-def admin(): 
+
+@app.route('/admin')
+def admin():
     return render_template('admin.html')
 
-@app.route('/author') # Author page route - displays author form for the author
-def author(): 
+
+@app.route('/author')
+def author():
     return render_template('author.html')
 
-@app.route('/patient') # Patient page route - displays patient form for the patient
-def patient(): 
+
+@app.route('/patient')
+def patient():
     return render_template('patient.html')
 
-@app.route('/about') # About page route - displays about form for the administrator, author or  patient
-def about(): 
+
+@app.route('/about')
+def about():
     return render_template('about.html')
 
-@app.route('/contact') # Contact page route - displays contact form for the administrator, author or  patient
-def contact(): 
+
+@app.route('/contact')
+def contact():
     return render_template('contact.html')
 
-@app.route('/search') # Search page route - displays search form for the administrator, author or  patient
-def search(): 
+
+@app.route('/search')
+def search():
     return render_template('search.html')
 
-@app.route('/search_results') # Search results page route - displays search results form for the administrator, author or  patient
-def search_results(): 
+
+@app.route('/search_results')
+def search_results():
     return render_template('search_results.html')
+
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
-    app.logger.error('Page Not Found: %s', (e))
+    app.logger.error('Page Not Found: %s', e)
     return render_template('404.html'), 404
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    # note that we set the 500 status explicitly
-    app.logger.error('Server Error: %s', (e))
+    app.logger.exception('Server Error: %s', e)
     return render_template('500.html'), 500
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 @app.after_request
 def add_header(response):
-    response.cache_control.max_age = 86400  # Set cache life to 24 hours
+    response.cache_control.max_age = 86400
     response.cache_control.public = True
     response.cache_control.must_revalidate = True
     response.cache_control.no_store = True
     return response
 
-if __name__ == '__main__': # Runs the application 
-    create_tables()
-    app.run(debug=True, port=5000) # Run the app in debug mode on port 5000
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
