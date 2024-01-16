@@ -14,8 +14,12 @@ app.secret_key = 'hello'  # Set the secret key to some random bytes. Keep this r
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'  # Path to database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Silence the deprecation warning
 
-db = SQLAlchemy(app) # Instantiate the database object
+## DATABASE CONFIGURATION ##
+db = SQLAlchemy(app) # Instantiate the database obje
+def create_tables():
+    db.create_all()
 
+## LOGIN CONFIGURATION ##
 login_manager = LoginManager() # Instantiate a LoginManager object 
 
 @login_manager.user_loader # Create a user_loader callback function
@@ -213,10 +217,6 @@ def internal_server_error(e):
     # note that we set the 500 status explicitly
     app.logger.error('Server Error: %s', (e))
     return render_template('500.html'), 500
-
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 if __name__ == '__main__': # Runs the application 
     db.create_all() # Create the database tables for our data models defined above if they don't exist yet 
