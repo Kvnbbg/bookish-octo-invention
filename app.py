@@ -1,75 +1,69 @@
+# app.py
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 import logging
 from datetime import datetime
 import json
-
-users = {
-    "scoupart": {
-        "password": "101790",
-        "role": "Diet Doctor",
-        "email": "scoupart@example.com"
-    },
-    "juju56": {
-        "password": "motdepasse",
-        "role": "patient",
-        "email": "juju56@example.com"
-    }
-}
-
-with open('users.json', 'w') as f:
-    json.dump(users, f)
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
+import json
+import os
 
 app = Flask(__name__)
-app.logger.setLevel(logging.INFO)
 app.secret_key = 'your_secret_key'  # Replace with a more secure secret key
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+USERS_FILE = 'users.json'
+RECIPES_FILE = 'recipes.json'
+
+
+class UserDataManager:
+    @staticmethod
+    def load_users():
+        if os.path.exists(USERS_FILE):
+            with open(USERS_FILE, 'r') as f:
+                return json.load(f)
+        return {}
+
+    @staticmethod
+    def save_users(users):
+        with open(USERS_FILE, 'w') as f:
+            json.dump(users, f)
+
+
+class RecipeDataManager:
+    @staticmethod
+    def load_recipes():
+        if os.path.exists(RECIPES_FILE):
+            with open(RECIPES_FILE, 'r') as f:
+                return json.load(f)
+        return []
+
+    @staticmethod
+    def save_recipes(recipes):
+        with open(RECIPES_FILE, 'w') as f:
+            json.dump(recipes, f)
+
+
+users = UserDataManager.load_users()
+recipes_data = RecipeDataManager.load_recipes()
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 SESSION = 'my_session'
 
 
-class Recipe(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    instructions = db.Column(db.Text)
-    description = db.Column(db.Text)
-    servings = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    prep_time = db.Column(db.Integer)
-    cook_time = db.Column(db.Integer)
-    steps = db.Column(db.Integer)
-    ingredients = db.Column(db.Text)
-    allergens = db.Column(db.Text)
-    diet_type = db.Column(db.Text)
-    nutritional_info = db.Column(db.Text)
-    country = db.Column(db.Text)
-    history = db.Column(db.Text)
-    is_editable_by_admin = db.Column(db.Boolean, default=False)
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-
-class Ingredient(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    quantity = db.Column(db.String(50))
-    recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
-
-
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False)
-    is_author = db.Column(db.Boolean, default=False)
-    is_patient = db.Column(db.Boolean, default=False)
-    recipes = db.relationship('Recipe', backref='user', lazy=True)
+class User(UserMixin):
+    def __init__(self, username, email, password, is_admin=False, is_author=False, is_patient=False):
+        self.id = username  # Using username as the user ID
+        self.username = username
+        self.email = email
+        self.password = password
+        self.is_admin = is_admin
+        self.is_author = is_author
+        self.is_patient = is_patient
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -77,12 +71,7 @@ class User(UserMixin, db.Model):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
-class Role(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
+    return users.get(user_id)
 
 
 @app.route('/')
@@ -94,39 +83,43 @@ def index():
         return render_template('500.html'), 500
 
 
-@app.route('/recipe')
-def recipes():
-    return render_template('recipe.html')
-
-
 @app.route('/add_recipe', methods=['GET', 'POST'])
 @login_required
 def add_recipe():
     if request.method == 'POST':
-        title = request.form['title']
-        instructions = request.form['instructions']
-        description = request.form['description']
-        servings = request.form['servings']
-        author_id = request.form['author_id']
-        prep_time = request.form['prep_time']
-        cook_time = request.form['cook_time']
-        steps = request.form['steps']
-        ingredients = request.form['ingredients']
-        allergens = request.form['allergens']
-        diet_type = request.form['diet_type']
-        nutritional_info = request.form['nutritional_info']
-        country = request.form['country']
-        history = request.form['history']
-        recipe = Recipe(title=title, instructions=instructions, description=description, servings=servings,
-                        author_id=author_id, prep_time=prep_time, cook_time=cook_time, steps=steps,
-                        ingredients=ingredients, allergens=allergens, diet_type=diet_type,
-                        nutritional_info=nutritional_info, country=country, history=history)
-        db.session.add(recipe)
-        db.session.commit()
+        # Obtain recipe data from form
+        recipe_data = {
+            "title": request.form['title'],
+            "instructions": request.form['instructions'],
+            "description": request.form['description'],
+            "servings": request.form['servings'],
+            "author_id": request.form['author_id'],
+            "prep_time": request.form['prep_time'],
+            "cook_time": request.form['cook_time'],
+            "steps": request.form['steps'],
+            "ingredients": request.form['ingredients'],
+            "allergens": request.form['allergens'],
+            "diet_type": request.form['diet_type'],
+            "nutritional_info": request.form['nutritional_info'],
+            "country": request.form['country'],
+            "history": request.form['history'],
+        }
+
+        # Append recipe to recipes_data
+        recipes_data.append(recipe_data)
+
+        # Save recipes to JSON file
+        RecipeDataManager.save_recipes(recipes_data)
+
         flash('Recipe created successfully.')
         return redirect(url_for('recipes'))
+    
     return render_template('add_recipe.html')
 
+
+@app.route('/recipe')
+def recipes():
+    return render_template('recipe.html')
 
 @app.route('/recipe/<int:recipe_id>')
 def recipe_detail(recipe_id):
@@ -244,6 +237,7 @@ def add_header(response):
     response.cache_control.no_store = True
     return response
 
-
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+
+
