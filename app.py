@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash 
+from flask import Flask, make_response, render_template, request, redirect, url_for, flash 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
 import logging  
@@ -218,8 +218,17 @@ def internal_server_error(e):
     app.logger.error('Server Error: %s', (e))
     return render_template('500.html'), 500
 
+@app.before_first_request
 def create_tables():
     db.create_all()
+
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age = 86400  # Set cache life to 24 hours
+    response.cache_control.public = True
+    response.cache_control.must_revalidate = True
+    response.cache_control.no_store = True
+    return response
 
 if __name__ == '__main__': # Runs the application 
     create_tables()

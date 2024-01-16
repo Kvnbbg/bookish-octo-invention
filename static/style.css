@@ -19,6 +19,11 @@ body {
   margin-top: 80px;
 }
 
+.navbar-logo {
+  height: 50px;  /* Adjust as needed */
+  width: auto;  /* Maintain aspect ratio */
+}
+
 .card {
   border: none;
   border-radius: 10px;
