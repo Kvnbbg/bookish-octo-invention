@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash # Import Flask class from flask module
-from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class from flask_sqlalchemy module
-from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required # Import UserMixin class from flask_login module
-import logging  # Import logging module
-logging.basicConfig(filename='error.log', level=logging.DEBUG)  # Configure logging module to write to error.log file
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)  # Configure logging module to write SQL statements to the console
-from datetime import datetime  # Import datetime class from datetime module
-from werkzeug.security import generate_password_hash  # Import generate_password_hash and check_password_hash functions from werkzeug.security module
+from flask import Flask, render_template, request, redirect, url_for, flash 
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
+import logging  
+logging.basicConfig(filename='error.log', level=logging.DEBUG)  
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+from datetime import datetime 
+from werkzeug.security import generate_password_hash
 
 ## APP CONFIGURATION ##
 app = Flask(__name__)  # Create a new instance of the Flask class called "app"
@@ -218,6 +218,9 @@ def internal_server_error(e):
     app.logger.error('Server Error: %s', (e))
     return render_template('500.html'), 500
 
+def create_tables():
+    db.create_all()
+
 if __name__ == '__main__': # Runs the application 
-    db.create_all() # Create the database tables for our data models defined above if they don't exist yet 
+    create_tables()
     app.run(debug=True, port=5000) # Run the app in debug mode on port 5000
