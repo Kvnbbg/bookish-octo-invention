@@ -1,15 +1,7 @@
-# app.py
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
-import logging
-from datetime import datetime
 import json
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
-from werkzeug.security import check_password_hash, generate_password_hash
-from datetime import datetime
-import json
 import os
 
 app = Flask(__name__)
@@ -18,7 +10,7 @@ app.secret_key = 'your_secret_key'  # Replace with a more secure secret key
 USERS_FILE = 'users.json'
 RECIPES_FILE = 'recipes.json'
 
-
+# Database 
 class UserDataManager:
     @staticmethod
     def load_users():
@@ -32,15 +24,17 @@ class UserDataManager:
         with open(USERS_FILE, 'w') as f:
             json.dump(users, f)
 
-
 class RecipeDataManager:
     @staticmethod
     def load_recipes():
         if os.path.exists(RECIPES_FILE):
-            with open(RECIPES_FILE, 'r') as f:
-                return json.load(f)
+            if os.stat('recipes.json').st_size == 0:  # Check if file is empty
+                return {}
+            else:
+                with open(RECIPES_FILE, 'r') as f:
+                    return json.load(f)
         return []
-
+    
     @staticmethod
     def save_recipes(recipes):
         with open(RECIPES_FILE, 'w') as f:
@@ -81,8 +75,7 @@ def index():
     except Exception as e:
         app.logger.exception(e)
         return render_template('500.html'), 500
-
-
+        
 @app.route('/add_recipe', methods=['GET', 'POST'])
 @login_required
 def add_recipe():
