@@ -1,16 +1,23 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 import json
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
 import os
 
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a more secure secret key
+app = Flask(__name__) 
+app.secret_key = 'your_secret_key'  # Replace with a more secure secret key 
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_PERMANENT'] = False
+app.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds
 
+# Database 
 USERS_FILE = 'users.json'
 RECIPES_FILE = 'recipes.json'
 
-# Database 
 class UserDataManager:
     @staticmethod
     def load_users():
@@ -67,7 +74,6 @@ class User(UserMixin):
 def load_user(user_id):
     return users.get(user_id)
 
-
 @app.route('/')
 def index():
     try:
@@ -75,7 +81,41 @@ def index():
     except Exception as e:
         app.logger.exception(e)
         return render_template('500.html'), 500
-        
+
+@app.route('/<wi>')
+def wrong_input(wi):
+    try:
+        return "hi, "+ wi + " is an invalid syntax to my flask app! " + "Hope you are doing well!"
+    except Exception as e:
+        app.logger.exception(e)
+        return render_template('500.html'), 500
+    
+@app.route('/profile') # profile argument replace user argument or username
+@login_required
+def profile():
+    return render_template('profile.html')
+
+@app.route('/profile/<username>')
+@login_required
+def profile_username(username):
+    try:
+        # Check if the username contains only valid characters
+        if not username.isalnum():
+            raise ValueError(f"Invalid input: {username}")
+
+        # Your existing logic here
+        return render_template('profile.html', username=username)
+
+    except ValueError as ve:
+        app.logger.warning(ve)
+        flash("You have entered an invalid input. Please contact the administrator or go to the home page.", 'error')
+        return redirect(url_for('index'))
+
+    except Exception as e:
+        app.logger.exception(e)
+        flash("An unexpected error occurred. Please try again later or contact the administrator.", 'error')
+        return redirect(url_for('index'))
+
 @app.route('/add_recipe', methods=['GET', 'POST'])
 @login_required
 def add_recipe():
@@ -168,13 +208,6 @@ def register():
             return redirect(url_for('login'))
     return render_template('register.html')
 
-
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html')
-
-
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
@@ -231,6 +264,6 @@ def add_header(response):
     return response
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host='0.0.0.0' port=5000)
 
 
