@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container">
         <h1>Profile</h1>
-        <p>Welcome back, {{ current_user.username }}!</p>
+        <p>Welcome back, {{ current_user.username | capitalize }}!</p>
 
         <p>Here a few things you can do:</p>
         <ul>

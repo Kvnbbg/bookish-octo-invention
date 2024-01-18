@@ -1,0 +1,761 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "fileConfig",
+        "importPath": "logging.config",
+        "description": "logging.config",
+        "isExtraImport": true,
+        "detail": "logging.config",
+        "documentation": {}
+    },
+    {
+        "label": "engine_from_config",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "pool",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "or_",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "logout_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "logout_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "os,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os.",
+        "description": "os.",
+        "detail": "os.",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "config",
+        "description": "config",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "DEBUG = True\napp = Flask(__name__)\napp.secret_key = 'my_secret_key'  # Replace with a more secure secret key",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "app = Flask(__name__)\napp.secret_key = 'my_secret_key'  # Replace with a more secure secret key",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "app.secret_key",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "app.secret_key = 'my_secret_key'  # Replace with a more secure secret key",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_offline",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n    Calls to context.execute() here emit the given string to the\n    script output.\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_online",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "config = context.config\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nif config.config_file_name is not None:\n    fileConfig(config.config_file_name)\n# add your model's MetaData object here\n# for 'autogenerate' support\n# from myapp import mymodel\n# target_metadata = mymodel.Base.metadata\ntarget_metadata = None",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "target_metadata",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "target_metadata = None\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\ndef run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "authentication",
+        "kind": 2,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "def authentication():\n  return render_template('authentification.html')\n@app.route('/login', methods=['GET', 'POST'])\ndef login():\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    user = User.query.filter_by(username=username).first()\n    if user and check_password_hash(user.password, password):\n      login_user(user)",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "def login():\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    user = User.query.filter_by(username=username).first()\n    if user and check_password_hash(user.password, password):\n      login_user(user)\n      flash('Logged in successfully.')\n      return redirect(url_for('profile'))\n    else:",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "def logout():\n  logout_user()\n  flash('Logged out successfully.')\n  return redirect(url_for('index'))\n@app.route('/register', methods=['GET', 'POST'])\ndef register():\n  \"\"\"\n  Register a new user.\n  This function handles the registration process for a new user. It accepts both GET and POST requests.\n  If a POST request is received, it retrieves the username, email, and password from the request form.",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 2,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "def register():\n  \"\"\"\n  Register a new user.\n  This function handles the registration process for a new user. It accepts both GET and POST requests.\n  If a POST request is received, it retrieves the username, email, and password from the request form.\n  It checks if the username or email already exists in the database. If so, it displays an error message.\n  If the username and email are unique, it hashes the password and creates a new user in the database.\n  Finally, it redirects the user to the login page.\n  Returns:\n    If a POST request is received and the user is successfully registered, it redirects to the login page.",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "UserDataManager",
+        "kind": 6,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "class UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod\n  def save_users(users):\n    with open(config.USERS_FILE, 'w') as f:",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "RecipeDataManager",
+        "kind": 6,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "class RecipeDataManager:\n  \"\"\"\n  A class that manages the loading and saving of recipes.\n  \"\"\"\n  @staticmethod\n  def load_recipes():\n    \"\"\"\n    Load recipes from a file.\n    Returns:\n      If the file exists and is not empty, returns the loaded recipes as a dictionary.",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "def load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "recipes_data",
+        "kind": 5,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "recipes_data = []\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "USERS_FILE",
+        "kind": 5,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "USERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "RECIPES_FILE",
+        "kind": 5,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "RECIPES_FILE = 'recipes.json'\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager",
+        "kind": 5,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager.login_view",
+        "kind": 5,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "login_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "users",
+        "kind": 5,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "users = UserDataManager.load_users()\nclass RecipeDataManager:\n  \"\"\"\n  A class that manages the loading and saving of recipes.\n  \"\"\"\n  @staticmethod\n  def load_recipes():\n    \"\"\"\n    Load recipes from a file.\n    Returns:",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "recipes_data",
+        "kind": 5,
+        "importPath": "myflask.models",
+        "description": "myflask.models",
+        "peekOfCode": "recipes_data = RecipeDataManager.load_recipes()",
+        "detail": "myflask.models",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/<wi>')\ndef wrong_input(wi):\n  try:\n    return \"hi, \"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!\"",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "wrong_input",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def wrong_input(wi):\n  try:\n    return \"hi, \"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!\"\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/profile') # profile argument replace user argument or username\n@login_required\ndef profile():\n  return render_template('profile.html')",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "profile",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@app.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  try:\n    # Check if the username contains only valid characters\n    if not username.isalnum():\n      raise ValueError(f\"Invalid input: {username}\")\n    # Your existing logic here",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "profile_username",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def profile_username(username):\n  try:\n    # Check if the username contains only valid characters\n    if not username.isalnum():\n      raise ValueError(f\"Invalid input: {username}\")\n    # Your existing logic here\n    return render_template('profile.html', username=username)\n  except ValueError as ve:\n    app.logger.warning(ve)\n    flash(\"You have entered an invalid input. Please contact the administrator or go to the home page.\", 'error')",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "add_recipe",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def add_recipe():\n  \"\"\"\n  Add a new recipe to the application.\n  If the request method is POST, obtain the recipe data from the form,\n  append it to the recipes_data list, save the recipes to a JSON file,\n  display a flash message indicating successful creation, and redirect\n  to the 'recipes' page.\n  If the request method is GET, render the 'add_recipe.html' template.\n  Returns:\n  If the request method is POST, redirects to the 'recipes' page.",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "recipes",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def recipes():\n  return render_template('recipe.html')\n@app.route('/recipe/<int:recipe_id>')\ndef recipe_detail(recipe_id):\n  recipe = Recipe.query.get_or_404(recipe_id)\n  return render_template('recipe_detail.html', recipe=recipe)\n@app.route('/admin')\ndef admin():\n  return render_template('admin.html')\n@app.route('/author')",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "recipe_detail",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def recipe_detail(recipe_id):\n  recipe = Recipe.query.get_or_404(recipe_id)\n  return render_template('recipe_detail.html', recipe=recipe)\n@app.route('/admin')\ndef admin():\n  return render_template('admin.html')\n@app.route('/author')\ndef author():\n  return render_template('author.html')\n@app.route('/patient')",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def admin():\n  return render_template('admin.html')\n@app.route('/author')\ndef author():\n  return render_template('author.html')\n@app.route('/patient')\ndef patient():\n  return render_template('patient.html')\n@app.route('/about')\ndef about():",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "author",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def author():\n  return render_template('author.html')\n@app.route('/patient')\ndef patient():\n  return render_template('patient.html')\n@app.route('/about')\ndef about():\n  return render_template('about.html')\n@app.route('/contact')\ndef contact():",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "patient",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def patient():\n  return render_template('patient.html')\n@app.route('/about')\ndef about():\n  return render_template('about.html')\n@app.route('/contact')\ndef contact():\n  return render_template('contact.html')\n@app.route('/search')\ndef search():",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "about",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def about():\n  return render_template('about.html')\n@app.route('/contact')\ndef contact():\n  return render_template('contact.html')\n@app.route('/search')\ndef search():\n  return render_template('search.html')\n@app.route('/search_results')\ndef search_results():",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "contact",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def contact():\n  return render_template('contact.html')\n@app.route('/search')\ndef search():\n  return render_template('search.html')\n@app.route('/search_results')\ndef search_results():\n  return render_template('search_results.html')\n@app.errorhandler(404)\ndef page_not_found(e):",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "search",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def search():\n  return render_template('search.html')\n@app.route('/search_results')\ndef search_results():\n  return render_template('search_results.html')\n@app.errorhandler(404)\ndef page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@app.errorhandler(500)",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "search_results",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def search_results():\n  return render_template('search_results.html')\n@app.errorhandler(404)\ndef page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@app.errorhandler(500)\ndef internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "page_not_found",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@app.errorhandler(500)\ndef internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500\n@app.after_request\ndef add_header(response):\n  response.cache_control.max_age = 86400",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "internal_server_error",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500\n@app.after_request\ndef add_header(response):\n  response.cache_control.max_age = 86400\n  response.cache_control.public = True\n  response.cache_control.must_revalidate = True\n  response.cache_control.no_store = True\n  return response",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "add_header",
+        "kind": 2,
+        "importPath": "myflask.views",
+        "description": "myflask.views",
+        "peekOfCode": "def add_header(response):\n  response.cache_control.max_age = 86400\n  response.cache_control.public = True\n  response.cache_control.must_revalidate = True\n  response.cache_control.no_store = True\n  return response",
+        "detail": "myflask.views",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__, instance_relative_config=True)\nlogin_manager.init_app(app)\nif __name__ == '__main__':\n    app.run(debug=True, host=\"0.0.0.0\", port=5000)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "USERS_FILE",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "USERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nSESSION = 'my_session'\nDEBUG = False\napp = Flask(__name__)\napp.config['SESSION_TYPE'] = 'filesystem'\napp.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')\napp.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "RECIPES_FILE",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "RECIPES_FILE = 'recipes.json'\nSESSION = 'my_session'\nDEBUG = False\napp = Flask(__name__)\napp.config['SESSION_TYPE'] = 'filesystem'\napp.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')\napp.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "SESSION",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "SESSION = 'my_session'\nDEBUG = False\napp = Flask(__name__)\napp.config['SESSION_TYPE'] = 'filesystem'\napp.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')\napp.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "DEBUG = False\napp = Flask(__name__)\napp.config['SESSION_TYPE'] = 'filesystem'\napp.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')\napp.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app = Flask(__name__)\napp.config['SESSION_TYPE'] = 'filesystem'\napp.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')\napp.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SESSION_TYPE']",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app.config['SESSION_TYPE'] = 'filesystem'\napp.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')\napp.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SESSION_FILE_DIR']",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')\napp.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SESSION_COOKIE_SECURE']",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app.config['SESSION_COOKIE_SECURE'] = True\napp.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SESSION_COOKIE_HTTPONLY']",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app.config['SESSION_COOKIE_HTTPONLY'] = True\napp.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SESSION_COOKIE_SAMESITE']",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'\napp.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SESSION_PERMANENT']",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app.config['SESSION_PERMANENT'] = False\napp.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['PERMANENT_SESSION_LIFETIME']",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "app.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds",
+        "detail": "config",
+        "documentation": {}
+    }
+]
