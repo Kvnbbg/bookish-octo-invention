@@ -391,7 +391,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_HOST = \"actual_host\"\nDB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_HOST = \"actual_host\"\nDB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -400,7 +400,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -409,7 +409,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -418,7 +418,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -427,16 +427,16 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "ADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "ADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
     {
-        "label": "ADDTIONAL_PARAM2",
+        "label": "ADDITIONAL_PARAM2",
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "ADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "ADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -580,7 +580,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/register', methods=['GET', 'POST'])\ndef register():\n  \"\"\"\n  Route for user registration.",
+        "peekOfCode": "def index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])\ndef register():\n  \"\"\"\n  Route for user registration.",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -607,7 +607,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def logout():\n  \"\"\"\n  Route for user logout.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  logout_user()\n  flash('Logged out successfully.')\n  return redirect(url_for('index'))\n@app.route('/profile') # profile argument replace user argument or username",
+        "peekOfCode": "def logout():\n  \"\"\"\n  Route for user logout.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  logout_user()\n  flash('Logged out successfully.')\n  return redirect(url_for('index'))\n@views_bp.route('/profile') # profile argument replace user argument or username",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -616,7 +616,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@app.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  try:\n    # Check if the username contains only valid characters\n    if not username.isalnum():\n      raise ValueError(f\"Invalid input: {username}\")\n    # Your existing logic here",
+        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  try:\n    # Check if the username contains only valid characters\n    if not username.isalnum():\n      raise ValueError(f\"Invalid input: {username}\")\n    # Your existing logic here",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -634,7 +634,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def wrong_input(wi):\n  try:\n    return \"<p>\"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!</p>\"\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/add_recipe', methods=['GET', 'POST'])\n@login_required\ndef add_recipe():\n  \"\"\"",
+        "peekOfCode": "def wrong_input(wi):\n  try:\n    return \"<p>\"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!</p>\"\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/add_recipe', methods=['GET', 'POST'])\n@login_required\ndef add_recipe():\n  \"\"\"",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -652,7 +652,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def recipes():\n  return render_template('recipe.html')\n@app.route('/recipe/<int:recipe_id>')\ndef recipe_detail(recipe_id):\n  recipe = Recipe.query.get_or_404(recipe_id)\n  return render_template('recipe_detail.html', recipe=recipe)\n@app.route('/admin')\ndef admin():\n  return render_template('admin.html')\n@app.route('/author')",
+        "peekOfCode": "def recipes():\n  return render_template('recipe.html')\n@views_bp.route('/recipe/<int:recipe_id>')\ndef recipe_detail(recipe_id):\n  recipe = Recipe.query.get_or_404(recipe_id)\n  return render_template('recipe_detail.html', recipe=recipe)\n@views_bp.route('/admin')\ndef admin():\n  return render_template('admin.html')\n@views_bp.route('/author')",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -661,7 +661,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def recipe_detail(recipe_id):\n  recipe = Recipe.query.get_or_404(recipe_id)\n  return render_template('recipe_detail.html', recipe=recipe)\n@app.route('/admin')\ndef admin():\n  return render_template('admin.html')\n@app.route('/author')\ndef author():\n  return render_template('author.html')\n@app.route('/patient')",
+        "peekOfCode": "def recipe_detail(recipe_id):\n  recipe = Recipe.query.get_or_404(recipe_id)\n  return render_template('recipe_detail.html', recipe=recipe)\n@views_bp.route('/admin')\ndef admin():\n  return render_template('admin.html')\n@views_bp.route('/author')\ndef author():\n  return render_template('author.html')\n@views_bp.route('/patient')",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -670,7 +670,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def admin():\n  return render_template('admin.html')\n@app.route('/author')\ndef author():\n  return render_template('author.html')\n@app.route('/patient')\ndef patient():\n  return render_template('patient.html')\n@app.route('/about')\ndef about():",
+        "peekOfCode": "def admin():\n  return render_template('admin.html')\n@views_bp.route('/author')\ndef author():\n  return render_template('author.html')\n@views_bp.route('/patient')\ndef patient():\n  return render_template('patient.html')\n@views_bp.route('/about')\ndef about():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -679,7 +679,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def author():\n  return render_template('author.html')\n@app.route('/patient')\ndef patient():\n  return render_template('patient.html')\n@app.route('/about')\ndef about():\n  return render_template('about.html')\n@app.route('/contact')\ndef contact():",
+        "peekOfCode": "def author():\n  return render_template('author.html')\n@views_bp.route('/patient')\ndef patient():\n  return render_template('patient.html')\n@views_bp.route('/about')\ndef about():\n  return render_template('about.html')\n@views_bp.route('/contact')\ndef contact():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -688,7 +688,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def patient():\n  return render_template('patient.html')\n@app.route('/about')\ndef about():\n  return render_template('about.html')\n@app.route('/contact')\ndef contact():\n  return render_template('contact.html')\n@app.route('/search')\ndef search():",
+        "peekOfCode": "def patient():\n  return render_template('patient.html')\n@views_bp.route('/about')\ndef about():\n  return render_template('about.html')\n@views_bp.route('/contact')\ndef contact():\n  return render_template('contact.html')\n@views_bp.route('/search')\ndef search():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -697,7 +697,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def about():\n  return render_template('about.html')\n@app.route('/contact')\ndef contact():\n  return render_template('contact.html')\n@app.route('/search')\ndef search():\n  return render_template('search.html')\n@app.route('/search_results')\ndef search_results():",
+        "peekOfCode": "def about():\n  return render_template('about.html')\n@views_bp.route('/contact')\ndef contact():\n  return render_template('contact.html')\n@views_bp.route('/search')\ndef search():\n  return render_template('search.html')\n@views_bp.route('/search_results')\ndef search_results():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -706,7 +706,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def contact():\n  return render_template('contact.html')\n@app.route('/search')\ndef search():\n  return render_template('search.html')\n@app.route('/search_results')\ndef search_results():\n  return render_template('search_results.html')\n@app.errorhandler(404)\ndef page_not_found(e):",
+        "peekOfCode": "def contact():\n  return render_template('contact.html')\n@views_bp.route('/search')\ndef search():\n  return render_template('search.html')\n@views_bp.route('/search_results')\ndef search_results():\n  return render_template('search_results.html')\n@views_bp.errorhandler(404)\ndef page_not_found(e):",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -715,7 +715,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def search():\n  return render_template('search.html')\n@app.route('/search_results')\ndef search_results():\n  return render_template('search_results.html')\n@app.errorhandler(404)\ndef page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@app.errorhandler(500)",
+        "peekOfCode": "def search():\n  return render_template('search.html')\n@views_bp.route('/search_results')\ndef search_results():\n  return render_template('search_results.html')\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@views_bp.errorhandler(500)",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -724,7 +724,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def search_results():\n  return render_template('search_results.html')\n@app.errorhandler(404)\ndef page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@app.errorhandler(500)\ndef internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500",
+        "peekOfCode": "def search_results():\n  return render_template('search_results.html')\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@views_bp.errorhandler(500)\ndef internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -733,7 +733,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@app.errorhandler(500)\ndef internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500\n@app.after_request\ndef add_header(response):\n  response.cache_control.max_age = 86400",
+        "peekOfCode": "def page_not_found(e):\n  app.logger.error('Page Not Found: %s', e)\n  return render_template('404.html'), 404\n@views_bp.errorhandler(500)\ndef internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500\n@views_bp.after_request\ndef add_header(response):\n  response.cache_control.max_age = 86400",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -742,7 +742,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500\n@app.after_request\ndef add_header(response):\n  response.cache_control.max_age = 86400\n  response.cache_control.public = True\n  response.cache_control.must_revalidate = True\n  response.cache_control.no_store = True\n  return response",
+        "peekOfCode": "def internal_server_error(e):\n  app.logger.exception('Server Error: %s', e)\n  return render_template('500.html'), 500\n@views_bp.after_request\ndef add_header(response):\n  response.cache_control.max_age = 86400\n  response.cache_control.public = True\n  response.cache_control.must_revalidate = True\n  response.cache_control.no_store = True\n  return response",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -760,25 +760,16 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "permanent_session_lifetime = timedelta(minutes=5)\nauth = Blueprint('auth', __name__)\napp = Flask(__name__)\n@app.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500",
+        "peekOfCode": "permanent_session_lifetime = timedelta(minutes=5)\nviews_bp = Blueprint('views', __name__)\n@views_bp.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])",
         "detail": "myapp.views",
         "documentation": {}
     },
     {
-        "label": "auth",
+        "label": "views_bp",
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "auth = Blueprint('auth', __name__)\napp = Flask(__name__)\n@app.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/register', methods=['GET', 'POST'])",
-        "detail": "myapp.views",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "kind": 5,
-        "importPath": "myapp.views",
-        "description": "myapp.views",
-        "peekOfCode": "app = Flask(__name__)\n@app.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/register', methods=['GET', 'POST'])\ndef register():",
+        "peekOfCode": "views_bp = Blueprint('views', __name__)\n@views_bp.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])\ndef register():",
         "detail": "myapp.views",
         "documentation": {}
     },

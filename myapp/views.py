@@ -6,14 +6,14 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
 from myapp import models, forms
 from datetime import timedelta
+
 # Load the default configuration
 permanent_session_lifetime = timedelta(minutes=5)
 
-auth = Blueprint('auth', __name__)
-app = Flask(__name__)
+views_bp = Blueprint('views', __name__)
   
 
-@app.route('/')
+@views_bp.route('/')
 def index():
   try:
     return render_template('index.html')
@@ -22,7 +22,7 @@ def index():
     return render_template('500.html'), 500
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@views_bp.route('/register', methods=['GET', 'POST'])
 def register():
   """
   Route for user registration.
@@ -53,7 +53,7 @@ def register():
 
   return render_template('register.html')
   
-@app.route('/login', methods=['GET', 'POST'])
+@views_bp.route('/login', methods=['GET', 'POST'])
 def login():
   """
   Route for user login.
@@ -76,7 +76,7 @@ def login():
       return redirect(url_for('login'))
   return render_template('login.html')
 
-@app.route('/logout')
+@views_bp.route('/logout')
 @login_required
 def logout():
   """
@@ -89,12 +89,12 @@ def logout():
   flash('Logged out successfully.')
   return redirect(url_for('index'))
 
-@app.route('/profile') # profile argument replace user argument or username
+@views_bp.route('/profile') # profile argument replace user argument or username
 @login_required
 def profile():
   return render_template('profile.html')
 
-@app.route('/profile/<username>')
+@views_bp.route('/profile/<username>')
 @login_required
 def profile_username(username):
   try:
@@ -115,7 +115,7 @@ def profile_username(username):
     flash("An unexpected error occurred. Please try again later or contact the administrator.", 'error')
     return redirect(url_for('index'))
 
-@app.route('/<wi>')
+@views_bp.route('/<wi>')
 def wrong_input(wi):
   try:
     return "<p>"+ wi + " is an invalid syntax to my flask app! " + "Hope you are doing well!</p>"
@@ -124,7 +124,7 @@ def wrong_input(wi):
     return render_template('500.html'), 500
 
 
-@app.route('/add_recipe', methods=['GET', 'POST'])
+@views_bp.route('/add_recipe', methods=['GET', 'POST'])
 @login_required
 def add_recipe():
   """
@@ -173,64 +173,64 @@ def add_recipe():
   return render_template('add_recipe.html')
 
 
-@app.route('/recipe')
+@views_bp.route('/recipe')
 def recipes():
   return render_template('recipe.html')
 
-@app.route('/recipe/<int:recipe_id>')
+@views_bp.route('/recipe/<int:recipe_id>')
 def recipe_detail(recipe_id):
   recipe = Recipe.query.get_or_404(recipe_id)
   return render_template('recipe_detail.html', recipe=recipe)
 
 
-@app.route('/admin')
+@views_bp.route('/admin')
 def admin():
   return render_template('admin.html')
 
 
-@app.route('/author')
+@views_bp.route('/author')
 def author():
   return render_template('author.html')
 
 
-@app.route('/patient')
+@views_bp.route('/patient')
 def patient():
   return render_template('patient.html')
 
 
-@app.route('/about')
+@views_bp.route('/about')
 def about():
   return render_template('about.html')
 
 
-@app.route('/contact')
+@views_bp.route('/contact')
 def contact():
   return render_template('contact.html')
 
 
-@app.route('/search')
+@views_bp.route('/search')
 def search():
   return render_template('search.html')
 
 
-@app.route('/search_results')
+@views_bp.route('/search_results')
 def search_results():
   return render_template('search_results.html')
 
 
-@app.errorhandler(404)
+@views_bp.errorhandler(404)
 def page_not_found(e):
   app.logger.error('Page Not Found: %s', e)
   return render_template('404.html'), 404
 
 
-@app.errorhandler(500)
+@views_bp.errorhandler(500)
 def internal_server_error(e):
   app.logger.exception('Server Error: %s', e)
   return render_template('500.html'), 500
 
 
-@app.after_request
+@views_bp.after_request
 def add_header(response):
   response.cache_control.max_age = 86400
   response.cache_control.public = True
