@@ -1,12 +1,17 @@
+# views.py
 import os
 import json
 import config
-from flask import render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, Blueprint
 from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
 from myapp import models, forms
+from datetime import timedelta
+# Load the default configuration
+permanent_session_lifetime = timedelta(minutes=5)
 
-
-# views.py
+auth = Blueprint('auth', __name__)
+app = Flask(__name__)
+  
 
 @app.route('/')
 def index():

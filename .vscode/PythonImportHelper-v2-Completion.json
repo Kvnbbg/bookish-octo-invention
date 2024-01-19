@@ -1,59 +1,29 @@
 [
     {
-        "label": "flask",
+        "label": "os",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "flask",
-        "description": "flask",
-        "detail": "flask",
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
         "documentation": {}
     },
     {
-        "label": "render_template",
-        "importPath": "flask",
-        "description": "flask",
+        "label": "json",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "flask",
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
         "documentation": {}
     },
     {
-        "label": "request",
-        "importPath": "flask",
-        "description": "flask",
+        "label": "config",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "session",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "url_for",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "flash",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
+        "importPath": "config",
+        "description": "config",
+        "detail": "config",
         "documentation": {}
     },
     {
@@ -161,6 +131,70 @@
         "documentation": {}
     },
     {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "login_required",
         "importPath": "flask_login",
         "description": "flask_login",
@@ -202,14 +236,6 @@
     },
     {
         "label": "current_user",
-        "importPath": "flask_login",
-        "description": "flask_login",
-        "isExtraImport": true,
-        "detail": "flask_login",
-        "documentation": {}
-    },
-    {
-        "label": "login_required",
         "importPath": "flask_login",
         "description": "flask_login",
         "isExtraImport": true,
@@ -329,58 +355,6 @@
         "documentation": {}
     },
     {
-        "label": "config",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "config",
-        "description": "config",
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "USERS_FILE",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "os,",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os.",
-        "description": "os.",
-        "detail": "os.",
-        "documentation": {}
-    },
-    {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "json",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "json",
-        "description": "json",
-        "detail": "json",
-        "documentation": {}
-    },
-    {
         "label": "models",
         "importPath": "myapp",
         "description": "myapp",
@@ -402,6 +376,14 @@
         "description": "myapp",
         "isExtraImport": true,
         "detail": "myapp",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -535,7 +517,7 @@
         "kind": 5,
         "importPath": "myapp.forms",
         "description": "myapp.forms",
-        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.init_app(app)\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
         "detail": "myapp.forms",
         "documentation": {}
     },
@@ -544,7 +526,16 @@
         "kind": 5,
         "importPath": "myapp.forms",
         "description": "myapp.forms",
-        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.init_app(app)\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "detail": "myapp.forms",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager.login_message_category",
+        "kind": 5,
+        "importPath": "myapp.forms",
+        "description": "myapp.forms",
+        "peekOfCode": "login_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)",
         "detail": "myapp.forms",
         "documentation": {}
     },
@@ -765,11 +756,38 @@
         "documentation": {}
     },
     {
+        "label": "permanent_session_lifetime",
+        "kind": 5,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "permanent_session_lifetime = timedelta(minutes=5)\nauth = Blueprint('auth', __name__)\napp = Flask(__name__)\n@app.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "auth",
+        "kind": 5,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "auth = Blueprint('auth', __name__)\napp = Flask(__name__)\n@app.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/register', methods=['GET', 'POST'])",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "app = Flask(__name__)\n@app.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/register', methods=['GET', 'POST'])\ndef register():",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
         "label": "__name__",
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "__name__ = __init__\napp = Flask(__name__)\nif __name__ == '__main__':\n    app.run(debug=True, host=\"0.0.0.0\", port=5000)",
+        "peekOfCode": "__name__ = '__init__'\napp = Flask(__name__)\nif __name__ == '__main__':\n    app.run()",
         "detail": "app",
         "documentation": {}
     },
@@ -778,7 +796,7 @@
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "app = Flask(__name__)\nif __name__ == '__main__':\n    app.run(debug=True, host=\"0.0.0.0\", port=5000)",
+        "peekOfCode": "app = Flask(__name__)\nif __name__ == '__main__':\n    app.run()",
         "detail": "app",
         "documentation": {}
     }

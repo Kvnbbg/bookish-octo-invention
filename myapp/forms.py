@@ -1,16 +1,16 @@
-import flask
+# forms.py
+import os
+import json
+import config
 from flask import render_template, request, session, redirect, url_for, flash
-from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, login_required
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from config import USERS_FILE
-from datetime import timedelta
-import os, json
-
 
 login_manager = LoginManager()
 
 login_manager.login_view = 'login'
-login_manager.init_app(app)
+login_manager.login_message_category = 'info' # Bootstrap class for flash messages
+
 @login_manager.user_loader
 def load_user(user_id):
   return User.query.get(user_id)
