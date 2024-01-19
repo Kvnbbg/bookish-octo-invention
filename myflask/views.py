@@ -1,9 +1,7 @@
 import os, json
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-from datetime import timedelta
-from flask_login import login_required, login_user, logout_user, UserMixin
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, login_required
 from .models import Recipe, User
-from . import app, db, login_manager
 from .forms import LoginForm, RegisterForm, RecipeForm
 
 # views.py

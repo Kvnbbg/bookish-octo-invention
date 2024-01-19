@@ -1,9 +1,10 @@
 [
     {
-        "label": "Flask",
+        "label": "flask",
+        "kind": 6,
+        "isExtraImport": true,
         "importPath": "flask",
         "description": "flask",
-        "isExtraImport": true,
         "detail": "flask",
         "documentation": {}
     },
@@ -16,7 +17,7 @@
         "documentation": {}
     },
     {
-        "label": "app",
+        "label": "Flask",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -33,6 +34,14 @@
     },
     {
         "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -64,7 +73,55 @@
         "documentation": {}
     },
     {
-        "label": "app",
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -144,6 +201,14 @@
         "documentation": {}
     },
     {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
         "label": "login_user",
         "importPath": "flask_login",
         "description": "flask_login",
@@ -160,7 +225,7 @@
         "documentation": {}
     },
     {
-        "label": "login_required",
+        "label": "UserMixin",
         "importPath": "flask_login",
         "description": "flask_login",
         "isExtraImport": true,
@@ -169,6 +234,22 @@
     },
     {
         "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "current_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
         "importPath": "flask_login",
         "description": "flask_login",
         "isExtraImport": true,
@@ -208,6 +289,86 @@
         "documentation": {}
     },
     {
+        "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "current_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "logout_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "current_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
         "label": "check_password_hash",
         "importPath": "werkzeug.security",
         "description": "werkzeug.security",
@@ -232,15 +393,6 @@
         "documentation": {}
     },
     {
-        "label": "config",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "config",
-        "description": "config",
-        "detail": "config",
-        "documentation": {}
-    },
-    {
         "label": "app",
         "importPath": "config",
         "description": "config",
@@ -257,6 +409,22 @@
         "documentation": {}
     },
     {
+        "label": "app",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "RECIPES_FILE",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
         "label": "os,",
         "kind": 6,
         "isExtraImport": true,
@@ -266,28 +434,20 @@
         "documentation": {}
     },
     {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "os",
         "description": "os",
         "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -318,29 +478,29 @@
         "documentation": {}
     },
     {
-        "label": "authentication",
-        "kind": 2,
+        "label": "UserDataManager",
+        "kind": 6,
         "importPath": "myflask.forms",
         "description": "myflask.forms",
-        "peekOfCode": "def authentication():\n  return render_template('authentification.html')\n@app.route('/login', methods=['GET', 'POST'])\ndef login():\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    session.permanent = True\n    user = User.query.filter_by(username=username).first()\n    if user and check_password_hash(user.password, password):",
+        "peekOfCode": "class UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod\n  def save_users(users):\n    with open(config.USERS_FILE, 'w') as f:",
         "detail": "myflask.forms",
         "documentation": {}
     },
     {
-        "label": "login",
-        "kind": 2,
+        "label": "UserRegistrationForm",
+        "kind": 6,
         "importPath": "myflask.forms",
         "description": "myflask.forms",
-        "peekOfCode": "def login():\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    session.permanent = True\n    user = User.query.filter_by(username=username).first()\n    if user and check_password_hash(user.password, password):\n      login_user(user)\n      flash('Logged in successfully.')\n      return redirect(url_for('profile'))",
+        "peekOfCode": "class UserRegistrationForm:\n  \"\"\"\n  A class representing a user registration form.\n  Args:\n    username (str): The username of the user.\n    email (str): The email address of the user.\n    password (str): The password of the user.\n  Attributes:\n    username (str): The username of the user.\n    email (str): The email address of the user.",
         "detail": "myflask.forms",
         "documentation": {}
     },
     {
-        "label": "logout",
+        "label": "load_user",
         "kind": 2,
         "importPath": "myflask.forms",
         "description": "myflask.forms",
-        "peekOfCode": "def logout():\n  logout_user()\n  flash('Logged out successfully.')\n  return redirect(url_for('index'))\ndef read_users():\n    try:\n        with open(USERS_FILE, 'r') as file:\n            users_data = json.load(file)\n    except (FileNotFoundError, json.JSONDecodeError):\n        users_data = []",
+        "peekOfCode": "def load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod",
         "detail": "myflask.forms",
         "documentation": {}
     },
@@ -349,7 +509,7 @@
         "kind": 2,
         "importPath": "myflask.forms",
         "description": "myflask.forms",
-        "peekOfCode": "def read_users():\n    try:\n        with open(USERS_FILE, 'r') as file:\n            users_data = json.load(file)\n    except (FileNotFoundError, json.JSONDecodeError):\n        users_data = []\n    return users_data\ndef write_users(users_data):\n    with open(USERS_FILE, 'w') as file:\n        json.dump(users_data, file)",
+        "peekOfCode": "def read_users():\n  \"\"\"\n  Read the user data from the USERS_FILE.\n  Returns:\n    list: The list of user data.\n  \"\"\"\n  try:\n    with open(USERS_FILE, 'r') as file:\n      users_data = json.load(file)\n  except (FileNotFoundError, json.JSONDecodeError):",
         "detail": "myflask.forms",
         "documentation": {}
     },
@@ -358,7 +518,7 @@
         "kind": 2,
         "importPath": "myflask.forms",
         "description": "myflask.forms",
-        "peekOfCode": "def write_users(users_data):\n    with open(USERS_FILE, 'w') as file:\n        json.dump(users_data, file)\n@app.route('/register', methods=['GET', 'POST'])\ndef register():\n    if request.method == 'POST':\n        username = request.form['username']\n        email = request.form['email']\n        password = request.form['password']\n        users_data = read_users()",
+        "peekOfCode": "def write_users(users_data):\n  \"\"\"\n  Write the user data to the USERS_FILE.\n  Args:\n    users_data (list): The list of user data.\n  \"\"\"\n  with open(USERS_FILE, 'w') as file:\n    json.dump(users_data, file)\n@app.route('/register', methods=['GET', 'POST'])\ndef register():",
         "detail": "myflask.forms",
         "documentation": {}
     },
@@ -367,17 +527,53 @@
         "kind": 2,
         "importPath": "myflask.forms",
         "description": "myflask.forms",
-        "peekOfCode": "def register():\n    if request.method == 'POST':\n        username = request.form['username']\n        email = request.form['email']\n        password = request.form['password']\n        users_data = read_users()\n        existing_user = next((user for user in users_data if user['username'] == username or user['email'] == email), None)\n        if existing_user:\n            flash('Username or email already exists.')\n            return redirect(url_for('register'))",
+        "peekOfCode": "def register():\n  \"\"\"\n  Route for user registration.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    email = request.form['email']\n    password = request.form['password']",
         "detail": "myflask.forms",
         "documentation": {}
     },
     {
-        "label": "UserDataManager",
-        "kind": 6,
-        "importPath": "myflask.models",
-        "description": "myflask.models",
-        "peekOfCode": "class UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod\n  def save_users(users):\n    with open(config.USERS_FILE, 'w') as f:",
-        "detail": "myflask.models",
+        "label": "login",
+        "kind": 2,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "def login():\n  \"\"\"\n  Route for user login.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    session.permanent = True",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "def logout():\n  \"\"\"\n  Route for user logout.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  logout_user()\n  flash('Logged out successfully.')\n  return redirect(url_for('index'))",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager",
+        "kind": 5,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager.login_view",
+        "kind": 5,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "login_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)",
+        "detail": "myflask.forms",
+        "documentation": {}
+    },
+    {
+        "label": "users",
+        "kind": 5,
+        "importPath": "myflask.forms",
+        "description": "myflask.forms",
+        "peekOfCode": "users = UserDataManager.load_users()\nclass UserRegistrationForm:\n  \"\"\"\n  A class representing a user registration form.\n  Args:\n    username (str): The username of the user.\n    email (str): The email address of the user.\n    password (str): The password of the user.\n  Attributes:\n    username (str): The username of the user.",
+        "detail": "myflask.forms",
         "documentation": {}
     },
     {
@@ -390,65 +586,11 @@
         "documentation": {}
     },
     {
-        "label": "load_user",
-        "kind": 2,
-        "importPath": "myflask.models",
-        "description": "myflask.models",
-        "peekOfCode": "def load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod",
-        "detail": "myflask.models",
-        "documentation": {}
-    },
-    {
         "label": "recipes_data",
         "kind": 5,
         "importPath": "myflask.models",
         "description": "myflask.models",
-        "peekOfCode": "recipes_data = []\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod",
-        "detail": "myflask.models",
-        "documentation": {}
-    },
-    {
-        "label": "USERS_FILE",
-        "kind": 5,
-        "importPath": "myflask.models",
-        "description": "myflask.models",
-        "peekOfCode": "USERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():",
-        "detail": "myflask.models",
-        "documentation": {}
-    },
-    {
-        "label": "RECIPES_FILE",
-        "kind": 5,
-        "importPath": "myflask.models",
-        "description": "myflask.models",
-        "peekOfCode": "RECIPES_FILE = 'recipes.json'\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
-        "detail": "myflask.models",
-        "documentation": {}
-    },
-    {
-        "label": "login_manager",
-        "kind": 5,
-        "importPath": "myflask.models",
-        "description": "myflask.models",
-        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
-        "detail": "myflask.models",
-        "documentation": {}
-    },
-    {
-        "label": "login_manager.login_view",
-        "kind": 5,
-        "importPath": "myflask.models",
-        "description": "myflask.models",
-        "peekOfCode": "login_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)",
-        "detail": "myflask.models",
-        "documentation": {}
-    },
-    {
-        "label": "users",
-        "kind": 5,
-        "importPath": "myflask.models",
-        "description": "myflask.models",
-        "peekOfCode": "users = UserDataManager.load_users()\nclass RecipeDataManager:\n  \"\"\"\n  A class that manages the loading and saving of recipes.\n  \"\"\"\n  @staticmethod\n  def load_recipes():\n    \"\"\"\n    Load recipes from a file.\n    Returns:",
+        "peekOfCode": "recipes_data = []\nclass RecipeDataManager:\n  \"\"\"\n  A class that manages the loading and saving of recipes.\n  \"\"\"\n  @staticmethod\n  def load_recipes():\n    \"\"\"\n    Load recipes from a file.\n    Returns:",
         "detail": "myflask.models",
         "documentation": {}
     },

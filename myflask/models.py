@@ -5,36 +5,11 @@ This module contains the models for the Flask application.
 """
 
 import os, json
-from flask import app
-from flask_login import LoginManager
-import config
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, login_required
+from config import app, RECIPES_FILE, 
 
 recipes_data = []
-USERS_FILE = 'users.json'
-RECIPES_FILE = 'recipes.json'
-
-login_manager = LoginManager()
-
-login_manager.login_view = 'login'
-
-@login_manager.user_loader
-def load_user(user_id):
-  return User.query.get(user_id)
-
-class UserDataManager:
-  @staticmethod
-  def load_users():
-    if os.path.exists(config.USERS_FILE):
-      with open(config.USERS_FILE, 'r') as f:
-        return json.load(f)
-    return {}
-
-  @staticmethod
-  def save_users(users):
-    with open(config.USERS_FILE, 'w') as f:
-      json.dump(users, f)
-
-users = UserDataManager.load_users()
 
 class RecipeDataManager:
   """
