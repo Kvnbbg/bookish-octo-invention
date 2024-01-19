@@ -1,8 +1,9 @@
 from flask import Flask, app, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
-from .models import User
-from . import db
+from instance import config
+from config import app, USERS_FILE
+from .models import User, USERS_FILE
 
 @app.route('/authentification')
 def authentication():
@@ -14,6 +15,7 @@ def login():
   if request.method == 'POST':
     username = request.form['username']
     password = request.form['password']
+    session.permanent = True
     user = User.query.filter_by(username=username).first()
     if user and check_password_hash(user.password, password):
       login_user(user)
@@ -32,36 +34,40 @@ def logout():
   flash('Logged out successfully.')
   return redirect(url_for('index'))
 
+def read_users():
+    try:
+        with open(USERS_FILE, 'r') as file:
+            users_data = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        users_data = []
+    return users_data
+
+def write_users(users_data):
+    with open(USERS_FILE, 'w') as file:
+        json.dump(users_data, file)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-  """
-  Register a new user.
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
 
-  This function handles the registration process for a new user. It accepts both GET and POST requests.
-  If a POST request is received, it retrieves the username, email, and password from the request form.
-  It checks if the username or email already exists in the database. If so, it displays an error message.
-  If the username and email are unique, it hashes the password and creates a new user in the database.
-  Finally, it redirects the user to the login page.
+        users_data = read_users()
 
-  Returns:
-    If a POST request is received and the user is successfully registered, it redirects to the login page.
-    Otherwise, it renders the register.html template.
+        existing_user = next((user for user in users_data if user['username'] == username or user['email'] == email), None)
 
-  """
-  if request.method == 'POST':
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
-    existing_user = User.query.filter(or_(User.username == username, User.email == email)).first()
-    if existing_user:
-      flash('Username already exists.')
-      return redirect(url_for('register'))
-    else:
-      hashed_password = generate_password_hash(password)
-      new_user = User(username=username, email=email, password=hashed_password)
-      db.session.add(new_user)
-      db.session.commit()
-      flash('User created successfully.')
-      return redirect(url_for('login'))
-  return render_template('register.html')
+        if existing_user:
+            flash('Username or email already exists.')
+            return redirect(url_for('register'))
+        else:
+            hashed_password = generate_password_hash(password)
+            new_user = {'username': username, 'email': email, 'password': hashed_password}
+            users_data.append(new_user)
+            write_users(users_data)
+
+            flash('User created successfully.')
+            return redirect(url_for('login'))
+
+    return render_template('register.html')
+

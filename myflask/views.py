@@ -1,13 +1,14 @@
-import os
-import json
-from flask import render_template, request, redirect, url_for, flash
+import os, json
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+from datetime import timedelta
 from flask_login import login_required, login_user, logout_user, UserMixin
-from werkzeug.security import check_password_hash, generate_password_hash
-from sqlalchemy import or_
 from .models import Recipe, User
 from . import app, db, login_manager
+from .forms import LoginForm, RegisterForm, RecipeForm
 
 # views.py
+
+
 
 @app.route('/')
 def index():
@@ -17,14 +18,6 @@ def index():
     app.logger.exception(e)
     return render_template('500.html'), 500
 
-@app.route('/<wi>')
-def wrong_input(wi):
-  try:
-    return "hi, "+ wi + " is an invalid syntax to my flask app! " + "Hope you are doing well!"
-  except Exception as e:
-    app.logger.exception(e)
-    return render_template('500.html'), 500
-  
 @app.route('/profile') # profile argument replace user argument or username
 @login_required
 def profile():
@@ -50,6 +43,15 @@ def profile_username(username):
     app.logger.exception(e)
     flash("An unexpected error occurred. Please try again later or contact the administrator.", 'error')
     return redirect(url_for('index'))
+
+@app.route('/<wi>')
+def wrong_input(wi):
+  try:
+    return "<p>"wi + " is an invalid syntax to my flask app! " + "Hope you are doing well!</p>"
+  except Exception as e:
+    app.logger.exception(e)
+    return render_template('500.html'), 500
+
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
 @login_required

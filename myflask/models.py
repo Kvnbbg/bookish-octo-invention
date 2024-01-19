@@ -6,7 +6,6 @@ This module contains the models for the Flask application.
 
 import os, json
 from flask import app
-
 from flask_login import LoginManager
 import config
 

@@ -1,21 +1,15 @@
 import os
 from flask import Flask
+from datetime import timedelta
+
 """
 This module contains the configuration settings for the application.
 """
 
 USERS_FILE = 'users.json'
 RECIPES_FILE = 'recipes.json'
-SESSION = 'my_session'
+app.permanent_session_lifetime = timedelta(minutes=5)
 
-DEBUG = False
+DEBUG = False # Set to True if you are debugging
 
 app = Flask(__name__)
-
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SESSION_FILE_DIR'] = os.path.join(os.getcwd(), 'flask_session')
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['SESSION_PERMANENT'] = False
-app.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours in seconds
