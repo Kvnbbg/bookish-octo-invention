@@ -6,7 +6,7 @@ from instance import config
 from config import app, USERS_FILE
 
 login_manager = LoginManager()
-
+app.permanent_session_lifetime = timedelta(minutes=5)
 login_manager.login_view = 'login'
 
 @login_manager.user_loader

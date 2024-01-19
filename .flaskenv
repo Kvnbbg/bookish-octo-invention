@@ -1,1 +1,1 @@
-FLASK_APP=myflask
+FLASK_APP=myapp

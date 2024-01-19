@@ -6,8 +6,6 @@ from .forms import LoginForm, RegisterForm, RecipeForm
 
 # views.py
 
-
-
 @app.route('/')
 def index():
   try:
