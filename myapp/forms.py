@@ -1,14 +1,16 @@
 import flask
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import render_template, request, session, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
-from instance import config
-from config import app, USERS_FILE
+from config import USERS_FILE
+from datetime import timedelta
+import os, json
+
 
 login_manager = LoginManager()
-app.permanent_session_lifetime = timedelta(minutes=5)
-login_manager.login_view = 'login'
 
+login_manager.login_view = 'login'
+login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
   return User.query.get(user_id)
@@ -72,71 +74,5 @@ def write_users(users_data):
   with open(USERS_FILE, 'w') as file:
     json.dump(users_data, file)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-  """
-  Route for user registration.
-
-  Returns:
-    flask.Response: The response object.
-  """
-  if request.method == 'POST':
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
-
-    users_data = read_users()
-
-    existing_user = next((user for user in users_data if user['username'] == username or user['email'] == email), None)
-
-    if existing_user:
-      flash('Username or email already exists.')
-      return redirect(url_for('register'))
-    else:
-      hashed_password = generate_password_hash(password)
-      new_user = {'username': username, 'email': email, 'password': hashed_password}
-      users_data.append(new_user)
-      write_users(users_data)
-
-      flash('User created successfully.')
-      return redirect(url_for('login'))
-
-  return render_template('register.html')
-  
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-  """
-  Route for user login.
-
-  Returns:
-    flask.Response: The response object.
-  """
-  if request.method == 'POST':
-    username = request.form['username']
-    password = request.form['password']
-    session.permanent = True
-    session['username'] = username
-    user = User.query.filter_by(username=username).first()
-    if user and check_password_hash(user.password, password):
-      login_user(user)
-      flash('Logged in successfully.')
-      return redirect(url_for('profile'))
-    else:
-      flash('Invalid username/password combination.')
-      return redirect(url_for('login'))
-  return render_template('login.html')
-
-@app.route('/logout')
-@login_required
-def logout():
-  """
-  Route for user logout.
-
-  Returns:
-    flask.Response: The response object.
-  """
-  logout_user()
-  flash('Logged out successfully.')
-  return redirect(url_for('index'))
 
 

@@ -1,8 +1,10 @@
-import os, json
-from flask import Flask, render_template, request, session, redirect, url_for, flash
-from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, login_required
-from .models import Recipe, User
-from .forms import LoginForm, RegisterForm, RecipeForm
+import os
+import json
+import config
+from flask import render_template, request, session, redirect, url_for, flash
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
+from myapp import models, forms
+
 
 # views.py
 
@@ -13,6 +15,74 @@ def index():
   except Exception as e:
     app.logger.exception(e)
     return render_template('500.html'), 500
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+  """
+  Route for user registration.
+
+  Returns:
+    flask.Response: The response object.
+  """
+  if request.method == 'POST':
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+
+    users_data = read_users()
+
+    existing_user = next((user for user in users_data if user['username'] == username or user['email'] == email), None)
+
+    if existing_user:
+      flash('Username or email already exists.')
+      return redirect(url_for('register'))
+    else:
+      hashed_password = generate_password_hash(password)
+      new_user = {'username': username, 'email': email, 'password': hashed_password}
+      users_data.append(new_user)
+      write_users(users_data)
+
+      flash('User created successfully.')
+      return redirect(url_for('login'))
+
+  return render_template('register.html')
+  
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+  """
+  Route for user login.
+
+  Returns:
+    flask.Response: The response object.
+  """
+  if request.method == 'POST':
+    username = request.form['username']
+    password = request.form['password']
+    session.permanent = True
+    session['username'] = username
+    user = User.query.filter_by(username=username).first()
+    if user and check_password_hash(user.password, password):
+      login_user(user)
+      flash('Logged in successfully.')
+      return redirect(url_for('profile'))
+    else:
+      flash('Invalid username/password combination.')
+      return redirect(url_for('login'))
+  return render_template('login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+  """
+  Route for user logout.
+
+  Returns:
+    flask.Response: The response object.
+  """
+  logout_user()
+  flash('Logged out successfully.')
+  return redirect(url_for('index'))
 
 @app.route('/profile') # profile argument replace user argument or username
 @login_required
@@ -43,7 +113,7 @@ def profile_username(username):
 @app.route('/<wi>')
 def wrong_input(wi):
   try:
-    return "<p>"wi + " is an invalid syntax to my flask app! " + "Hope you are doing well!</p>"
+    return "<p>"+ wi + " is an invalid syntax to my flask app! " + "Hope you are doing well!</p>"
   except Exception as e:
     app.logger.exception(e)
     return render_template('500.html'), 500

@@ -1,14 +1,16 @@
 from flask import Flask
+from myapp import __init__
 
 # app.py
 
 """
 This is the main module of the application.
 """
+__name__ = __init__
 
-app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__)
 
-login_manager.init_app(app)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5000)

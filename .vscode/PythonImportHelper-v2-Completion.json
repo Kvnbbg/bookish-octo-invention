@@ -9,7 +9,7 @@
         "documentation": {}
     },
     {
-        "label": "Flask",
+        "label": "render_template",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -17,7 +17,39 @@
         "documentation": {}
     },
     {
-        "label": "Flask",
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -73,14 +105,6 @@
         "documentation": {}
     },
     {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "render_template",
         "importPath": "flask",
         "description": "flask",
@@ -122,70 +146,6 @@
     },
     {
         "label": "flash",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "render_template",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "request",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "session",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "url_for",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "flash",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "Flask",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -313,14 +273,6 @@
         "documentation": {}
     },
     {
-        "label": "login_required",
-        "importPath": "flask_login",
-        "description": "flask_login",
-        "isExtraImport": true,
-        "detail": "flask_login",
-        "documentation": {}
-    },
-    {
         "label": "login_user",
         "importPath": "flask_login",
         "description": "flask_login",
@@ -354,14 +306,6 @@
     },
     {
         "label": "current_user",
-        "importPath": "flask_login",
-        "description": "flask_login",
-        "isExtraImport": true,
-        "detail": "flask_login",
-        "documentation": {}
-    },
-    {
-        "label": "login_required",
         "importPath": "flask_login",
         "description": "flask_login",
         "isExtraImport": true,
@@ -386,17 +330,10 @@
     },
     {
         "label": "config",
-        "importPath": "instance",
-        "description": "instance",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "instance",
-        "documentation": {}
-    },
-    {
-        "label": "app",
         "importPath": "config",
         "description": "config",
-        "isExtraImport": true,
         "detail": "config",
         "documentation": {}
     },
@@ -409,19 +346,11 @@
         "documentation": {}
     },
     {
-        "label": "app",
-        "importPath": "config",
-        "description": "config",
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
         "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "RECIPES_FILE",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -443,11 +372,108 @@
         "documentation": {}
     },
     {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
+        "label": "json",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "datetime",
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "myapp",
+        "description": "myapp",
+        "isExtraImport": true,
+        "detail": "myapp",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "myapp",
+        "description": "myapp",
+        "isExtraImport": true,
+        "detail": "myapp",
+        "documentation": {}
+    },
+    {
+        "label": "__init__",
+        "importPath": "myapp",
+        "description": "myapp",
+        "isExtraImport": true,
+        "detail": "myapp",
+        "documentation": {}
+    },
+    {
+        "label": "DB_HOST",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "DB_HOST = \"actual_host\"\nDB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "DB_USER",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "DB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "DB_PASSWORD",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "DB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "DB_NAME",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "DB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "ADDITIONAL_PARAM1",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "ADDITIONAL_PARAM1 = \"actual_value1\"\nADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "ADDTIONAL_PARAM2",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "ADDTIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "USERS_FILE",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "USERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "RECIPES_FILE",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "RECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
         "documentation": {}
     },
     {
@@ -455,25 +481,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DEBUG = True\napp = Flask(__name__)\napp.secret_key = 'my_secret_key_is_hello'  # Replace with a more secure secret key",
-        "detail": "instance.config",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "kind": 5,
-        "importPath": "instance.config",
-        "description": "instance.config",
-        "peekOfCode": "app = Flask(__name__)\napp.secret_key = 'my_secret_key_is_hello'  # Replace with a more secure secret key",
-        "detail": "instance.config",
-        "documentation": {}
-    },
-    {
-        "label": "app.secret_key",
-        "kind": 5,
-        "importPath": "instance.config",
-        "description": "instance.config",
-        "peekOfCode": "app.secret_key = 'my_secret_key_is_hello'  # Replace with a more secure secret key",
+        "peekOfCode": "DEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -518,34 +526,7 @@
         "kind": 2,
         "importPath": "myapp.forms",
         "description": "myapp.forms",
-        "peekOfCode": "def write_users(users_data):\n  \"\"\"\n  Write the user data to the USERS_FILE.\n  Args:\n    users_data (list): The list of user data.\n  \"\"\"\n  with open(USERS_FILE, 'w') as file:\n    json.dump(users_data, file)\n@app.route('/register', methods=['GET', 'POST'])\ndef register():",
-        "detail": "myapp.forms",
-        "documentation": {}
-    },
-    {
-        "label": "register",
-        "kind": 2,
-        "importPath": "myapp.forms",
-        "description": "myapp.forms",
-        "peekOfCode": "def register():\n  \"\"\"\n  Route for user registration.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    email = request.form['email']\n    password = request.form['password']",
-        "detail": "myapp.forms",
-        "documentation": {}
-    },
-    {
-        "label": "login",
-        "kind": 2,
-        "importPath": "myapp.forms",
-        "description": "myapp.forms",
-        "peekOfCode": "def login():\n  \"\"\"\n  Route for user login.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    session.permanent = True",
-        "detail": "myapp.forms",
-        "documentation": {}
-    },
-    {
-        "label": "logout",
-        "kind": 2,
-        "importPath": "myapp.forms",
-        "description": "myapp.forms",
-        "peekOfCode": "def logout():\n  \"\"\"\n  Route for user logout.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  logout_user()\n  flash('Logged out successfully.')\n  return redirect(url_for('index'))",
+        "peekOfCode": "def write_users(users_data):\n  \"\"\"\n  Write the user data to the USERS_FILE.\n  Args:\n    users_data (list): The list of user data.\n  \"\"\"\n  with open(USERS_FILE, 'w') as file:\n    json.dump(users_data, file)",
         "detail": "myapp.forms",
         "documentation": {}
     },
@@ -554,16 +535,7 @@
         "kind": 5,
         "importPath": "myapp.forms",
         "description": "myapp.forms",
-        "peekOfCode": "login_manager = LoginManager()\napp.permanent_session_lifetime = timedelta(minutes=5)\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
-        "detail": "myapp.forms",
-        "documentation": {}
-    },
-    {
-        "label": "app.permanent_session_lifetime",
-        "kind": 5,
-        "importPath": "myapp.forms",
-        "description": "myapp.forms",
-        "peekOfCode": "app.permanent_session_lifetime = timedelta(minutes=5)\nlogin_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.init_app(app)\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
         "detail": "myapp.forms",
         "documentation": {}
     },
@@ -572,7 +544,7 @@
         "kind": 5,
         "importPath": "myapp.forms",
         "description": "myapp.forms",
-        "peekOfCode": "login_manager.login_view = 'login'\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)",
+        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.init_app(app)\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
         "detail": "myapp.forms",
         "documentation": {}
     },
@@ -590,7 +562,16 @@
         "kind": 6,
         "importPath": "myapp.models",
         "description": "myapp.models",
-        "peekOfCode": "class RecipeDataManager:\n  \"\"\"\n  A class that manages the loading and saving of recipes.\n  \"\"\"\n  @staticmethod\n  def load_recipes():\n    \"\"\"\n    Load recipes from a file.\n    Returns:\n      If the file exists and is not empty, returns the loaded recipes as a dictionary.",
+        "peekOfCode": "class RecipeDataManager:\n    \"\"\"\n    A class that manages the loading and saving of recipes.\n    \"\"\"\n    @staticmethod\n    def load_recipes():\n        \"\"\"\n        Load recipes from a file.\n        Returns:\n            If the file exists and is not empty, returns the loaded recipes as a dictionary.",
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "recipe_manager",
+        "kind": 5,
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "peekOfCode": "recipe_manager = RecipeDataManager()\nrecipes_data = recipe_manager.load_recipes()",
         "detail": "myapp.models",
         "documentation": {}
     },
@@ -599,16 +580,7 @@
         "kind": 5,
         "importPath": "myapp.models",
         "description": "myapp.models",
-        "peekOfCode": "recipes_data = []\nclass RecipeDataManager:\n  \"\"\"\n  A class that manages the loading and saving of recipes.\n  \"\"\"\n  @staticmethod\n  def load_recipes():\n    \"\"\"\n    Load recipes from a file.\n    Returns:",
-        "detail": "myapp.models",
-        "documentation": {}
-    },
-    {
-        "label": "recipes_data",
-        "kind": 5,
-        "importPath": "myapp.models",
-        "description": "myapp.models",
-        "peekOfCode": "recipes_data = RecipeDataManager.load_recipes()",
+        "peekOfCode": "recipes_data = recipe_manager.load_recipes()",
         "detail": "myapp.models",
         "documentation": {}
     },
@@ -617,7 +589,34 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/profile') # profile argument replace user argument or username\n@login_required\ndef profile():\n  return render_template('profile.html')",
+        "peekOfCode": "def index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/register', methods=['GET', 'POST'])\ndef register():\n  \"\"\"\n  Route for user registration.",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def register():\n  \"\"\"\n  Route for user registration.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    email = request.form['email']\n    password = request.form['password']",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def login():\n  \"\"\"\n  Route for user login.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    session.permanent = True",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def logout():\n  \"\"\"\n  Route for user logout.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  logout_user()\n  flash('Logged out successfully.')\n  return redirect(url_for('index'))\n@app.route('/profile') # profile argument replace user argument or username",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -644,7 +643,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def wrong_input(wi):\n  try:\n    return \"<p>\"wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!</p>\"\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/add_recipe', methods=['GET', 'POST'])\n@login_required\ndef add_recipe():\n  \"\"\"",
+        "peekOfCode": "def wrong_input(wi):\n  try:\n    return \"<p>\"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!</p>\"\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@app.route('/add_recipe', methods=['GET', 'POST'])\n@login_required\ndef add_recipe():\n  \"\"\"",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -766,48 +765,21 @@
         "documentation": {}
     },
     {
-        "label": "app",
+        "label": "__name__",
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "app = Flask(__name__, instance_relative_config=True)\nlogin_manager.init_app(app)\nif __name__ == '__main__':\n    app.run(debug=True, host=\"0.0.0.0\", port=5000)",
+        "peekOfCode": "__name__ = __init__\napp = Flask(__name__)\nif __name__ == '__main__':\n    app.run(debug=True, host=\"0.0.0.0\", port=5000)",
         "detail": "app",
         "documentation": {}
     },
     {
-        "label": "USERS_FILE",
-        "kind": 5,
-        "importPath": "config",
-        "description": "config",
-        "peekOfCode": "USERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = False # Set to True if you are debugging\napp = Flask(__name__)",
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "RECIPES_FILE",
-        "kind": 5,
-        "importPath": "config",
-        "description": "config",
-        "peekOfCode": "RECIPES_FILE = 'recipes.json'\nDEBUG = False # Set to True if you are debugging\napp = Flask(__name__)",
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "DEBUG",
-        "kind": 5,
-        "importPath": "config",
-        "description": "config",
-        "peekOfCode": "DEBUG = False # Set to True if you are debugging\napp = Flask(__name__)",
-        "detail": "config",
-        "documentation": {}
-    },
-    {
         "label": "app",
         "kind": 5,
-        "importPath": "config",
-        "description": "config",
-        "peekOfCode": "app = Flask(__name__)",
-        "detail": "config",
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\nif __name__ == '__main__':\n    app.run(debug=True, host=\"0.0.0.0\", port=5000)",
+        "detail": "app",
         "documentation": {}
     }
 ]
