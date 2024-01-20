@@ -291,11 +291,27 @@
         "documentation": {}
     },
     {
-        "label": "models",
-        "importPath": "myapp",
-        "description": "myapp",
+        "label": "Recipe",
+        "importPath": "myapp.models",
+        "description": "myapp.models",
         "isExtraImport": true,
-        "detail": "myapp",
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "RecipeDataManager",
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "isExtraImport": true,
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "isExtraImport": true,
+        "detail": "myapp.models",
         "documentation": {}
     },
     {
@@ -455,7 +471,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def login():\n    print(' views.py login() function called')\n    if request.method == 'POST':\n        username = request.form['username']\n        password = request.form['password']\n        user = User.query.filter_by(username=username).first()\n        print('login post method: Ok. User: ', user) \n        if user and check_password_hash(user.password, password):\n            session['username'] = username\n            session.permanent = True",
+        "peekOfCode": "def login():\n    if request.method == 'POST':\n        username = request.form['username']\n        password = request.form['password']\n        # Change the variable name from 'user' to 'existing_user'\n        existing_user = User.query.filter_by(username=username).first()\n        if existing_user and check_password_hash(existing_user.password, password):\n            session['username'] = username\n            session.permanent = True\n            login_user(existing_user)",
         "detail": "myapp.views",
         "documentation": {}
     },

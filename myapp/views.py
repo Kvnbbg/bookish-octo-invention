@@ -8,7 +8,7 @@ from flask import (
     url_for, flash, Blueprint, current_app, config
 )
 from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
-from myapp import models
+from myapp.models import Recipe, RecipeDataManager, User
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
 views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}
@@ -71,24 +71,24 @@ def register():
 
 @views_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    print(' views.py login() function called')
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = User.query.filter_by(username=username).first()
-        print('login post method: Ok. User: ', user) 
-        if user and check_password_hash(user.password, password):
+        
+        # Change the variable name from 'user' to 'existing_user'
+        existing_user = User.query.filter_by(username=username).first()
+
+        if existing_user and check_password_hash(existing_user.password, password):
             session['username'] = username
             session.permanent = True
-            login_user(user)
-            print('Logged in successfully. User: ', user) 
+            login_user(existing_user)
             flash('Logged in successfully.')
-            return redirect(url_for('profile'))
+            return redirect(url_for('views.profile'))
         else:
-            print('Invalid username/password combination. User: ', user)
             flash('Invalid username/password combination.')
-            return redirect(url_for('login'))
+            return redirect(url_for('views.login'))
     return render_template('login.html')
+
 
 @views_bp.route('/logout')
 @login_required
