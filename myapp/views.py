@@ -7,8 +7,9 @@ from flask import (
     Flask, render_template, request, session, redirect,
     url_for, flash, Blueprint, current_app, config
 )
-from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
-from myapp.models import Recipe, RecipeDataManager, User
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, UserMixin
+from myapp import models
+from instance.config import USERS_FILE
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
 views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}
@@ -16,6 +17,13 @@ views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'  # Bootstrap class for flash messages
+
+class User(UserMixin):
+    def __init__(self, user_id, username, email, password):
+        self.id = user_id
+        self.username = username
+        self.email = email
+        self.password = password
 
 class UserDataManager:
     @staticmethod
@@ -33,7 +41,14 @@ class UserDataManager:
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    # Load user from your data source (e.g., JSON file) and return a User object
+    users_data = UserDataManager.load_users()
+    user_data = next((user for user in users_data if user['id'] == user_id), None)
+
+    if user_data:
+        return User(user_data['id'], user_data['username'], user_data['email'], user_data['password'])
+    else:
+        return None
 
 @views_bp.route('/')
 def index():
@@ -73,9 +88,7 @@ def register():
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
-        
-        # Change the variable name from 'user' to 'existing_user'
+        password = request.form['password']     # Change the variable name from 'user' to 'existing_user'
         existing_user = User.query.filter_by(username=username).first()
 
         if existing_user and check_password_hash(existing_user.password, password):

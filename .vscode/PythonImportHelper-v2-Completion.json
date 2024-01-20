@@ -267,6 +267,14 @@
         "documentation": {}
     },
     {
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
         "label": "timedelta",
         "importPath": "datetime",
         "description": "datetime",
@@ -291,27 +299,11 @@
         "documentation": {}
     },
     {
-        "label": "Recipe",
-        "importPath": "myapp.models",
-        "description": "myapp.models",
+        "label": "models",
+        "importPath": "myapp",
+        "description": "myapp",
         "isExtraImport": true,
-        "detail": "myapp.models",
-        "documentation": {}
-    },
-    {
-        "label": "RecipeDataManager",
-        "importPath": "myapp.models",
-        "description": "myapp.models",
-        "isExtraImport": true,
-        "detail": "myapp.models",
-        "documentation": {}
-    },
-    {
-        "label": "User",
-        "importPath": "myapp.models",
-        "description": "myapp.models",
-        "isExtraImport": true,
-        "detail": "myapp.models",
+        "detail": "myapp",
         "documentation": {}
     },
     {
@@ -320,6 +312,14 @@
         "description": "myapp",
         "isExtraImport": true,
         "detail": "myapp",
+        "documentation": {}
+    },
+    {
+        "label": "USERS_FILE",
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "isExtraImport": true,
+        "detail": "instance.config",
         "documentation": {}
     },
     {
@@ -431,6 +431,15 @@
         "documentation": {}
     },
     {
+        "label": "User",
+        "kind": 6,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "class User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:\n    @staticmethod\n    def load_users():\n        try:",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
         "label": "UserDataManager",
         "kind": 6,
         "importPath": "myapp.views",
@@ -444,7 +453,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def load_user(user_id):\n    return User.query.get(int(user_id))\n@views_bp.route('/')\ndef index():\n    print(\"views.py index() function called\")\n    try:\n        return render_template('index.html')\n    except Exception as e:\n        current_app.logger.exception(e)\n        return render_template('500.html'), 500",
+        "peekOfCode": "def load_user(user_id):\n    # Load user from your data source (e.g., JSON file) and return a User object\n    users_data = UserDataManager.load_users()\n    user_data = next((user for user in users_data if user['id'] == user_id), None)\n    if user_data:\n        return User(user_data['id'], user_data['username'], user_data['email'], user_data['password'])\n    else:\n        return None\n@views_bp.route('/')\ndef index():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -624,7 +633,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "views_bp = Blueprint('views', __name__, template_folder='templates')\nviews_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass UserDataManager:\n    @staticmethod\n    def load_users():\n        try:\n            with open(config.USERS_FILE, 'r') as f:",
+        "peekOfCode": "views_bp = Blueprint('views', __name__, template_folder='templates')\nviews_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -633,7 +642,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass UserDataManager:\n    @staticmethod\n    def load_users():\n        try:\n            with open(config.USERS_FILE, 'r') as f:\n                return json.load(f)",
+        "peekOfCode": "views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -642,7 +651,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass UserDataManager:\n    @staticmethod\n    def load_users():\n        try:\n            with open(config.USERS_FILE, 'r') as f:\n                return json.load(f)\n        except FileNotFoundError:",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -651,7 +660,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass UserDataManager:\n    @staticmethod\n    def load_users():\n        try:\n            with open(config.USERS_FILE, 'r') as f:\n                return json.load(f)\n        except FileNotFoundError:\n            return {}",
+        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:\n    @staticmethod",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -660,7 +669,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass UserDataManager:\n    @staticmethod\n    def load_users():\n        try:\n            with open(config.USERS_FILE, 'r') as f:\n                return json.load(f)\n        except FileNotFoundError:\n            return {}\n    @staticmethod",
+        "peekOfCode": "login_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:\n    @staticmethod\n    def load_users():",
         "detail": "myapp.views",
         "documentation": {}
     }
