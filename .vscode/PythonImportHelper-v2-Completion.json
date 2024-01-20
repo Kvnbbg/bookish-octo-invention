@@ -187,14 +187,6 @@
         "documentation": {}
     },
     {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "login_required",
         "importPath": "flask_login",
         "description": "flask_login",
@@ -355,6 +347,22 @@
         "documentation": {}
     },
     {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "myapp",
         "description": "myapp",
@@ -363,15 +371,7 @@
         "documentation": {}
     },
     {
-        "label": "forms",
-        "importPath": "myapp",
-        "description": "myapp",
-        "isExtraImport": true,
-        "detail": "myapp",
-        "documentation": {}
-    },
-    {
-        "label": "__init__",
+        "label": "create_app",
         "importPath": "myapp",
         "description": "myapp",
         "isExtraImport": true,
@@ -576,11 +576,29 @@
         "documentation": {}
     },
     {
+        "label": "UserDataManager",
+        "kind": 6,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "class UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod\n  def save_users(users):\n    with open(config.USERS_FILE, 'w') as f:",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "UserRegistrationForm",
+        "kind": 6,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "class UserRegistrationForm:\n  \"\"\"\n  A class representing a user registration form.\n  Args:\n    username (str): The username of the user.\n    email (str): The email address of the user.\n    password (str): The password of the user.\n  Attributes:\n    username (str): The username of the user.\n    email (str): The email address of the user.",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
         "label": "index",
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])\ndef register():\n  \"\"\"\n  Route for user registration.",
+        "peekOfCode": "def index():\n  print(\"views.py index() function called\")\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])\ndef register():\n  \"\"\"",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -590,6 +608,33 @@
         "importPath": "myapp.views",
         "description": "myapp.views",
         "peekOfCode": "def register():\n  \"\"\"\n  Route for user registration.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    email = request.form['email']\n    password = request.form['password']",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "read_users",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def read_users():\n  \"\"\"\n  Read the user data from the USERS_FILE.\n  Returns:\n    list: The list of user data.\n  \"\"\"\n  try:\n    with open(USERS_FILE, 'r') as file:\n      users_data = json.load(file)\n  except (FileNotFoundError, json.JSONDecodeError):",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "write_users",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def write_users(users_data):\n  \"\"\"\n  Write the user data to the USERS_FILE.\n  Args:\n    users_data (list): The list of user data.\n  \"\"\"\n  with open(USERS_FILE, 'w') as file:\n    json.dump(users_data, file)\n@views_bp.route('/login', methods=['GET', 'POST'])\ndef login():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -616,7 +661,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  try:\n    # Check if the username contains only valid characters\n    if not username.isalnum():\n      raise ValueError(f\"Invalid input: {username}\")\n    # Your existing logic here",
+        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n  except ValueError as ve:\n    app.logger.warning(ve)\n    flash(\"You have entered an invalid input. Please contact the administrator or go to the home page.\", 'error')",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -625,7 +670,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile_username(username):\n  try:\n    # Check if the username contains only valid characters\n    if not username.isalnum():\n      raise ValueError(f\"Invalid input: {username}\")\n    # Your existing logic here\n    return render_template('profile.html', username=username)\n  except ValueError as ve:\n    app.logger.warning(ve)\n    flash(\"You have entered an invalid input. Please contact the administrator or go to the home page.\", 'error')",
+        "peekOfCode": "def profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n  except ValueError as ve:\n    app.logger.warning(ve)\n    flash(\"You have entered an invalid input. Please contact the administrator or go to the home page.\", 'error')\n    return redirect(url_for('index'))\n  except Exception as e:\n    app.logger.exception(e)\n    flash(\"An unexpected error occurred. Please try again later or contact the administrator.\", 'error')",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -760,7 +805,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "permanent_session_lifetime = timedelta(minutes=5)\nviews_bp = Blueprint('views', __name__)\n@views_bp.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])",
+        "peekOfCode": "permanent_session_lifetime = timedelta(minutes=5)\nviews_bp = Blueprint('views', __name__)\n@views_bp.route('/')\ndef index():\n  print(\"views.py index() function called\")\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -769,26 +814,44 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "views_bp = Blueprint('views', __name__)\n@views_bp.route('/')\ndef index():\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])\ndef register():",
+        "peekOfCode": "views_bp = Blueprint('views', __name__)\n@views_bp.route('/')\ndef index():\n  print(\"views.py index() function called\")\n  try:\n    return render_template('index.html')\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])",
         "detail": "myapp.views",
         "documentation": {}
     },
     {
-        "label": "__name__",
+        "label": "login_manager",
         "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "__name__ = '__init__'\napp = Flask(__name__)\nif __name__ == '__main__':\n    app.run()",
-        "detail": "app",
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
+        "detail": "myapp.views",
         "documentation": {}
     },
     {
-        "label": "app",
+        "label": "login_manager.login_view",
         "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "app = Flask(__name__)\nif __name__ == '__main__':\n    app.run()",
-        "detail": "app",
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager.login_message_category",
+        "kind": 5,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "login_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "users",
+        "kind": 5,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "users = UserDataManager.load_users()\nclass UserRegistrationForm:\n  \"\"\"\n  A class representing a user registration form.\n  Args:\n    username (str): The username of the user.\n    email (str): The email address of the user.\n    password (str): The password of the user.\n  Attributes:\n    username (str): The username of the user.",
+        "detail": "myapp.views",
         "documentation": {}
     }
 ]

@@ -6,10 +6,19 @@
 {% block title_header %}Profile{% endblock %}
 
 {% block content %}
+
     <div class="container">
         <h1>Profile</h1>
         <p>Welcome back, {{ current_user.username | capitalize }}!</p>
-
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         <p>Here a few things you can do:</p>
         <ul>
             <li><a href="{{ url_for('add_recipe') }}">Add a new recipe</a></li>
