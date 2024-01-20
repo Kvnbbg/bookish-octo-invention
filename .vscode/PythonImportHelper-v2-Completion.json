@@ -661,7 +661,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n  except ValueError as ve:\n    app.logger.warning(ve)\n    flash(\"You have entered an invalid input. Please contact the administrator or go to the home page.\", 'error')",
+        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n@views_bp.route('/<wi>')\ndef wrong_input(wi):\n  try:",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -670,7 +670,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n  except ValueError as ve:\n    app.logger.warning(ve)\n    flash(\"You have entered an invalid input. Please contact the administrator or go to the home page.\", 'error')\n    return redirect(url_for('index'))\n  except Exception as e:\n    app.logger.exception(e)\n    flash(\"An unexpected error occurred. Please try again later or contact the administrator.\", 'error')",
+        "peekOfCode": "def profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n@views_bp.route('/<wi>')\ndef wrong_input(wi):\n  try:\n    return \"<p>\"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!</p>\"\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500",
         "detail": "myapp.views",
         "documentation": {}
     },

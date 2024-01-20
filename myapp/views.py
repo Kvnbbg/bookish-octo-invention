@@ -172,16 +172,6 @@ def profile_username(username):
   flash(f"Hi {username}!")
   return render_template('profile.html', username=username)
 
-  except ValueError as ve:
-    app.logger.warning(ve)
-    flash("You have entered an invalid input. Please contact the administrator or go to the home page.", 'error')
-    return redirect(url_for('index'))
-
-  except Exception as e:
-    app.logger.exception(e)
-    flash("An unexpected error occurred. Please try again later or contact the administrator.", 'error')
-    return redirect(url_for('index'))
-
 @views_bp.route('/<wi>')
 def wrong_input(wi):
   try:
