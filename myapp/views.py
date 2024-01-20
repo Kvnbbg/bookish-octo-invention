@@ -1,7 +1,7 @@
 import os
 import json
 from datetime import timedelta
-import config
+from config import USERS_FILE, RECIPES_FILE, DEBUG, ADDITIONAL_PARAM1
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import (
     Flask, render_template, request, session, redirect,
@@ -9,7 +9,6 @@ from flask import (
 )
 from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, UserMixin
 from myapp import models
-from instance.config import USERS_FILE
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
 views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}
@@ -102,10 +101,12 @@ def login():
             session.permanent = True
             login_user(existing_user)
             flash('Logged in successfully.')
-            return redirect(url_for('views.profile'))
+            print('Logged in successfully.')
+            return redirect(url_for('profile'))
         else:
             flash('Invalid username/password combination.')
-            return redirect(url_for('views.login'))
+            print('Invalid username/password combination.')
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 @views_bp.route('/logout')

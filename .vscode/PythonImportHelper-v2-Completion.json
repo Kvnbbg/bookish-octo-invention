@@ -27,6 +27,38 @@
         "documentation": {}
     },
     {
+        "label": "USERS_FILE",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "RECIPES_FILE",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "ADDITIONAL_PARAM1",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
         "label": "render_template",
         "importPath": "flask",
         "description": "flask",
@@ -299,19 +331,11 @@
         "documentation": {}
     },
     {
-        "label": "USERS_FILE",
-        "importPath": "instance.config",
-        "description": "instance.config",
-        "isExtraImport": true,
-        "detail": "instance.config",
-        "documentation": {}
-    },
-    {
         "label": "DB_HOST",
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_HOST = \"actual_host\"\nDB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_HOST = \"actual_host\"\nDB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nSECRET_KEY = 'my_secret_key'\nADDITIONAL_PARAM1  = SECRET_KEY\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -320,7 +344,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nSECRET_KEY = 'my_secret_key'\nADDITIONAL_PARAM1  = SECRET_KEY\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -329,7 +353,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nSECRET_KEY = 'my_secret_key'\nADDITIONAL_PARAM1  = SECRET_KEY\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -338,7 +362,16 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_NAME = \"actual_db_name\"\nSECRET_KEY = 'my_secret_key'\nADDITIONAL_PARAM1  = SECRET_KEY\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "detail": "instance.config",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "instance.config",
+        "description": "instance.config",
+        "peekOfCode": "SECRET_KEY = 'my_secret_key'\nADDITIONAL_PARAM1  = SECRET_KEY\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },

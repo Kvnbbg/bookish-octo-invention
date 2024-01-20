@@ -1,7 +1,7 @@
 # models.py
 import os
 import json
-import config
+import config as config
 from flask import render_template, request, session, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
 
