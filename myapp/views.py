@@ -1,7 +1,7 @@
 import os
 import json
 from datetime import timedelta
-from config import RECIPES_FILE, USERS_FILE
+import config
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import (
     Flask, render_template, request, session, redirect,
@@ -25,18 +25,23 @@ class User(UserMixin):
         self.email = email
         self.password = password
 
+    @staticmethod
+    def find_by_username(username):
+        users_data = UserDataManager.load_users()
+        return next((User(**user) for user in users_data if user['username'] == username), None)
+
 class UserDataManager:
     @staticmethod
     def load_users():
         try:
-            with open(config.USERS_FILE, 'r') as f:
+            with open(USERS_FILE, 'r') as f:
                 return json.load(f)
         except FileNotFoundError:
             return {}
 
     @staticmethod
     def save_users(users):
-        with open(config.USERS_FILE, 'w') as f:
+        with open(USERS_FILE, 'w') as f:
             json.dump(users, f)
 
 @login_manager.user_loader
@@ -88,8 +93,9 @@ def register():
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']     # Change the variable name from 'user' to 'existing_user'
-        existing_user = User.query.filter_by(username=username).first()
+        password = request.form['password']
+
+        existing_user = User.find_by_username(username)
 
         if existing_user and check_password_hash(existing_user.password, password):
             session['username'] = username
@@ -101,7 +107,6 @@ def login():
             flash('Invalid username/password combination.')
             return redirect(url_for('views.login'))
     return render_template('login.html')
-
 
 @views_bp.route('/logout')
 @login_required

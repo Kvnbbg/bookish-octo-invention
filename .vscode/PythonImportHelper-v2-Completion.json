@@ -27,22 +27,6 @@
         "documentation": {}
     },
     {
-        "label": "RECIPES_FILE",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "USERS_FILE",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
         "label": "render_template",
         "importPath": "flask",
         "description": "flask",
@@ -327,7 +311,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_HOST = \"actual_host\"\nDB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_HOST = \"actual_host\"\nDB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -336,7 +320,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_USER = \"actual_user\"\nDB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -345,7 +329,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_PASSWORD = \"actual_password\"\nDB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -354,16 +338,7 @@
         "kind": 5,
         "importPath": "instance.config",
         "description": "instance.config",
-        "peekOfCode": "DB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
-        "detail": "instance.config",
-        "documentation": {}
-    },
-    {
-        "label": "ADDITIONAL_PARAM1",
-        "kind": 5,
-        "importPath": "instance.config",
-        "description": "instance.config",
-        "peekOfCode": "ADDITIONAL_PARAM1 = \"actual_value1\"\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
+        "peekOfCode": "DB_NAME = \"actual_db_name\"\nADDITIONAL_PARAM1  = secret_key = 'actual_secret_key'\nADDITIONAL_PARAM2 = \"actual_value2\"\nUSERS_FILE = 'users.json'\nRECIPES_FILE = 'recipes.json'\nDEBUG = True # Set to True if you are debugging",
         "detail": "instance.config",
         "documentation": {}
     },
@@ -435,7 +410,7 @@
         "kind": 6,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "class User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:\n    @staticmethod\n    def load_users():\n        try:",
+        "peekOfCode": "class User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):\n        users_data = UserDataManager.load_users()\n        return next((User(**user) for user in users_data if user['username'] == username), None)",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -444,7 +419,7 @@
         "kind": 6,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "class UserDataManager:\n    @staticmethod\n    def load_users():\n        try:\n            with open(config.USERS_FILE, 'r') as f:\n                return json.load(f)\n        except FileNotFoundError:\n            return {}\n    @staticmethod\n    def save_users(users):",
+        "peekOfCode": "class UserDataManager:\n    @staticmethod\n    def load_users():\n        try:\n            with open(USERS_FILE, 'r') as f:\n                return json.load(f)\n        except FileNotFoundError:\n            return {}\n    @staticmethod\n    def save_users(users):",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -480,7 +455,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def login():\n    if request.method == 'POST':\n        username = request.form['username']\n        password = request.form['password']\n        # Change the variable name from 'user' to 'existing_user'\n        existing_user = User.query.filter_by(username=username).first()\n        if existing_user and check_password_hash(existing_user.password, password):\n            session['username'] = username\n            session.permanent = True\n            login_user(existing_user)",
+        "peekOfCode": "def login():\n    if request.method == 'POST':\n        username = request.form['username']\n        password = request.form['password']\n        existing_user = User.find_by_username(username)\n        if existing_user and check_password_hash(existing_user.password, password):\n            session['username'] = username\n            session.permanent = True\n            login_user(existing_user)\n            flash('Logged in successfully.')",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -651,7 +626,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -660,7 +635,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:\n    @staticmethod",
+        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -669,7 +644,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\nclass UserDataManager:\n    @staticmethod\n    def load_users():",
+        "peekOfCode": "login_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):\n        users_data = UserDataManager.load_users()",
         "detail": "myapp.views",
         "documentation": {}
     }
