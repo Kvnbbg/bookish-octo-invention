@@ -57,76 +57,11 @@ def register():
   return render_template('register.html')
 
 
-login_manager = LoginManager()
-
-login_manager.login_view = 'login'
-login_manager.login_message_category = 'info' # Bootstrap class for flash messages
-
-@login_manager.user_loader
-def load_user(user_id):
-  return User.query.get(user_id)
-
-class UserDataManager:
-  @staticmethod
-  def load_users():
-    if os.path.exists(config.USERS_FILE):
-      with open(config.USERS_FILE, 'r') as f:
-        return json.load(f)
-    return {}
-
-  @staticmethod
-  def save_users(users):
-    with open(config.USERS_FILE, 'w') as f:
-      json.dump(users, f)
-
-users = UserDataManager.load_users()
-
-class UserRegistrationForm:
-  """
-  A class representing a user registration form.
-
-  Args:
-    username (str): The username of the user.
-    email (str): The email address of the user.
-    password (str): The password of the user.
-
-  Attributes:
-    username (str): The username of the user.
-    email (str): The email address of the user.
-    password (str): The password of the user.
-  """
-
-  def __init__(self, username, email, password):
-    self.username = username
-    self.email = email
-    self.password = password
-
-def read_users():
-  """
-  Read the user data from the USERS_FILE.
-
-  Returns:
-    list: The list of user data.
-  """
-  try:
-    with open(USERS_FILE, 'r') as file:
-      users_data = json.load(file)
-  except (FileNotFoundError, json.JSONDecodeError):
-    users_data = []
-  return users_data
-
-def write_users(users_data):
-  """
-  Write the user data to the USERS_FILE.
-
-  Args:
-    users_data (list): The list of user data.
-  """
-  with open(USERS_FILE, 'w') as file:
-    json.dump(users_data, file)
-
 @views_bp.route('/login', methods=['GET', 'POST'])
+print('views.py login() routes called')
+
 def login():
+  print(' views.py login() function called')
   """
   Route for user login.
 
@@ -139,11 +74,14 @@ def login():
     session.permanent = True
     session['username'] = username
     user = User.query.filter_by(username=username).first()
+    print('login post method: Ok. User: ', user) # User:  <User 1> or None if user does not exist in database
     if user and check_password_hash(user.password, password):
       login_user(user)
+      print('Logged in successfully. User: ', user) 
       flash('Logged in successfully.')
       return redirect(url_for('profile'))
     else:
+      print('Invalid username/password combination. User: ', user) # User:  None 
       flash('Invalid username/password combination.')
       return redirect(url_for('login'))
   return render_template('login.html')
@@ -162,13 +100,16 @@ def logout():
   return redirect(url_for('index'))
 
 @views_bp.route('/profile') # profile argument replace user argument or username
+ print(' views.py profile() routes called')
 @login_required
 def profile():
+  print('views.py profile() function called with username: ', session['username'])
   return render_template('profile.html')
 
 @views_bp.route('/profile/<username>')
 @login_required
 def profile_username(username):
+  print('views.py profile_username() function called with username: ', username)
   flash(f"Hi {username}!")
   return render_template('profile.html', username=username)
 
@@ -294,3 +235,80 @@ def add_header(response):
   response.cache_control.must_revalidate = True
   response.cache_control.no_store = True
   return response
+
+login_manager = LoginManager()
+
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info' # Bootstrap class for flash messages
+
+@login_manager.user_loader
+def load_user(user_id):
+   print(' views.py load_user() function called')
+  return User.query.get(user_id)
+
+class UserDataManager:
+   print(' views.py UserDataManager() class called')
+  @staticmethod
+  def load_users():
+     print(' views.py UserDataManager() load_users function called')
+    if os.path.exists(config.USERS_FILE):
+      with open(config.USERS_FILE, 'r') as f:
+        return json.load(f)
+    return {}
+
+  @staticmethod
+  def save_users(users):
+    with open(config.USERS_FILE, 'w') as f:
+      json.dump(users, f)
+       print(' views.py UserDataManager() save_users function called with users: ', users)
+
+users = UserDataManager.load_users()
+
+class UserRegistrationForm:
+  """
+  A class representing a user registration form.
+
+  Args:
+    username (str): The username of the user.
+    email (str): The email address of the user.
+    password (str): The password of the user.
+
+  Attributes:
+    username (str): The username of the user.
+    email (str): The email address of the user.
+    password (str): The password of the user.
+  """
+
+  def __init__(self, username, email, password):
+    print(' views.py UserRegistrationForm() function called')
+    self.username = username
+    self.email = email
+    self.password = password
+
+def read_users():
+  print(' views.py read_users() function called')
+  """
+  Read the user data from the USERS_FILE.
+
+  Returns:
+    list: The list of user data.
+  """
+  try:
+    with open(USERS_FILE, 'r') as file:
+      users_data = json.load(file)
+       print(' views.py read_users() function called with users_data: ', users_data)
+  except (FileNotFoundError, json.JSONDecodeError):
+    users_data = []
+     print('error in views.py read_users() function called with users_data: ', users_data')
+  return users_data
+
+def write_users(users_data):
+  """
+  Write the user data to the USERS_FILE.
+
+  Args:
+    users_data (list): The list of user data.
+  """
+  with open(USERS_FILE, 'w') as file:
+    json.dump(users_data, file)
+      print(' views.py write_users() function called with users_data: ', users_data)

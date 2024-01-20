@@ -580,7 +580,7 @@
         "kind": 6,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "class UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod\n  def save_users(users):\n    with open(config.USERS_FILE, 'w') as f:",
+        "peekOfCode": "class UserDataManager:\n   print(' views.py UserDataManager() class called')\n  @staticmethod\n  def load_users():\n     print(' views.py UserDataManager() load_users function called')\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -612,38 +612,11 @@
         "documentation": {}
     },
     {
-        "label": "load_user",
-        "kind": 2,
-        "importPath": "myapp.views",
-        "description": "myapp.views",
-        "peekOfCode": "def load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)\n    return {}\n  @staticmethod",
-        "detail": "myapp.views",
-        "documentation": {}
-    },
-    {
-        "label": "read_users",
-        "kind": 2,
-        "importPath": "myapp.views",
-        "description": "myapp.views",
-        "peekOfCode": "def read_users():\n  \"\"\"\n  Read the user data from the USERS_FILE.\n  Returns:\n    list: The list of user data.\n  \"\"\"\n  try:\n    with open(USERS_FILE, 'r') as file:\n      users_data = json.load(file)\n  except (FileNotFoundError, json.JSONDecodeError):",
-        "detail": "myapp.views",
-        "documentation": {}
-    },
-    {
-        "label": "write_users",
-        "kind": 2,
-        "importPath": "myapp.views",
-        "description": "myapp.views",
-        "peekOfCode": "def write_users(users_data):\n  \"\"\"\n  Write the user data to the USERS_FILE.\n  Args:\n    users_data (list): The list of user data.\n  \"\"\"\n  with open(USERS_FILE, 'w') as file:\n    json.dump(users_data, file)\n@views_bp.route('/login', methods=['GET', 'POST'])\ndef login():",
-        "detail": "myapp.views",
-        "documentation": {}
-    },
-    {
         "label": "login",
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def login():\n  \"\"\"\n  Route for user login.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']\n    session.permanent = True",
+        "peekOfCode": "def login():\n  print(' views.py login() function called')\n  \"\"\"\n  Route for user login.\n  Returns:\n    flask.Response: The response object.\n  \"\"\"\n  if request.method == 'POST':\n    username = request.form['username']\n    password = request.form['password']",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -661,7 +634,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile():\n  return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n@views_bp.route('/<wi>')\ndef wrong_input(wi):\n  try:",
+        "peekOfCode": "def profile():\n  print('views.py profile() function called with username: ', session['username'])\n  return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n  print('views.py profile_username() function called with username: ', username)\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n@views_bp.route('/<wi>')",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -670,7 +643,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile_username(username):\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n@views_bp.route('/<wi>')\ndef wrong_input(wi):\n  try:\n    return \"<p>\"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!</p>\"\n  except Exception as e:\n    app.logger.exception(e)\n    return render_template('500.html'), 500",
+        "peekOfCode": "def profile_username(username):\n  print('views.py profile_username() function called with username: ', username)\n  flash(f\"Hi {username}!\")\n  return render_template('profile.html', username=username)\n@views_bp.route('/<wi>')\ndef wrong_input(wi):\n  try:\n    return \"<p>\"+ wi + \" is an invalid syntax to my flask app! \" + \"Hope you are doing well!</p>\"\n  except Exception as e:\n    app.logger.exception(e)",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -796,7 +769,34 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def add_header(response):\n  response.cache_control.max_age = 86400\n  response.cache_control.public = True\n  response.cache_control.must_revalidate = True\n  response.cache_control.no_store = True\n  return response",
+        "peekOfCode": "def add_header(response):\n  response.cache_control.max_age = 86400\n  response.cache_control.public = True\n  response.cache_control.must_revalidate = True\n  response.cache_control.no_store = True\n  return response\nlogin_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def load_user(user_id):\n   print(' views.py load_user() function called')\n  return User.query.get(user_id)\nclass UserDataManager:\n   print(' views.py UserDataManager() class called')\n  @staticmethod\n  def load_users():\n     print(' views.py UserDataManager() load_users function called')\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "read_users",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def read_users():\n  print(' views.py read_users() function called')\n  \"\"\"\n  Read the user data from the USERS_FILE.\n  Returns:\n    list: The list of user data.\n  \"\"\"\n  try:\n    with open(USERS_FILE, 'r') as file:\n      users_data = json.load(file)",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "write_users",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def write_users(users_data):\n  \"\"\"\n  Write the user data to the USERS_FILE.\n  Args:\n    users_data (list): The list of user data.\n  \"\"\"\n  with open(USERS_FILE, 'w') as file:\n    json.dump(users_data, file)\n      print(' views.py write_users() function called with users_data: ', users_data)",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -823,7 +823,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n   print(' views.py load_user() function called')\n  return User.query.get(user_id)\nclass UserDataManager:\n   print(' views.py UserDataManager() class called')\n  @staticmethod",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -832,7 +832,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:",
+        "peekOfCode": "login_manager.login_view = 'login'\nlogin_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n   print(' views.py load_user() function called')\n  return User.query.get(user_id)\nclass UserDataManager:\n   print(' views.py UserDataManager() class called')\n  @staticmethod\n  def load_users():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -841,7 +841,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n  return User.query.get(user_id)\nclass UserDataManager:\n  @staticmethod\n  def load_users():\n    if os.path.exists(config.USERS_FILE):\n      with open(config.USERS_FILE, 'r') as f:\n        return json.load(f)",
+        "peekOfCode": "login_manager.login_message_category = 'info' # Bootstrap class for flash messages\n@login_manager.user_loader\ndef load_user(user_id):\n   print(' views.py load_user() function called')\n  return User.query.get(user_id)\nclass UserDataManager:\n   print(' views.py UserDataManager() class called')\n  @staticmethod\n  def load_users():\n     print(' views.py UserDataManager() load_users function called')",
         "detail": "myapp.views",
         "documentation": {}
     },
