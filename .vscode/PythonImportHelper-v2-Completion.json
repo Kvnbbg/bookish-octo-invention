@@ -259,14 +259,6 @@
         "documentation": {}
     },
     {
-        "label": "User",
-        "importPath": "flask_login",
-        "description": "flask_login",
-        "isExtraImport": true,
-        "detail": "flask_login",
-        "documentation": {}
-    },
-    {
         "label": "current_user",
         "importPath": "flask_login",
         "description": "flask_login",
@@ -300,11 +292,10 @@
     },
     {
         "label": "models",
-        "kind": 6,
+        "importPath": "myapp",
+        "description": "myapp",
         "isExtraImport": true,
-        "importPath": "models",
-        "description": "models",
-        "detail": "models",
+        "detail": "myapp",
         "documentation": {}
     },
     {
@@ -509,7 +500,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def recipes():\n    return render_template('recipe.html')\n@views_bp.route('/recipe/<int:recipe_id>')\ndef recipe_detail(recipe_id):\n    recipe = Recipe.query.get_or_404(recipe_id)\n    return render_template('recipe_detail.html', recipe=recipe)\n@views_bp.route('/admin')\ndef admin():\n    return render_template('admin.html')\n@views_bp.route('/author')",
+        "peekOfCode": "def recipes():\n    return render_template('recipe.html')\n@views_bp.route('/recipe/<int:recipe_id>')\ndef recipe_detail(recipe_id):\n    recipe = models.RecipeDataManager.query.get_or_404(recipe_id)\n    return render_template('recipe_detail.html', recipe=recipe)\n@views_bp.route('/admin')\ndef admin():\n    return render_template('admin.html')\n@views_bp.route('/author')",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -518,7 +509,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def recipe_detail(recipe_id):\n    recipe = Recipe.query.get_or_404(recipe_id)\n    return render_template('recipe_detail.html', recipe=recipe)\n@views_bp.route('/admin')\ndef admin():\n    return render_template('admin.html')\n@views_bp.route('/author')\ndef author():\n    return render_template('author.html')\n@views_bp.route('/patient')",
+        "peekOfCode": "def recipe_detail(recipe_id):\n    recipe = models.RecipeDataManager.query.get_or_404(recipe_id)\n    return render_template('recipe_detail.html', recipe=recipe)\n@views_bp.route('/admin')\ndef admin():\n    return render_template('admin.html')\n@views_bp.route('/author')\ndef author():\n    return render_template('author.html')\n@views_bp.route('/patient')",
         "detail": "myapp.views",
         "documentation": {}
     },

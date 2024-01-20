@@ -7,8 +7,8 @@ from flask import (
     Flask, render_template, request, session, redirect,
     url_for, flash, Blueprint, current_app, config
 )
-from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, User, current_user
-import models
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user
+from myapp import models
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
 views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)}
@@ -135,7 +135,7 @@ def recipes():
 
 @views_bp.route('/recipe/<int:recipe_id>')
 def recipe_detail(recipe_id):
-    recipe = Recipe.query.get_or_404(recipe_id)
+    recipe = models.RecipeDataManager.query.get_or_404(recipe_id)
     return render_template('recipe_detail.html', recipe=recipe)
 
 @views_bp.route('/admin')
