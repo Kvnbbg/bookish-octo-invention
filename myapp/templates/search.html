@@ -1,0 +1,19 @@
+{% extends 'macros.html' %}
+
+{% block title %}Search - Recipe Sharing Platform{% endblock %}
+{% block title_header %}Search{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Seearch Results</h1>
+        <p>It seems like you've stumbled upon a page that doesn't exist. Let's get you back on track:</p>
+
+        <ul>
+            <li>Check the URL for any typos or errors.</li>
+            <li>Return to the <a href="/index">home page</a>.</li>
+            <li>Contact our support team if you believe this is an error.</li>
+        </ul>
+
+        <img src="{{ url_for('static', filename='images/404_image.png') }}" alt="404 Image" class="img-fluid" style="max-width: 100%; height: auto; margin-top: 20px;">
+    </div>
+{% endblock %}

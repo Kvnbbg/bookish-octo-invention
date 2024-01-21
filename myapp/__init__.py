@@ -11,7 +11,7 @@ def create_app():
 
         # Register blueprints
         app.register_blueprint(views_bp)
-        print("views_bp registered by __init__.py")
+        print("Blueprint registered by __init__.py")
 
         # Get the path to the directory containing this script
         base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -19,11 +19,11 @@ def create_app():
         # Load configuration from config.py (assuming it's in the parent directory)
         config_path = os.path.join(base_dir, '..', 'config.py')
         app.config.from_pyfile(config_path)
-        print("Config imported by __init__.py")
+        print("Config.py imported by __init__.py")
 
         # Set the secret key
         app.secret_key = app.config['ADDITIONAL_PARAM1']
-        print("Secret key set by __init__.py")
+        print("Additional param 1 is set by __init__.py")
 
         # Check if running in development mode
         # if app.config['ENV'] == 'development':
