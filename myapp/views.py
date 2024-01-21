@@ -31,14 +31,14 @@ class User(UserMixin):
         print('views.py find_by_username() function called with username: ', username)
         return next((User(**user) for user in users_data if user['username'] == username), None)
 class UserDataManager:
-  @staticmethod
-  def load_users():
-    print('views.py UserDataManager load_users() function called')
-    try:
-      with open(USERS_FILE, 'r') as f:
-        return json.load(f)
-    except FileNotFoundError:
-      return {}
+    @staticmethod
+    def load_users():
+        print('views.py UserDataManager load_users() function called')
+        try:
+            with open(USERS_FILE, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return {}
     
     @staticmethod
     def save_users(users):
@@ -92,22 +92,22 @@ def register():
 
 @views_bp.route('/login', methods=['GET', 'POST']) # This is the login route that is called by __init__.py
 def login(): # This is the login() function that is called by __init__.py
-  print('views.py login() login.html function called by __init__.py)') # This is a test print statement to see if the login() function is called by __init__.py 
-  if request.method == 'POST': # This is the POST method that is called by __init__.py
-    username = request.form['username'] # This is the username that is entered by the user in the login form
-    password = request.form['password'] # This is the password that is entered by the user in the login form
-    existing_user = User.find_by_username(username) # This is the existing user that is found by the username that is entered by the user in the login form
-    if existing_user and check_password_hash(existing_user.password, password): 
-      session['username'] = username
-      session.permanent = True
-      login_user(existing_user)
-      flash('Logged in successfully.')
-      print('Logged in successfully.') # This is a test print statement to see if the user is logged in successfully
-      return redirect(url_for('profile'))
-    else:
-      flash('Invalid username/password combination.')
-      print('Invalid username/password combination.') # This is a test print statement to see if the user is logged in successfully
-      return redirect(url_for('login'))
+    print('views.py login() login.html function called by __init__.py)') # This is a test print statement to see if the login() function is called by __init__.py 
+    if request.method == 'POST': # This is the POST method that is called by __init__.py
+        username = request.form['username'] # This is the username that is entered by the user in the login form
+        password = request.form['password'] # This is the password that is entered by the user in the login form
+        existing_user = User.find_by_username(username) # This is the existing user that is found by the username that is entered by the user in the login form
+        if existing_user and check_password_hash(existing_user.password, password): 
+            session['username'] = username
+            session.permanent = True
+            login_user(existing_user)
+            flash('Logged in successfully.')
+            print('Logged in successfully.') # This is a test print statement to see if the user is logged in successfully
+            return redirect(url_for('profile'))
+        else:
+            flash('Invalid username/password combination.')
+            print('Invalid username/password combination.') # This is a test print statement to see if the user is logged in successfully
+            return redirect(url_for('login'))
     print('views.py login() login.html function called by __init__.py)') # This is a test print statement to see if the login() function is called by __init__.py
     return render_template('login.html') 
 
@@ -135,27 +135,27 @@ def profile_username(username):
 def redirect_stdout(new_target):
     try:
         templates = {
-            'admin': 'admin.html',
-            'patient': 'patient.html',
-            'recipe_detail': 'recipe_detail.html',
-            'recipe': 'recipe.html',
-            'register': 'register.html',
-            'search_results': 'search_results.html',
-            'search': 'search.html',
-            '404': '404.html',
-            '500': '500.html',
-            'about': 'about.html',
-            'add_recipe': 'add_recipe.html',
-            'author': 'author.html',
+            'admin': admin(),
+            'patient': patient(),
+            'recipe detail': 'recipe_detail.html',
+            'recipes': recipes(),
+            'register': register(),
+            'search_results': search_results(),
+            'search': search(),
+            '404': page_not_found(new_target),
+            '500': internal_server_error(new_target),
+            'about': about(),
+            'add recipe': add_recipe(),
+            'author': author(),
             'confid': 'confidential.html',
-            'contact': 'contact.html',
-            'index': 'index.html',
+            'contact': contact(),
+            'index': index(),
             'legal': 'legal.html',
-            'login': 'login.html',
-            'logout': 'logout.html',
+            'login': login(),
+            'logout': logout,
             'my_services': 'my_services.html',
-            'profile': 'profile.html',
-            'home': 'index.html',  # assuming 'home' maps to 'index.html'
+            'profile': profile(),
+            'home': index(),  # assuming 'home' maps to 'index.html'
         }
 
         template = templates.get(new_target, '404.html')
@@ -175,8 +175,6 @@ def internal_server_error(e):
 def page_not_found(e):
     current_app.logger.error(f'Page Not Found: {e}')
     return render_template('404.html', error_details=str(e)), 404
-
-
 
 @views_bp.route('/recipe/add', methods=['GET', 'POST'])
 @login_required

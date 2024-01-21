@@ -452,7 +452,7 @@
         "kind": 6,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "class UserDataManager:\n  @staticmethod\n  def load_users():\n    print('views.py UserDataManager load_users() function called')\n    try:\n      with open(USERS_FILE, 'r') as f:\n        return json.load(f)\n    except FileNotFoundError:\n      return {}\n    @staticmethod",
+        "peekOfCode": "class UserDataManager:\n    @staticmethod\n    def load_users():\n        print('views.py UserDataManager load_users() function called')\n        try:\n            with open(USERS_FILE, 'r') as f:\n                return json.load(f)\n        except FileNotFoundError:\n            return {}\n    @staticmethod",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -488,7 +488,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def login(): # This is the login() function that is called by __init__.py\n  print('views.py login() login.html function called by __init__.py)') # This is a test print statement to see if the login() function is called by __init__.py \n  if request.method == 'POST': # This is the POST method that is called by __init__.py\n    username = request.form['username'] # This is the username that is entered by the user in the login form\n    password = request.form['password'] # This is the password that is entered by the user in the login form\n    existing_user = User.find_by_username(username) # This is the existing user that is found by the username that is entered by the user in the login form\n    if existing_user and check_password_hash(existing_user.password, password): \n      session['username'] = username\n      session.permanent = True\n      login_user(existing_user)",
+        "peekOfCode": "def login(): # This is the login() function that is called by __init__.py\n    print('views.py login() login.html function called by __init__.py)') # This is a test print statement to see if the login() function is called by __init__.py \n    if request.method == 'POST': # This is the POST method that is called by __init__.py\n        username = request.form['username'] # This is the username that is entered by the user in the login form\n        password = request.form['password'] # This is the password that is entered by the user in the login form\n        existing_user = User.find_by_username(username) # This is the existing user that is found by the username that is entered by the user in the login form\n        if existing_user and check_password_hash(existing_user.password, password): \n            session['username'] = username\n            session.permanent = True\n            login_user(existing_user)",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -515,7 +515,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile_username(username):\n    print('views.py profile_username() function called with username: ', username)\n    flash(f\"Hi {username}!\")\n    return render_template('profile.html', username=username)\n@views_bp.route('/<new_target>')\ndef redirect_stdout(new_target):\n    try:\n        templates = {\n            'admin': 'admin.html',\n            'patient': 'patient.html',",
+        "peekOfCode": "def profile_username(username):\n    print('views.py profile_username() function called with username: ', username)\n    flash(f\"Hi {username}!\")\n    return render_template('profile.html', username=username)\n@views_bp.route('/<new_target>')\ndef redirect_stdout(new_target):\n    try:\n        templates = {\n            'admin': admin(),\n            'patient': patient(),",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -524,7 +524,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def redirect_stdout(new_target):\n    try:\n        templates = {\n            'admin': 'admin.html',\n            'patient': 'patient.html',\n            'recipe_detail': 'recipe_detail.html',\n            'recipe': 'recipe.html',\n            'register': 'register.html',\n            'search_results': 'search_results.html',\n            'search': 'search.html',",
+        "peekOfCode": "def redirect_stdout(new_target):\n    try:\n        templates = {\n            'admin': admin(),\n            'patient': patient(),\n            'recipe detail': 'recipe_detail.html',\n            'recipes': recipes(),\n            'register': register(),\n            'search_results': search_results(),\n            'search': search(),",
         "detail": "myapp.views",
         "documentation": {}
     },
