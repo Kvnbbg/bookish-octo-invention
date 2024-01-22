@@ -3,6 +3,7 @@
 import json
 import os
 
+from config import RECIPES_FILE
 
 class RecipeDataManager:
     """
