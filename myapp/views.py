@@ -1,14 +1,15 @@
-import os
 import json
 from datetime import timedelta
-from config import USERS_FILE, RECIPES_FILE, DEBUG, ADDITIONAL_PARAM1
-from werkzeug.security import check_password_hash, generate_password_hash
+from config import USERS_FILE, RECIPES_FILE
+
 from flask import (
-    Flask, render_template, request, session, redirect,
-    url_for, flash, Blueprint, current_app, config
+    render_template, request, session, redirect,
+    url_for, flash, Blueprint, current_app
 )
-from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager, current_user, UserMixin
-from myapp import models
+from flask_login import login_required, login_user, logout_user, UserMixin, LoginManager
+import werkzeug
+from werkzeug.security import generate_password_hash, check_password_hash
+from models import RecipeDataManager
 
 views_bp = Blueprint('views', __name__, template_folder='templates') # Create a blueprint for the views module (this file) and set the template folder to templates (default) 
 
@@ -71,11 +72,8 @@ def register():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-
         users_data = UserDataManager.load_users()
-
         existing_user = next((user for user in users_data if user['username'] == username or user['email'] == email), None)
-
         if existing_user:
             flash('Username or email already exists.')
             return redirect(url_for('register'))
@@ -84,11 +82,9 @@ def register():
             new_user = {'username': username, 'email': email, 'password': hashed_password}
             users_data.append(new_user)
             UserDataManager.save_users(users_data)
-
             flash('User created successfully.')
             return redirect(url_for('login'))
-
-    return render_template('register.html')
+        return render_template('register.html')
 
 @views_bp.route('/login', methods=['GET', 'POST']) # This is the login route that is called by __init__.py
 def login(): # This is the login() function that is called by __init__.py
@@ -166,6 +162,44 @@ def redirect_stdout(new_target):
         current_app.logger.exception(f'Error accessing {new_target}: {e}')
         return render_template('500.html', error_details=str(e)), 500
 
+@views_bp.route('/recipe/add', methods=['GET', 'POST'])
+@login_required
+def add_recipe():
+    if request.method == 'POST':
+        recipe_data = {
+            "title": request.form['title'],
+            "description": request.form['description'],
+            "ingredients": request.form['ingredients'],
+            "instructions": request.form['instructions'],
+            "image": request.form['image'],
+            "prep_time": request.form['prep_time'],
+            "cook_time": request.form['cook_time'],
+            "servings": request.form['servings'],
+            "cuisine": request.form['cuisine'],
+            "course": request.form['course'],
+            "diet": request.form['diet'],
+            "occasion": request.form['occasion'],
+            "author": request.form['author'],
+            "source": request.form['source'],
+            "url": request.form['url'],
+            "notes": request.form['notes']
+        }
+
+        recipe_manager = RecipeDataManager()
+        recipes_data = recipe_manager.load_recipes(RECIPES_FILE)
+
+        recipes_data.append(recipe_data)
+        recipe_manager.save_recipes(recipes_data, RECIPES_FILE)
+
+        flash('Recipe created successfully.')
+        return redirect(url_for('recipes'))
+
+    return render_template('add_recipe.html')
+
+@views_bp.route('/recipes')
+def recipes():
+    return render_template('recipe.html')
+
 @views_bp.errorhandler(500)
 def internal_server_error(e):
     current_app.logger.exception(f'Server Error: {e}')
@@ -176,28 +210,7 @@ def page_not_found(e):
     current_app.logger.error(f'Page Not Found: {e}')
     return render_template('404.html', error_details=str(e)), 404
 
-@views_bp.route('/recipe/add', methods=['GET', 'POST'])
-@login_required
-def add_recipe():
-    if request.method == 'POST':
-        recipe_data = {
-            "title": request.form['title'],
-            # ... (rest of the fields)
-        }
 
-        recipes_data = []  
-        recipes_data.append(recipe_data)
-
-        models.RecipeDataManager.save_recipes(recipes_data)
-
-        flash('Recipe created successfully.')
-        return redirect(url_for('recipes'))
-
-    return render_template('add_recipe.html')
-
-@views_bp.route('/recipes')
-def recipes():
-    return render_template('recipe.html')
 
 @views_bp.route('/admin')
 def admin():

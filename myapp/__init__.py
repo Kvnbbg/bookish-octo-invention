@@ -27,7 +27,7 @@ def create_app():
 
         # Check if running in development mode
         # if app.config['ENV'] == 'development':
-         #   print("Running in development mode - additional setup here")
+        #   print("Running in development mode - additional setup here")
 
         return app
 
