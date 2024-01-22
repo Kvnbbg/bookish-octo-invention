@@ -333,18 +333,10 @@
     },
     {
         "label": "RECIPES_FILE",
-        "importPath": "your_app.config",
-        "description": "your_app.config",
+        "importPath": "config",
+        "description": "config",
         "isExtraImport": true,
-        "detail": "your_app.config",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
+        "detail": "config",
         "documentation": {}
     },
     {
@@ -361,6 +353,14 @@
         "description": "config",
         "isExtraImport": true,
         "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {

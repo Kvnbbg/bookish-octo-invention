@@ -2,7 +2,7 @@
 
 import os
 import json
-from your_app.config import RECIPES_FILE
+from config import RECIPES_FILE
 
 class RecipeDataManager:
     """
