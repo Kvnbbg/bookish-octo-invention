@@ -1,8 +1,8 @@
 # models.py
 
-import os
 import json
-from config import RECIPES_FILE
+import os
+
 
 class RecipeDataManager:
     """
@@ -22,7 +22,7 @@ class RecipeDataManager:
             if os.stat(file_path).st_size == 0:  # Check if file is empty
                 return {}
             else:
-                with open(file_path, 'r') as f:
+                with open(file_path, "r") as f:
                     return json.load(f)
         return {}
 
@@ -38,5 +38,5 @@ class RecipeDataManager:
         Returns:
             None
         """
-        with open(file_path, 'w') as f:
+        with open(file_path, "w") as f:
             json.dump(recipes, f)

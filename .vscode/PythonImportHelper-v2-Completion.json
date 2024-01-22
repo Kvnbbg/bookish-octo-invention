@@ -332,27 +332,12 @@
         "documentation": {}
     },
     {
-        "label": "RECIPES_FILE",
-        "importPath": "config",
-        "description": "config",
+        "label": "datetime",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "USERS_FILE",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "RECIPES_FILE",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -361,6 +346,46 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "current_app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
         "documentation": {}
     },
     {
@@ -388,14 +413,6 @@
         "documentation": {}
     },
     {
-        "label": "redirect",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "url_for",
         "importPath": "flask",
         "description": "flask",
@@ -404,27 +421,19 @@
         "documentation": {}
     },
     {
-        "label": "flash",
-        "importPath": "flask",
-        "description": "flask",
+        "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
         "isExtraImport": true,
-        "detail": "flask",
+        "detail": "flask_login",
         "documentation": {}
     },
     {
-        "label": "Blueprint",
-        "importPath": "flask",
-        "description": "flask",
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
         "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "current_app",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
+        "detail": "flask_login",
         "documentation": {}
     },
     {
@@ -452,36 +461,11 @@
         "documentation": {}
     },
     {
-        "label": "UserMixin",
-        "importPath": "flask_login",
-        "description": "flask_login",
+        "label": "RecipeDataManager",
+        "importPath": "models",
+        "description": "models",
         "isExtraImport": true,
-        "detail": "flask_login",
-        "documentation": {}
-    },
-    {
-        "label": "LoginManager",
-        "importPath": "flask_login",
-        "description": "flask_login",
-        "isExtraImport": true,
-        "detail": "flask_login",
-        "documentation": {}
-    },
-    {
-        "label": "werkzeug",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "werkzeug",
-        "description": "werkzeug",
-        "detail": "werkzeug",
-        "documentation": {}
-    },
-    {
-        "label": "generate_password_hash",
-        "importPath": "werkzeug.security",
-        "description": "werkzeug.security",
-        "isExtraImport": true,
-        "detail": "werkzeug.security",
+        "detail": "models",
         "documentation": {}
     },
     {
@@ -493,11 +477,27 @@
         "documentation": {}
     },
     {
-        "label": "RecipeDataManager",
-        "importPath": "models",
-        "description": "models",
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
         "isExtraImport": true,
-        "detail": "models",
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "RECIPES_FILE",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "USERS_FILE",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
         "documentation": {}
     },
     {
@@ -1598,6 +1598,15 @@
         "documentation": {}
     },
     {
+        "label": "redirect_stdout",
+        "kind": 2,
+        "importPath": "myapp.features",
+        "description": "myapp.features",
+        "peekOfCode": "def redirect_stdout(new_target):\n    try:\n        templates = {\n            \"admin\": admin(),\n            \"patient\": patient(),\n            \"recipe detail\": \"recipe_detail.html\",\n            \"recipes\": recipes(),\n            \"register\": register(),\n            \"search_results\": search_results(),\n            \"search\": search(),",
+        "detail": "myapp.features",
+        "documentation": {}
+    },
+    {
         "label": "RecipeDataManager",
         "kind": 6,
         "importPath": "myapp.models",
@@ -1611,7 +1620,7 @@
         "kind": 6,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "class User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):\n        users_data = UserDataManager.load_users()\n        print('views.py find_by_username() function called with username: ', username)",
+        "peekOfCode": "class User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):\n        users_data = UserDataManager.load_users()\n        print(\"views.py find_by_username() function called with username: \", username)",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1620,7 +1629,7 @@
         "kind": 6,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "class UserDataManager:\n    @staticmethod\n    def load_users():\n        print('views.py UserDataManager load_users() function called')\n        try:\n            with open(USERS_FILE, 'r') as f:\n                return json.load(f)\n        except FileNotFoundError:\n            return {}\n    @staticmethod",
+        "peekOfCode": "class UserDataManager:\n    @staticmethod\n    def load_users():\n        print(\"views.py UserDataManager load_users() function called\")\n        try:\n            with open(USERS_FILE, \"r\") as f:\n                return json.load(f)\n        except FileNotFoundError:\n            return {}\n    @staticmethod",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1629,7 +1638,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def load_user(user_id):\n    # Load user from your data source (e.g., JSON file) and return a User object\n    users_data = UserDataManager.load_users()\n    user_data = next((user for user in users_data if user['id'] == user_id), None)\n    if user_data:\n        return User(user_data['id'], user_data['username'], user_data['email'], user_data['password'])\n    else:\n        return None\n@views_bp.route('/')\ndef index():",
+        "peekOfCode": "def load_user(user_id):\n    # Load user from your data source (e.g., JSON file) and return a User object\n    users_data = UserDataManager.load_users()\n    user_data = next((user for user in users_data if user[\"id\"] == user_id), None)\n    if user_data:\n        return User(\n            user_data[\"id\"],\n            user_data[\"username\"],\n            user_data[\"email\"],\n            user_data[\"password\"],",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1638,7 +1647,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def index():\n    print(\"views.py index() function called\")\n    try:\n        return render_template('index.html')\n    except Exception as e:\n        current_app.logger.exception(e)\n        return render_template('500.html'), 500\n@views_bp.route('/register', methods=['GET', 'POST'])\ndef register():\n    if request.method == 'POST':",
+        "peekOfCode": "def index():\n    print(\"views.py index() function called\")\n    try:\n        return render_template(\"index.html\")\n    except Exception as e:\n        current_app.logger.exception(e)\n        return render_template(\"500.html\"), 500\n@views_bp.route(\"/register\", methods=[\"GET\", \"POST\"])\ndef register():\n    if request.method == \"POST\":",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1647,7 +1656,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def register():\n    if request.method == 'POST':\n        username = request.form['username']\n        email = request.form['email']\n        password = request.form['password']\n        users_data = UserDataManager.load_users()\n        existing_user = next((user for user in users_data if user['username'] == username or user['email'] == email), None)\n        if existing_user:\n            flash('Username or email already exists.')\n            return redirect(url_for('register'))",
+        "peekOfCode": "def register():\n    if request.method == \"POST\":\n        username = request.form[\"username\"]\n        email = request.form[\"email\"]\n        password = request.form[\"password\"]\n        users_data = UserDataManager.load_users()\n        existing_user = next(\n            (\n                user\n                for user in users_data",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1656,7 +1665,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def login(): # This is the login() function that is called by __init__.py\n    print('views.py login() login.html function called by __init__.py)') # This is a test print statement to see if the login() function is called by __init__.py \n    if request.method == 'POST': # This is the POST method that is called by __init__.py\n        username = request.form['username'] # This is the username that is entered by the user in the login form\n        password = request.form['password'] # This is the password that is entered by the user in the login form\n        existing_user = User.find_by_username(username) # This is the existing user that is found by the username that is entered by the user in the login form\n        if existing_user and check_password_hash(existing_user.password, password): \n            session['username'] = username\n            session.permanent = True\n            login_user(existing_user)",
+        "peekOfCode": "def login():  # This is the login() function that is called by __init__.py\n    print(\n        \"views.py login() login.html function called by __init__.py)\"\n    )  # This is a test print statement to see if the login() function is called by __init__.py\n    if (\n        request.method == \"POST\"\n    ):  # This is the POST method that is called by __init__.py\n        username = request.form[\n            \"username\"\n        ]  # This is the username that is entered by the user in the login form",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1665,7 +1674,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def logout():\n    logout_user()\n    flash('Logged out successfully.')\n    return redirect(url_for('index'))\n@views_bp.route('/profile')\n@login_required\ndef profile():\n    print('views.py profile() function called with username: ', session['username'])\n    return render_template('profile.html')\n@views_bp.route('/profile/<username>')",
+        "peekOfCode": "def logout():\n    logout_user()\n    flash(\"Logged out successfully.\")\n    return redirect(url_for(\"index\"))\n@views_bp.route(\"/profile\")\n@login_required\ndef profile():\n    print(\"views.py profile() function called with username: \", session[\"username\"])\n    return render_template(\"profile.html\")\n@views_bp.route(\"/profile/<username>\")",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1674,7 +1683,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile():\n    print('views.py profile() function called with username: ', session['username'])\n    return render_template('profile.html')\n@views_bp.route('/profile/<username>')\n@login_required\ndef profile_username(username):\n    print('views.py profile_username() function called with username: ', username)\n    flash(f\"Hi {username}!\")\n    return render_template('profile.html', username=username)\n@views_bp.route('/<new_target>')",
+        "peekOfCode": "def profile():\n    print(\"views.py profile() function called with username: \", session[\"username\"])\n    return render_template(\"profile.html\")\n@views_bp.route(\"/profile/<username>\")\n@login_required\ndef profile_username(username):\n    print(\"views.py profile_username() function called with username: \", username)\n    flash(f\"Hi {username}!\")\n    return render_template(\"profile.html\", username=username)\n@views_bp.route(\"/recipe/add\", methods=[\"GET\", \"POST\"])",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1683,16 +1692,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def profile_username(username):\n    print('views.py profile_username() function called with username: ', username)\n    flash(f\"Hi {username}!\")\n    return render_template('profile.html', username=username)\n@views_bp.route('/<new_target>')\ndef redirect_stdout(new_target):\n    try:\n        templates = {\n            'admin': admin(),\n            'patient': patient(),",
-        "detail": "myapp.views",
-        "documentation": {}
-    },
-    {
-        "label": "redirect_stdout",
-        "kind": 2,
-        "importPath": "myapp.views",
-        "description": "myapp.views",
-        "peekOfCode": "def redirect_stdout(new_target):\n    try:\n        templates = {\n            'admin': admin(),\n            'patient': patient(),\n            'recipe detail': 'recipe_detail.html',\n            'recipes': recipes(),\n            'register': register(),\n            'search_results': search_results(),\n            'search': search(),",
+        "peekOfCode": "def profile_username(username):\n    print(\"views.py profile_username() function called with username: \", username)\n    flash(f\"Hi {username}!\")\n    return render_template(\"profile.html\", username=username)\n@views_bp.route(\"/recipe/add\", methods=[\"GET\", \"POST\"])\n@login_required\ndef add_recipe():\n    if request.method == \"POST\":\n        recipe_data = {\n            \"title\": request.form[\"title\"],",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1701,7 +1701,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def add_recipe():\n    if request.method == 'POST':\n        recipe_data = {\n            \"title\": request.form['title'],\n            \"description\": request.form['description'],\n            \"ingredients\": request.form['ingredients'],\n            \"instructions\": request.form['instructions'],\n            \"image\": request.form['image'],\n            \"prep_time\": request.form['prep_time'],\n            \"cook_time\": request.form['cook_time'],",
+        "peekOfCode": "def add_recipe():\n    if request.method == \"POST\":\n        recipe_data = {\n            \"title\": request.form[\"title\"],\n            \"description\": request.form[\"description\"],\n            \"ingredients\": request.form[\"ingredients\"],\n            \"instructions\": request.form[\"instructions\"],\n            \"image\": request.form[\"image\"],\n            \"prep_time\": request.form[\"prep_time\"],\n            \"cook_time\": request.form[\"cook_time\"],",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1710,7 +1710,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def recipes():\n    return render_template('recipe.html')\n@views_bp.errorhandler(500)\ndef internal_server_error(e):\n    current_app.logger.exception(f'Server Error: {e}')\n    return render_template('500.html', error_details=str(e)), 500\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n    current_app.logger.error(f'Page Not Found: {e}')\n    return render_template('404.html', error_details=str(e)), 404",
+        "peekOfCode": "def recipes():\n    return render_template(\"recipe.html\")\n@views_bp.errorhandler(500)\ndef internal_server_error(e):\n    current_app.logger.exception(f\"Server Error: {e}\")\n    return render_template(\"500.html\", error_details=str(e)), 500\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n    current_app.logger.error(f\"Page Not Found: {e}\")\n    return render_template(\"404.html\", error_details=str(e)), 404",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1719,7 +1719,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def internal_server_error(e):\n    current_app.logger.exception(f'Server Error: {e}')\n    return render_template('500.html', error_details=str(e)), 500\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n    current_app.logger.error(f'Page Not Found: {e}')\n    return render_template('404.html', error_details=str(e)), 404\n@views_bp.route('/admin')\ndef admin():\n    return render_template('admin.html')",
+        "peekOfCode": "def internal_server_error(e):\n    current_app.logger.exception(f\"Server Error: {e}\")\n    return render_template(\"500.html\", error_details=str(e)), 500\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n    current_app.logger.error(f\"Page Not Found: {e}\")\n    return render_template(\"404.html\", error_details=str(e)), 404\n@views_bp.route(\"/admin\")\ndef admin():\n    return render_template(\"admin.html\")",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1728,7 +1728,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def page_not_found(e):\n    current_app.logger.error(f'Page Not Found: {e}')\n    return render_template('404.html', error_details=str(e)), 404\n@views_bp.route('/admin')\ndef admin():\n    return render_template('admin.html')\n@views_bp.route('/author')\ndef author():\n    return render_template('author.html')\n@views_bp.route('/patient')",
+        "peekOfCode": "def page_not_found(e):\n    current_app.logger.error(f\"Page Not Found: {e}\")\n    return render_template(\"404.html\", error_details=str(e)), 404\n@views_bp.route(\"/admin\")\ndef admin():\n    return render_template(\"admin.html\")\n@views_bp.route(\"/author\")\ndef author():\n    return render_template(\"author.html\")\n@views_bp.route(\"/patient\")",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1737,7 +1737,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def admin():\n    return render_template('admin.html')\n@views_bp.route('/author')\ndef author():\n    return render_template('author.html')\n@views_bp.route('/patient')\ndef patient():\n    return render_template('patient.html')\n@views_bp.route('/about')\ndef about():",
+        "peekOfCode": "def admin():\n    return render_template(\"admin.html\")\n@views_bp.route(\"/author\")\ndef author():\n    return render_template(\"author.html\")\n@views_bp.route(\"/patient\")\ndef patient():\n    return render_template(\"patient.html\")\n@views_bp.route(\"/about\")\ndef about():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1746,7 +1746,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def author():\n    return render_template('author.html')\n@views_bp.route('/patient')\ndef patient():\n    return render_template('patient.html')\n@views_bp.route('/about')\ndef about():\n    return render_template('about.html')\n@views_bp.route('/contact')\ndef contact():",
+        "peekOfCode": "def author():\n    return render_template(\"author.html\")\n@views_bp.route(\"/patient\")\ndef patient():\n    return render_template(\"patient.html\")\n@views_bp.route(\"/about\")\ndef about():\n    return render_template(\"about.html\")\n@views_bp.route(\"/contact\")\ndef contact():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1755,7 +1755,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def patient():\n    return render_template('patient.html')\n@views_bp.route('/about')\ndef about():\n    return render_template('about.html')\n@views_bp.route('/contact')\ndef contact():\n    return render_template('contact.html')\n@views_bp.route('/search') # This is the search bar\ndef search():",
+        "peekOfCode": "def patient():\n    return render_template(\"patient.html\")\n@views_bp.route(\"/about\")\ndef about():\n    return render_template(\"about.html\")\n@views_bp.route(\"/contact\")\ndef contact():\n    return render_template(\"contact.html\")\n@views_bp.route(\"/search\")  # This is the search bar\ndef search():",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1764,7 +1764,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def about():\n    return render_template('about.html')\n@views_bp.route('/contact')\ndef contact():\n    return render_template('contact.html')\n@views_bp.route('/search') # This is the search bar\ndef search():\n    return render_template('search.html')\n@views_bp.route('/search_results') # This is the search_results route that is called by __init__.py for the search_results.html page about results from the search bar\ndef search_results():",
+        "peekOfCode": "def about():\n    return render_template(\"about.html\")\n@views_bp.route(\"/contact\")\ndef contact():\n    return render_template(\"contact.html\")\n@views_bp.route(\"/search\")  # This is the search bar\ndef search():\n    return render_template(\"search.html\")\n@views_bp.route(\n    \"/search_results\"",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1773,7 +1773,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def contact():\n    return render_template('contact.html')\n@views_bp.route('/search') # This is the search bar\ndef search():\n    return render_template('search.html')\n@views_bp.route('/search_results') # This is the search_results route that is called by __init__.py for the search_results.html page about results from the search bar\ndef search_results():\n    return render_template('search_results.html')\n@views_bp.after_request\ndef add_header(response):",
+        "peekOfCode": "def contact():\n    return render_template(\"contact.html\")\n@views_bp.route(\"/search\")  # This is the search bar\ndef search():\n    return render_template(\"search.html\")\n@views_bp.route(\n    \"/search_results\"\n)  # This is the search_results route that is called by __init__.py for the search_results.html page about results from the search bar\ndef search_results():\n    return render_template(\"search_results.html\")",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1782,7 +1782,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def search():\n    return render_template('search.html')\n@views_bp.route('/search_results') # This is the search_results route that is called by __init__.py for the search_results.html page about results from the search bar\ndef search_results():\n    return render_template('search_results.html')\n@views_bp.after_request\ndef add_header(response):\n    response.cache_control.max_age = 86400\n    response.cache_control.public = True\n    response.cache_control.must_revalidate = True",
+        "peekOfCode": "def search():\n    return render_template(\"search.html\")\n@views_bp.route(\n    \"/search_results\"\n)  # This is the search_results route that is called by __init__.py for the search_results.html page about results from the search bar\ndef search_results():\n    return render_template(\"search_results.html\")\n@views_bp.after_request\ndef add_header(response):\n    response.cache_control.max_age = 86400",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1791,7 +1791,7 @@
         "kind": 2,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "def search_results():\n    return render_template('search_results.html')\n@views_bp.after_request\ndef add_header(response):\n    response.cache_control.max_age = 86400\n    response.cache_control.public = True\n    response.cache_control.must_revalidate = True\n    response.cache_control.no_store = True\n    return response",
+        "peekOfCode": "def search_results():\n    return render_template(\"search_results.html\")\n@views_bp.after_request\ndef add_header(response):\n    response.cache_control.max_age = 86400\n    response.cache_control.public = True\n    response.cache_control.must_revalidate = True\n    response.cache_control.no_store = True\n    return response",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1809,7 +1809,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "views_bp = Blueprint('views', __name__, template_folder='templates') # Create a blueprint for the views module (this file) and set the template folder to templates (default) \nviews_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)} # Set session lifetime here (default is 31 days) \nlogin_manager = LoginManager() # Create a login manager instance \nlogin_manager.login_view = 'login' # Set the login view (i.e., the view that contains the login form) \nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email",
+        "peekOfCode": "views_bp = Blueprint(\n    \"views\", __name__, template_folder=\"templates\"\n)  # Create a blueprint for the views module (this file) and set the template folder to templates (default)\nviews_bp.config = {\n    \"permanent_session_lifetime\": timedelta(minutes=5)\n}  # Set session lifetime here (default is 31 days)\nlogin_manager = LoginManager()  # Create a login manager instance\nlogin_manager.login_view = (\n    \"login\"  # Set the login view (i.e., the view that contains the login form)\n)",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1818,7 +1818,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "views_bp.config = {'permanent_session_lifetime': timedelta(minutes=5)} # Set session lifetime here (default is 31 days) \nlogin_manager = LoginManager() # Create a login manager instance \nlogin_manager.login_view = 'login' # Set the login view (i.e., the view that contains the login form) \nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password",
+        "peekOfCode": "views_bp.config = {\n    \"permanent_session_lifetime\": timedelta(minutes=5)\n}  # Set session lifetime here (default is 31 days)\nlogin_manager = LoginManager()  # Create a login manager instance\nlogin_manager.login_view = (\n    \"login\"  # Set the login view (i.e., the view that contains the login form)\n)\nlogin_manager.login_message_category = \"info\"  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1827,7 +1827,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager = LoginManager() # Create a login manager instance \nlogin_manager.login_view = 'login' # Set the login view (i.e., the view that contains the login form) \nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod",
+        "peekOfCode": "login_manager = LoginManager()  # Create a login manager instance\nlogin_manager.login_view = (\n    \"login\"  # Set the login view (i.e., the view that contains the login form)\n)\nlogin_manager.login_message_category = \"info\"  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1836,7 +1836,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_view = 'login' # Set the login view (i.e., the view that contains the login form) \nlogin_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):",
+        "peekOfCode": "login_manager.login_view = (\n    \"login\"  # Set the login view (i.e., the view that contains the login form)\n)\nlogin_manager.login_message_category = \"info\"  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password",
         "detail": "myapp.views",
         "documentation": {}
     },
@@ -1845,7 +1845,7 @@
         "kind": 5,
         "importPath": "myapp.views",
         "description": "myapp.views",
-        "peekOfCode": "login_manager.login_message_category = 'info'  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):\n        users_data = UserDataManager.load_users()",
+        "peekOfCode": "login_manager.login_message_category = \"info\"  # Bootstrap class for flash messages\nclass User(UserMixin):\n    def __init__(self, user_id, username, email, password):\n        self.id = user_id\n        self.username = username\n        self.email = email\n        self.password = password\n    @staticmethod\n    def find_by_username(username):\n        users_data = UserDataManager.load_users()",
         "detail": "myapp.views",
         "documentation": {}
     }
