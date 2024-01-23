@@ -15,11 +15,20 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
 from myapp.models import RecipeDataManager
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from myapp.config import RECIPES_FILE, USERS_FILE
+from myapp.config import RECIPES_FILE, USERS_FILE, DEBUG
+import logging # Import logging module
 
 import datetime
 
-print("Code executed at:", datetime.datetime.now())
+# Check if running in development mode
+# # Activating debugging based on the DEBUG flag
+if DEBUG is True:
+    logging.basicConfig(filename='error.log', level=logging.DEBUG)
+    logging.error("views.py: Debugging is activated.")
+else:
+    logging.error("views.py Debugging is deactivated.")
+
+
 
 views_bp = Blueprint(
     "views", __name__, template_folder="templates"
@@ -87,11 +96,13 @@ def load_user(user_id):
 
 @views_bp.route("/")
 def index():
-    print("views.py index() function called")
+    logging.error("index() Code executed at:", datetime.datetime.now())
     try:
         return render_template("index.html")
     except Exception as e:
         current_app.logger.exception(e)
+        logging.error("Code executed at:", datetime.datetime.now())
+        logging.error(f"Error during index() creation: {e}", exc_info=True)
         return render_template("500.html"), 500
 
 
