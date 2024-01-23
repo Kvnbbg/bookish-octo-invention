@@ -2,12 +2,12 @@
 
 import logging
 import os
-from myapp.views import views_bp
+from myapp import views
 from flask import Flask
 from .config import DEBUG        # Load configuration from config.py (assuming it's in the parent directory)
 
 logging.basicConfig(filename='error.log', level=logging.DEBUG)
-logging.error("__init__.py say is activated.")
+logging.error("__init__.py is on.")
 
 app = Flask(__name__)
 
@@ -30,14 +30,6 @@ def create_app():
         # Set the secret key
         app.secret_key = app.config["ADDITIONAL_PARAM1"]
         logging.error("Additional param 1 is set by __init__.py")
-
-        # Check if running in development mode
-        # Activating debugging based on the DEBUG flag
-        if DEBUG is True:
-            logging.basicConfig(filename='error.log', level=logging.DEBUG)
-            logging.error("__init__.py say go to error.log because Debugging is activated.")
-        else:
-            logging.error("Debugging is deactivated.")
 
 # You can use the configuration values (DB_HOST, DB_USER, etc.) in the rest of your application.
 
