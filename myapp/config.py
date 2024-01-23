@@ -20,12 +20,3 @@ else:
     RECIPES_FILE = 'recipes.json'
     print("Config instance import: Error - Using default values, find out why: DEBUG = True")
     DEBUG = False  # Set to True if you are debugging
-
-
-# Activating debugging based on the DEBUG flag
-if DEBUG is True:
-    print("Debugging is activated.")
-else:
-    print("Debugging is deactivated.")
-
-# You can use the configuration values (DB_HOST, DB_USER, etc.) in the rest of your application.

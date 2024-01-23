@@ -30,8 +30,15 @@ def create_app():
         print("Additional param 1 is set by __init__.py")
 
         # Check if running in development mode
-        # if app.config['ENV'] == 'development':
-        #   print("Running in development mode - additional setup here")
+        # Activating debugging based on the DEBUG flag
+        from config import DEBUG
+        if DEBUG is True:
+            logging.basicConfig(filename='error.log', level=logging.DEBUG)
+            print("Error.log: Debugging is activated.")
+        else:
+            print("Debugging is deactivated.")
+
+# You can use the configuration values (DB_HOST, DB_USER, etc.) in the rest of your application.
 
         return app
 
