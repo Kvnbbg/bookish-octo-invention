@@ -2,28 +2,28 @@
 
 import logging
 import os
+from myapp.views import views_bp
+from flask import Flask, Blueprint
+from .config import DEBUG        # Load configuration from config.py (assuming it's in the parent directory)
 
-from flask import Flask, render_template, Blueprint
+app = Flask(__name__)
+
+# Get the path to the directory containing this script
+base_dir = os.path.abspath(os.path.dirname(__file__))
+config_path = os.path.join(base_dir, "..", "config.py")
+app.config.from_pyfile(config_path)
+
+print("Config.py imported by __init__.py")
 
 
 def create_app():
     print("create_app() function called")
     try:
-        app = Flask(__name__)
+        
 
         # Register blueprints
-        from views import views_bp
-        from flask import Flask, render_template, Blueprint
         app.register_blueprint(views_bp)
         print("Blueprint registered by __init__.py")
-
-        # Get the path to the directory containing this script
-        base_dir = os.path.abspath(os.path.dirname(__file__))
-
-        # Load configuration from config.py (assuming it's in the parent directory)
-        config_path = os.path.join(base_dir, "..", "config.py")
-        app.config.from_pyfile(config_path)
-        print("Config.py imported by __init__.py")
 
         # Set the secret key
         app.secret_key = app.config["ADDITIONAL_PARAM1"]
@@ -31,7 +31,6 @@ def create_app():
 
         # Check if running in development mode
         # Activating debugging based on the DEBUG flag
-        from config import DEBUG
         if DEBUG is True:
             logging.basicConfig(filename='error.log', level=logging.DEBUG)
             print("Error.log: Debugging is activated.")

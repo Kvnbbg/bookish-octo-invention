@@ -12,7 +12,7 @@ from flask import (
     url_for,
 )
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
-from models import RecipeDataManager
+from myapp.models import RecipeDataManager
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config import RECIPES_FILE, USERS_FILE

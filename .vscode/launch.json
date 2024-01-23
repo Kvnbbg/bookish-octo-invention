@@ -8,15 +8,16 @@
       "name": "Python: Flask",
       "type": "python",
       "request": "launch",
-      "module": "flask",
+      "program": "${workspaceFolder}/app.py",
       "env": {
         "FLASK_APP": "app.py",
+        "FLASK_ENV": "development",
         "FLASK_DEBUG": "1"
       },
+      "console": "integratedTerminal",
       "args": [
         "run",
         "--no-debugger",
-        "--no-reload"
       ],
       "jinja": true,
       "justMyCode": true
