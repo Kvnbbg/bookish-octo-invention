@@ -10,7 +10,7 @@ app = Flask(__name__)
 if __name__ == '__main__':
    create_app()
    app = Flask(__name__)
-   app.run()
+   app.run(port=5000)
 
 
 

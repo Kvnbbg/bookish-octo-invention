@@ -6,11 +6,14 @@ from myapp.views import views_bp
 from flask import Flask, Blueprint
 from .config import DEBUG        # Load configuration from config.py (assuming it's in the parent directory)
 
+logging.basicConfig(filename='error.log', level=logging.DEBUG)
+logging.error("Error.log: Debugging is activated.")
+
 app = Flask(__name__)
 
 # Get the path to the directory containing this script
 base_dir = os.path.abspath(os.path.dirname(__file__))
-config_path = os.path.join(base_dir, "..", "config.py")
+config_path = os.path.join(base_dir, "config.py")
 app.config.from_pyfile(config_path)
 
 print("Config.py imported by __init__.py")
@@ -33,7 +36,7 @@ def create_app():
         # Activating debugging based on the DEBUG flag
         if DEBUG is True:
             logging.basicConfig(filename='error.log', level=logging.DEBUG)
-            print("Error.log: Debugging is activated.")
+            logging.error("Error.log: Debugging is activated.")
         else:
             print("Debugging is deactivated.")
 

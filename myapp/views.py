@@ -15,7 +15,7 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
 from myapp.models import RecipeDataManager
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from config import RECIPES_FILE, USERS_FILE
+from myapp.config import RECIPES_FILE, USERS_FILE
 
 import datetime
 
