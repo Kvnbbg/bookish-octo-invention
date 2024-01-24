@@ -1,50 +1,54 @@
 # Bookish-Octo-Invention
 
-## Description
-Empowering commerce with mobile inventory management.
+Bookish-Octo-Invention is a web application for recipe sharing tailored to specific dietary needs.
 
-## Project Context
-This project is an exercise related to the development of a web-oriented mobile application as part of a training evaluation. It simulates a real-world scenario focusing on building an application for a nutritionist, who wants to share recipes online and provide additional recipes tailored to patients' dietary needs.
+## 2. Getting Started
 
-## Installation
-To deploy the project locally, follow these steps:
+### 2.1 System Requirements
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/kvnbbg/bookish-octo-invention.git
-    ```
+Ensure your system has a compatible web browser and an internet connection.
 
-2. Install dependencies:
-    ```bash
-    cd bookish-octo-invention
-    # Install necessary packages or dependencies for your chosen backend and frontend technologies
-    ```
+### 2.2 Installation
 
-3. Configuration:
-    - Set up your environment variables, database configurations, etc.
-    - Create an admin user for the back office.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/kvnbbg/bookish-octo-invention.git
+   cd bookish-octo-invention
+   ```
 
-## Usage
-For detailed instructions on testing the application, please refer to the provided user manual in PDF format.
+2. **Install dependencies:**
+   - Use the provided `requirements.txt` file to install necessary packages.
+     ```bash
+     pip install -r requirements.txt
+     ```
 
-## Documentation
-Explore the technical documentation in the provided PDF, which includes initial project reflections, class diagrams, data models, use case diagrams, and sequence diagrams.
+3. **Configuration:**
+   - Set up environment variables and database configurations.
+   - Create an admin user or connect as a patient.
 
-## Design
-Find the design assets such as color palettes, font choices, wireframes, and mockups in the attached PDF document.
+## 3. Logging In
 
-## Project Deliverables
-- Link to the public GitHub repository with the application code.
-- Link to the online version of the project (preferably hosted on Heroku).
-- Readme file containing deployment instructions and admin creation steps.
-- User manual (PDF) for testing the application.
-- Technical documentation (PDF) with project reflections and diagrams.
-- Design assets document (PDF) encompassing color palettes, fonts, wireframes, and mockups.
+Access the application:
+1. Open your web browser.
+2. Navigate to the application URL (e.g., http://localhost:5000).
+3. Log in using your credentials or browse as a guest.
 
-## Functionality
-Outlined below are the desired functionalities and their associated user stories.
+## Contributing
 
-### User Stories
-- **US1. Se connecter**: Allows administrators and patients to log in.
-- **US2. Créer un patient**: Enables admin to create a patient profile with allergy information and dietary preferences.
-- ...
+If you'd like to contribute to Bookish-Octo-Invention, please follow our [Contribution Guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Expended documentations
+
+- [User Manual (PDF)](user_manual.pdf)
+- [Technical Documentation (PDF)](technical_doc.pdf)
+- [Design Assets Document (PDF)](design_assets.pdf)
+
+
+---
+
+**Author:** Kevin Marville  
+**Contact:** kevinmarville@gmail.com
