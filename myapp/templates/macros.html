@@ -45,6 +45,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      {% if session['role'] %}
+      <li class="nav-item">
+          <!-- Display user role with color animation -->
+          <a class="nav-link role-link" href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
+              <span class="role-icon">{% if session['role'] == 'admin' %}👩‍💼{% elif session['role'] == 'patient' %}👩‍⚕️{% else %}👤{% endif %}</span>
+              {{ session['role'] }}
+          </a>
+      </li>
+  {% endif %}
+
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav">
           {% if session['logged_in'] %}

@@ -164,6 +164,33 @@ def register():
             return redirect(url_for("login"))
     return render_template("register.html")
 
+# CREATE PROFILE FUNCTION
+@views_bp.route("/profile")
+@login_required
+def profile():
+    username = session["username"]
+    logging.error(f"views.py profile() function called with username: {username}")
+    flash(f"Hi {username}!")
+    return render_template("profile.html")
+
+# ADD ROLE SELECTION FUNCTION
+@views_bp.route("/select_role", methods=["POST"])
+@login_required
+def select_role():
+    role = request.form.get("role")
+
+    # Save the user role to the session
+    session["role"] = role
+
+    # Redirect based on the selected role
+    if role == "admin":
+        return redirect(url_for("admin"))
+    elif role == "patient":
+        return redirect(url_for("patient"))
+    else:
+        # Handle invalid role
+        return render_template("error.html", error_message="Invalid role selected")
+
 
 # ... (other route functions remain unchanged)
 
@@ -174,14 +201,6 @@ def logout():
     logout_user()
     flash("Logged out successfully.")
     return redirect(url_for("index"))
-
-
-@views_bp.route("/profile")
-@login_required
-def profile():
-    print("views.py profile() function called with username: ", session["username"])
-    return render_template("profile.html")
-
 
 @views_bp.route("/profile/<username>")
 @login_required

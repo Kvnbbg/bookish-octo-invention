@@ -1,5 +1,3 @@
-<!-- profile.html -->
-
 {% extends "macros.html" %}
 
 {% block title %}Profile - Recipe Sharing Platform{% endblock %}
@@ -7,23 +5,50 @@
 
 {% block content %}
 
-    <div class="container">
-        <h1>Profile</h1>
-        <p>Welcome back, {{ current_user.username | capitalize }}!</p>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="alert alert-danger">
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
-        <p>Here a few things you can do:</p>
+<div class="container mt-4">
+    <h2>Welcome, {{ session['username'] }}!</h2>
+    
+    <p>Choose your role:</p>
+    
+    <form method="post" action="/select_role">
+        <label for="role">Select your role:</label>
+        <select id="role" name="role" class="form-control">
+            <option value="admin">Admin</option>
+            <option value="patient">Patient</option>
+        </select>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+<div class="container mt-4">
+    <h1>Profile</h1>
+    <p>Welcome back, {{ current_user.username | capitalize }}!</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% if session['role'] == 'admin' %}
+        <!-- Admin Activities -->
+        <h2>Admin Activities</h2>
         <ul>
             <li><a href="{{ url_for('add_recipe') }}">Add a new recipe</a></li>
             <li><a href="{{ url_for('my_recipes') }}">View your recipes</a></li>
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
-    </div>
+    {% elif session['role'] == 'patient' %}
+        <!-- Patient Activities -->
+        <h2>Patient Activities</h2>
+        <p>Display patient-specific content or activities here.</p>
+    {% else %}
+        <!-- Handle other roles or show a default message -->
+        <p>Invalid role selected.</p>
+    {% endif %}
+</div>
+
 {% endblock %}

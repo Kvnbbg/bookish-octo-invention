@@ -102,3 +102,16 @@ p {
     opacity: 1;
   }
 }
+
+.role-link {
+  color: var(--accent-color);
+  transition: color 0.3s;
+}
+
+.role-link:hover {
+  color: var(--hover-color);
+}
+
+.role-icon {
+  margin-right: 5px; /* Adjust as needed */
+}
