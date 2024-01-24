@@ -13,27 +13,21 @@ from flask import (
     session,
     url_for,
 )
-from flask_login import (
-    LoginManager,
-    UserMixin,
-    login_required,
-    login_user,
-    logout_user,
-)
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from myapp.config import DEBUG, RECIPES_FILE, USERS_FILE
 from myapp.models import RecipeDataManager
 
-# Check if running in development mode
+# ACTIVATING LOGGING
 logging.error("views.py is on.")
-# # Activating debugging based on the DEBUG flag
 if DEBUG is True:
     logging.basicConfig(filename="error.log", level=logging.DEBUG)
     logging.error("views.py: Debugging is activated.")
 else:
     logging.error("views.py Debugging is deactivated.")
 
+# ACTIVATING BLUEPRINT
 if 1 + 1 == 2:
     views_bp = Blueprint("views", __name__, template_folder="templates")
     views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
@@ -42,6 +36,7 @@ else:
     logging.error("views.py Blueprint is deactivated.")
 
 
+# INDEX PAGE
 @views_bp.route("/")
 def index():
     logging.error("index() executed at:", datetime.datetime.now())
@@ -53,7 +48,29 @@ def index():
         logging.error(f"Error during index() creation: {e}", exc_info=True)
         return render_template("500.html"), 500
 
+# LOGIN FUNCTION
+@views_bp.route("/login", methods=["GET", "POST"])
+def login():
+    logging.error("views.py > login() > login.html function called by __init__.py)")
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        existing_user = User.find_by_username(username)
+        if existing_user and check_password_hash(existing_user.password, password):
+            session["username"] = username
+            session.permanent = True
+            login_user(existing_user)
+            flash("Logged in successfully.")
+            logging.error("Logged in successfully.")
+            return redirect(url_for("profile"))
+        else:
+            logging.error("Invalid username/password combination.")
+            print("Invalid username/password combination.")
+            return redirect(url_for("register"))
+    return render_template("login.html")
 
+
+# LOGIN PAGE
 login_manager = LoginManager()  # Create a login manager instance
 login_manager.login_view = (
     "login"  # Set the login view (i.e., the view that contains the login form)
@@ -61,6 +78,7 @@ login_manager.login_view = (
 login_manager.login_message_category = "info"  # Bootstrap class for flash messages
 
 
+# USER CLASS
 class User(UserMixin):
     def __init__(self, user_id, username, email, password):
         self.id = user_id
@@ -76,11 +94,27 @@ class User(UserMixin):
             (User(**user) for user in users_data if user["username"] == username), None
         )
 
+# LOAD USER FUNCTION
+@login_manager.user_loader
+def load_user(user_id):
+    # Load user from your data source (e.g., JSON file) and return a User object
+    users_data = UserDataManager.load_users()
+    user_data = next((user for user in users_data if user["id"] == user_id), None)
+    if user_data:
+        return User(
+            user_data["id"],
+            user_data["username"],
+            user_data["email"],
+            user_data["password"],
+        )
+    else:
+        return None
 
+# USER DATA MANAGER CLASS
 class UserDataManager:
     @staticmethod
     def load_users():
-        print("views.py UserDataManager load_users() function called")
+        logging.error("views.py > UserDataManager > load_users() function called")
         try:
             with open(USERS_FILE, "r") as f:
                 return json.load(f)
@@ -92,26 +126,10 @@ class UserDataManager:
         with open(USERS_FILE, "w") as f:
             json.dump(users, f)
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    # Load user from your data source (e.g., JSON file) and return a User object
-    users_data = UserDataManager.load_users()
-    user_data = next((user for user in users_data if user["id"] == user_id), None)
-
-    if user_data:
-        return User(
-            user_data["id"],
-            user_data["username"],
-            user_data["email"],
-            user_data["password"],
-        )
-    else:
-        return None
-
-
+# REGISTER FUNCTION
 @views_bp.route("/register", methods=["GET", "POST"])
 def register():
+    logging.error("views.py >  register() > register.html function called by __init__.py)")
     if request.method == "POST":
         username = request.form["username"]
         email = request.form["email"]
@@ -127,7 +145,7 @@ def register():
         )
         if existing_user:
             flash("Username or email already exists.")
-            return redirect(url_for("register"))
+            return redirect(url_for("login"))
         else:
             hashed_password = generate_password_hash(password)
             new_user = {
@@ -140,46 +158,6 @@ def register():
             flash("User created successfully.")
             return redirect(url_for("login"))
         return render_template("register.html")
-
-
-@views_bp.route(
-    "/login", methods=["GET", "POST"]
-)  # This is the login route that is called by __init__.py
-def login():  # This is the login() function that is called by __init__.py
-    print(
-        "views.py login() login.html function called by __init__.py)"
-    )  # This is a test print statement to see if the login() function is called by __init__.py
-    if (
-        request.method == "POST"
-    ):  # This is the POST method that is called by __init__.py
-        username = request.form[
-            "username"
-        ]  # This is the username that is entered by the user in the login form
-        password = request.form[
-            "password"
-        ]  # This is the password that is entered by the user in the login form
-        existing_user = User.find_by_username(
-            username
-        )  # This is the existing user that is found by the username that is entered by the user in the login form
-        if existing_user and check_password_hash(existing_user.password, password):
-            session["username"] = username
-            session.permanent = True
-            login_user(existing_user)
-            flash("Logged in successfully.")
-            print(
-                "Logged in successfully."
-            )  # This is a test print statement to see if the user is logged in successfully
-            return redirect(url_for("profile"))
-        else:
-            flash("Invalid username/password combination.")
-            print(
-                "Invalid username/password combination."
-            )  # This is a test print statement to see if the user is logged in successfully
-            return redirect(url_for("login"))
-    print(
-        "views.py login() login.html function called by __init__.py)"
-    )  # This is a test print statement to see if the login() function is called by __init__.py
-    return render_template("login.html")
 
 
 @views_bp.route("/logout")
