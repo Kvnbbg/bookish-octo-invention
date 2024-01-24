@@ -32,8 +32,10 @@ Ensure your system has a compatible web browser and an internet connection.
 
 Access the application:
 1. Open your web browser.
-2. Navigate to the application URL (e.g., http://localhost:5000).
-3. Log in using your credentials or browse as a guest.
+2. Visit the application by following the provided URL, such as http://localhost:5000.
+3. Sign in using your credentials or explore the application as a guest.
+
+Note: The application is deployed using either [Back4App](https://containers.back4app.com/) or [Netlify](https://netlify.app/) for now. The final decision is pending.
 
 ## Contributing
 
