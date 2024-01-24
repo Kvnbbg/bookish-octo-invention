@@ -25,7 +25,6 @@
         <p>Don't have an account? <a href="/register">Register</a></p>
         <br>
         <form method="post" action="/login" onsubmit="return handleLogin();">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
              <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" class="form-control" id="username" name="username" required>
