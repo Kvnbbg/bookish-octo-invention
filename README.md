@@ -1,5 +1,7 @@
 # Bookish-Octo-Invention
 
+![Bookish-Octo-Invention Logo](myapp/static/logo.jpeg)
+
 Bookish-Octo-Invention is a web application for recipe sharing tailored to specific dietary needs.
 
 ## 2. Getting Started
