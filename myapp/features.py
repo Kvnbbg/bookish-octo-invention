@@ -24,6 +24,9 @@ def redirect_stdout(new_target):
             "profile": profile(),
             "home": index(),  # assuming 'home' maps to 'index.html'
         }
+        base_dir = os.path.abspath(os.path.dirname(__file__))
+config_path = os.path.join(base_dir, "config.py")
+app.config.from_pyfile(config)
 
         template = templates.get(new_target, "404.html")
         flash(f"You visited: {new_target}")

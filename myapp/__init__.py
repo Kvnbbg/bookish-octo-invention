@@ -1,28 +1,22 @@
 # myapp/__init__.py
 
 import logging
-import os
-from myapp import views
-from flask import Flask
-from .config import DEBUG        # Load configuration from config.py (assuming it's in the parent directory)
 
-logging.basicConfig(filename='error.log', level=logging.DEBUG)
+from flask import Flask
+
+from myapp.views import views_bp
+
+logging.basicConfig(filename="error.log", level=logging.DEBUG)
 logging.error("__init__.py is on.")
 
 app = Flask(__name__)
 
-# Get the path to the directory containing this script
-base_dir = os.path.abspath(os.path.dirname(__file__))
-config_path = os.path.join(base_dir, "config.py")
-app.config.from_pyfile(config_path)
-logging.error("__init__.py say Config.py imported")
+
 
 
 def create_app():
     logging.error("create_app() function called")
     try:
-        
-
         # Register blueprints
         app.register_blueprint(views_bp)
         logging.error("Blueprint registered by __init__.py")
@@ -30,8 +24,6 @@ def create_app():
         # Set the secret key
         app.secret_key = app.config["ADDITIONAL_PARAM1"]
         logging.error("Additional param 1 is set by __init__.py")
-
-# You can use the configuration values (DB_HOST, DB_USER, etc.) in the rest of your application.
 
         return app
 

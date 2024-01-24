@@ -1,3 +1,5 @@
+import datetime
+import logging  # Import logging module
 from datetime import timedelta
 
 from flask import (
@@ -11,32 +13,38 @@ from flask import (
     session,
     url_for,
 )
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
-from myapp.models import RecipeDataManager
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_app
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from myapp.config import RECIPES_FILE, USERS_FILE, DEBUG
-import logging # Import logging module
-
-import datetime
+from myapp.config import DEBUG, RECIPES_FILE, USERS_FILE
+from myapp.models import RecipeDataManager
 
 # Check if running in development mode
+logging.error("views.py is on.")
 # # Activating debugging based on the DEBUG flag
 if DEBUG is True:
-    logging.basicConfig(filename='error.log', level=logging.DEBUG)
+    logging.basicConfig(filename="error.log", level=logging.DEBUG)
     logging.error("views.py: Debugging is activated.")
 else:
     logging.error("views.py Debugging is deactivated.")
 
+if 1 + 1 == 2:
+    views_bp = Blueprint("views", __name__, template_folder="templates")
+    views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
+    logging.error("views.py Blueprint is activated.")
+else:
+    logging.error("views.py Blueprint is deactivated.")
 
-
-views_bp = Blueprint(
-    "views", __name__, template_folder="templates"
-)  # Create a blueprint for the views module (this file) and set the template folder to templates (default)
-
-views_bp.config = {
-    "permanent_session_lifetime": timedelta(minutes=5)
-}  # Set session lifetime here (default is 31 days)
+@views_bp.route("/")
+def index():
+    logging.error("index() executed at:", datetime.datetime.now())
+    try:
+        return render_template("index.html")
+    except Exception as e:
+        current_app.logger.exception(e)
+        logging.error("Code executed at:", datetime.datetime.now())
+        logging.error(f"Error during index() creation: {e}", exc_info=True)
+        return render_template("500.html"), 500
 
 login_manager = LoginManager()  # Create a login manager instance
 login_manager.login_view = (
@@ -94,16 +102,7 @@ def load_user(user_id):
         return None
 
 
-@views_bp.route("/")
-def index():
-    logging.error("index() Code executed at:", datetime.datetime.now())
-    try:
-        return render_template("index.html")
-    except Exception as e:
-        current_app.logger.exception(e)
-        logging.error("Code executed at:", datetime.datetime.now())
-        logging.error(f"Error during index() creation: {e}", exc_info=True)
-        return render_template("500.html"), 500
+
 
 
 @views_bp.route("/register", methods=["GET", "POST"])
@@ -199,6 +198,7 @@ def profile_username(username):
     print("views.py profile_username() function called with username: ", username)
     flash(f"Hi {username}!")
     return render_template("profile.html", username=username)
+
 
 @views_bp.route("/recipe/add", methods=["GET", "POST"])
 @login_required
