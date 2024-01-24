@@ -65,7 +65,7 @@ def login():
         else:
             current_app.logger.error("Invalid username/password combination.")
             flash("Invalid username/password combination.", category="error")
-            return redirect(url_for("register"))
+            return render_template(("register.html"))
     return render_template("login.html")
 
 

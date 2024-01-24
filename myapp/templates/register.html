@@ -20,10 +20,7 @@
   </div>
   <br>
 <div class="container">
-  <p>Forgot your password? <a href="/reset">Reset</a></p>
-  <br>
-  <p>Already have an account? <a href="/login">Login</a></p>
-  <br>
+
   <form method="post" action="/register" onsubmit="return handleLogin();">
     <div class="form-group">
         <label for="username">Username:</label>
@@ -39,5 +36,11 @@
     </div>
     <button type="submit" class="btn btn-primary" value=Register>Register</button>
   </form>
+
+  <p>Forgot your password? <a href="/reset">Reset</a></p>
+  <br>
+  <p>Already have an account? <a href="/login">Login</a></p>
+  <br>
+ 
 </div>
 {% endblock %}
