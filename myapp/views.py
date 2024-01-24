@@ -1,3 +1,6 @@
+import logging
+from datetime import datetime, timedelta
+
 from flask import (
     Blueprint,
     current_app,
@@ -11,10 +14,9 @@ from flask import (
 )
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
+
 from myapp.config import DEBUG, RECIPES_FILE, USERS_FILE
 from myapp.models import RecipeDataManager
-from datetime import datetime, timedelta
-import logging
 
 # ACTIVATING LOGGING
 logging.error("views.py is on.")
@@ -33,6 +35,7 @@ else:
     logging.error("views.py Blueprint is deactivated.")
 views_bp = Blueprint("views", __name__)
 
+
 # INDEX PAGE
 @views_bp.route("/")
 def index():
@@ -44,10 +47,33 @@ def index():
         current_app.logger.error(f"Error during index() creation: {e}", exc_info=True)
         return render_template("500.html"), 500
 
+# LOGIN FUNCTION
+@views_bp.route("/login", methods=["GET", "POST"])
+def login():
+    current_app.logger.error("views.py > login() > login.html function called by __init__.py)")
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        existing_user = User.find_by_username(username)
+        if existing_user and check_password_hash(existing_user.password, password):
+            session["username"] = username
+            session.permanent = True
+            login_user(existing_user)
+            flash("Logged in successfully.", category="success")
+            current_app.logger.error("Logged in successfully.")
+            return redirect(url_for("profile"))
+        else:
+            current_app.logger.error("Invalid username/password combination.")
+            flash("Invalid username/password combination.", category="error")
+            return redirect(url_for("register"))
+    return render_template("login.html")
+
+
 # LOGIN PAGE
 login_manager = LoginManager()
 login_manager.login_view = "views.login"
 login_manager.login_message_category = "info"
+
 
 # USER CLASS
 class User(UserMixin):
@@ -60,11 +86,13 @@ class User(UserMixin):
     @staticmethod
     def find_by_username(username):
         users_data = UserDataManager.load_users()
-        current_app.logger.info(f"views.py find_by_username() called with username: {username}")
-        return next(
-            (User(**user) for user in users_data if user["username"] == username),
-            None
+        current_app.logger.info(
+            f"views.py find_by_username() called with username: {username}"
         )
+        return next(
+            (User(**user) for user in users_data if user["username"] == username), None
+        )
+
 
 # LOAD USER FUNCTION
 @login_manager.user_loader
@@ -81,11 +109,14 @@ def load_user(user_id):
     else:
         return None
 
+
 # USER DATA MANAGER CLASS
 class UserDataManager:
     @staticmethod
     def load_users():
-        current_app.logger.error("views.py > UserDataManager > load_users() function called")
+        current_app.logger.error(
+            "views.py > UserDataManager > load_users() function called"
+        )
         try:
             with open(current_app.config["USERS_FILE"], "r") as f:
                 return json.load(f)
@@ -97,10 +128,13 @@ class UserDataManager:
         with open(current_app.config["USERS_FILE"], "w") as f:
             json.dump(users, f)
 
+
 # REGISTER FUNCTION
 @views_bp.route("/register", methods=["GET", "POST"])
 def register():
-    current_app.logger.error("views.py >  register() > register.html function called by __init__.py)")
+    current_app.logger.error(
+        "views.py >  register() > register.html function called by __init__.py)"
+    )
     if request.method == "POST":
         username = request.form["username"]
         email = request.form["email"]
@@ -130,7 +164,9 @@ def register():
             return redirect(url_for("login"))
     return render_template("register.html")
 
+
 # ... (other route functions remain unchanged)
+
 
 @views_bp.route("/logout")
 @login_required
