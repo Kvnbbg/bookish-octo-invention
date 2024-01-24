@@ -63,21 +63,19 @@ body {
   transform: scale(1.05);
 }
 
-h1,
-p {
+h1, p {
   font-family: 'Baloo Bhaina', sans-serif;
   font-weight: 600;
   animation: fadeInUp 1s ease-in-out;
+  margin: 0.5em 0;
 }
 
 h1 {
   font-size: 2.5em;
-  margin: 0.5em 0;
 }
 
 p {
   font-size: 1.2em;
-  margin: 0.5em 0;
 }
 
 @keyframes fadeInUp {
@@ -88,5 +86,19 @@ p {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+#header_title {
+  color: #bf0017; /* Classical red color */
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

@@ -24,7 +24,7 @@
   </head>
   <body>
     <header>
-      <div class="header-title jumbotron text-center" style="margin-bottom: 0">
+      <div id="title_header"class="header-title jumbotron text-center" style="margin-bottom: 0">
         <h1>{% block title_header %} Recipe Sharing Platform {% endblock %}</h1>
       </div>
     </header>
@@ -68,7 +68,10 @@
         </ul>
       </div>
     </nav>
-    <main>{% block content %} {% endblock %}</main>
+    <main>
+      { % block content %} 
+    
+      {% endblock %}</main>
     <footer>
       <p>&copy; 2024 Recipe Sharing Platform</p>
     </footer>
