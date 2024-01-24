@@ -1,6 +1,6 @@
 # Bookish-Octo-Invention User Manual
 
-![Bookish-Octo-Invention Logo](myapp/static/logo.jpeg)
+![Bookish-Octo-Invention Logo](images/md/logo.jpeg)
 ## 1. Introduction
 
 Welcome to Bookish-Octo-Invention! This web application facilitates recipe sharing tailored to specific dietary needs. This user manual provides guidance for efficient use.
@@ -11,7 +11,7 @@ Welcome to Bookish-Octo-Invention! This web application facilitates recipe shari
 
 Ensure your system has a compatible web browser and internet connection.
 
-![Bookish-Octo-Invention Chocolate Cake](myapp/static/chocolate-cake.jpg)
+![Bookish-Octo-Invention Chocolate Cake](images/md/chocolate-cake.jpg)
 
 ## 3 Creating a Profile
 
@@ -35,7 +35,7 @@ Explore features:
 - Browse recipes.
 - Search for specific dietary needs.
 
-![Bookish-Octo-Invention Pasta Carbonara](myapp/static/pasta-carbonara.jpg)
+![Bookish-Octo-Invention Pasta Carbonara](images/md/pasta-carbonara.jpg)
 
 ## 5. Troubleshooting
 

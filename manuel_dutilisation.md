@@ -12,7 +12,7 @@ Bienvenue sur Bookish-Octo-Invention ! Cette application web facilite le partage
 
 Assurez-vous d'avoir un navigateur web compatible et une connexion Internet.
 
-![Bookish-Octo-Invention Chocolate Cake](myapp/static/chocolate-cake.jpg)
+![Bookish-Octo-Invention Chocolate Cake](images/md/chocolate-cake.jpg)
 
 ## 3. Création d'un profil
 
@@ -36,7 +36,7 @@ Explorez les fonctionnalités :
 - Parcourir les recettes.
 - Rechercher des besoins alimentaires spécifiques.
 
-![Bookish-Octo-Invention Pasta Carbonara](myapp/static/pasta-carbonara.jpg)
+![Bookish-Octo-Invention Pasta Carbonara](images/md/pasta-carbonara.jpg)
 
 ## 5. Dépannage
 
