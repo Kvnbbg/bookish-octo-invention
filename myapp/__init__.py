@@ -1,6 +1,7 @@
 # myapp/__init__.py
 
 import logging
+import os
 
 from flask import Flask
 
@@ -12,14 +13,17 @@ logging.error("__init__.py is on.")
 app = Flask(__name__)
 
 
-
-
 def create_app():
     logging.error("create_app() function called")
     try:
         # Register blueprints
         app.register_blueprint(views_bp)
         logging.error("Blueprint registered by __init__.py")
+
+        # Load the config file
+        base_dir = os.path.abspath(os.path.dirname(__file__))
+        config_path = os.path.join(base_dir, "config.py")
+        app.config.from_pyfile(config_path)
 
         # Set the secret key
         app.secret_key = app.config["ADDITIONAL_PARAM1"]

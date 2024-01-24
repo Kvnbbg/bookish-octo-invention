@@ -13,7 +13,13 @@ from flask import (
     session,
     url_for,
 )
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_app
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    login_required,
+    login_user,
+    logout_user,
+)
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from myapp.config import DEBUG, RECIPES_FILE, USERS_FILE
@@ -35,6 +41,7 @@ if 1 + 1 == 2:
 else:
     logging.error("views.py Blueprint is deactivated.")
 
+
 @views_bp.route("/")
 def index():
     logging.error("index() executed at:", datetime.datetime.now())
@@ -45,6 +52,7 @@ def index():
         logging.error("Code executed at:", datetime.datetime.now())
         logging.error(f"Error during index() creation: {e}", exc_info=True)
         return render_template("500.html"), 500
+
 
 login_manager = LoginManager()  # Create a login manager instance
 login_manager.login_view = (
@@ -100,9 +108,6 @@ def load_user(user_id):
         )
     else:
         return None
-
-
-
 
 
 @views_bp.route("/register", methods=["GET", "POST"])
