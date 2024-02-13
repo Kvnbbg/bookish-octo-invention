@@ -332,6 +332,7 @@
         "documentation": {}
     },
     {
+<<<<<<< HEAD
         "label": "datetime",
         "kind": 6,
         "isExtraImport": true,
@@ -346,6 +347,13 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+=======
+        "label": "RECIPES_FILE",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+>>>>>>> bdfdc4c (Update PythonImportHelper-v2-Completion.json with import changes)
         "documentation": {}
     },
     {
@@ -386,6 +394,14 @@
         "description": "flask",
         "isExtraImport": true,
         "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
