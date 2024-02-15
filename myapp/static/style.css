@@ -1,20 +1,18 @@
 :root {
-  --primary-bg-color: #2e1c26;
-  --secondary-bg-color: #473440;
-  --accent-color: #24bda4;
-  --accent-color-light: #35f0e5;
-  --text-color: #f0e8f0;
-  --hover-color: #170d13;
-  --hover-color-light: #2e1c26;
+  --primary-bg-color: #f8f8f8; /* Light background color */
+  --secondary-bg-color: #ffffff; /* White background color */
+  --accent-color: #24bda4; /* Cyber green for accent */
+  --accent-color-light: #35f0e5; /* Lighter shade of accent color */
+  --text-color: #333333; /* Dark text color for better readability */
+  --hover-color: #e0e0e0; /* Light gray for hover effect */
 }
 
 body {
-  background-image: linear-gradient(to bottom right, var(--primary-bg-color), var(--secondary-bg-color));
+  background-color: var(--primary-bg-color);
   font-family: 'Noto Sans', sans-serif;
   margin: 0;
   padding: 0;
   color: var(--text-color);
-  overflow-x: hidden; /* Ensure no horizontal scrolling */
 }
 
 .container {
@@ -27,17 +25,39 @@ body {
 }
 
 .navbar {
-  transition: background-color 0.3s; /* Smooth background color transition */
+  border-bottom: 1px solid var(--hover-color);
 }
 
-.navbar:hover {
-  background-color: var(--hover-color-light);
+.navbar-toggler-icon {
+  background-color: var(--text-color);
+}
+
+.navbar-brand {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.nav-item {
+  margin-right: 10px;
+}
+
+.nav-link {
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--accent-color);
 }
 
 .card {
   border: none;
   border-radius: 10px;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   background-color: var(--secondary-bg-color);
   overflow: hidden;
@@ -45,12 +65,12 @@ body {
 
 .card:hover {
   transform: scale(1.03);
-  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card:active {
   transform: scale(1.05);
-  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
 }
 
 .form-control {
@@ -58,11 +78,6 @@ body {
   border: 1px solid var(--accent-color);
   background-color: var(--secondary-bg-color);
   color: var(--accent-color);
-  transition: border-color 0.3s, background-color 0.3s;
-}
-
-.form-control:focus {
-  border-color: var(--accent-color-light);
 }
 
 .btn-primary {
@@ -86,6 +101,7 @@ h1, p {
 
 h1 {
   font-size: 2.5em;
+  color: var(--accent-color);
 }
 
 p {
@@ -103,8 +119,8 @@ p {
   }
 }
 
-#header_title {
-  color: #bf0017;
+#title_header {
+  color: var(--accent-color);
   animation: fadeIn 1s ease-in-out;
 }
 
@@ -127,16 +143,15 @@ p {
 }
 
 .role-icon {
-  margin-right: 5px;
+  margin-right: 5px; /* Adjust as needed */
 }
 
 footer {
-  background-color: var(--secondary-bg-color);
-  padding: 1em 0;
+  background-color: var(--primary-bg-color);
+  padding: 10px;
   text-align: center;
-}
-
-footer p {
-  margin: 0;
-  color: var(--accent-color);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: var(--text-color);
 }
