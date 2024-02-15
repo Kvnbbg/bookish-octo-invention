@@ -18,34 +18,15 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from myapp.config import DEBUG, RECIPES_FILE, USERS_FILE
 from myapp.models import RecipeDataManager
 
-# ACTIVATING LOGGING
-logging.error("views.py is on.")
-if DEBUG:
-    logging.basicConfig(filename="error.log", level=logging.DEBUG)
-    logging.error("views.py: Debugging is activated.")
-else:
-    logging.error("views.py Debugging is deactivated.")
-
 # ACTIVATING BLUEPRINT
-if 1 + 1 == 2:
-    views_bp = Blueprint("views", __name__, template_folder="templates")
-    views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
-    logging.error("views.py Blueprint is activated.")
-else:
-    logging.error("views.py Blueprint is deactivated.")
+views_bp = Blueprint("views", __name__, template_folder="templates")
+views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
 views_bp = Blueprint("views", __name__)
-
 
 # INDEX PAGE
 @views_bp.route("/")
 def index():
-    current_app.logger.error(f"Error in {request.endpoint} at: {datetime.now()}")
-    try:
-        return render_template("index.html")
-    except Exception as e:
-        current_app.logger.exception(e)
-        current_app.logger.error(f"Error during index() creation: {e}", exc_info=True)
-        return render_template("500.html"), 500
+    return render_template("index.html")
 
 # LOGIN FUNCTION
 @views_bp.route("/login", methods=["GET", "POST"])
@@ -191,10 +172,6 @@ def select_role():
         # Handle invalid role
         return render_template("error.html", error_message="Invalid role selected")
 
-
-# ... (other route functions remain unchanged)
-
-
 @views_bp.route("/logout")
 @login_required
 def logout():
@@ -281,6 +258,9 @@ def patient():
 def about():
     return render_template("about.html")
 
+@views_bp.route("/my_services")
+def my_services():
+    return render_template("my_services.html")
 
 @views_bp.route("/contact")
 def contact():
