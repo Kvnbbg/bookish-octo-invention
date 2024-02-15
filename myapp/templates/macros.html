@@ -23,16 +23,25 @@
     <meta name="keywords" content="Recipes, Cooking, Food Sharing" />
   </head>
   <body>
+
+    <!-- HEADER CONTENT -->
+
     <header>
-      <div id="title_header" class="header-title text-center">
-        <h1>{% block title_header %} Recipe Sharing Platform {% endblock %}</h1>
+      <div class="header-title text-center">
+        <h1>
+        {% block title_header %}
+        <a href="https://www.instagram.com/DavidChang">#Diet</a> 
+        <a href="https://www.instagram.com/LindsayOstrom">#Cook!</a>
+        <a href="https://www.pinterest.com/MaryannRizzo">#Healthy</a>
+      </h1>
+        <h2>Delicious recipes, astuces and inspiration! 🍽️🌿</h2>
+        {% endblock %}
       </div>
     </header>
 
+<!-- NAV CONTENT -->
+
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand" href="/"
-        ><img src="{{ url_for('static', filename='/images/favicon.ico') }}" alt="Logo" class="navbar-logo"
-      /></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -45,7 +54,12 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <a class="navbar-brand" href="/"
+        ><img src="{{ url_for('static', filename='/images/favicon.ico') }}" alt="Logo" class="navbar-logo"
+      /></a>
+
       {% if session['role'] %}
+
       <li class="nav-item">
           <!-- Display user role with color animation -->
           <a class="nav-link role-link" href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
@@ -86,15 +100,23 @@
         </ul>
       </div>
     </nav>
+
     <!-- MAIN CONTENT -->
+
     <main>
       {% block content %}
     
       {% endblock %}
     </main>
+
+    <!-- FOOTER CONTENT -->
+
     <footer>
       <p>&copy; 2024 Recipe Sharing Platform</p>
     </footer>
+
+    <!-- SCRIPT CONTENT -->
+    
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='script.js') }}"
@@ -114,5 +136,8 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+
+    <!-- END -->
+
   </body>
 </html>

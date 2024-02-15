@@ -7,6 +7,11 @@
   --hover-color: #e0e0e0; /* Light gray for hover effect */
 }
 
+html {
+  font-size: 16px;
+  font-family: 'Baloo Bhaina', sans-serif;
+}
+
 body {
   background-color: var(--primary-bg-color);
   font-family: 'Noto Sans', sans-serif;
@@ -14,6 +19,43 @@ body {
   padding: 0;
   color: var(--text-color);
 }
+
+h1, p {
+  margin: 0.5em 0;
+}
+
+/********************************** STRUCTURE ********************************/
+
+header {
+  color: var(--accent-color);
+  animation: fadeIn 7s infinite;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: var(--accent-color);
+}
+
+h2 {
+  font-weight: 600;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+footer {
+  background-color: var(--primary-bg-color);
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: var(--text-color);
+}
+
+
+/********************************** CLASS ********************************/
 
 .container {
   margin-top: 80px;
@@ -66,6 +108,7 @@ body {
 .card:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 1s ease-in-out;
 }
 
 .card:active {
@@ -92,47 +135,6 @@ body {
   transform: scale(1.05);
 }
 
-h1, p {
-  font-family: 'Baloo Bhaina', sans-serif;
-  font-weight: 600;
-  animation: fadeInUp 1s ease-in-out;
-  margin: 0.5em 0;
-}
-
-h1 {
-  font-size: 2.5em;
-  color: var(--accent-color);
-}
-
-p {
-  font-size: 1.2em;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-#title_header {
-  color: var(--accent-color);
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .role-link {
   color: var(--accent-color);
   transition: color 0.3s;
@@ -146,12 +148,24 @@ p {
   margin-right: 5px; /* Adjust as needed */
 }
 
-footer {
-  background-color: var(--primary-bg-color);
-  padding: 10px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: var(--text-color);
+/********************************** ANIMATION ********************************/
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
