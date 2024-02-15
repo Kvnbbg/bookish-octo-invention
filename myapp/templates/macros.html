@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} Recipe Sharing Platform {% endblock %}</title>
+    <title>{% block title %}My Recipe {% endblock %}</title>
 
     <link rel="icon" href="{{ url_for('static', filename='/images/favicon.ico') }}" />
     <link
@@ -20,24 +20,17 @@
       name="description"
       content="A community-driven platform for sharing and discovering a variety of delicious recipes. Explore new cuisines, learn cooking techniques, and share your own culinary creations."
     />
-    <meta name="keywords" content="Recipes, Cooking, Food Sharing" />
+    <meta name="keywords" content="Recipes, Food and Healthy Sharing" />
   </head>
   <body>
 
-    <!-- HEADER CONTENT -->
-
-    <header>
-      <div class="header-title text-center">
-        <h1>
-        {% block title_header %}
-        <a href="https://www.instagram.com/DavidChang">#Diet</a> 
-        <a href="https://www.instagram.com/LindsayOstrom">#Cook!</a>
-        <a href="https://www.pinterest.com/MaryannRizzo">#Healthy</a>
-      </h1>
-        <h2>Delicious recipes, astuces and inspiration! 🍽️🌿</h2>
-        {% endblock %}
-      </div>
-    </header>
+<!-- HEADER CONTENT -->
+<header>
+  <div id="header" class="header-title text-center"> 
+{% block title_header %}
+{% endblock %}
+  </div>
+</header>
 
 <!-- NAV CONTENT -->
 
@@ -59,60 +52,43 @@
       /></a>
 
       {% if session['role'] %}
-
-      <li class="nav-item">
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
           <!-- Display user role with color animation -->
           <a class="nav-link role-link" href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
-              <span class="role-icon">
+            <ul class="role-icon">
               {% if session['role'] == 'admin' %}
-              👩‍💼
+              <li class="nav-item">👩‍⚕️</li>
               {% elif session['role'] == 'patient' %}
-              👩‍⚕️
+              <li class="nav-item">👩‍💼</li>
               {% else %}
-              👤
+              <li class="nav-item">👤</li>
               {% endif %}
-            </span>
+            </ul>
             {{ session['role'] }}
           </a>
-      </li>
+      </div>
       {% endif %}
 
-      <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav">
-          {% if session['logged_in'] %}
-          <li class="nav-item">
-            <a class="nav-link" id="logout" href="/logout">Logout</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/add_recipe">Add recipe</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" id="login" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="register" href="/register">Register</a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav>
-
-    <!-- MAIN CONTENT -->
-
+  <ul class="navbar">
+    <li class="nav-item"><a href="/legal">Legal</a></li>
+    <li class="nav-item"><a href="/contact">Contact</a></li>
+    <li class="nav-item"><a href="/confid">Confidentiality</a></li>
+  </ul>
+   </div>
+  </nav>
     <main>
+      <!-- MAIN CONTENT -->
       {% block content %}
     
       {% endblock %}
     </main>
 
-    <!-- FOOTER CONTENT -->
+   
 
     <footer>
-      <p>&copy; 2024 Recipe Sharing Platform</p>
+       <!-- FOOTER CONTENT -->
+      <p>&copy; 2024 by Kevin Marville</p>
     </footer>
 
     <!-- SCRIPT CONTENT -->
@@ -121,6 +97,9 @@
       type="text/javascript"
       src="{{ url_for('static', filename='script.js') }}"
     ></script>
+
+    <!-- Bootstrap JS and Popper.js scripts -->
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

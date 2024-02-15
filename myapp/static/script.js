@@ -1,3 +1,38 @@
+// ***************** HEADER ANIMATON ***********
+/***
+ * This script dynamically extracts the file name from the current HTML page, removes the .html extension, 
+ * and then constructs the image URL using the myapp/images/ directory. 
+ ***/
+document.addEventListener("DOMContentLoaded", function() {
+// Get the current HTML file name
+  var currentPage = location.pathname.split("/").slice(-1)[0];
+  // Extract the file name without the extension
+  var fileName = currentPage.replace(/\.html$/, "");
+  // Set the background image of the header
+  document.getElementById("header").style.backgroundImage = "url('myapp/images/" + fileName + ".png')";
+});
+
+// ***************** DROP ANIMATON ***********
+/***
+ * The dropdown is triggered only by the image with the class dropdown-trigger
+ ***/
+// LOGIN LOGIC
+document.addEventListener("DOMContentLoaded", function() {
+  var loginTrigger = document.getElementById("login-trigger");
+  var loginDropdownContainer = document.getElementById("login-dropdown-container");
+  loginTrigger.addEventListener("click", function() {
+    loginDropdownContainer.classList.toggle("show");
+  });
+  // Close the login dropdown if the user clicks outside of it
+  window.addEventListener("click", function(event) {
+    if (!event.target.matches("#login-trigger")) {
+      if (loginDropdownContainer.classList.contains("show")) {
+        loginDropdownContainer.classList.remove("show");
+      }
+    }
+  });
+  // TODO: Below add similar logic for other triggers and containers
+});
 
 // Fake login logic
 function handleLogin() {

@@ -31,7 +31,6 @@ def index():
 # LOGIN FUNCTION
 @views_bp.route("/login", methods=["GET", "POST"])
 def login():
-    current_app.logger.error("views.py > login() > login.html function called by __init__.py)")
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -41,13 +40,14 @@ def login():
             session.permanent = True
             login_user(existing_user)
             flash("Logged in successfully.", category="success")
-            current_app.logger.error("Logged in successfully.")
-            return redirect(url_for("profile"))
+            flash(f"Hi {username}!")
+            print("Logged in successfully.")
+            return redirect(url_for("index,"))
         else:
-            current_app.logger.error("Invalid username/password combination.")
+            print("Invalid username/password combination.")
             flash("Invalid username/password combination.", category="error")
-            return render_template(("register.html"))
-    return render_template("login.html")
+            return render_template(("index"))
+    return render_template("index")
 
 
 # LOGIN PAGE
@@ -67,7 +67,7 @@ class User(UserMixin):
     @staticmethod
     def find_by_username(username):
         users_data = UserDataManager.load_users()
-        current_app.logger.info(
+        print(
             f"views.py find_by_username() called with username: {username}"
         )
         return next(
@@ -95,7 +95,7 @@ def load_user(user_id):
 class UserDataManager:
     @staticmethod
     def load_users():
-        current_app.logger.error(
+        print(
             "views.py > UserDataManager > load_users() function called"
         )
         try:
@@ -113,9 +113,6 @@ class UserDataManager:
 # REGISTER FUNCTION
 @views_bp.route("/register", methods=["GET", "POST"])
 def register():
-    current_app.logger.error(
-        "views.py >  register() > register.html function called by __init__.py)"
-    )
     if request.method == "POST":
         username = request.form["username"]
         email = request.form["email"]
@@ -129,6 +126,11 @@ def register():
             ),
             None,
         )
+        role = request.form.get("role")
+        
+        # Save the user role to the session
+        session["role"] = role
+
         if existing_user:
             flash("Username or email already exists.", category="error")
             return redirect(url_for("login"))
@@ -143,34 +145,7 @@ def register():
             UserDataManager.save_users(users_data)
             flash("User created successfully.", category="success")
             return redirect(url_for("login"))
-    return render_template("register.html")
-
-# CREATE PROFILE FUNCTION
-@views_bp.route("/profile")
-@login_required
-def profile():
-    username = session["username"]
-    logging.error(f"views.py profile() function called with username: {username}")
-    flash(f"Hi {username}!")
-    return render_template("profile.html")
-
-# ADD ROLE SELECTION FUNCTION
-@views_bp.route("/select_role", methods=["POST"])
-@login_required
-def select_role():
-    role = request.form.get("role")
-
-    # Save the user role to the session
-    session["role"] = role
-
-    # Redirect based on the selected role
-    if role == "admin":
-        return redirect(url_for("admin"))
-    elif role == "patient":
-        return redirect(url_for("patient"))
-    else:
-        # Handle invalid role
-        return render_template("error.html", error_message="Invalid role selected")
+    return render_template("index.html")
 
 @views_bp.route("/logout")
 @login_required
@@ -178,14 +153,6 @@ def logout():
     logout_user()
     flash("Logged out successfully.")
     return redirect(url_for("index"))
-
-@views_bp.route("/profile/<username>")
-@login_required
-def profile_username(username):
-    print("views.py profile_username() function called with username: ", username)
-    flash(f"Hi {username}!")
-    return render_template("profile.html", username=username)
-
 
 @views_bp.route("/recipe/add", methods=["GET", "POST"])
 @login_required
@@ -217,15 +184,21 @@ def add_recipe():
         recipe_manager.save_recipes(recipes_data, RECIPES_FILE)
 
         flash("Recipe created successfully.")
-        return redirect(url_for("recipes"))
+        return redirect(url_for("index"))
 
-    return render_template("add_recipe.html")
+    return render_template("index.html")
 
+@views_bp.route("/contact")
+def contact():
+    return render_template("contact.html")
 
-@views_bp.route("/recipes")
-def recipes():
-    return render_template("recipe.html")
+@views_bp.route("/legal")
+def legal():
+    return render_template("legal.html")
 
+@views_bp.route("/confid")
+def legal():
+    return render_template("confid.html")
 
 @views_bp.errorhandler(500)
 def internal_server_error(e):
@@ -237,47 +210,6 @@ def internal_server_error(e):
 def page_not_found(e):
     current_app.logger.error(f"Page Not Found: {e}")
     return render_template("404.html", error_details=str(e)), 404
-
-
-@views_bp.route("/admin")
-def admin():
-    return render_template("admin.html")
-
-
-@views_bp.route("/author")
-def author():
-    return render_template("author.html")
-
-
-@views_bp.route("/patient")
-def patient():
-    return render_template("patient.html")
-
-
-@views_bp.route("/about")
-def about():
-    return render_template("about.html")
-
-@views_bp.route("/my_services")
-def my_services():
-    return render_template("my_services.html")
-
-@views_bp.route("/contact")
-def contact():
-    return render_template("contact.html")
-
-
-@views_bp.route("/search")  # This is the search bar
-def search():
-    return render_template("search.html")
-
-
-@views_bp.route(
-    "/search_results"
-)  # This is the search_results route that is called by __init__.py for the search_results.html page about results from the search bar
-def search_results():
-    return render_template("search_results.html")
-
 
 @views_bp.after_request
 def add_header(response):
