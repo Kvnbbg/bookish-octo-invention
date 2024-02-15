@@ -1,4 +1,6 @@
-# Technical Documentation
+# Technical Documentation (Documentation Technique) pour PDF
+
+![Logo 2](doc/images/logo2.png)
 
 ## 1. Introduction
 
@@ -6,7 +8,7 @@ Bookish-Octo-Invention is a sophisticated recipe-sharing platform that enables u
 
 ## 2. Class Diagram
 
-![Class Diagram](images/md/class_diagram.png)
+![Class Diagram](doc/images/classDiagram.png)
 
 The class diagram showcases the key classes in the system, including User, Recipe, Ingredient, and Comment. Relationships such as user ownership of recipes and comments are illustrated, forming the foundation for the application's structure.
 
@@ -20,7 +22,7 @@ Users have unique IDs, usernames, and email addresses. Recipes encompass details
 
 ## 4. Use Case Diagram
 
-![Use Case Diagram](/images/md/use_case_diagram.png)
+![Use Case Diagram](doc/images/useCaseDiagram.png)
 
 The use case diagram illustrates the interactions between actors and the system. Actors include Guest, Registered User, and Administrator. Core use cases involve browsing recipes, creating an account, sharing recipes, and moderating content.
 
@@ -28,13 +30,13 @@ Guests can explore recipes, while Registered Users gain additional functionaliti
 
 ## 5. Sequence Diagram
 
-![Sequence Diagram](images/md//sequence_diagram.png)
+![Sequence Diagram](doc/images/sequenceDiagram.png)
 
 Sequence diagrams provide a dynamic view of the system's interactions. The creation of a new recipe is depicted, involving actions such as user authentication, recipe creation, and comment addition.
 
 ## 6. Flowchart
 
-![Flowchart](flowchart.png)
+![Flowchart](doc/flowchart.png)
 
 The flowchart outlines the recipe submission process. Starting with user authentication, it navigates through creating a new recipe, adding ingredients, and submitting the final recipe. Decision points handle cases like missing information or validation errors.
 
@@ -48,4 +50,4 @@ Include additional diagrams, charts, or technical details as necessary to enhanc
 
 ## Author
 
-This user manual was authored by Kevin Marville. Contact the author at [Send an email](mailto:kevinmarville@gmail.com)
+This user manual was authored by Kevin Marville. Contact the author at [Send an email](mailto:KevinMarville@kvnbbg-creations.io)

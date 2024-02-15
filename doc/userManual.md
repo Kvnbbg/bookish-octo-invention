@@ -1,6 +1,7 @@
-# Bookish-Octo-Invention User Manual
+# User Manual (Manuel Utilisateur) pour PDF
 
-![Bookish-Octo-Invention Logo](images/md/logo.jpeg)
+![Logo 3](doc/images/logo3.png)
+
 ## 1. Introduction
 
 Welcome to Bookish-Octo-Invention! This web application facilitates recipe sharing tailored to specific dietary needs. This user manual provides guidance for efficient use.
@@ -11,7 +12,7 @@ Welcome to Bookish-Octo-Invention! This web application facilitates recipe shari
 
 Ensure your system has a compatible web browser and internet connection.
 
-![Bookish-Octo-Invention Chocolate Cake](images/md/chocolate-cake.jpg)
+![Bookish-Octo-Invention Chocolate Cake](doc/images/chocolateCake.png)
 
 ## 3 Creating a Profile
 
@@ -35,7 +36,7 @@ Explore features:
 - Browse recipes.
 - Search for specific dietary needs.
 
-![Bookish-Octo-Invention Pasta Carbonara](images/md/pasta-carbonara.jpg)
+![Bookish-Octo-Invention Pasta Carbonara](doc/images/pastaCarbonara.png)
 
 ## 5. Troubleshooting
 
@@ -43,9 +44,7 @@ Refer to the troubleshooting section in technical documentation or contact suppo
 
 ## 6. Support and Feedback
 
-- **Support:** Contact [Send an email](mailto:kevinmarville@gmail.com)
-
-- **Feedback:** Share thoughts at [Send an email](mailto:kevinmarville@gmail.com)
+- **Support:** Contact [Send an email](mailto:KevinMarville@kvnbbg-creations.io)
 
 
 ## 7. Project Deliverables
@@ -53,10 +52,6 @@ Refer to the troubleshooting section in technical documentation or contact suppo
 - [GitHub Repository](https://github.com/kvnbbg/bookish-octo-invention)
 - [Online Version (Back4App)](https://containers.back4app.com)
 - [Readme File (Deployment & Admin Creation)](README.md)
-- [User Manual (PDF)](user_manual.pdf)
-- [Technical Documentation (PDF)](technical_doc.pdf)
-- [Design Assets Document (PDF)](design_assets.pdf)
-
-## 8. Author
-
-This user manual was authored by Kevin Marville. Contact the author at [Send an email](mailto:kevinmarville@gmail.com)
+- [User Manual (PDF)](doc/userManual.md)
+- [Technical Documentation (PDF)](doc/technicalDoc.md)
+- [Design Assets Document (PDF)](doc/designAssets.md)

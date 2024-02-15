@@ -1,6 +1,6 @@
 # Design Assets (Charte Graphique) for PDF
 
-![Bookish-Octo-Invention Logo](images/md/logo.jpeg)
+![Logo](doc/images/logo.png)
 
 ## Palette of Colors:
 - **Primary Background Color:** #2e1c26
@@ -10,8 +10,6 @@
 - **Text Color:** #f0e8f0
 - **Hover Color:** #170d13
 - **Lighter Shade for Hover Effect:** #2e1c26
-
-![Bookish-Octo-Invention Logo2](images/md/logo2.png)
 
 ## Font Family:
 - **Body Text:** 'Noto Sans', sans-serif
@@ -57,8 +55,6 @@
 3. **Form Validation:**
    - Implement client-side form validation for a better user experience.
 
-![Bookish-Octo-Invention Logo3](images/md/logo3.png)
-
 ## Mobile Version:
 - Responsive design for smaller screens.
 - Adjusted margins and paddings for better mobile readability.
@@ -75,4 +71,4 @@
 
 ## Auteur
 
-Ce manuel d'utilisation a été rédigé par Kevin Marville. Contactez l'auteur à [Send an email](mailto:kevinmarville@gmail.com)
+Ce manuel d'utilisation a été rédigé par Kevin Marville. Contactez l'auteur à [Send an email](mailto:KevinMarville@kvnbbg-creations.io)

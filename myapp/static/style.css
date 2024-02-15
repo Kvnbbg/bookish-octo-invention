@@ -1,19 +1,20 @@
 :root {
   --primary-bg-color: #2e1c26;
   --secondary-bg-color: #473440;
-  --accent-color: #24bda4; /* Cyber green for accent */
-  --accent-color-light: #35f0e5; /* Lighter shade of accent color */
-  --text-color: #f0e8f0; /* Light text color for better readability */
+  --accent-color: #24bda4;
+  --accent-color-light: #35f0e5;
+  --text-color: #f0e8f0;
   --hover-color: #170d13;
-  --hover-color-light: #2e1c26; /* Lighter shade for hover effect */
+  --hover-color-light: #2e1c26;
 }
 
 body {
   background-image: linear-gradient(to bottom right, var(--primary-bg-color), var(--secondary-bg-color));
   font-family: 'Noto Sans', sans-serif;
-  margin: 5% 10%;
+  margin: 0;
   padding: 0;
   color: var(--text-color);
+  overflow-x: hidden; /* Ensure no horizontal scrolling */
 }
 
 .container {
@@ -23,6 +24,14 @@ body {
 .navbar-logo {
   height: 50px;
   width: auto;
+}
+
+.navbar {
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.navbar:hover {
+  background-color: var(--hover-color-light);
 }
 
 .card {
@@ -49,6 +58,11 @@ body {
   border: 1px solid var(--accent-color);
   background-color: var(--secondary-bg-color);
   color: var(--accent-color);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: var(--accent-color-light);
 }
 
 .btn-primary {
@@ -90,7 +104,7 @@ p {
 }
 
 #header_title {
-  color: #bf0017; /* Classical red color */
+  color: #bf0017;
   animation: fadeIn 1s ease-in-out;
 }
 
@@ -113,5 +127,16 @@ p {
 }
 
 .role-icon {
-  margin-right: 5px; /* Adjust as needed */
+  margin-right: 5px;
+}
+
+footer {
+  background-color: var(--secondary-bg-color);
+  padding: 1em 0;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  color: var(--accent-color);
 }

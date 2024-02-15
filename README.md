@@ -1,6 +1,6 @@
 # Bookish-Octo-Invention
 
-![Bookish-Octo-Invention Logo](myapp/static/logo.jpeg)
+![Bookish-Octo-Invention Logo](doc/images/logo.png)
 
 Bookish-Octo-Invention is a web application for recipe sharing tailored to specific dietary needs.
 
@@ -47,12 +47,12 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Expended documentations
 
-- [User Manual (PDF)](user_manual.pdf)
-- [Technical Documentation (PDF)](technical_doc.pdf)
-- [Design Assets Document (PDF)](design_assets.pdf)
+- [User Manual (PDF)](doc/userManual.md)
+- [Technical Documentation (PDF)](doc/technicalDoc.md)
+- [Design Assets Document (PDF)](doc/designAssets.md)
 
 
 ---
 
 **Author:** Kevin Marville  
-**Contact:** kevinmarville@gmail.com
+**Contact:** KevinMarville@kvnbbg-creations.io

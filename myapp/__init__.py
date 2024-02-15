@@ -1,40 +1,44 @@
-# myapp/__init__.py
-
-import logging
 import os
-
 from flask import Flask
-
 from myapp.views import views_bp
 
-logging.basicConfig(filename="error.log", level=logging.DEBUG)
-logging.error("__init__.py is on.")
-
-app = Flask(__name__)
-
-
 def create_app():
-    logging.error("create_app() function called")
-    try:
-        # Register blueprints
-        app.register_blueprint(views_bp)
-        logging.error("Blueprint registered by __init__.py")
+    app = Flask(__name__)
 
-        # Load the config file
+    try:
+        configure_app(app)
+        register_blueprints(app)
+        return app
+
+    except Exception as e:
+        handle_error(e)
+        return app
+
+def configure_app(app):
+    try:
         base_dir = os.path.abspath(os.path.dirname(__file__))
         config_path = os.path.join(base_dir, "config.py")
         app.config.from_pyfile(config_path)
 
         # Set the secret key
         app.secret_key = app.config["ADDITIONAL_PARAM1"]
-        logging.error("Additional param 1 is set by __init__.py")
-
-        return app
+        print("Additional param 1 is set by __init__.py")
 
     except Exception as e:
-        logging.error(f"Error during app creation: {e}")
-        # Optionally, you can log the error using a logging library
-        logging.error(f"Error during app creation: {e}", exc_info=True)
+        handle_error(e)
 
-        # Gracefully exit the application or return a default app instance
-        return Flask(__name__)
+def register_blueprints(app):
+    try:
+        app.register_blueprint(views_bp)
+        print("Blueprint registered by __init__.py")
+
+    except Exception as e:
+        handle_error(e)
+
+def handle_error(error):
+    print(f"Error: {error}")
+    # Optionally, you can log the error using a logging library
+    print(f"Error details: {error}", exc_info=True)
+
+# If __name__ == "__main__":
+#     create_app().run()

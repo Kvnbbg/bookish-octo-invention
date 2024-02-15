@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %} Recipe Sharing Platform {% endblock %}</title>
 
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link rel="icon" href="{{ url_for('static', filename='/images/favicon.ico') }}" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -24,14 +24,14 @@
   </head>
   <body>
     <header>
-      <div id="title_header"class="header-title jumbotron text-center" style="margin-bottom: 0">
+      <div id="title_header" class="header-title text-center">
         <h1>{% block title_header %} Recipe Sharing Platform {% endblock %}</h1>
       </div>
     </header>
 
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <a class="navbar-brand" href="/"
-        ><img src="/static/favicon.ico" alt="Logo" class="navbar-logo"
+        ><img src="{{ url_for('static', filename='/images/favicon.ico') }}" alt="Logo" class="navbar-logo"
       /></a>
       <button
         class="navbar-toggler"
@@ -88,7 +88,7 @@
     </nav>
     <!-- MAIN CONTENT -->
     <main>
-      { % block content %}
+      {% block content %}
     
       {% endblock %}
     </main>
