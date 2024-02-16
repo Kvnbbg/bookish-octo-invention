@@ -17,7 +17,7 @@ function setHeaderBackground() {
   var currentPage = location.pathname.split("/").slice(-1)[0];
   var fileName = currentPage.replace(/\.html$/, "");
   document.getElementById("header").style.backgroundImage =
-    "url('myapp/images/" + fileName + ".png')";
+    "{{ url_for('static', filename='/images/') }}" + fileName + ".png')";
 }
 
 function initializeDropdown(name, triggerId, containerId) {

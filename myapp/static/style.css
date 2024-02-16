@@ -7,6 +7,24 @@
   --hover-color: #e0e0e0; /* Light gray for hover effect */
 }
 
+/* ... Your existing styles ... */
+
+/********************************** IMAGE ********************************/
+
+img {
+  max-width: 100%;
+  height: auto;
+  width: 100%; /* Set width to 100% to maintain aspect ratio */
+  max-height: 200px; /* Set a fixed height for a square shape */
+  object-fit: cover; /* Maintain the aspect ratio and cover the container */
+  transition: transform 0.3s; /* Add a transition for a smooth effect */
+}
+
+img:hover {
+  transform: scale(1.1); /* Zoom in on hover */
+}
+
+
 /********************************** STRUCTURE ********************************/
 
 html {
@@ -24,7 +42,10 @@ body {
 
 header {
   animation: fadeIn 7s infinite;
-  background-size: cover;
+  background: url(/static/images/default.png) center/cover no-repeat;
+  z-index: 1;
+  width: 100%;
+  height: 20%;
 }
 
 h1, p {
@@ -93,6 +114,14 @@ footer {
   margin-top: 80px;
 }
 
+/********************************** DROPDOWN LINK HOVER ********************************/
+
+.dropdown-content a:hover {
+  color: var(--accent-color);
+}
+
+/********************************** DROPDOWN LINK ********************************/
+
 .dropdown-container {
   position: absolute;
   top: 100%;
@@ -116,6 +145,14 @@ footer {
 .dropdown-trigger {
   cursor: pointer;
 }
+
+/********************************** NAVBAR LINK HOVER ********************************/
+
+.navbar-nav a:hover {
+  color: var(--accent-color);
+}
+
+/********************************** NAVBAR LINK ********************************/
 
 .navbar-logo {
   height: 50px;

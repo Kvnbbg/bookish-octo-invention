@@ -1,8 +1,5 @@
-# models.py
-
 import json
 import os
-
 from myapp.config import RECIPES_FILE
 
 class RecipeDataManager:
@@ -19,12 +16,9 @@ class RecipeDataManager:
             If the file exists and is not empty, returns the loaded recipes as a dictionary.
             If the file does not exist or is empty, returns an empty dictionary.
         """
-        if os.path.exists(file_path):
-            if os.stat(file_path).st_size == 0:  # Check if file is empty
-                return {}
-            else:
-                with open(file_path, "r") as f:
-                    return json.load(f)
+        if os.path.exists(file_path) and os.stat(file_path).st_size > 0:
+            with open(file_path, "r") as f:
+                return json.load(f)
         return {}
 
     @staticmethod
@@ -33,8 +27,8 @@ class RecipeDataManager:
         Save recipes to a file.
 
         Args:
-            recipes: The recipes to be saved as a dictionary.
-            file_path: The path to the file where recipes should be saved.
+            recipes (dict): The recipes to be saved as a dictionary.
+            file_path (str): The path to the file where recipes should be saved.
 
         Returns:
             None

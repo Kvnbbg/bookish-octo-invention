@@ -1,6 +1,3 @@
-{% extends 'macros.html' %}
-
-{% block content %}
     <!-- RECIPE -->
     <img src="{{ url_for('static', filename='/images/recipe.png') }}" alt="Recipe Dropdown Trigger" class="dropdown-trigger" id="recipe-trigger">
     <div class="dropdown-container" id="recipe-dropdown-container">
@@ -28,4 +25,3 @@
             {% endfor %}
         </div>
     </div>
-{% endblock %}
