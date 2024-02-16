@@ -6,159 +6,54 @@
 <div class="container">
     <h1>Connect 🍽️</h1>
 
-    <!-- ALERTE MESSAGE -->
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="alert alert-danger">
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
+    <!-- ALERT MESSAGE -->
+    {% include 'partials/alert_messages.html' %}
 
     <!-- CONNECTED -->
     {% if session['logged_in'] %}
-    <h1>Profile</h1>
-    <p>Welcome back, {{ current_user.username | capitalize }}!</p>
+        <h1>Profile</h1>
+        <p>Welcome back, {{ current_user.username | capitalize }}!</p>
 
-    {% if session['role'] %}
-    <a href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
-        <!-- ADD RECIPE -->
-        {% if session['role'] == 'admin' %}
-        <h2>Admin Activities</h2>
-        <img src="myapp/static/images/addRecipe.png" alt="Add Recipe Dropdown Trigger" class="dropdown-trigger" id="add-recipe-trigger">
-        <div class="dropdown-container" id="add-recipe-dropdown-container">
-            <div class="container mt-4">
-                <!-- About content here -->
-            </div>
-        </div>
-        {% else %}
-        <h2>Patient Activities</h2>
+        {% if session['role'] %}
+            <a href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
+                {% if session['role'] == 'admin' %}
+                    <h2>Admin Activities</h2>
+
+                    <!-- ADD RECIPE -->
+                    {% include 'partials/add_recipe.html' %}
+
+                {% else %}
+                    <h2>Patient Activities</h2>
+                    <!-- PATIENT -->
+
+                {% endif %}
+                {{ session['role'] }}
+            </a>
         {% endif %}
-    {{ session['role'] }}
-</a>
-    {% endif %}
 
-    <!-- LOGOUT -->
-    <img src="myapp/static/images/logout.png" alt="Logout Dropdown Trigger" class="dropdown-trigger" id="logout-trigger">
-    <div class="dropdown-container" id="logout-dropdown-container">
-        <div class="container mt-4">
-        <!-- About content here -->
-        </div>
-    </div>
+        <!-- LOGOUT -->
+        {% include 'partials/logout.html' %}
 
     {% else %}
-    <!-- LOGIN -->
-    <img src="myapp/static/images/login.png" alt="Login Dropdown Trigger" class="dropdown-trigger" id="login-trigger">
-    <div class="dropdown-container" id="login-dropdown-container">
-        <div class="container mt-4">
-            <!-- About content here -->
-            <form method="post" action="/login" onsubmit="return handleLogin();">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-            <p class="mt-3">Forgot your password? <a href="/reset">Reset</a></p>
-            <p>Don't have an account? <a href="/register">Register</a></p>
-        </div>
-    </div>
-    
-    <!-- REGISTER -->
-    <img src="myapp/images/register.png" alt="Register Dropdown Trigger" class="dropdown-trigger" id="register-trigger">
-    <div class="dropdown-container" id="register-dropdown-container">
-        <div class="container mt-4">
+        <!-- LOGIN -->
+        {% include 'partials/login.html' %}
 
-        <form method="post" action="/select_role" action="/register" onsubmit="return handleLogin();">
-
-      <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" class="form-control" required>
-      </div>
-      <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" class="form-control" required>
-      </div>
-      <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" class="form-control" required>
-      </div>
-      <div class="form-group">
-    <p>Choose your role:</p>
-        <label for="role">Select your role:</label>
-        <select id="role" name="role" class="form-control">
-            <option value="admin">Admin</option>
-            <option value="patient">Patient</option>
-        </select>
-    </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-        </div>
-    </div>
     {% endif %}
 </div>
 <br>
 <div class="container">
-
     <!-- RECIPE -->
-    <img src="myapp/static/images/recipe.png" alt="Recipe Dropdown Trigger" class="dropdown-trigger" id="recipe-trigger">
-    <div class="dropdown-container" id="recipe-dropdown-container">
-        <div class="container mt-4">
-        {% for recipe in recipes %}
-                <div class="col-md-4 mb-4">
-                    <div class="card" id="card{{ loop.index }}">
-                        <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ recipe.title }}</h5>
-                            <button class="toggleButton">View Details</button>
-                            <div class="hidden">
-                                <h3>Ingredients:</h3>
-                                <ul>
-                                    {% for ingredient in recipe.ingredients %}
-                                        <li>{{ ingredient }}</li>
-                                    {% endfor %}
-                                </ul>
-                                <h3>Instructions:</h3>
-                                <p>{{ recipe.instructions }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
+    {% include 'partials/recipe.html' %}
 </div> 
 <br>
 <div class="container">
     <h1>Delicious recipes, astuces and advises! 🌿</h1>
 
     <!-- ABOUT -->
-    <img src="myapp/static/images/about.png" alt="About Dropdown Trigger" class="dropdown-trigger" id="about-trigger">
-    <div class="dropdown-container" id="about-dropdown-container">
-        <div class="container mt-4">
-            <h2>About</h2>
-            <p>Welcome to Recipe Sharing Platform, your go-to place for discovering and sharing delicious recipes!</p>
-    </div>
+    {% include 'partials/about.html' %}
 
     <!-- MY SERVICES -->
-    <img src="myapp/static/images/myServices.png" alt="My Services Dropdown Trigger" class="dropdown-trigger" id="my-services-trigger">
-    <div class="dropdown-container" id="my-services-dropdown-container">
-        <div class="container mt-4">
-            <h2>My Services</h2>
-            <img src="/static/images/my_services.png" alt="My Services" class="img-fluid">
-            <p>At Recipe Sharing Platform, we aim to create a community where food enthusiasts can connect, share their culinary creations, and explore a diverse range of recipes adapted to everybody!</p>
-            <h2>What We Offer ?</h2>
-            <p>Explore a variety of recipes ranging from quick and easy meals to gourmet delights. Connect with fellow food lovers, share your favorite recipes, and discover new culinary inspirations.</p>
-        </div>
-    </div>
+    {% include 'partials/my_services.html' %}
 </div>
 
 {% endblock %}

@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from myapp.views import views_bp
+import logging
 
 def create_app():
     app = Flask(__name__)
@@ -38,7 +39,7 @@ def register_blueprints(app):
 def handle_error(error):
     print(f"Error: {error}")
     # Optionally, you can log the error using a logging library
-    print(f"Error details: {error}", exc_info=True)
+    logging.info(f"Error details: {error}", exc_info=True)
 
 # If __name__ == "__main__":
 #     create_app().run()

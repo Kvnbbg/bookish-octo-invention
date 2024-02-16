@@ -1,67 +1,86 @@
-// ***************** HEADER ANIMATON ***********
-/***
- * This script dynamically extracts the file name from the current HTML page, removes the .html extension, 
- * and then constructs the image URL using the myapp/images/ directory. 
- ***/
-document.addEventListener("DOMContentLoaded", function() {
-// Get the current HTML file name
-  var currentPage = location.pathname.split("/").slice(-1)[0];
-  // Extract the file name without the extension
-  var fileName = currentPage.replace(/\.html$/, "");
-  // Set the background image of the header
-  document.getElementById("header").style.backgroundImage = "url('myapp/images/" + fileName + ".png')";
+document.addEventListener("DOMContentLoaded", function () {
+  // ***************** HEADER ANIMATION ***********
+  setHeaderBackground();
+
+  // ***************** DROPDOWN ANIMATION ***********
+  initializeDropdown("login", "login-trigger", "login-dropdown-container");
+  initializeDropdown("register", "register-trigger", "register-dropdown-container");
+  initializeDropdown("logout", "logout-trigger", "logout-dropdown-container");
+  initializeDropdown("my-services", "my-services-trigger", "my-services-dropdown-container");
+  initializeDropdown("recipe", "recipe-trigger", "recipe-dropdown-container");
+  initializeDropdown("about", "about-trigger", "about-dropdown-container");
+
+  // TODO: Add similar logic for other dropdown triggers and containers
 });
 
-// ***************** DROP ANIMATON ***********
-/***
- * The dropdown is triggered only by the image with the class dropdown-trigger
- ***/
-// LOGIN LOGIC
-document.addEventListener("DOMContentLoaded", function() {
-  var loginTrigger = document.getElementById("login-trigger");
-  var loginDropdownContainer = document.getElementById("login-dropdown-container");
-  loginTrigger.addEventListener("click", function() {
-    loginDropdownContainer.classList.toggle("show");
+function setHeaderBackground() {
+  var currentPage = location.pathname.split("/").slice(-1)[0];
+  var fileName = currentPage.replace(/\.html$/, "");
+  document.getElementById("header").style.backgroundImage =
+    "url('myapp/images/" + fileName + ".png')";
+}
+
+function initializeDropdown(name, triggerId, containerId) {
+  var trigger = document.getElementById(triggerId);
+  var dropdownContainer = document.getElementById(containerId);
+
+  if (!trigger || !dropdownContainer) {
+    console.error(`Dropdown initialization failed for ${name}. Trigger or container not found.`);
+    return;
+  }
+
+  trigger.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevents closing dropdown when trigger is clicked
+
+    dropdownContainer.classList.toggle("show");
   });
-  // Close the login dropdown if the user clicks outside of it
-  window.addEventListener("click", function(event) {
-    if (!event.target.matches("#login-trigger")) {
-      if (loginDropdownContainer.classList.contains("show")) {
-        loginDropdownContainer.classList.remove("show");
-      }
+
+  document.addEventListener("click", function (event) {
+    if (!event.target.matches(`#${triggerId}`) && dropdownContainer.classList.contains("show")) {
+      dropdownContainer.classList.remove("show");
     }
   });
-  // TODO: Below add similar logic for other triggers and containers
-});
 
-// Fake login logic
+  // Close dropdown on ESC key press
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && dropdownContainer.classList.contains("show")) {
+      dropdownContainer.classList.remove("show");
+    }
+  });
+}
+
 function handleLogin() {
-  // Disable the form to prevent multiple submissions
-  disableForm();
+  try {
+    disableForm();
+    showLoginAnimation(document.getElementById("username").value);
 
-  // Show login animation
-  showLoginAnimation(document.getElementById("username").value);
+    setTimeout(function () {
+      redirectToProfile();
+    }, 2000);
 
-  // Simulate a delay before redirecting (replace with actual logic)
-  setTimeout(function () {
-    redirectToProfile();
-  }, 2000);
-
-  // Prevent the form from submitting (we handle the redirection manually)
-  return false;
+    return false;
+  } catch (error) {
+    console.error("An error occurred in handleLogin:", error);
+    return false;
+  }
 }
 
 function showLoginAnimation(username) {
   const loginMessage = document.getElementById("login-message");
+
+  if (!loginMessage) {
+    console.error("Login message element not found.");
+    return;
+  }
+
   loginMessage.textContent = `${username}, you're logging in...`;
   loginMessage.style.display = "block";
 
   setTimeout(() => {
     loginMessage.style.display = "none";
-  }, 2000); // Hide the message after 2 seconds
+  }, 2000);
 }
 
-// card toggle
 document.querySelectorAll(".card").forEach((card) => {
   const toggleButton = card.querySelector(".toggleButton");
 
@@ -72,7 +91,6 @@ document.querySelectorAll(".card").forEach((card) => {
   }
 });
 
-// Delete recipe
 function deleteRecipe(recipe_id) {
   if (confirm("Are you sure you want to delete this recipe?")) {
     window.location.href = "/delete_recipe/" + recipe_id;

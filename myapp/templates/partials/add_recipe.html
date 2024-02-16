@@ -1,0 +1,39 @@
+{% extends 'macros.html' %}
+
+{% block content %}
+<!-- ADD RECIPE -->
+<img src="{{ url_for('static', filename='/images/addRecipe.png') }}" alt="Add Recipe Dropdown Trigger" class="dropdown-trigger" id="add-recipe-trigger">
+<div class="dropdown-container" id="add-recipe-dropdown-container">
+    <div class="container mt-4">
+        <h2>Add a New Recipe</h2>
+        <form method="post" action="/submit_recipe" enctype="multipart/form-data">
+            <!-- Recipe Title -->
+            <div class="form-group">
+                <label for="recipe-title">Title:</label>
+                <input type="text" id="recipe-title" name="recipe_title" class="form-control" required>
+            </div>
+
+            <!-- Recipe Image -->
+            <div class="form-group">
+                <label for="recipe-image">Image:</label>
+                <input type="file" id="recipe-image" name="recipe_image" accept="image/*" class="form-control-file" required>
+            </div>
+
+            <!-- Ingredients -->
+            <div class="form-group">
+                <label for="ingredients">Ingredients:</label>
+                <textarea id="ingredients" name="recipe_ingredients" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <!-- Instructions -->
+            <div class="form-group">
+                <label for="instructions">Instructions:</label>
+                <textarea id="instructions" name="recipe_instructions" class="form-control" rows="8" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit Recipe</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

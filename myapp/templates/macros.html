@@ -1,122 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}My Recipe {% endblock %}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Recipe{% endblock %}</title>
 
-    <link rel="icon" href="{{ url_for('static', filename='/images/favicon.ico') }}" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
-    <meta
-      name="description"
-      content="A community-driven platform for sharing and discovering a variety of delicious recipes. Explore new cuisines, learn cooking techniques, and share your own culinary creations."
-    />
-    <meta name="keywords" content="Recipes, Food and Healthy Sharing" />
-  </head>
-  <body>
+    <link rel="icon" href="{{ url_for('static', filename='/images/favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="description" content="A community-driven platform for sharing and discovering a variety of delicious recipes. Explore new cuisines, learn cooking techniques, and share your own culinary creations.">
+    <meta name="keywords" content="Recipes, Food and Healthy Sharing">
+</head>
+<body>
 
 <!-- HEADER CONTENT -->
 <header>
-  <div id="header" class="header-title text-center"> 
-{% block title_header %}
-{% endblock %}
-  </div>
+    <div id="header" class="header-title text-center">
+        {% block title_header %}{% endblock %}
+    </div>
 </header>
 
 <!-- NAV CONTENT -->
-
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
 
-      <a class="navbar-brand" href="/"
-        ><img src="{{ url_for('static', filename='/images/favicon.ico') }}" alt="Logo" class="navbar-logo"
-      /></a>
+    <a class="navbar-brand" href="/">
+        <img src="{{ url_for('static', filename='/images/favicon.ico') }}" alt="Logo" class="navbar-logo">
+    </a>
 
-      {% if session['role'] %}
-      <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          <!-- Display user role with color animation -->
-          <a class="nav-link role-link" href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
-            <ul class="role-icon">
-              {% if session['role'] == 'admin' %}
-              <li class="nav-item">👩‍⚕️</li>
-              {% elif session['role'] == 'patient' %}
-              <li class="nav-item">👩‍💼</li>
-              {% else %}
-              <li class="nav-item">👤</li>
-              {% endif %}
-            </ul>
-            {{ session['role'] }}
-          </a>
-      </div>
-      {% endif %}
+    {% if session['role'] %}
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+                <!-- Display user role with color animation -->
+                <a class="nav-link role-link" href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
+                    <ul class="role-icon">
+                        {% if session['role'] == 'admin' %}
+                            <li class="nav-item">👩‍⚕️</li>
+                        {% elif session['role'] == 'patient' %}
+                            <li class="nav-item">👩‍💼</li>
+                        {% else %}
+                            <li class="nav-item">👤</li>
+                        {% endif %}
+                    </ul>
+                    {{ session['role'] }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
 
-  <ul class="navbar">
-    <li class="nav-item"><a href="/legal">Legal</a></li>
-    <li class="nav-item"><a href="/contact">Contact</a></li>
-    <li class="nav-item"><a href="/confid">Confidentiality</a></li>
-  </ul>
-   </div>
-  </nav>
-    <main>
-      <!-- MAIN CONTENT -->
-      {% block content %}
-    
-      {% endblock %}
-    </main>
+    <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/legal">Legal</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="/confid">Confidentiality</a></li>
+    </ul>
+</nav>
 
-   
+<main>
+    <!-- MAIN CONTENT -->
+    {% block content %}
 
-    <footer>
-       <!-- FOOTER CONTENT -->
-      <p>&copy; 2024 by Kevin Marville</p>
-    </footer>
+    {% endblock %}
+</main>
 
-    <!-- SCRIPT CONTENT -->
-    
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='script.js') }}"
-    ></script>
+<footer>
+    <!-- FOOTER CONTENT -->
+    <p>&copy; 2024 by Kevin Marville</p>
+</footer>
 
-    <!-- Bootstrap JS and Popper.js scripts -->
+<!-- SCRIPT CONTENT -->
+<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+<!-- Bootstrap JS and Popper.js scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <!-- END -->
+<!-- END -->
 
-  </body>
+</body>
 </html>

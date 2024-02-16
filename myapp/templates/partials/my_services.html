@@ -1,0 +1,15 @@
+{% extends 'macros.html' %}
+
+{% block content %}
+    <!-- MY SERVICES -->
+    <img src="{{ url_for('static', filename='/images/myServices.png') }}" alt="My Services Dropdown Trigger" class="dropdown-trigger" id="my-services-trigger">
+    <div class="dropdown-container" id="my-services-dropdown-container">
+        <div class="container mt-4">
+            <h2>My Services</h2>
+            <img src="{{ url_for('static', filename='/images/my_services.png') }}" alt="My Services" class="img-fluid">
+            <p>At Recipe Sharing Platform, we aim to create a community where food enthusiasts can connect, share their culinary creations, and explore a diverse range of recipes adapted to everybody!</p>
+            <h2>What We Offer?</h2>
+            <p>Explore a variety of recipes ranging from quick and easy meals to gourmet delights. Connect with fellow food lovers, share your favorite recipes, and discover new culinary inspirations.</p>
+        </div>
+    </div>
+{% endblock %}

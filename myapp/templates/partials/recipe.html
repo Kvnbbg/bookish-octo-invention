@@ -1,0 +1,31 @@
+{% extends 'macros.html' %}
+
+{% block content %}
+    <!-- RECIPE -->
+    <img src="{{ url_for('static', filename='/images/recipe.png') }}" alt="Recipe Dropdown Trigger" class="dropdown-trigger" id="recipe-trigger">
+    <div class="dropdown-container" id="recipe-dropdown-container">
+        <div class="container mt-4">
+            {% for recipe in recipes %}
+                <div class="col-md-4 mb-4">
+                    <div class="card" id="card{{ loop.index }}">
+                        <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.title }}</h5>
+                            <button class="toggleButton">View Details</button>
+                            <div class="hidden">
+                                <h3>Ingredients:</h3>
+                                <ul>
+                                    {% for ingredient in recipe.ingredients %}
+                                        <li>{{ ingredient }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <h3>Instructions:</h3>
+                                <p>{{ recipe.instructions }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
