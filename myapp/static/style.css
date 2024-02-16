@@ -45,7 +45,10 @@ header {
   background: url(/static/images/default.png) center/cover no-repeat;
   z-index: 1;
   width: 100%;
-  height: 20%;
+  height: auto;
+  align-content: center;
+  color: ghostwhite;
+  font-weight: 200;
 }
 
 h1, p {
@@ -55,6 +58,7 @@ h1, p {
 h1 {
   font-size: 2.5em;
   color: var(--accent-color);
+  font-weight: 800;
 }
 
 h2 {

@@ -13,6 +13,8 @@ from flask import (
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from myapp.models import RecipeDataManager
+from myapp.forms import ContactForm
+from flask_mail import Message
 
 # ACTIVATING BLUEPRINT
 views_bp = Blueprint("views", __name__, template_folder="templates")
@@ -163,6 +165,45 @@ def add_recipe():
 @views_bp.route("/contact")
 def contact():
     return render_template("contact.html")
+
+@views_bp.route("/submit_contact_form", methods=['POST'])
+def submit_contact_form():
+    form = ContactForm(request.form)
+
+    if form.validate_on_submit():
+        name, email, message = form.name.data, form.email.data, form.message.data
+
+        send_email_to_kevin(name, email, message)
+        store_form_data(name, email, message)
+
+        flash('Thank you for reaching out! We will get back to you soon.', 'success')
+        return redirect(url_for('contact'))
+    else:
+        flash('Please check the form for errors and try again.', 'error')
+        return render_template('contact_us.html', form=form)
+
+def send_email_to_kevin(name, email, message):
+    try:
+        subject = 'New Contact Form Submission'
+        recipients = ['KevinMarville@kvnbbg-creations.io']
+
+        # Create and send the message
+        msg = Message(subject=subject, recipients=recipients, body=f'Name: {name}\nEmail: {email}\nMessage: {message}')
+        mail.send(msg)
+
+        print("Email sent successfully.")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+def store_form_data(name, email, message):
+    try:
+        # Store form data in contact_log.json
+        data = {'name': name, 'email': email, 'message': message}
+        with open('contact_log.json', 'a') as file:
+            json.dump(data, file)
+            file.write('\n')
+    except Exception as e:
+        print(f"Error storing form data: {e}")
 
 # LEGAL PAGE
 @views_bp.route("/legal")

@@ -1,11 +1,11 @@
 {% extends 'macros.html' %}
 
-{% block title %}Page Not Found - Recipe Sharing Platform{% endblock %}
+{% block title %}Page Not Found{% endblock %}
 {% block title_header %}Page Not Found{% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Oops! Page Not Found</h1>
+        <h4>Oops! Page Not Found</h4>
         <p>It seems like you've stumbled upon a page that doesn't exist. Let's get you back on track:</p>
 
         <ul>
@@ -14,6 +14,6 @@
             <li>Contact our support team if you believe this is an error.</li>
         </ul>
 
-        <img src="{{ url_for('static', filename='images/404image.png') }}" alt="404 Image" class="img-fluid" style="max-width: 100%; height: auto; margin-top: 20px;">
+        <img src="{{ url_for('static', filename='images/404.png') }}" alt="404 Image" class="img-fluid" style="max-width: 100%; height: auto; margin-top: 20px;">
     </div>
 {% endblock %}

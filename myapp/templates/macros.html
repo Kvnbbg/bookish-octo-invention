@@ -16,13 +16,14 @@
 <!-- HEADER CONTENT -->
 <header>
     <div id="header" class="header-title text-center">
-        {% block title_header %}My Recipe{% endblock %}
+        <h1>{% block title_header %}My Recipe{% endblock %}</h1>
     </div>
 </header>
 
 <!-- NAV CONTENT -->
+{% block nav %}
 {% include 'partials/nav.html' %}
-
+{% endblock %}
 <main>
     <!-- MAIN CONTENT -->
     {% block content %}

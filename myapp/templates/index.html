@@ -3,59 +3,99 @@
 {% block content %}
 
 <!-- MAIN CONTENT -->
+
+<!-- ALERT MESSAGE -->
 <div class="container">
-    <h1>Connect 🍽️</h1>
-
-    <!-- ALERT MESSAGE -->
     {% include 'partials/alert_message.html' %}
+</div>
+<br>
 
-    <!-- CONNECTED -->
+<!-- LOGIN MANAGEMENT -->
+<div class="container">
+    <h2>Connect 🍽️</h2>
+    <div class="container">
     {% if session['logged_in'] %}
-        <h1>Profile</h1>
         <p>Welcome back, {{ current_user.username | capitalize }}!</p>
 
         {% if session['role'] %}
             <a href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
                 {% if session['role'] == 'admin' %}
-                    <h2>Admin Activities</h2>
 
-                    <!-- ADD RECIPE -->
-                    {% include 'partials/add_recipe.html' %}
-
+                <!-- ADMIN -->
+                <div class="container">
+                    <h3>Admin Activities</h3>
+                    <!-- ACTIVITY ADD RECIPE -->
+                    <div class="container">
+                        {% include 'partials/add_recipe.html' %}
+                    </div>
+                </div>
                 {% else %}
-                    <h2>Patient Activities</h2>
-                    <!-- PATIENT -->
-
+                 <!-- PATIENT -->
+                <div class="container">
+                    <h3>Patient Activities</h3>
+                    <!-- ACTIVITY ADD RECIPE -->
+                    <div class="container">
+                        {% include 'partials/add_recipe.html' %}
+                    </div>
+                </div>
                 {% endif %}
                 {{ session['role'] }}
             </a>
+            {% endif %}
+
+            <!-- LOGOUT -->
+            <div class="container">
+                <h3>Logout</h3>
+
+                <!-- ACTIVITY LOGOUT -->
+                <div class="container">
+                    {% include 'partials/logout.html' %}
+                </div>
+            </div>
+            {% else %}
+
+            <!-- LOGIN -->
+            <div class="container">
+                <h3>Login</h3>
+
+                <!-- ACTIVITY LOGIN -->
+                <div class="container">
+                    {% include 'partials/login.html' %}
+                </div>
+            </div>
         {% endif %}
-
-        <!-- LOGOUT -->
-        {% include 'partials/logout.html' %}
-
-    {% else %}
-        <!-- LOGIN -->
-        {% include 'partials/login.html' %}
-
-    {% endif %}
+    </div>
 </div>
 <br>
-<div class="container">
-    <!-- RECIPE -->
-    {% include 'partials/recipe.html' %}
-</div> 
-<br>
-<div class="container">
-    <h1>Delicious recipes, astuces and advises! 🌿</h1>
 
-    <!-- ABOUT -->
-    {% include 'partials/about.html' %}
-
-    <!-- MY SERVICES -->
-    {% include 'partials/my_services.html' %}
+<!-- RECIPE -->
+<div class="container">
+    <h2>Delicious recipes, astuces and advises! 🌿</h3>
+    <div class="container">
+        {% include 'partials/recipe.html' %}
+    </div>
 </div>
+<br>
 
-{% endblock %}
+<!-- ABOUT -->
+<div class="container">
+    <h2>About</h2>
+    <div class="container">
+        {% include 'partials/about.html' %}
+    </div>
+</div>
+<br>
+
+<!-- MY SERVICES -->
+<div class="container">
+    <h2>My Services</h2>
+    <div class="container">
+        {% include 'partials/my_services.html' %}
+    </div>
+</div>
+<br>
 
 <!-- END -->
+{% endblock %}
+
+
