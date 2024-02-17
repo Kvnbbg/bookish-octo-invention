@@ -1,9 +1,9 @@
-    <!-- LOGOUT -->
-    <img src="myapp/static/images/logout.png" alt="Logout Dropdown Trigger" class="dropdown-trigger" id="logout-trigger">
-    <div class="dropdown-container" id="logout-dropdown-container">
-            <p>Are you sure you want to logout?</p>
-            <form method="post" action="/logout">
-                <button type="submit" class="btn btn-danger">Submit</button>
-            </form>
-        </div>
+<img src="{{ url_for('static', filename='/images/logout.png') }}" alt="Logout png">
+<div class="collapse" id="logoutCollapse">
+    <div class="card card-body">
+        <p>Are you sure you want to logout?</p>
+        <form method="post" action="/logout">
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </form>
     </div>
+</div>

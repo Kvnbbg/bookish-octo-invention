@@ -1,101 +1,61 @@
 {% extends 'macros.html' %}
 
 {% block content %}
+  <!-- MAIN CONTENT -->
 
-<!-- MAIN CONTENT -->
+  <!-- ALERT MESSAGE LINE -->
+  <div class="container">
+    <article>
+      <section class="font-weight-bold text-capitalize text-center">
+        {% include 'partials/alert_message.html' %}
+      </section>
+    </article>
+  </div>
+  <br>
 
-<!-- ALERT MESSAGE -->
-<div class="container">
-    {% include 'partials/alert_message.html' %}
-</div>
-<br>
+  <!-- Combine repeated container structures -->
+  <div class="container">
+    <article>
 
-<!-- LOGIN MANAGEMENT -->
-<div class="container">
-    <h2>Connect 🍽️</h2>
-    <div class="container">
-    {% if session['logged_in'] %}
-        <p>Welcome back, {{ current_user.username | capitalize }}!</p>
+    <section>
+      <!-- My Services Section -->
+      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#myServicesCollapse" aria-expanded="false" aria-controls="myServicesCollapse">
+        <span class="toggle-text">See services</span>
+        <span class="toggle-icon">▼</span>
+      </button>
+      <div class="collapse" id="myServicesCollapse">
+        <div class="card card-body">
+          {% include 'partials/my_services.html' %}
+        </div>
+      </div>
+    </section>
 
-        {% if session['role'] %}
-            <a href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}">
-                {% if session['role'] == 'admin' %}
+    <section>
+      <!-- About Section -->
+      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#aboutCollapse" aria-expanded="false" aria-controls="aboutCollapse">
+        <span class="toggle-text">See About</span>
+        <span class="toggle-icon">▼</span>
+      </button>
+      <div class="collapse" id="aboutCollapse">
+        <div class="card card-body">
+          {% include 'partials/about.html' %}
+        </div>
+      </div>
+    </section>
 
-                <!-- ADMIN -->
-                <div class="container">
-                    <h3>Admin Activities</h3>
-                    <!-- ACTIVITY ADD RECIPE -->
-                    <div class="container">
-                        {% include 'partials/add_recipe.html' %}
-                    </div>
-                </div>
-                {% else %}
-                 <!-- PATIENT -->
-                <div class="container">
-                    <h3>Patient Activities</h3>
-                    <!-- ACTIVITY ADD RECIPE -->
-                    <div class="container">
-                        {% include 'partials/add_recipe.html' %}
-                    </div>
-                </div>
-                {% endif %}
-                {{ session['role'] }}
-            </a>
-            {% endif %}
+        <section>
+      <!-- Recipe Section -->
+      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#recipeCollapse" aria-expanded="false" aria-controls="recipeCollapse">
+        <span class="toggle-text">See Recipe</span>
+        <span class="toggle-icon">▼</span>
+      </button>
+      <div class="collapse" id="recipeCollapse">
+        <div class="card card-body">
+          {% include 'partials/recipe.html' %}
+        </div>
+      </div>
+    </section>
+  </article>
+  </div>
 
-            <!-- LOGOUT -->
-            <div class="container">
-                <h3>Logout</h3>
-
-                <!-- ACTIVITY LOGOUT -->
-                <div class="container">
-                    {% include 'partials/logout.html' %}
-                </div>
-            </div>
-            {% else %}
-
-            <!-- LOGIN -->
-            <div class="container">
-                <h3>Login</h3>
-
-                <!-- ACTIVITY LOGIN -->
-                <div class="container">
-                    {% include 'partials/login.html' %}
-                </div>
-            </div>
-        {% endif %}
-    </div>
-</div>
-<br>
-
-<!-- RECIPE -->
-<div class="container">
-    <h2>Delicious recipes, astuces and advises! 🌿</h3>
-    <div class="container">
-        {% include 'partials/recipe.html' %}
-    </div>
-</div>
-<br>
-
-<!-- ABOUT -->
-<div class="container">
-    <h2>About</h2>
-    <div class="container">
-        {% include 'partials/about.html' %}
-    </div>
-</div>
-<br>
-
-<!-- MY SERVICES -->
-<div class="container">
-    <h2>My Services</h2>
-    <div class="container mt-4">
-        {% include 'partials/my_services.html' %}
-    </div>
-</div>
-<br>
-
-<!-- END -->
 {% endblock %}
-
-

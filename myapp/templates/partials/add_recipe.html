@@ -1,8 +1,5 @@
-<!-- ADD RECIPE -->
-<img src="{{ url_for('static', filename='/images/addRecipe.png') }}" alt="Add Recipe Dropdown Trigger" class="dropdown-trigger" id="add-recipe-trigger">
-<div class="dropdown-container" id="add-recipe-dropdown-container">
-    <div class="container mt-4">
-        <h4>Add a New Recipe</h4>
+<!-- partials/add_recipe.html -->
+    <img src="{{ url_for('static', filename='/images/addRecipe.png') }}" alt="Add Recipe png">
         <form method="post" action="/submit_recipe" enctype="multipart/form-data">
             <!-- Recipe Title -->
             <div class="form-group">
@@ -31,5 +28,3 @@
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary">Submit Recipe</button>
         </form>
-    </div>
-</div>

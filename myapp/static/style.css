@@ -1,92 +1,121 @@
+/* Colors */
 :root {
-  --primary-bg-color: #f8f8f8; /* Light background color */
-  --secondary-bg-color: #ffffff; /* White background color */
-  --accent-color: #24bda4; /* Cyber green for accent */
-  --accent-color-light: #35f0e5; /* Lighter shade of accent color */
-  --text-color: #333333; /* Dark text color for better readability */
-  --hover-color: #e0e0e0; /* Light gray for hover effect */
+  --primary-bg-color: #f8f8f8;
+  --secondary-bg-color: #ffffff;
+  --accent-color: #24bda4;
+  --text-color: #333333;
+  --hover-color: #e0e0e0;
 }
 
-/* ... Your existing styles ... */
-
-/********************************** IMAGE ********************************/
-
-img {
-  max-width: 100%;
-  height: auto;
-  width: 100%; /* Set width to 100% to maintain aspect ratio */
-  max-height: 200px; /* Set a fixed height for a square shape */
-  object-fit: cover; /* Maintain the aspect ratio and cover the container */
-  transition: transform 0.3s; /* Add a transition for a smooth effect */
-}
-
-img:hover {
-  transform: scale(1.1); /* Zoom in on hover */
-}
-
-
-/********************************** STRUCTURE ********************************/
-
+/* Document Structure */
 html {
   font-size: 16px;
-  font-family: 'Baloo Bhaina', sans-serif;
 }
 
 body {
   background-color: var(--primary-bg-color);
   font-family: 'Noto Sans', sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 10px;
   color: var(--text-color);
+  overflow-x: hidden;
+  text-align: center;
 }
 
+/* Header Styles */
 header {
-  animation: fadeIn 7s infinite;
-  background: url(/static/images/default.png) center/cover no-repeat;
-  z-index: 1;
+  text-align: center;
+  opacity: 0.2;
+  top: 0;
+  height: 200px; /* Reduced height */
+  color: var(--hover-color);
+  z-index: 1000;
+  position: relative;
+  background: url('/static/images/default.png') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+header:hover {
+  animation: fadeIn 2s ease-in infinite;
+  transition: transform 0.3s, box-shadow 0.5s;
+}
+
+/* Header, Main, and Footer Styles */
+header, main, footer {
   width: 100%;
+}
+
+/* Main Content Styles */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap; /* Allow containers to wrap to the next row */
+  overflow-x: auto;
+  margin-top: 20px; /* Reduced margin */
+  padding: 20px;
+  position: relative;
+}
+
+/* Image Styles */
+img {
+  max-width: 100%;
   height: auto;
-  align-content: center;
-  color: ghostwhite;
-  font-weight: 200;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s;
 }
 
-h1, p {
-  margin: 0.5em 0;
+img:hover {
+  transform: scale(1.1);
 }
 
-h1 {
-  font-size: 2.5em;
-  color: var(--accent-color);
-  font-weight: 800;
+/* Container Styles */
+.container {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap; /* Allow containers to wrap to the next row */
+  justify-content: center; /* Center containers horizontally */
+  align-items: stretch; /* Stretch containers vertically */
+  width: 100%;
 }
 
-h2 {
-  font-weight: 600;
+section {
+  flex: 1; /* Each container takes equal width */
+  min-width: 300px; /* Minimum width for each container */
+  margin: 15px 10px; /* Adjust margin based on your design */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
 }
 
-p {
-  font-size: 1.2em;
-}
-
+/* Footer Styles */
 footer {
   background-color: var(--primary-bg-color);
-  padding: 10px;
+  padding: 20px;
   text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: var(--text-color);
+  border-top: 1px solid var(--hover-color);
 }
 
-
-/********************************** CLASS ********************************/
-
+/* Button Styles */
 .btn-primary {
   background-color: var(--accent-color);
   border: none;
   border-radius: 8px;
-  transition: transform 0.3s, background-color 0.3s;
+  color: #fff;
+  width: 100%; /* Make the button full width */
+  padding: 10px 20px; /* Adjust padding as needed for responsiveness */
+  display: inline-block;
+  margin: 0 auto; /* Center the button horizontally */
+  text-align: center; /* Center the text within the button */
+  transition: background-color 0.3s, transform 0.3s;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
@@ -94,69 +123,28 @@ footer {
   transform: scale(1.05);
 }
 
-.card {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
-  background-color: var(--secondary-bg-color);
-  overflow: hidden;
-}
-
+/* Card Styles */
 .card:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.2);
-}
-
-.card:active {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 1s ease-in-out;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.container {
-  margin-top: 80px;
+.card:active {
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
 }
 
-/********************************** DROPDOWN LINK HOVER ********************************/
-
-.dropdown-content a:hover {
-  color: var(--accent-color);
-}
-
-/********************************** DROPDOWN LINK ********************************/
-
-.dropdown-container {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  display: none;
-  padding: 10px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-}
-
-.dropdown-container.show {
-  display: block;
-}
-
-.dropdown-content {
-
-}
-
+/* Dropdown Styles */
 .dropdown-trigger {
   cursor: pointer;
+  animation: fadeIn 2s infinite;
 }
 
-/********************************** NAVBAR LINK HOVER ********************************/
-
+/* Navbar Styles */
 .navbar-nav a:hover {
   color: var(--accent-color);
+  animation: fadeIn 2s infinite;
 }
-
-/********************************** NAVBAR LINK ********************************/
 
 .navbar-logo {
   height: 50px;
@@ -165,6 +153,7 @@ footer {
 
 .navbar {
   border-bottom: 1px solid var(--hover-color);
+  width: 100%;
 }
 
 .navbar-toggler-icon {
@@ -193,7 +182,7 @@ footer {
   color: var(--accent-color);
 }
 
-
+/* Form Styles */
 .form-control {
   border-radius: 8px;
   border: 1px solid var(--accent-color);
@@ -201,6 +190,7 @@ footer {
   color: var(--accent-color);
 }
 
+/* Role Link Styles */
 .role-link {
   color: var(--accent-color);
   transition: color 0.3s;
@@ -210,28 +200,28 @@ footer {
   color: var(--hover-color);
 }
 
-.role-icon {
-  margin-right: 5px; /* Adjust as needed */
-}
-
-/********************************** ANIMATION ********************************/
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Animation Styles */
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header {
+    height: 150px; /* Further reduced height for smaller screens */
+  }
+
+  main {
+    padding: 20px 10px;
+  }
+
+  .btn-primary,
+  .card {
+    width: 100%;
   }
 }
