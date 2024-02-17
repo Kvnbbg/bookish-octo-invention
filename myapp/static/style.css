@@ -98,7 +98,6 @@ footer {
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
   background-color: var(--secondary-bg-color);
   overflow: hidden;
 }
@@ -106,12 +105,13 @@ footer {
 .card:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.2);
-  animation: fadeInUp 1s ease-in-out;
 }
 
 .card:active {
   transform: scale(1.05);
   box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 1s ease-in-out;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .container {

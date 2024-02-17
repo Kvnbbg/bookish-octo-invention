@@ -1,7 +1,14 @@
 <!-- ABOUT -->
-<img src="{{ url_for('static', filename='/images/about.png') }}" alt="About Dropdown Trigger" class="dropdown-trigger" id="about-trigger">
-<div class="dropdown-container" id="about-dropdown-container">
-    <div class="container mt-4">
-        <p>Welcome to Recipe Sharing Platform, your go-to place for discovering and sharing delicious recipes!</p>
+<button class="btn btn-primary toggle-btn" data-toggle="collapse" data-target="#aboutCollapse" aria-expanded="false" aria-controls="aboutCollapse">
+    <h2>About</h2>
+    <img src="{{ url_for('static', filename='/images/about.png') }}" alt="About Dropdown Trigger" class="dropdown-trigger" type="button">
+</button>
+
+<div class="collapse" id="aboutCollapse">
+    <div class="card card-body">
+        <p>Welcome to our Recipe Sharing Platform, a meticulously designed space where culinary enthusiasts and novices alike converge to explore and share delightful recipes.</p>
+        <p>Our platform is crafted with inclusivity in mind, catering to a diverse range of dietary preferences, allergies, and specific nutritional needs. Whether you follow a specific diet, have allergenic concerns, or adhere to unique culinary specifications, our community-driven platform ensures that you can find, share, and enjoy recipes tailored to your individual preferences.</p>
+        <p>At the heart of our design philosophy is a commitment to fostering a supportive and collaborative environment. We believe in the power of shared culinary experiences to unite people from all walks of life. Our platform encourages users to contribute their favorite recipes, providing a rich tapestry of flavors that reflects the diverse tastes and dietary requirements of our global community.</p>
+        <p>Join us on this gastronomic journey, where the art of cooking meets the science of customization. Explore, share, and savor the boundless possibilities our Recipe Sharing Platform has to offer.</p>
     </div>
 </div>
