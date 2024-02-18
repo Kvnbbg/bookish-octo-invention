@@ -1,5 +1,7 @@
 # instance/config.py
+import secrets
 
+secret_key = secrets.token_hex(16)
 """
 This module contains the configuration settings for the application.
 """
@@ -7,7 +9,7 @@ DB_HOST = "actual_host"
 DB_USER = "actual_user"
 DB_PASSWORD = "actual_password"
 DB_NAME = "actual_db_name"
-SECRET_KEY = 'my_secret_key'
+SECRET_KEY = secret_key
 ADDITIONAL_PARAM1 = SECRET_KEY
 PASSWORD = '123motdepasse'
 ADDITIONAL_PARAM2 = PASSWORD

@@ -4,6 +4,7 @@ from flask import Flask
 from flask_mail import Mail
 from flask_babel import Babel
 
+
 # Initialize Flask extensions
 mail = Mail()
 babel = Babel()
@@ -28,7 +29,6 @@ def configure_app(app):
         base_dir = os.path.abspath(os.path.dirname(__file__))
         config_path = os.path.join(base_dir, "config.py")
         app.config.from_pyfile(config_path)
-       
         configure_mail(app)
         configure_babel(app)
 
