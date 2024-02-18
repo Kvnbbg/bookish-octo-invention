@@ -1,5 +1,6 @@
 from datetime import timedelta
 from flask import (
+    Flask,
     Blueprint,
     current_app,
     flash,
@@ -12,11 +13,30 @@ from flask import (
 from flask_login import login_required, logout_user
 
 # Import i18n translation function
-from flask_babel import _
+from flask_babel import Babel, lazy_gettext, _
+
 
 # ACTIVATING BLUEPRINT
 views_bp = Blueprint("views", __name__, template_folder="templates")
 views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
+
+# Initialize Babel with the Flask app
+babel = Babel()
+babel.init_app(Flask(__name__))
+
+
+@views_bp.before_request
+def before_request():
+    # This function will be executed before each request
+    flash_welcome_message()
+
+
+def flash_welcome_message():
+    # Get the visitor's IP address within a route
+    visitor_ip = get_visitor_ip()
+
+    # Set the flash message using the visitor's IP
+    flash(lazy_gettext(f"Good morning! Happy visit, {visitor_ip}."))
 
 
 # Get the visitor's IP address
@@ -24,18 +44,9 @@ def get_visitor_ip():
     return request.remote_addr
 
 
-visitor_ip = get_visitor_ip()
-
-
-def flash_welcome_message():
-    # Set the flash message using the visitor's IP
-    flash(_("Good morning! Happy visit, {visitor_ip}."))
-
-
 # INDEX PAGE
 @views_bp.route("/")
 def index():
-    flash_welcome_message()
     return render_template("index.html")
 
 

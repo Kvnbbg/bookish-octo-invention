@@ -25,7 +25,7 @@ body {
 /* Header Styles */
 header {
   text-align: center;
-  opacity: 0.2;
+  opacity: 0.8;
   top: 0;
   height: 200px; /* Reduced height */
   color: var(--hover-color);
