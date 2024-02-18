@@ -1,23 +1,29 @@
-<!-- partials/recipe.html -->
-<img src="{{ url_for('static', filename='/images/recipe.png') }}" alt="Recipe ">
+<img src="{{ url_for('static', filename='/images/recipe.png') }}" alt="Recipe Image">
+
 {% for recipe in recipes %}
-            <div class="col-md-4 mb-4">
-                <div class="card" id="card{{ loop.index }}">
-                    <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ recipe.title }}</h5>
-                        <button class="toggleButton">View Details</button>
-                        <div class="hidden">
-                            <h3>Ingredients:</h3>
-                            <ul>
-                                {% for ingredient in recipe.ingredients %}
-                                    <li>{{ ingredient }}</li>
-                                {% endfor %}
-                            </ul>
-                            <h3>Instructions:</h3>
-                            <p>{{ recipe.instructions }}</p>
-                        </div>
-                    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card" id="card{{ loop.index }}">
+            <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
+            <div class="card-body"> 
+                <h5 class="card-title">{{ recipe.title }}</h5>
+                <button class="toggleButton">View Details</button>
+                <div class="hidden">
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li>{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h3>Instructions:</h3>
+                    <p>{{ recipe.instructions }}</p>
+                    
+                    {% if session['role'] == 'admin' %}
+                        <!-- Add admin-specific content here if needed -->
+                        <a href="{% url_for('admin.edit_recipe', recipe_id=recipe.id) %}">Edit Recipe</a>
+                        <a href="{% url_for('admin.delete_recipe', recipe_id=recipe.id) %}">Delete Recipe</a>
+                    {% endif %}
                 </div>
             </div>
-        {% endfor %}
+        </div>
+    </div>
+{% endfor %}

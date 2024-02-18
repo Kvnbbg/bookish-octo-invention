@@ -1,20 +1,20 @@
-from flask import render_template, flash, redirect, url_for, request, session, Blueprint
-from flask_login import login_required, login_user
+from flask import (
+    render_template, flash, redirect, url_for, request, session, Blueprint
+)
+from flask_login import login_required, logout_user, current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, TextAreaField
-from wtforms.validators import DataRequired, Email
+from wtforms import StringField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, NumberRange
 from flask_mail import Message
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 from myapp.models import RecipeDataManager, UserDataManager, User, UserSession
 from datetime import timedelta
 import json
 from flask_mail import mail
 
-
 # ACTIVATING BLUEPRINT
 views_bp = Blueprint("views", __name__, template_folder="templates")
 views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
-
 
 # LOGIN FUNCTION
 @views_bp.route("/login", methods=["GET", "POST"])
@@ -23,7 +23,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         existing_user = User.find_by_username(username, UserSession())
-        if existing_user and check_password_hash(existing_user.password, password):
+        if existing_user and existing_user.check_password(password):
             session["username"] = username
             session.permanent = True
             login_user(existing_user)
@@ -33,7 +33,6 @@ def login():
         else:
             flash("Invalid username/password combination.", category="error")
     return render_template("index.html")
-
 
 # REGISTER FUNCTION
 @views_bp.route("/register", methods=["GET", "POST"])
@@ -71,35 +70,49 @@ def register():
             return redirect(url_for("views.login"))
     return render_template("index.html")
 
-
-class ContactForm(FlaskForm):
-    name = StringField('Your Name', validators=[DataRequired()])
-    email = EmailField('Your Email', validators=[DataRequired(), Email()])
-    message = TextAreaField('Your Message', validators=[DataRequired()])
-
+# Recipe Form
+class RecipeForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired()])
+    ingredients = TextAreaField('Ingredients', validators=[DataRequired()])
+    instructions = TextAreaField('Instructions', validators=[DataRequired()])
+    image = StringField('Image URL', validators=[DataRequired()])
+    prep_time = IntegerField('Preparation Time (minutes)', validators=[DataRequired(), NumberRange(min=1)])
+    cook_time = IntegerField('Cooking Time (minutes)', validators=[DataRequired(), NumberRange(min=1)])
+    servings = IntegerField('Servings', validators=[DataRequired(), NumberRange(min=1)])
+    cuisine = StringField('Cuisine', validators=[DataRequired()])
+    course = StringField('Course', validators=[DataRequired()])
+    diet = StringField('Diet', validators=[DataRequired()])
+    occasion = StringField('Occasion', validators=[DataRequired()])
+    author = StringField('Author', validators=[DataRequired()])
+    source = StringField('Source', validators=[DataRequired()])
+    url = StringField('URL', validators=[DataRequired()])
+    notes = TextAreaField('Notes')
 
 # ADD RECIPE FUNCTION
 @views_bp.route("/recipe/add", methods=["GET", "POST"])
 @login_required
 def add_recipe():
-    if request.method == "POST":
+    form = RecipeForm()
+
+    if form.validate_on_submit():
         recipe_data = {
-            "title": request.form["title"],
-            "description": request.form["description"],
-            "ingredients": request.form["ingredients"],
-            "instructions": request.form["instructions"],
-            "image": request.form["image"],
-            "prep_time": request.form["prep_time"],
-            "cook_time": request.form["cook_time"],
-            "servings": request.form["servings"],
-            "cuisine": request.form["cuisine"],
-            "course": request.form["course"],
-            "diet": request.form["diet"],
-            "occasion": request.form["occasion"],
-            "author": request.form["author"],
-            "source": request.form["source"],
-            "url": request.form["url"],
-            "notes": request.form["notes"],
+            "title": form.title.data,
+            "description": form.description.data,
+            "ingredients": form.ingredients.data,
+            "instructions": form.instructions.data,
+            "image": form.image.data,
+            "prep_time": form.prep_time.data,
+            "cook_time": form.cook_time.data,
+            "servings": form.servings.data,
+            "cuisine": form.cuisine.data,
+            "course": form.course.data,
+            "diet": form.diet.data,
+            "occasion": form.occasion.data,
+            "author": form.author.data,
+            "source": form.source.data,
+            "url": form.url.data,
+            "notes": form.notes.data,
         }
 
         recipe_manager = RecipeDataManager()
@@ -108,12 +121,12 @@ def add_recipe():
         recipes_data.append(recipe_data)
         recipe_manager.save_recipes(recipes_data)
 
-        flash("Recipe created successfully.")
+        flash("Recipe created successfully.", category="success")
         return redirect(url_for("views.index"))
 
-    return render_template("index.html")
+    return render_template("add_recipe.html", form=form)
 
-
+# this function work in templates/contact.html -->
 @views_bp.route("/submit_contact_form", methods=['POST'])
 def submit_contact_form():
     form = ContactForm()
@@ -130,7 +143,7 @@ def submit_contact_form():
         flash('Please check the form for errors and try again.', 'error')
         return render_template('contact_us.html', form=form)
 
-
+# work in templates/contact.html -->
 def send_email_to_kevin(name, email, message):
     try:
         subject = 'New Contact Form Submission'
@@ -154,3 +167,4 @@ def store_form_data(name, email, message):
             file.write('\n')
     except Exception as e:
         print(f"Error storing form data: {e}")
+

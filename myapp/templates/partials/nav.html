@@ -1,46 +1,49 @@
 {% block nav %}
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="/">
-        <img src="{{ url_for('static', filename='/images/favicon.ico') }}" alt="Logo" class="navbar-logo">
-        Menu
-    </a>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static', filename='/images/favicon.ico') }}" alt="Logo" class="navbar-logo">
+            Menu
+        </a> 
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <!-- User Information Section -->
                 {% if session['logged_in'] %}
-                    <!-- Display user information if logged in -->
-                    <section class="welcome-text mb-3">
-                        <p>Welcome back, {{ current_user.username | capitalize }}!</p>
-                    </section>
+                    <li class="nav-item">
+                        <section class="welcome-text mb-3">
+                            <p>Welcome back, {{ current_user.username | capitalize }}!</p>
+                        </section>
+                    </li>
 
                     {% if session['role'] %}
-                        <a href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}" class="text-decoration-none">
-                            <!-- Display activities based on role -->
-                            <section class="text-justify text-capitalize border p-3 rounded">
-                                <h3 class="mb-3">{{ "Admin" if session['role'] == 'admin' else "Patient" }} Activities</h3>
-                                <section class="mt-4">
-                                    {% include 'partials/add_recipe.html' if session['role'] == 'admin' else 'partials/recipe.html' %}
+                        <li class="nav-item">
+                            <a href="{% if session['role'] == 'admin' %}/admin{% else %}/patient{% endif %}" class="text-decoration-none">
+                                <section class="text-justify text-capitalize border p-3 rounded">
+                                    <h3 class="mb-3">{{ "Admin" if session['role'] == 'admin' else "Patient" }} Activities</h3>
+                                    <section class="mt-4">
+                                        {% include 'partials/add_recipe.html' if session['role'] == 'admin' else 'partials/recipe.html' %}
+                                    </section>
                                 </section>
-                            </section>
-                            {{ session['role'] }}
-                        </a>
+                                {{ session['role'] }}
+                            </a>
+                        </li>
                     {% endif %}
 
-                    <!-- Display logout activity -->
-                    <section class="text-justify text-capitalize mt-4">
-                        <div>
-                            <a href="#" class="btn btn-primary toggle-btn" data-toggle="modal" data-target="#logoutModal">
-                                <span class="toggle-text">Logout</span>
-                            </a>
-                            {% include 'partials/logout.html' %}
-                        </div>
-                    </section>
-
+                    <!-- Logout Section -->
+                    <li class="nav-item">
+                        <section class="text-justify text-capitalize mt-4">
+                            <div>
+                                <a href="#" class="btn btn-primary toggle-btn" data-toggle="modal" data-target="#logoutModal">
+                                    <span class="toggle-text">Logout</span>
+                                </a>
+                                {% include 'partials/logout.html' %}
+                            </div>
+                        </section>
+                    </li>
                 {% else %}
                     <!-- Login Section -->
                     <li class="nav-item">
@@ -48,6 +51,7 @@
                     </li>
                 {% endif %}
                 
+                <!-- Navigation Links -->
                 <li class="nav-item">
                     <a class="nav-link" href="/legal">Legal</a>
                 </li>

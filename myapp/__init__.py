@@ -1,19 +1,17 @@
-# bookish-octo-invention/myapp/__init__.py
 import os
 import logging
 from flask import Flask
 from flask_mail import Mail
 from flask_babel import Babel
 from myapp.config import Config
-
-mail = Mail()
-babel = Babel()
+from flask_sqlalchemy import SQLAlchemy
 
 def create_app():
     app = Flask(__name__)
 
     try:
         configure_app(app)
+        init_extensions(app)
         register_blueprints(app)
         return app
 
@@ -35,15 +33,20 @@ def configure_app(app):
         app.config['SECRET_KEY'] = app.config['ADDITIONAL_PARAM1']
         app.config['SESSION_TYPE'] = app.config['ADDITIONAL_PARAM2']
 
-        configure_mail(app)
-        configure_babel(app)
-
     except Exception as e:
         handle_error(e)
 
-def configure_mail(app):
+def init_extensions(app):
+    # Initialize SQLAlchemy for recipes
+    app.config['SQLALCHEMY_DATABASE_URI_RECIPES'] = 'sqlite:///recipes.db'
+    db_recipes = SQLAlchemy(app)
+
+    # Initialize SQLAlchemy for users
+    app.config['SQLALCHEMY_DATABASE_URI_USERS'] = 'sqlite:///users.db'
+    db_users = SQLAlchemy(app)
+
     # Configure mail settings
-    mail.init_app(app)
+    mail = Mail(app)
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
@@ -52,9 +55,8 @@ def configure_mail(app):
     app.config['MAIL_DEFAULT_SENDER'] = 'KevinMarville@kvnbbg-creations.io'
     app.config['MAIL_PASSWORD'] = app.config.get("PASSWORD")
 
-def configure_babel(app):
     # Configure Babel settings
-    babel.init_app(app)
+    babel = Babel(app)
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     app.config['LANGUAGES'] = ['en', 'fr']
 

@@ -2,9 +2,10 @@ import os
 import json
 from flask_login import LoginManager, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import func
 
 # Initialize login manager
 login_manager = LoginManager()
@@ -37,14 +38,25 @@ class User(UserMixin, Base):
     def find_by_username(username, session):
         return session.query(User).filter_by(username=username).first()
 
-
 class Recipe(Base):
     __tablename__ = 'recipes'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(100), nullable=False)
-    ingredients = Column(String(500), nullable=False)
-    instructions = Column(String(1000), nullable=False)
+    title = Column(String(100), nullable=False)
+    description = Column(String(500), nullable=False)
+    cooking_time = Column(Integer, nullable=False)
+    resting_time = Column(Integer, nullable=False)
+    diet = Column(String(50), nullable=False)
+    patient_name = Column(String(50), nullable=False)
+    dietitian_name = Column(String(50), nullable=False)
+    ingredients = Column(String(1000), nullable=False)
+    preparation_time = Column(Integer, nullable=False)
+    instructions = Column(String(2000), nullable=False)
+    allergens = Column(String(200), nullable=True)
+    vegetarian = Column(Boolean, default=False)
+    lactose_free = Column(Boolean, default=False)
+    salt_free = Column(Boolean, default=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 # Initialize database engine and session for recipes
 recipe_engine = create_engine('sqlite:///recipes.db', echo=True)
@@ -130,3 +142,4 @@ class UserDataManager(DataManager):
     def save_users(users):
         session = UserSession()
         DataManager.save_data_to_db(session, users)
+

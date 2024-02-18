@@ -1,20 +1,19 @@
 from datetime import timedelta
 from flask import (
-    Flask,
     Blueprint,
     current_app,
     flash,
-    redirect,
     render_template,
     request,
+    redirect,
     url_for,
     jsonify,
 )
 from flask_login import login_required, logout_user
-
-# Import i18n translation function
 from flask_babel import Babel, lazy_gettext, _
 
+# Import your Recipe model and db instance
+from models import Recipe, db
 
 # ACTIVATING BLUEPRINT
 views_bp = Blueprint("views", __name__, template_folder="templates")
@@ -22,21 +21,13 @@ views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
 
 # Initialize Babel with the Flask app
 babel = Babel()
-babel.init_app(Flask(__name__))
+babel.init_app(current_app)
 
 
 @views_bp.before_request
 def before_request():
-    # This function will be executed before each request
-    flash_welcome_message()
-
-
-def flash_welcome_message():
-    # Get the visitor's IP address within a route
-    visitor_ip = get_visitor_ip()
-
-    # Set the flash message using the visitor's IP
-    flash(lazy_gettext(f"Good morning! Happy visit, {visitor_ip}."))
+    # Flash a welcome message using the visitor's IP
+    flash(lazy_gettext("Good morning! Happy visit, %(visitor_ip)s."), visitor_ip=get_visitor_ip())
 
 
 # Get the visitor's IP address
@@ -100,6 +91,57 @@ def add_header(response):
     response.cache_control.no_store = True
     return response
 
+
+# Routes
+@views_bp.route('/delete_recipe/<int:recipe_id>', methods=['GET'])
+def delete_recipe(recipe_id):
+    try:
+        recipe = Recipe.query.get(recipe_id)
+        if recipe:
+            db.session.delete(recipe)
+            db.session.commit()
+            flash('Recipe deleted successfully', 'success')
+        else:
+            flash('Recipe not found', 'error')
+    except Exception as e:
+        print(f"Error deleting recipe: {e}")
+        flash('Error deleting recipe', 'error')
+
+    return redirect(url_for('your_recipes_route'))
+
+@views_bp.route('/confirm_recipe/<int:recipe_id>', methods=['GET'])
+def confirm_recipe(recipe_id):
+    # Assuming you have a confirmation logic
+    try:
+        recipe = Recipe.query.get(recipe_id)
+        if recipe:
+            recipe.confirmed = True  # Adjust this based on your model fields
+            db.session.commit()
+            flash('Recipe confirmed successfully', 'success')
+        else:
+            flash('Recipe not found', 'error')
+    except Exception as e:
+        print(f"Error confirming recipe: {e}")
+        flash('Error confirming recipe', 'error')
+
+    return redirect(url_for('recipe'))
+
+@views_bp.route('/edit_recipe/<int:recipe_id>', methods=['GET'])
+def edit_recipe(recipe_id):
+    # Assuming you have an edit logic
+    try:
+        recipe = Recipe.query.get(recipe_id)
+        if recipe:
+            # Adjust this based on your edit logic
+            # For example, you can render an edit form or redirect to an edit page
+            return render_template('add_recipe.html', recipe=recipe)
+        else:
+            flash('Recipe not found', 'error')
+    except Exception as e:
+        print(f"Error editing recipe: {e}")
+        flash('Error editing recipe', 'error')
+
+    return redirect(url_for('add_recipe.html'))
 
 # Dynamic route to get OpenAI API key
 @views_bp.route("/api/get_openai_key")

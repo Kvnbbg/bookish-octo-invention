@@ -1,6 +1,6 @@
 {% extends 'macros.html' %}
 
-{% block content %}
+{% block content %} 
   <!-- MAIN CONTENT -->
 
   <!-- ALERT MESSAGE LINE -->
@@ -17,47 +17,46 @@
   <div class="container">
     <article>
 
-        <section>
-      <!-- Recipe Section -->
-      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#recipeCollapse" aria-expanded="false" aria-controls="recipeCollapse">
-        <span class="toggle-text">See Recipe</span>
-        <span class="toggle-icon">▼</span>
-      </button>
-      <div class="collapse" id="recipeCollapse">
-        <div class="card card-body">
-          {% include 'partials/recipe.html' %}
+      <section>
+        <!-- Recipe Section -->
+        <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#recipeSection" aria-expanded="false" aria-controls="recipeSection">
+          <span class="toggle-text">Show Recipe</span>
+          <span class="toggle-icon" alt="Collapse Icon">▼</span>
+        </button>
+        <div class="collapse" id="recipeSection">
+          <div class="card card-body">
+            {% include 'partials/recipe.html' %}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
       
-    <section>
-      <!-- My Services Section -->
-      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#myServicesCollapse" aria-expanded="false" aria-controls="myServicesCollapse">
-        <span class="toggle-text">See services</span>
-        <span class="toggle-icon">▼</span>
-      </button>
-      <div class="collapse" id="myServicesCollapse">
-        <div class="card card-body">
-          {% include 'partials/my_services.html' %}
+      <section>
+        <!-- Services Section -->
+        <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#servicesSection" aria-expanded="false" aria-controls="servicesSection">
+          <span class="toggle-text">Show Services</span>
+          <span class="toggle-icon" alt="Collapse Icon">▼</span>
+        </button>
+        <div class="collapse" id="servicesSection">
+          <div class="card card-body">
+            {% include 'partials/my_services.html' %}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section>
-      <!-- About Section -->
-      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#aboutCollapse" aria-expanded="false" aria-controls="aboutCollapse">
-        <span class="toggle-text">See About</span>
-        <span class="toggle-icon">▼</span>
-      </button>
-      <div class="collapse" id="aboutCollapse">
-        <div class="card card-body">
-          {% include 'partials/about.html' %}
+      <section>
+        <!-- About Section -->
+        <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#aboutSection" aria-expanded="false" aria-controls="aboutSection">
+          <span class="toggle-text">Show About</span>
+          <span class="toggle-icon" alt="Collapse Icon">▼</span>
+        </button>
+        <div class="collapse" id="aboutSection">
+          <div class="card card-body">
+            {% include 'partials/about.html' %}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-
-  </article>
+    </article>
   </div>
 
 {% endblock %}

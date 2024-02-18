@@ -1,45 +1,44 @@
-<!-- partials/login.html -->
 <img src="{{ url_for('static', filename='/images/login.png') }}" alt="Login png">
-<form method="post" action="/login" onsubmit="return handleLogin();">
-  <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" class="form-control" id="username" name="username" required>
-  </div>
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" class="form-control" id="password" name="password" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+<form method="post" action="/login" onsubmit="return handleLogin();" class="login-form">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
 <div class="dropdown-divider"></div>
-<p class="mx-auto text-center text-bold">Don't have an account? 👩‍💼<span class="role-link dropdown-trigger" type="button" data-toggle="collapse" data-target="#registerCollapse" aria-expanded="false" aria-controls="registerCollapse">Register</span></p>
+<p class="mx-auto text-center text-bold">Don't have an account? 👩‍💼<button class="role-link btn btn-link" type="button" data-toggle="collapse" data-target="#registerCollapse" aria-expanded="false" aria-controls="registerCollapse">Register</button></p>
 
 <div class="collapse" id="registerCollapse">
-  <div class="card card-body">
-    <!-- REGISTER -->
-    <form method="post" action="/select_role" action="/register" onsubmit="return handleLogin();">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <p>Choose your role:</p>
-        <label for="role">Select your role:</label>
-        <select id="role" name="role" class="form-control">
-          <option value="admin">Admin</option>
-          <option value="patient">Patient</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
+    <div class="card card-body">
+        <!-- REGISTER -->
+        <form method="post" action="/select_role" action="/register" onsubmit="return handleLogin();" class="register-form">
+            <div class="form-group">
+                <label for="register-username">Username:</label>
+                <input type="text" id="register-username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <p>Choose your role:</p>
+                <label for="register-role">Select your role:</label>
+                <select id="register-role" name="role" class="form-control">
+                    <option value="admin">Admin</option>
+                    <option value="patient">Patient</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </div>
