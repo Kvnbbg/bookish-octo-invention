@@ -1,6 +1,0 @@
-# Example .dockerignore file
-.git
-.vscode
-__pycache__
-*.pyc
-venv

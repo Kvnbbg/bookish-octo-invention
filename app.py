@@ -3,6 +3,7 @@ from myapp import create_app
 import socket
 import sys
 
+
 def find_available_port(start_port=5000, max_attempts=10):
     """
     Find an available port within a range of attempts.
@@ -17,6 +18,7 @@ def find_available_port(start_port=5000, max_attempts=10):
                 raise
 
     sys.exit("Error: Unable to find an available port.")
+
 
 if __name__ == "__main__":
     app = create_app()

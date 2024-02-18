@@ -1,4 +1,3 @@
-import json
 from datetime import timedelta
 from flask import (
     Blueprint,
@@ -7,213 +6,65 @@ from flask import (
     redirect,
     render_template,
     request,
-    session,
     url_for,
+    jsonify,
 )
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
-from myapp.models import RecipeDataManager
-from myapp.forms import ContactForm
-from flask_mail import Message
+from flask_login import login_required, logout_user
+
+# Import i18n translation function
+from flask_babel import _
 
 # ACTIVATING BLUEPRINT
 views_bp = Blueprint("views", __name__, template_folder="templates")
 views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
 
-# LOGIN PAGE
-login_manager = LoginManager()
-login_manager.login_view = "views.login"
-login_manager.login_message_category = "info"
 
-# USER CLASS
-class User(UserMixin):
-    def __init__(self, user_id, username, email, password):
-        self.id = user_id
-        self.username = username
-        self.email = email
-        self.password = password
+# Get the visitor's IP address
+def get_visitor_ip():
+    return request.remote_addr
 
-    @staticmethod
-    def find_by_username(username):
-        users_data = UserDataManager.load_users()
-        return next(
-            (User(**user) for user in users_data if user["username"] == username),
-            None,
-        )
 
-# LOAD USER FUNCTION
-@login_manager.user_loader
-def load_user(user_id):
-    users_data = UserDataManager.load_users()
-    user_data = next(
-        (user for user in users_data if user["id"] == user_id),
-        None,
-    )
-    if user_data:
-        return User(
-            user_data["id"],
-            user_data["username"],
-            user_data["email"],
-            user_data["password"],
-        )
-    else:
-        return None
+visitor_ip = get_visitor_ip()
+
+
+def flash_welcome_message():
+    # Set the flash message using the visitor's IP
+    flash(_("Good morning! Happy visit, {visitor_ip}."))
+
 
 # INDEX PAGE
 @views_bp.route("/")
 def index():
+    flash_welcome_message()
     return render_template("index.html")
 
-# LOGIN FUNCTION
-@views_bp.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        existing_user = User.find_by_username(username)
-        if existing_user and check_password_hash(existing_user.password, password):
-            session["username"] = username
-            session.permanent = True
-            login_user(existing_user)
-            flash("Logged in successfully.", category="success")
-            flash(f"Hi {username}!")
-            return redirect(url_for("views.index"))
-        else:
-            flash("Invalid username/password combination.", category="error")
-    return render_template("index.html")
-
-# REGISTER FUNCTION
-@views_bp.route("/register", methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        username = request.form["username"]
-        email = request.form["email"]
-        password = request.form["password"]
-        users_data = UserDataManager.load_users()
-        existing_user = next(
-            (
-                user
-                for user in users_data
-                if user["username"] == username or user["email"] == email
-            ),
-            None,
-        )
-        role = request.form.get("role")
-        
-        session["role"] = role  # Save the user role to the session
-
-        if existing_user:
-            flash("Username or email already exists.", category="error")
-            return redirect(url_for("views.login"))
-        else:
-            hashed_password = generate_password_hash(password)
-            new_user = {
-                "username": username,
-                "email": email,
-                "password": hashed_password,
-            }
-            users_data.append(new_user)
-            UserDataManager.save_users(users_data)
-            flash("User created successfully.", category="success")
-            return redirect(url_for("views.login"))
-    return render_template("index.html")
 
 # LOGOUT FUNCTION
 @views_bp.route("/logout")
 @login_required
 def logout():
     logout_user()
-    flash("Logged out successfully.")
+    flash(_("Logged out successfully."))
     return redirect(url_for("views.index"))
 
-# ADD RECIPE FUNCTION
-@views_bp.route("/recipe/add", methods=["GET", "POST"])
-@login_required
-def add_recipe():
-    if request.method == "POST":
-        recipe_data = {
-            "title": request.form["title"],
-            "description": request.form["description"],
-            "ingredients": request.form["ingredients"],
-            "instructions": request.form["instructions"],
-            "image": request.form["image"],
-            "prep_time": request.form["prep_time"],
-            "cook_time": request.form["cook_time"],
-            "servings": request.form["servings"],
-            "cuisine": request.form["cuisine"],
-            "course": request.form["course"],
-            "diet": request.form["diet"],
-            "occasion": request.form["occasion"],
-            "author": request.form["author"],
-            "source": request.form["source"],
-            "url": request.form["url"],
-            "notes": request.form["notes"],
-        }
-
-        recipe_manager = RecipeDataManager()
-        recipes_data = recipe_manager.load_recipes()
-
-        recipes_data.append(recipe_data)
-        recipe_manager.save_recipes(recipes_data)
-
-        flash("Recipe created successfully.")
-        return redirect(url_for("views.index"))
-
-    return render_template("index.html")
 
 # CONTACT PAGE
 @views_bp.route("/contact")
 def contact():
     return render_template("contact.html")
 
-@views_bp.route("/submit_contact_form", methods=['POST'])
-def submit_contact_form():
-    form = ContactForm(request.form)
-
-    if form.validate_on_submit():
-        name, email, message = form.name.data, form.email.data, form.message.data
-
-        send_email_to_kevin(name, email, message)
-        store_form_data(name, email, message)
-
-        flash('Thank you for reaching out! We will get back to you soon.', 'success')
-        return redirect(url_for('contact'))
-    else:
-        flash('Please check the form for errors and try again.', 'error')
-        return render_template('contact_us.html', form=form)
-
-def send_email_to_kevin(name, email, message):
-    try:
-        subject = 'New Contact Form Submission'
-        recipients = ['KevinMarville@kvnbbg-creations.io']
-
-        # Create and send the message
-        msg = Message(subject=subject, recipients=recipients, body=f'Name: {name}\nEmail: {email}\nMessage: {message}')
-        mail.send(msg)
-
-        print("Email sent successfully.")
-    except Exception as e:
-        print(f"Error sending email: {e}")
-
-def store_form_data(name, email, message):
-    try:
-        # Store form data in contact_log.json
-        data = {'name': name, 'email': email, 'message': message}
-        with open('contact_log.json', 'a') as file:
-            json.dump(data, file)
-            file.write('\n')
-    except Exception as e:
-        print(f"Error storing form data: {e}")
 
 # LEGAL PAGE
 @views_bp.route("/legal")
 def legal():
     return render_template("legal.html")
 
+
 # CONFIDENTIALITY PAGE
 @views_bp.route("/confid")
 def confidentiality():
     return render_template("confid.html")
+
 
 # ERROR HANDLER - INTERNAL SERVER ERROR
 @views_bp.errorhandler(500)
@@ -221,11 +72,13 @@ def internal_server_error(e):
     current_app.logger.exception(f"Server Error: {e}")
     return render_template("500.html", error_details=str(e)), 500
 
+
 # ERROR HANDLER - PAGE NOT FOUND
 @views_bp.errorhandler(404)
 def page_not_found(e):
     current_app.logger.error(f"Page Not Found: {e}")
     return render_template("404.html", error_details=str(e)), 404
+
 
 # AFTER REQUEST HOOK
 @views_bp.after_request
@@ -235,3 +88,10 @@ def add_header(response):
     response.cache_control.must_revalidate = True
     response.cache_control.no_store = True
     return response
+
+
+# Dynamic route to get OpenAI API key
+@views_bp.route("/api/get_openai_key")
+def get_openai_key():
+    openai_api_key = current_app.config.get("OPENAI_API_KEY", "")
+    return jsonify({"openai_api_key": openai_api_key})

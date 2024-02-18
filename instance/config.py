@@ -8,10 +8,10 @@ DB_USER = "actual_user"
 DB_PASSWORD = "actual_password"
 DB_NAME = "actual_db_name"
 SECRET_KEY = 'my_secret_key'
-ADDITIONAL_PARAM1  = SECRET_KEY
+ADDITIONAL_PARAM1 = SECRET_KEY
 PASSWORD = '123motdepasse'
 ADDITIONAL_PARAM2 = PASSWORD
-USERS_FILE = 'users.json'
-RECIPES_FILE = 'recipes.json'
-DEBUG = True # Set to True if you are debugging
-
+OPENAI_API_KEY = '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'
+USERS_FILE = 'users.db'
+RECIPES_FILE = 'recipes.db'
+DEBUG = True

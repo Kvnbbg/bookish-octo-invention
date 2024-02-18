@@ -13,10 +13,23 @@
   </div>
   <br>
 
-  <!-- Combine repeated container structures -->
+  <!-- Combined and repeated container structures -->
   <div class="container">
     <article>
 
+        <section>
+      <!-- Recipe Section -->
+      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#recipeCollapse" aria-expanded="false" aria-controls="recipeCollapse">
+        <span class="toggle-text">See Recipe</span>
+        <span class="toggle-icon">▼</span>
+      </button>
+      <div class="collapse" id="recipeCollapse">
+        <div class="card card-body">
+          {% include 'partials/recipe.html' %}
+        </div>
+      </div>
+    </section>
+      
     <section>
       <!-- My Services Section -->
       <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#myServicesCollapse" aria-expanded="false" aria-controls="myServicesCollapse">
@@ -43,18 +56,7 @@
       </div>
     </section>
 
-        <section>
-      <!-- Recipe Section -->
-      <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#recipeCollapse" aria-expanded="false" aria-controls="recipeCollapse">
-        <span class="toggle-text">See Recipe</span>
-        <span class="toggle-icon">▼</span>
-      </button>
-      <div class="collapse" id="recipeCollapse">
-        <div class="card card-body">
-          {% include 'partials/recipe.html' %}
-        </div>
-      </div>
-    </section>
+
   </article>
   </div>
 

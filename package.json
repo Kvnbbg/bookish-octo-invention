@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "i18next": "^23.8.3",
+    "i18next-http-backend": "^2.4.3"
+  }
+}
