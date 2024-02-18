@@ -1,7 +1,7 @@
 import os
 import json
 from flask_login import LoginManager, UserMixin
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -14,36 +14,30 @@ login_manager.login_message_category = "info"
 # Initialize SQLAlchemy base
 Base = declarative_base()
 
-
-# Define User class
 class User(UserMixin, Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(120), unique=True, nullable=False)
-    password = Column(String(100), nullable=False)
+    password_hash = Column(String(100), nullable=False)
 
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
-        self.password = generate_password_hash(password, method='sha256')
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password, method='sha256')
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     @staticmethod
     def find_by_username(username, session):
         return session.query(User).filter_by(username=username).first()
 
 
-# Load user function
-@login_manager.user_loader
-def load_user(user_id):
-    session = UserSession()
-    user = session.query(User).get(int(user_id))
-    session.close()
-    return user
-
-
-# Define Recipe class for SQLAlchemy
 class Recipe(Base):
     __tablename__ = 'recipes'
 
@@ -51,7 +45,6 @@ class Recipe(Base):
     name = Column(String(100), nullable=False)
     ingredients = Column(String(500), nullable=False)
     instructions = Column(String(1000), nullable=False)
-
 
 # Initialize database engine and session for recipes
 recipe_engine = create_engine('sqlite:///recipes.db', echo=True)
@@ -63,14 +56,13 @@ user_engine = create_engine('sqlite:///users.db', echo=True)
 Base.metadata.create_all(user_engine)
 UserSession = sessionmaker(bind=user_engine)
 
-
 class DataManager:
     """
     A class that manages the loading and saving of data.
     """
 
     @staticmethod
-    def load_data(file_path, model_class):
+    def load_data(file_path):
         try:
             if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
                 with open(file_path, "r") as f:
@@ -105,7 +97,6 @@ class DataManager:
         finally:
             session.close()
 
-
 class RecipeDataManager(DataManager):
     """
     A class that manages the loading and saving of recipes.
@@ -122,7 +113,6 @@ class RecipeDataManager(DataManager):
     def save_recipes(recipes):
         session = RecipeSession()
         DataManager.save_data_to_db(session, recipes)
-
 
 class UserDataManager(DataManager):
     """
