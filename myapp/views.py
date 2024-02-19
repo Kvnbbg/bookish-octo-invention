@@ -12,7 +12,7 @@ from flask import (
 from flask_login import login_required, logout_user
 from flask_babel import lazy_gettext, _
 
-from myapp import db, Recipe
+from myapp.models import db, Recipe
 
 
 # ACTIVATING BLUEPRINT

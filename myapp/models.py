@@ -2,10 +2,14 @@ from sqlalchemy import Column, Integer, String, DateTime, func, Boolean
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from sqlalchemy.orm import sessionmaker
 
 # Initialize SQLAlchemy
 db = SQLAlchemy()
+
+
+def load_user(user_id):
+    return User.get(user_id)
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
