@@ -1,6 +1,7 @@
-from myapp import create_app
 import socket
 import sys
+from myapp import create_app
+
 
 def find_available_port(start_port=5000, max_attempts=10):
     """
@@ -17,6 +18,7 @@ def find_available_port(start_port=5000, max_attempts=10):
 
     sys.exit("Error: Unable to find an available port.")
 
+
 def run_flask_app():
     app = create_app()
 
@@ -28,6 +30,7 @@ def run_flask_app():
         app.run(port=port, debug=True)
     except Exception as e:
         print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     run_flask_app()

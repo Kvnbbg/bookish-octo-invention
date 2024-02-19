@@ -1,39 +1,14 @@
-import os
-import json
-from flask_login import LoginManager, UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, String, DateTime, func, Boolean
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from sqlalchemy.orm import sessionmaker
 
+# Initialize SQLAlchemy
 db = SQLAlchemy()
 
-
-# Initialize SQLAlchemy and return the db instance
-def init_db(app):
-    app.config['SQLALCHEMY_DATABASE_URI_RECIPES'] = 'sqlite:///recipes.db'
-    app.config['SQLALCHEMY_DATABASE_URI_USERS'] = 'sqlite:///users.db'
-    app.config['SQLALCHEMY_BINDS'] = {'recipes': 'sqlite:///recipes.db', 'users': 'sqlite:///users.db'}
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.init_app(app)
-    return db  # Return the db instance
-
-
-# Initialize SQLAlchemy base
-Base = declarative_base()
-
-# Initialize login manager
-login_manager = LoginManager()
-login_manager.login_view = "views.login"
-login_manager.login_message_category = "info"
-
-
-class User(UserMixin, Base):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
-
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(120), unique=True, nullable=False)
@@ -53,6 +28,27 @@ class User(UserMixin, Base):
     @staticmethod
     def find_by_username(username, session):
         return session.query(User).filter_by(username=username).first()
+
+
+class Recipe(db.Model):
+    __tablename__ = 'recipes'
+    id = Column(Integer, primary_key=True)
+    title = Column(String(100), nullable=False)
+    description = Column(String(500), nullable=False)
+    cooking_time = Column(Integer, nullable=False)
+    resting_time = Column(Integer, nullable=False)
+    diet = Column(String(50), nullable=False)
+    patient_name = Column(String(50), nullable=False)
+    dietitian_name = Column(String(50), nullable=False)
+    ingredients = Column(String(1000), nullable=False)
+    preparation_time = Column(Integer, nullable=False)
+    instructions = Column(String(2000), nullable=False)
+    allergens = Column(String(200), nullable=True)
+    vegetarian = Column(Boolean, default=False)
+    lactose_free = Column(Boolean, default=False)
+    salt_free = Column(Boolean, default=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
 
 class DataManager:
     """

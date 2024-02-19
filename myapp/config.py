@@ -52,8 +52,3 @@ def update_zshrc():
             zshrc.write(f"export {var}='{value}'\n")
     
     print(f"Configuration added to {zshrc_path}. Please restart your shell or run `source {zshrc_path}`.")
-
-
-# Automatic Configuration for .zshrc
-if __name__ == "__main__":
-    update_zshrc()

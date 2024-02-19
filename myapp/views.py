@@ -1,36 +1,29 @@
 from datetime import timedelta
 from flask import (
     Blueprint,
-    current_app,
     flash,
     render_template,
     request,
     redirect,
     url_for,
     jsonify,
+    current_app,
 )
 from flask_login import login_required, logout_user
-from flask_babel import Babel, lazy_gettext, _
+from flask_babel import lazy_gettext, _
 
-from myapp import create_app, db, Recipe, User
-
-
-app, db = create_app()
+from myapp import db, Recipe
 
 
 # ACTIVATING BLUEPRINT
 views_bp = Blueprint("views", __name__, template_folder="templates")
 views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
 
-# Initialize Babel with the Flask app
-babel = Babel()
-babel.init_app(current_app)
-
 
 @views_bp.before_request
 def before_request():
     # Flash a welcome message using the visitor's IP
-    flash(lazy_gettext("Good morning! Happy visit, %(visitor_ip)s."), visitor_ip=get_visitor_ip())
+    flash(lazy_gettext(f"Good morning! Happy visit, {get_visitor_ip()}."), category='info')
 
 
 # Get the visitor's IP address
