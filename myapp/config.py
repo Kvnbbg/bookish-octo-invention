@@ -1,10 +1,11 @@
 import os
 import secrets
 
+
 class Config:
     # Application configuration settings
     SESSION_TYPE = 'filesystem'
-    
+
     # Database Configuration
     DB_HOST = os.environ.get('DB_HOST', 'localhost')
     DB_USER = os.environ.get('DB_USER', 'your_database_user')
@@ -30,6 +31,7 @@ class Config:
     # Debug Mode
     DEBUG = True
 
+
 # Function to automatically update .zshrc
 def update_zshrc():
     config_vars = [
@@ -50,6 +52,7 @@ def update_zshrc():
             zshrc.write(f"export {var}='{value}'\n")
     
     print(f"Configuration added to {zshrc_path}. Please restart your shell or run `source {zshrc_path}`.")
+
 
 # Automatic Configuration for .zshrc
 if __name__ == "__main__":

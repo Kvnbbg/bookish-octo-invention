@@ -12,8 +12,11 @@ from flask import (
 from flask_login import login_required, logout_user
 from flask_babel import Babel, lazy_gettext, _
 
-# Import your Recipe model and db instance
-from models import Recipe, db
+from myapp import create_app, db, Recipe, User
+
+
+app, db = create_app()
+
 
 # ACTIVATING BLUEPRINT
 views_bp = Blueprint("views", __name__, template_folder="templates")
