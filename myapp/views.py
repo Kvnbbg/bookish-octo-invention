@@ -2,13 +2,16 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_required, logout_user, login_user, current_user
 from flask_babel import _
 from datetime import timedelta
-from myapp import db, login_manager
+from myapp import db
 from myapp.models import Recipe, User
 from myapp.forms import RecipeForm, LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
+from .extensions import login_manager
+
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
+login_manager.login_view = 'views.login'
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -21,7 +24,6 @@ def before_request():
 
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
-login_manager.login_view = 'views.login'
 
 @views_bp.route('/')
 @login_required
@@ -165,20 +167,35 @@ def internal_error(e):
     return render_template("500.html"), 500
 
 # Adjustments to login and registration to handle errors and security better
+
+
 @views_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    # Redirect authenticated users to the index page
     if current_user.is_authenticated:
         return redirect(url_for('views.index'))
+
     form = LoginForm()
+
     if form.validate_on_submit():
+        # Retrieve the user from the database
         user = User.query.filter_by(username=form.username.data).first()
+
+        # Check if user exists and the password is correct
         if user and check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next', url_for('views.index'))
-            return redirect(next_page)
+            # Log in the user and possibly remember them
+            login_user(user, remember=form.remember_me.data)
+            return redirect('views.index')
+
+            # Use `next` parameter safely next_page = request.args.get('next') if not next_page or url_parse(next_page).netloc != '': next_page = url_for('views.index') return redirect(next_page)
+
         else:
+            # Flash a message if login details are incorrect
             flash(_('Invalid username or password'), 'danger')
-    return render_template('login.html', form=form)
+
+    # Render the login template with the form
+    return redirect(url_for('views.login'))
+
 
 @views_bp.route('/register', methods=['GET', 'POST'])
 def register():

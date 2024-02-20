@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm, FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, IntegerField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, TextAreaField, IntegerField, PasswordField, SubmitField, SelectField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, NumberRange, ValidationError
 from myapp.models import User
 from flask_login import current_user
@@ -9,7 +9,15 @@ from flask_login import current_user
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')  # Allows users to stay logged in
     submit = SubmitField('Log In')
+
+    def validate_username(self, username):
+        # Optional: Add additional validation to check if the username exists in the database
+        user = User.query.filter_by(username=username.data).first()
+        if not user:
+            raise ValidationError('No account found with this username. Please register first.')
+
 
 
 class RegistrationForm(FlaskForm):

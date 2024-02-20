@@ -2,25 +2,22 @@ import os
 import logging
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_babel import Babel
 from logging.handlers import RotatingFileHandler
-from myapp.config import Config, DevelopmentConfig, TestingConfig, ProductionConfig, update_zshrc
-
+from myapp.config import DevelopmentConfig, TestingConfig, ProductionConfig, update_zshrc
+from .extensions import login_manager
+from .models import User
 
 # Initialize Flask extensions
 db = SQLAlchemy()
-login_manager = LoginManager()
-login_manager.login_view = 'views.login'
 mail = Mail()
 migrate = Migrate()
 babel = Babel()
 
-def create_app():
+def create_app(config_filename=None):
     app = Flask(__name__, instance_relative_config=True)
-
 
     # Determine the configuration to use based on the FLASK_ENV environment variable
     env_config = {
@@ -56,6 +53,7 @@ def create_app():
 
     return app
 
+
 def setup_logging(app):
     if not os.path.exists('logs'):
         os.mkdir('logs')
@@ -66,17 +64,11 @@ def setup_logging(app):
     app.logger.setLevel(logging.INFO)
     app.logger.info('MyApp startup')
 
+
 def register_blueprints(app):
     # Register blueprints
     from myapp.views import views_bp
     app.register_blueprint(views_bp)
-    
-    # Setup Flask-Login
-    from myapp.models import User
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
-    login_manager.login_view = 'auth.login'
 
 def register_error_handlers(app):
     @app.errorhandler(404)
@@ -87,8 +79,3 @@ def register_error_handlers(app):
     def internal_error(error):
         db.session.rollback()
         return render_template('500.html'), 500
-
-# Ensure the file is the main program and run the app
-if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=True)
