@@ -1,98 +1,69 @@
-import os
-from flask import Flask
-from flask_login import LoginManager
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from flask_mail import Mail
+from flask_migrate import Migrate
+from flask_babel import Babel
 import logging
-from myapp.config import Config, update_zshrc
+from logging.handlers import RotatingFileHandler
+import os
 
-
+# Initialize Flask extensions
 db = SQLAlchemy()
 login_manager = LoginManager()
 mail = Mail()
+migrate = Migrate()
+babel = Babel()
 
-
-def create_app():
-    app = Flask(__name__)
-
-    try:
-        configure_app(app)
-
-        # Initialize Flask extensions within the application context
-        with app.app_context():
-            init_extensions(app)
-
-        register_blueprints(app)
-        return app
-
-    except Exception as e:
-        handle_error(e)
-        return app
-
-
-def configure_app(app):
-    try:
-        # Check if the 'instance/config.py' file exists and is not empty
-        if not os.path.exists('instance/config.py') or os.stat('instance/config.py').st_size == 0:
-            # If not, load configuration from the Config class
-            app.config.from_object(Config)
-        else:
-            # If 'instance/config.py' exists and is not empty, load configuration from the file
-            base_dir = os.path.abspath(os.path.dirname(__file__))
-            config_path = os.path.join(base_dir, "config.py")
-            app.config.from_pyfile(config_path)
-
-        # Set the SECRET_KEY and SESSION_TYPE based on Config class
-        app.config['SECRET_KEY'] = Config.SECRET_KEY
-        app.config['SESSION_TYPE'] = Config.PASSWORD
-
-    except Exception as e:
-        # Handle any exceptions that may occur during configuration
-        handle_error(e)
-
-
-def init_extensions(app):
-    # Update Zshrc
-    update_zshrc()
-
-    # Configure SQLAlchemy database URIs for recipes and users
-    app.config['SQLALCHEMY_DATABASE_URI_RECIPES'] = 'sqlite:///recipes.db'
-    app.config['SQLALCHEMY_DATABASE_URI_USERS'] = 'sqlite:///users.db'
+def create_app(config_class='myapp.config.Config'):
+    app = Flask(__name__, instance_relative_config=True)
     
-    # Configure multiple database binds for recipes and users
-    app.config['SQLALCHEMY_BINDS'] = {'recipes': 'sqlite:///recipes.db', 'users': 'sqlite:///users.db'}
-    
-    # Disable SQLAlchemy modification tracking for better performance
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # Load configuration
+    app.config.from_object(config_class)
+    app.config.from_pyfile('config.py', silent=True)
 
-    # Initialize Flask extensions - SQLAlchemy, Login Manager, Mail, and Babel
+    # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-
-    from flask_babel import Babel
-    babel = Babel(app)
+    migrate.init_app(app, db)
     babel.init_app(app)
 
-    # Configure email settings for sending emails
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USE_SSL'] = False
-    app.config['MAIL_USERNAME'] = 'KevinMarville@kvnbbg-creations.io'
-    app.config['MAIL_DEFAULT_SENDER'] = 'KevinMarville@kvnbbg-creations.io'
-    app.config['MAIL_PASSWORD'] = app.config.get("PASSWORD")
+    # Setup logging
+    if not app.debug and not app.testing:
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/myapp.log', maxBytes=10240, backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('MyApp startup')
 
-    # Configure Babel for language localization
-    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-    app.config['LANGUAGES'] = ['en', 'fr']
-
-
-def register_blueprints(app):
+    # Register blueprints
     from myapp.views import views_bp
     app.register_blueprint(views_bp)
 
+    # Setup Flask-Login
+    from myapp.models import User
 
-def handle_error(error):
-    print(f"Error: {error}")
-    logging.error(f"Error details: {error}", exc_info=True)
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+    login_manager.login_view = 'login'
+
+    # Error handlers
+    @app.errorhandler(404)
+    def not_found_error(error):
+        return render_template('404.html'), 404
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        db.session.rollback()  # In case of database errors
+        return render_template('500.html'), 500
+
+    # Additional setup here (e.g., CLI commands, other blueprints)
+
+    return app

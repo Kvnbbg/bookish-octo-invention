@@ -1,145 +1,113 @@
-from datetime import timedelta
 from flask import (
-    Blueprint,
-    flash,
-    render_template,
-    request,
-    redirect,
-    url_for,
-    jsonify,
-    current_app,
+    Blueprint, flash, render_template, request, redirect, url_for, jsonify, current_app, session
 )
-from flask_login import login_required, logout_user
-from flask_babel import lazy_gettext, _
-
+from flask_login import login_required, logout_user, current_user
+from flask_babel import _, lazy_gettext as _l
+from datetime import timedelta
 from myapp.models import db, Recipe
+from myapp.forms import RecipeForm
 
+# Blueprint Configuration
+views_bp = Blueprint('views', __name__, template_folder='templates')
 
-# ACTIVATING BLUEPRINT
-views_bp = Blueprint("views", __name__, template_folder="templates")
-views_bp.config = {"permanent_session_lifetime": timedelta(minutes=5)}
-
-
+# Before request actions
 @views_bp.before_request
 def before_request():
-    # Flash a welcome message using the visitor's IP
-    flash(lazy_gettext(f"Good morning! Happy visit, {get_visitor_ip()}."), category='info')
+    session.permanent = True
+    current_app.permanent_session_lifetime = timedelta(minutes=5)
+    if not session.get('user_ip'):
+        session['user_ip'] = request.remote_addr
+        flash(_l(f"Good morning! Happy visit, {session['user_ip']}."), category='info')
 
-
-# Get the visitor's IP address
-def get_visitor_ip():
-    return request.remote_addr
-
-
-# INDEX PAGE
-@views_bp.route("/")
+# Recipe Dashboard
+@views_bp.route('/')
+@login_required
 def index():
-    return render_template("index.html")
+    recipes = Recipe.query.all()
+    return render_template('partials/recipe.html', recipes=recipes)
 
+# Add Recipe
+@views_bp.route('/add_recipe', methods=['GET', 'POST'])
+@login_required
+def add_recipe():
+    form = RecipeForm()
+    if form.validate_on_submit():
+        new_recipe = Recipe(
+            title=form.title.data,
+            description=form.description.data,
+            image=form.image.data  # Assume handling image uploads separately
+            # Include other fields as necessary
+        )
+        db.session.add(new_recipe)
+        db.session.commit()
+        flash(_('Recipe added successfully!'), 'success')
+        return redirect(url_for('views.index'))
+    return render_template('partials/add_recipe.html', form=form)
 
-# LOGOUT FUNCTION
+# Edit Recipe
+@views_bp.route('/edit_recipe/<int:recipe_id>', methods=['GET', 'POST'])
+@login_required
+def edit_recipe(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    form = RecipeForm(obj=recipe)
+    if form.validate_on_submit():
+        form.populate_obj(recipe)
+        db.session.commit()
+        flash(_('Recipe updated successfully!'), 'success')
+        return redirect(url_for('views.index'))
+    return render_template('partials/add_recipe.html', form=form, recipe_id=recipe_id)
+
+# Delete Recipe
+@views_bp.route('/delete_recipe/<int:recipe_id>', methods=['POST'])
+@login_required
+def delete_recipe(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    db.session.delete(recipe)
+    db.session.commit()
+    flash(_('Recipe deleted successfully!'), 'success')
+    return redirect(url_for('views.index'))
+
+# Confirm Recipe
+@views_bp.route('/confirm_recipe/<int:recipe_id>', methods=['POST'])
+@login_required
+def confirm_recipe(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    recipe.confirmed = True  # Assuming there's a confirmed attribute
+    db.session.commit()
+    flash(_('Recipe confirmed successfully!'), 'success')
+    return redirect(url_for('views.index'))
+
+# Logout
 @views_bp.route("/logout")
 @login_required
 def logout():
     logout_user()
-    flash(_("Logged out successfully."))
+    flash(_("Logged out successfully."), 'success')
     return redirect(url_for("views.index"))
 
-
-# CONTACT PAGE
+# Static Pages
 @views_bp.route("/contact")
 def contact():
     return render_template("contact.html")
 
-
-# LEGAL PAGE
 @views_bp.route("/legal")
 def legal():
     return render_template("legal.html")
 
-
-# CONFIDENTIALITY PAGE
 @views_bp.route("/confid")
 def confidentiality():
     return render_template("confid.html")
 
-
-# ERROR HANDLER - INTERNAL SERVER ERROR
-@views_bp.errorhandler(500)
-def internal_server_error(e):
-    current_app.logger.exception(f"Server Error: {e}")
-    return render_template("500.html", error_details=str(e)), 500
-
-
-# ERROR HANDLER - PAGE NOT FOUND
+# Error Handlers
 @views_bp.errorhandler(404)
 def page_not_found(e):
-    current_app.logger.error(f"Page Not Found: {e}")
-    return render_template("404.html", error_details=str(e)), 404
+    return render_template("404.html"), 404
 
+@views_bp.errorhandler(500)
+def internal_error(e):
+    return render_template("500.html"), 500
 
-# AFTER REQUEST HOOK
-@views_bp.after_request
-def add_header(response):
-    response.cache_control.max_age = 86400
-    response.cache_control.public = True
-    response.cache_control.must_revalidate = True
-    response.cache_control.no_store = True
-    return response
-
-
-# Routes
-@views_bp.route('/delete_recipe/<int:recipe_id>', methods=['GET'])
-def delete_recipe(recipe_id):
-    try:
-        recipe = Recipe.query.get(recipe_id)
-        if recipe:
-            db.session.delete(recipe)
-            db.session.commit()
-            flash('Recipe deleted successfully', 'success')
-        else:
-            flash('Recipe not found', 'error')
-    except Exception as e:
-        print(f"Error deleting recipe: {e}")
-        flash('Error deleting recipe', 'error')
-
-    return redirect(url_for('your_recipes_route'))
-
-@views_bp.route('/confirm_recipe/<int:recipe_id>', methods=['GET'])
-def confirm_recipe(recipe_id):
-    # Assuming you have a confirmation logic
-    try:
-        recipe = Recipe.query.get(recipe_id)
-        if recipe:
-            recipe.confirmed = True  # Adjust this based on your model fields
-            db.session.commit()
-            flash('Recipe confirmed successfully', 'success')
-        else:
-            flash('Recipe not found', 'error')
-    except Exception as e:
-        print(f"Error confirming recipe: {e}")
-        flash('Error confirming recipe', 'error')
-
-    return redirect(url_for('recipe'))
-
-@views_bp.route('/edit_recipe/<int:recipe_id>', methods=['GET'])
-def edit_recipe(recipe_id):
-    # Assuming you have an edit logic
-    try:
-        recipe = Recipe.query.get(recipe_id)
-        if recipe:
-            # Adjust this based on your edit logic
-            # For example, you can render an edit form or redirect to an edit page
-            return render_template('add_recipe.html', recipe=recipe)
-        else:
-            flash('Recipe not found', 'error')
-    except Exception as e:
-        print(f"Error editing recipe: {e}")
-        flash('Error editing recipe', 'error')
-
-    return redirect(url_for('add_recipe.html'))
-
-# Dynamic route to get OpenAI API key
+# Dynamic Content Route Example
 @views_bp.route("/api/get_openai_key")
 def get_openai_key():
     openai_api_key = current_app.config.get("OPENAI_API_KEY", "")
