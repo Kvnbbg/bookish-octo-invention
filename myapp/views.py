@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app, session
+from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, current_app, session
 from flask_login import login_required, logout_user, login_user, current_user
 from flask_babel import _
 from datetime import timedelta
@@ -11,11 +11,12 @@ from .extensions import login_manager
 
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
-login_manager.login_view = 'views.login'
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 @views_bp.before_request
 def before_request():
@@ -25,11 +26,13 @@ def before_request():
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
 
+
 @views_bp.route('/')
 @login_required
 def index():
     recipes = Recipe.query.all()
     return render_template('partials/recipe.html', recipes=recipes)
+
 
 @views_bp.route('/add_recipe', methods=['GET', 'POST'])
 @login_required
@@ -42,6 +45,7 @@ def add_recipe():
         flash(_('Recipe added successfully!'), 'success')
         return redirect(url_for('views.index'))
     return render_template('partials/add_recipe.html', form=form)
+
 
 @views_bp.route('/edit_recipe/<int:recipe_id>', methods=['GET', 'POST'])
 @login_required
@@ -58,6 +62,7 @@ def edit_recipe(recipe_id):
         return redirect(url_for('views.index'))
     return render_template('partials/edit_recipe.html', form=form, recipe_id=recipe.id)
 
+
 @views_bp.route('/delete_recipe/<int:recipe_id>', methods=['POST'])
 @login_required
 def delete_recipe(recipe_id):
@@ -70,6 +75,7 @@ def delete_recipe(recipe_id):
     flash(_('Recipe deleted successfully!'), 'success')
     return redirect(url_for('views.index'))
 
+
 @views_bp.route('/confirm_recipe/<int:recipe_id>', methods=['POST'])
 @login_required
 def confirm_recipe(recipe_id):
@@ -79,6 +85,7 @@ def confirm_recipe(recipe_id):
     flash(_('Recipe confirmed successfully!'), 'success')
     return redirect(url_for('views.index'))
 
+
 @views_bp.route('/logout')
 @login_required
 def logout():
@@ -86,27 +93,33 @@ def logout():
     flash(_("Logged out successfully."), 'success')
     return redirect(url_for("views.login"))
 
+
 # Static Pages
 @views_bp.route("/contact")
 def contact():
     return render_template("contact.html")
 
+
 @views_bp.route("/legal")
 def legal():
     return render_template("legal.html")
 
+
 @views_bp.route("/confid")
 def confidentiality():
     return render_template("confid.html")
+
 
 # Error Handlers
 @views_bp.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
 
+
 @views_bp.errorhandler(500)
 def internal_error(e):
     return render_template("500.html"), 500
+
 
 # Dynamic Content Route Example
 @views_bp.route("/api/get_openai_key")
@@ -114,10 +127,11 @@ def get_openai_key():
     openai_api_key = current_app.config.get("OPENAI_API_KEY", "")
     return jsonify({"openai_api_key": openai_api_key})
 
+
 # this function work in templates/contact.html -->
 @views_bp.route("/submit_contact_form", methods=['POST'])
 def submit_contact_form():
-    form = ContactForm()
+    form = ContactForm() 
 
     if form.validate_on_submit():
         name, email, message = form.name.data, form.email.data, form.message.data
@@ -130,6 +144,7 @@ def submit_contact_form():
     else:
         flash('Please check the form for errors and try again.', 'error')
         return render_template('contact_us.html', form=form)
+
 
 # work in templates/contact.html -->
 def send_email_to_kevin(name, email, message):
@@ -155,18 +170,6 @@ def store_form_data(name, email, message):
             file.write('\n')
     except Exception as e:
         print(f"Error storing form data: {e}")
-
-# Error Handlers
-@views_bp.errorhandler(404)
-def page_not_found(e):
-    return render_template("404.html"), 404
-
-@views_bp.errorhandler(500)
-def internal_error(e):
-    db.session.rollback()
-    return render_template("500.html"), 500
-
-# Adjustments to login and registration to handle errors and security better
 
 
 @views_bp.route('/login', methods=['GET', 'POST'])

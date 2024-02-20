@@ -16,6 +16,7 @@ mail = Mail()
 migrate = Migrate()
 babel = Babel()
 
+
 def create_app(config_filename=None):
     app = Flask(__name__, instance_relative_config=True)
 
@@ -69,6 +70,7 @@ def register_blueprints(app):
     # Register blueprints
     from myapp.views import views_bp
     app.register_blueprint(views_bp)
+
 
 def register_error_handlers(app):
     @app.errorhandler(404)
