@@ -10,6 +10,7 @@ from myapp.config import DevelopmentConfig, TestingConfig, ProductionConfig, upd
 from .extensions import login_manager
 from .models import User
 
+
 # Initialize Flask extensions
 db = SQLAlchemy()
 mail = Mail()

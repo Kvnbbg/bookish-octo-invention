@@ -121,7 +121,7 @@ def internal_error(e):
     return render_template("500.html"), 500
 
 
-# Dynamic Content Route Example
+# Traduction provided by openai for front-end
 @views_bp.route("/api/get_openai_key")
 def get_openai_key():
     openai_api_key = current_app.config.get("OPENAI_API_KEY", "")
