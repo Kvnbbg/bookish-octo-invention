@@ -1,14 +1,15 @@
-<img src="{{ url_for('static', filename='/images/login.png') }}" alt="Login png">
-<form method="post" action="/login" onsubmit="return handleLogin();" class="login-form">
+<img src="{{ url_for('static', filename='images/login.png') }}" alt="Login png">
+<form method="post" action="{{ url_for('views.login') }}">
+    {{ form.hidden_tag() }}
     <div class="form-group">
         <label for="username">Username:</label>
-        <input type="text" class="form-control" id="username" name="username" required>
+        {{ form.username(class="form-control", id="username", required=True) }}
     </div>
     <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        {{ form.password(class="form-control", id="password", required=True) }}
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Login</button>
 </form>
 
 <div class="dropdown-divider"></div>
@@ -17,28 +18,25 @@
 <div class="collapse" id="registerCollapse">
     <div class="card card-body">
         <!-- REGISTER -->
-        <form method="post" action="/select_role" action="/register" onsubmit="return handleLogin();" class="register-form">
+        <form method="post" action="{{ url_for('views.register') }}">
+            {{ register_form.hidden_tag() }}
             <div class="form-group">
                 <label for="register-username">Username:</label>
-                <input type="text" id="register-username" name="username" class="form-control" required>
+                {{ register_form.username(class="form-control", id="register-username", required=True) }}
             </div>
             <div class="form-group">
                 <label for="register-email">Email:</label>
-                <input type="email" id="register-email" name="email" class="form-control" required>
+                {{ register_form.email(class="form-control", id="register-email", required=True) }}
             </div>
             <div class="form-group">
                 <label for="register-password">Password:</label>
-                <input type="password" id="register-password" name="password" class="form-control" required>
+                {{ register_form.password(class="form-control", id="register-password", required=True) }}
             </div>
             <div class="form-group">
-                <p>Choose your role:</p>
                 <label for="register-role">Select your role:</label>
-                <select id="register-role" name="role" class="form-control">
-                    <option value="admin">Admin</option>
-                    <option value="patient">Patient</option>
-                </select>
+                {{ register_form.role(class="form-control", id="register-role") }}
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
 </div>

@@ -1,18 +1,27 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app, session
 from flask_login import login_required, logout_user, login_user, current_user
-from flask_babel import _, lazy_gettext as _l
+from flask_babel import _
 from datetime import timedelta
-from myapp import db
+from myapp import db, login_manager
 from myapp.models import Recipe, User
 from myapp.forms import RecipeForm, LoginForm, RegistrationForm
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
+import json
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @views_bp.before_request
 def before_request():
     session.permanent = True
     current_app.permanent_session_lifetime = timedelta(minutes=5)
+
+
+views_bp = Blueprint('views', __name__, template_folder='templates')
+login_manager.login_view = 'views.login'
 
 @views_bp.route('/')
 @login_required
@@ -74,37 +83,6 @@ def logout():
     logout_user()
     flash(_("Logged out successfully."), 'success')
     return redirect(url_for("views.login"))
-
-@views_bp.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('views.index'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user and user.check_password(form.password.data):
-            login_user(user, remember=True)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('views.index'))
-        else:
-            flash(_('Invalid username or password'), 'danger')
-    return render_template('login.html', form=form)
-
-@views_bp.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('views.index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash(_('Congratulations, you are now a registered user!'), 'success')
-        return redirect(url_for('views.login'))
-    return render_template('register.html', form=form)
-
-# Static pages and error handlers remain unchanged
 
 # Static Pages
 @views_bp.route("/contact")
@@ -175,3 +153,43 @@ def store_form_data(name, email, message):
             file.write('\n')
     except Exception as e:
         print(f"Error storing form data: {e}")
+
+# Error Handlers
+@views_bp.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+@views_bp.errorhandler(500)
+def internal_error(e):
+    db.session.rollback()
+    return render_template("500.html"), 500
+
+# Adjustments to login and registration to handle errors and security better
+@views_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('views.index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next', url_for('views.index'))
+            return redirect(next_page)
+        else:
+            flash(_('Invalid username or password'), 'danger')
+    return render_template('login.html', form=form)
+
+@views_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('views.index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(_('Congratulations, you are now a registered user!'), 'success')
+        return redirect(url_for('views.login'))
+    return render_template('register.html', form=form)

@@ -1,20 +1,12 @@
+# myapp/config.py
 import os
 import secrets
 
-
 class Config:
-    # Application configuration settings
-    SESSION_TYPE = 'filesystem'
-
-    # Database Configuration
-    DB_HOST = os.environ.get('DB_HOST', 'localhost')
-    DB_USER = os.environ.get('DB_USER', 'your_database_user')
-    DB_PASSWORD = os.environ.get('DB_PASSWORD') or secrets.token_urlsafe(32)
-    DB_NAME = os.environ.get('DB_NAME', 'your_database_name')
-    
-    # Secret Key Generation
+    # Base configuration
     SECRET_KEY = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
-    
+    SESSION_TYPE = 'filesystem'
+        
     # Additional Parameters
     ADDITIONAL_PARAM1 = SECRET_KEY
     
@@ -24,31 +16,53 @@ class Config:
     # OpenAI API Key
     OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
     
-    # File Paths
+    # File Paths of database
     USERS_FILE = 'users.db'
     RECIPES_FILE = 'recipes.db'
-    
-    # Debug Mode
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app.db')
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER') or 'noreply@example.com'
+    BABEL_DEFAULT_LOCALE = 'en'
+    LANGUAGES = ['en', 'fr']
     DEBUG = True
 
+    # Add other global settings here
 
-# Function to automatically update .zshrc
+class DevelopmentConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
+        'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'dev_app.db')
+    # Development-specific settings
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+        'sqlite:///:memory:'
+    # Testing-specific settings
+
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    # Production-specific settings
+
 def update_zshrc():
     config_vars = [
-        ("DB_HOST", Config.DB_HOST),
-        ("DB_USER", Config.DB_USER),
-        ("DB_PASSWORD", Config.DB_PASSWORD),
-        ("DB_NAME", Config.DB_NAME),
         ("SECRET_KEY", Config.SECRET_KEY),
-        ("APP_PASSWORD", Config.PASSWORD),
-        ("OPENAI_API_KEY", Config.OPENAI_API_KEY)
+        ("DATABASE_URL", Config.SQLALCHEMY_DATABASE_URI),
+        ("MAIL_USERNAME", Config.MAIL_USERNAME),
+        ("MAIL_PASSWORD", Config.MAIL_PASSWORD),
     ]
-    
+
     zshrc_path = os.path.expanduser("~/.zshrc")
-    
+
     with open(zshrc_path, "a") as zshrc:
         zshrc.write("\n# Automatically added by your Flask app\n")
         for var, value in config_vars:
             zshrc.write(f"export {var}='{value}'\n")
-    
+
     print(f"Configuration added to {zshrc_path}. Please restart your shell or run `source {zshrc_path}`.")
