@@ -19,7 +19,6 @@ class LoginForm(FlaskForm):
             raise ValidationError('No account found with this username. Please register first.')
 
 
-
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])

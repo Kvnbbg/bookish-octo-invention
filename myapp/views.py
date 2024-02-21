@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, current_app, session
+from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, current_app, session, request
 from flask_login import login_required, logout_user, login_user, current_user
 from flask_babel import _
 from datetime import timedelta
@@ -8,6 +8,7 @@ from myapp.forms import RecipeForm, LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 from .extensions import login_manager
+from flask_mail import Mail, Message
 
 
 views_bp = Blueprint('views', __name__, template_folder='templates')
@@ -28,10 +29,30 @@ views_bp = Blueprint('views', __name__, template_folder='templates')
 
 
 @views_bp.route('/')
-@login_required
 def index():
-    recipes = Recipe.query.all()
-    return render_template('partials/recipe.html', recipes=recipes)
+    return render_template('index.html')
+    #recipes = Recipe.query.all()
+    #return render_template('partials/recipe.html', recipes=recipes)
+
+
+@views_bp.route('/recipe')
+@login_required
+def list_recipes():
+    form = RecipeForm(request.args)  
+
+    page = request.args.get('page', 1, type=int)
+    filter_type = request.args.get('filter', 'all') 
+    
+    query = Recipe.query
+    if filter_type == 'mine':
+        query = query.filter_by(author_id=current_user.id)
+    elif filter_type == 'top-rated':
+        query = query.order_by(Recipe.rating.desc())
+    # Imply & Pin your other lines, as (in) growth seeds.
+
+    paginated_recipes = query.paginate(page=page, per_page=10, error_out=False)  # Pagination
+
+    return render_template('partials/recipe.html', recipes=paginated_recipes.items, form=form, pagination=paginated_recipes)
 
 
 @views_bp.route('/add_recipe', methods=['GET', 'POST'])
@@ -43,7 +64,7 @@ def add_recipe():
         db.session.add(new_recipe)
         db.session.commit()
         flash(_('Recipe added successfully!'), 'success')
-        return redirect(url_for('views.index'))
+        return redirect(url_for('views.recipe'))
     return render_template('partials/add_recipe.html', form=form)
 
 
@@ -128,6 +149,48 @@ def get_openai_key():
     return jsonify({"openai_api_key": openai_api_key})
 
 
+@views_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    # Redirect authenticated users to the index page
+    if current_user.is_authenticated:
+        return redirect(url_for('views.add_recipe'))
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        # Retrieve the user from the database
+        user = User.query.filter_by(username=form.username.data).first()
+
+        # Check if user exists and the password is correct
+        if user and check_password_hash(user.password, form.password.data):
+            # Log in the user and possibly remember them
+            login_user(user, remember=form.remember_me.data)
+            return redirect('add_recipe')
+
+            # Use `next` parameter safely next_page = request.args.get('next') if not next_page or url_parse(next_page).netloc != '': next_page = url_for('views.index') return redirect(next_page)
+
+        else:
+            # Flash a message if login details are incorrect
+            flash(_('Invalid username or password'), 'danger')
+
+    # Render the login template with the form
+    return redirect(url_for('views.login'))
+
+
+@views_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('views.index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(_('Congratulations, you are now a registered user!'), 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
+
 # this function work in templates/contact.html -->
 @views_bp.route("/submit_contact_form", methods=['POST'])
 def submit_contact_form():
@@ -143,7 +206,7 @@ def submit_contact_form():
         return redirect(url_for('contact'))
     else:
         flash('Please check the form for errors and try again.', 'error')
-        return render_template('contact_us.html', form=form)
+        return render_template('contact.html', form=form)
 
 
 # work in templates/contact.html -->
@@ -170,46 +233,3 @@ def store_form_data(name, email, message):
             file.write('\n')
     except Exception as e:
         print(f"Error storing form data: {e}")
-
-
-@views_bp.route('/login', methods=['GET', 'POST'])
-def login():
-    # Redirect authenticated users to the index page
-    if current_user.is_authenticated:
-        return redirect(url_for('views.index'))
-
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        # Retrieve the user from the database
-        user = User.query.filter_by(username=form.username.data).first()
-
-        # Check if user exists and the password is correct
-        if user and check_password_hash(user.password, form.password.data):
-            # Log in the user and possibly remember them
-            login_user(user, remember=form.remember_me.data)
-            return redirect('views.index')
-
-            # Use `next` parameter safely next_page = request.args.get('next') if not next_page or url_parse(next_page).netloc != '': next_page = url_for('views.index') return redirect(next_page)
-
-        else:
-            # Flash a message if login details are incorrect
-            flash(_('Invalid username or password'), 'danger')
-
-    # Render the login template with the form
-    return redirect(url_for('views.login'))
-
-
-@views_bp.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('views.index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data)
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash(_('Congratulations, you are now a registered user!'), 'success')
-        return redirect(url_for('views.login'))
-    return render_template('register.html', form=form)

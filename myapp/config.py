@@ -21,16 +21,16 @@ class Config:
     RECIPES_FILE = 'recipes.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app.db')
+        'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'default_app.db')
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER') or 'noreply@example.com'
+    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER') or 'noreply@kvnbbg-creations.io'
     BABEL_DEFAULT_LOCALE = 'en'
     LANGUAGES = ['en', 'fr']
-    DEBUG = True
+    DEBUG = False
 
     # Add other global settings here
 
@@ -49,6 +49,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     # Production-specific settings
+    DEBUG = False
 
 def update_zshrc():
     config_vars = [

@@ -1,26 +1,22 @@
-<img src="{{ url_for('static', filename='/images/recipe.png') }}" alt="Recipe Image">
-
 {% for recipe in recipes %}
     <div class="col-md-4 mb-4">
-        <div class="card" id="card{{ loop.index }}">
-            <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
+        <div class="card" id="recipeCard{{ recipe.id }}">
+            <img src="{{ recipe.image or url_for('static', filename='images/recipe_default.png') }}" class="card-img-top" alt="{{ recipe.title }}">
             <div class="card-body"> 
                 <h5 class="card-title">{{ recipe.title }}</h5>
-                <button class="toggleButton">View Details</button>
-                <div class="hidden">
+                <button class="toggleButton btn btn-info">Toggle View</button>
+                <div class="recipe-details d-none">
                     <h3>Ingredients:</h3>
                     <ul>
-                        {% for ingredient in recipe.ingredients %}
+                        {% for ingredient in recipe.ingredients.split(';') %}
                             <li>{{ ingredient }}</li>
                         {% endfor %}
                     </ul>
                     <h3>Instructions:</h3>
                     <p>{{ recipe.instructions }}</p>
-                    
                     {% if session['role'] == 'admin' %}
-                        <!-- Add admin-specific content here if needed -->
-                        <a href="{% url_for('admin.edit_recipe', recipe_id=recipe.id) %}">Edit Recipe</a>
-                        <a href="{% url_for('admin.delete_recipe', recipe_id=recipe.id) %}">Delete Recipe</a>
+                        <a href="{{ url_for('views.edit_recipe', recipe_id=recipe.id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ url_for('views.confirm_recipe', recipe_id=recipe.id) }}" class="btn btn-danger">Delete</a>
                     {% endif %}
                 </div>
             </div>
