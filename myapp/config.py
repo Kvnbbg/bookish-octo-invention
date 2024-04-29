@@ -6,6 +6,9 @@ class Config:
     # Base configuration
     SECRET_KEY = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
     SESSION_TYPE = 'filesystem'
+
+    # Database
+    DATABASE_URI = "sqlite:///users.db"
         
     # Additional Parameters
     ADDITIONAL_PARAM1 = SECRET_KEY
@@ -20,7 +23,7 @@ class Config:
     USERS_FILE = 'users.db'
     RECIPES_FILE = 'recipes.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or \
         'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'default_app.db')
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
