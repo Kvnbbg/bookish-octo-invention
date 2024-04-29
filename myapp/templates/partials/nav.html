@@ -7,15 +7,12 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    ...
     {% if not current_user.is_authenticated %}
         <!-- Trigger Modal -->
         <li class="nav-item">
             <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
         </li>
     {% endif %}
-    ...
-</nav>
 
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -33,18 +30,37 @@
         </div>
     </div>
 </div>
-            
+<div>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.services') }}">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.projects') }}">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.blog') }}">Blog</a>
+                </li>
+            </ul>
             <!-- Navigation Links -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('views.legal') }}">Legal</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('views.contact') }}">Contact</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('views.confidentiality') }}">Confidentiality</a>
-            </li>
-        </ul>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.legal') }}">Legal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.contact') }}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('views.confidentiality') }}">Confidentiality</a>
+                </li>
+            </ul>
+        <!-- </ul> -->
     </div>
 </nav>
 {% endblock %}

@@ -43,6 +43,21 @@ function updateTranslations() {
     // Example: console.log(i18next.t('hello'));
 }
 
+// <!-- Password Visibility Toggle Script -->
+    function togglePasswordVisibility() {
+        const password = document.getElementById("password");
+        const icon = document.querySelector('.fa-eye');
+        if (password.type === "password") {
+            password.type = "text";
+            icon.classList.add('fa-eye-slash');
+            icon.classList.remove('fa-eye');
+        } else {
+            password.type = "password";
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+
 // Function to show login animation
 function showLoginAnimation(username) {
     const loginMessage = document.getElementById("login-message");

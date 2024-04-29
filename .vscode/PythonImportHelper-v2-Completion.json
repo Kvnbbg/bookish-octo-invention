@@ -1,0 +1,789 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "logout_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "current_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "FlaskForm",
+        "importPath": "flask_wtf",
+        "description": "flask_wtf",
+        "isExtraImport": true,
+        "detail": "flask_wtf",
+        "documentation": {}
+    },
+    {
+        "label": "FileField",
+        "importPath": "flask_wtf.file",
+        "description": "flask_wtf.file",
+        "isExtraImport": true,
+        "detail": "flask_wtf.file",
+        "documentation": {}
+    },
+    {
+        "label": "FileAllowed",
+        "importPath": "flask_wtf.file",
+        "description": "flask_wtf.file",
+        "isExtraImport": true,
+        "detail": "flask_wtf.file",
+        "documentation": {}
+    },
+    {
+        "label": "StringField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "TextAreaField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "IntegerField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "PasswordField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "SubmitField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "SelectField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "BooleanField",
+        "importPath": "wtforms",
+        "description": "wtforms",
+        "isExtraImport": true,
+        "detail": "wtforms",
+        "documentation": {}
+    },
+    {
+        "label": "DataRequired",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Email",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "EqualTo",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "Length",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "NumberRange",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "ValidationError",
+        "importPath": "wtforms.validators",
+        "description": "wtforms.validators",
+        "isExtraImport": true,
+        "detail": "wtforms.validators",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "isExtraImport": true,
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Recipe",
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "isExtraImport": true,
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "isExtraImport": true,
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "current_app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "_",
+        "importPath": "flask_babel",
+        "description": "flask_babel",
+        "isExtraImport": true,
+        "detail": "flask_babel",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "myapp",
+        "description": "myapp",
+        "isExtraImport": true,
+        "detail": "myapp",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "myapp",
+        "description": "myapp",
+        "isExtraImport": true,
+        "detail": "myapp",
+        "documentation": {}
+    },
+    {
+        "label": "RecipeForm",
+        "importPath": "myapp.forms",
+        "description": "myapp.forms",
+        "isExtraImport": true,
+        "detail": "myapp.forms",
+        "documentation": {}
+    },
+    {
+        "label": "LoginForm",
+        "importPath": "myapp.forms",
+        "description": "myapp.forms",
+        "isExtraImport": true,
+        "detail": "myapp.forms",
+        "documentation": {}
+    },
+    {
+        "label": "RegistrationForm",
+        "importPath": "myapp.forms",
+        "description": "myapp.forms",
+        "isExtraImport": true,
+        "detail": "myapp.forms",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "Mail",
+        "importPath": "flask_mail",
+        "description": "flask_mail",
+        "isExtraImport": true,
+        "detail": "flask_mail",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "flask_mail",
+        "description": "flask_mail",
+        "isExtraImport": true,
+        "detail": "flask_mail",
+        "documentation": {}
+    },
+    {
+        "label": "socket",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "socket",
+        "description": "socket",
+        "detail": "socket",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "kind": 6,
+        "importPath": "myapp.config",
+        "description": "myapp.config",
+        "peekOfCode": "class Config:\n    # Base configuration\n    SECRET_KEY = os.environ.get('SECRET_KEY') or secrets.token_hex(32)\n    SESSION_TYPE = 'filesystem'\n    # Additional Parameters\n    ADDITIONAL_PARAM1 = SECRET_KEY\n    PASSWORD = os.environ.get('APP_PASSWORD') or secrets.token_urlsafe(16)\n    ADDITIONAL_PARAM2 = PASSWORD\n    # OpenAI API Key\n    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')",
+        "detail": "myapp.config",
+        "documentation": {}
+    },
+    {
+        "label": "DevelopmentConfig",
+        "kind": 6,
+        "importPath": "myapp.config",
+        "description": "myapp.config",
+        "peekOfCode": "class DevelopmentConfig(Config):\n    DEBUG = True\n    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \\\n        'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'dev_app.db')\n    # Development-specific settings\nclass TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \\\n        'sqlite:///:memory:'\n    # Testing-specific settings",
+        "detail": "myapp.config",
+        "documentation": {}
+    },
+    {
+        "label": "TestingConfig",
+        "kind": 6,
+        "importPath": "myapp.config",
+        "description": "myapp.config",
+        "peekOfCode": "class TestingConfig(Config):\n    TESTING = True\n    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \\\n        'sqlite:///:memory:'\n    # Testing-specific settings\nclass ProductionConfig(Config):\n    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')\n    # Production-specific settings\n    DEBUG = False\ndef update_zshrc():",
+        "detail": "myapp.config",
+        "documentation": {}
+    },
+    {
+        "label": "ProductionConfig",
+        "kind": 6,
+        "importPath": "myapp.config",
+        "description": "myapp.config",
+        "peekOfCode": "class ProductionConfig(Config):\n    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')\n    # Production-specific settings\n    DEBUG = False\ndef update_zshrc():\n    config_vars = [\n        (\"SECRET_KEY\", Config.SECRET_KEY),\n        (\"DATABASE_URL\", Config.SQLALCHEMY_DATABASE_URI),\n        (\"MAIL_USERNAME\", Config.MAIL_USERNAME),\n        (\"MAIL_PASSWORD\", Config.MAIL_PASSWORD),",
+        "detail": "myapp.config",
+        "documentation": {}
+    },
+    {
+        "label": "update_zshrc",
+        "kind": 2,
+        "importPath": "myapp.config",
+        "description": "myapp.config",
+        "peekOfCode": "def update_zshrc():\n    config_vars = [\n        (\"SECRET_KEY\", Config.SECRET_KEY),\n        (\"DATABASE_URL\", Config.SQLALCHEMY_DATABASE_URI),\n        (\"MAIL_USERNAME\", Config.MAIL_USERNAME),\n        (\"MAIL_PASSWORD\", Config.MAIL_PASSWORD),\n    ]\n    zshrc_path = os.path.expanduser(\"~/.zshrc\")\n    with open(zshrc_path, \"a\") as zshrc:\n        zshrc.write(\"\\n# Automatically added by your Flask app\\n\")",
+        "detail": "myapp.config",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager",
+        "kind": 5,
+        "importPath": "myapp.extensions",
+        "description": "myapp.extensions",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.login_view = 'views.login'",
+        "detail": "myapp.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager.login_view",
+        "kind": 5,
+        "importPath": "myapp.extensions",
+        "description": "myapp.extensions",
+        "peekOfCode": "login_manager.login_view = 'views.login'",
+        "detail": "myapp.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "LoginForm",
+        "kind": 6,
+        "importPath": "myapp.forms",
+        "description": "myapp.forms",
+        "peekOfCode": "class LoginForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])\n    password = PasswordField('Password', validators=[DataRequired()])\n    remember_me = BooleanField('Remember Me')\n    submit = SubmitField('Log In')\n    def validate_username(self, username):\n        if username.errors:  # Check if there are any prior validation errors\n            return  # Skip custom validation if initial validations failed\n        user = User.query.filter_by(username=username.data).first()\n        if not user:",
+        "detail": "myapp.forms",
+        "documentation": {}
+    },
+    {
+        "label": "RegistrationForm",
+        "kind": 6,
+        "importPath": "myapp.forms",
+        "description": "myapp.forms",
+        "peekOfCode": "class RegistrationForm(FlaskForm):\n    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])\n    email = StringField('Email', validators=[DataRequired(), Email()])\n    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])\n    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])\n    role = SelectField('Role', choices=[('admin', 'Admin'), ('patient', 'Patient')], validators=[DataRequired()])\n    submit = SubmitField('Register')\n    def validate_username(self, username):\n        user = User.query.filter_by(username=username.data).first()\n        if user:",
+        "detail": "myapp.forms",
+        "documentation": {}
+    },
+    {
+        "label": "RecipeForm",
+        "kind": 6,
+        "importPath": "myapp.forms",
+        "description": "myapp.forms",
+        "peekOfCode": "class RecipeForm(FlaskForm):\n    title = StringField('Title', validators=[DataRequired()])\n    description = TextAreaField('Description', validators=[DataRequired()])\n    ingredients = TextAreaField('Ingredients', validators=[DataRequired()])\n    instructions = TextAreaField('Instructions', validators=[DataRequired()])\n    image = FileField('Recipe Image', validators=[FileAllowed(['jpg', 'png'], 'Images only!')])\n    prep_time = IntegerField('Preparation Time (minutes)', validators=[DataRequired(), NumberRange(min=1)])\n    cook_time = IntegerField('Cooking Time (minutes)', validators=[DataRequired(), NumberRange(min=1)])\n    servings = IntegerField('Servings', validators=[DataRequired(), NumberRange(min=1)])\n    cuisine = SelectField('Cuisine', choices=[('Italian', 'Italian'), ('Mexican', 'Mexican'), ('Indian', 'Indian')], validators=[DataRequired()])",
+        "detail": "myapp.forms",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "peekOfCode": "class User(UserMixin, db.Model):\n    __tablename__ = 'user'\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(64), unique=True, nullable=False)\n    email = db.Column(db.String(120), unique=True, nullable=False)\n    password_hash = db.Column(db.String(128))\n    recipes = db.relationship('Recipe', backref='author', lazy='dynamic')\n    def set_password(self, password):\n        self.password_hash = generate_password_hash(password)\n    def check_password(self, password):",
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Recipe",
+        "kind": 6,
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "peekOfCode": "class Recipe(db.Model):\n    __tablename__ = 'recipe'\n    id = db.Column(db.Integer, primary_key=True)\n    title = db.Column(db.String(140), nullable=False)\n    description = db.Column(db.Text, nullable=False)\n    ingredients = db.Column(db.Text, nullable=False)\n    instructions = db.Column(db.Text, nullable=False)\n    image = db.Column(db.String(255))\n    prep_time = db.Column(db.Integer)\n    cook_time = db.Column(db.Integer)",
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "myapp.models",
+        "description": "myapp.models",
+        "peekOfCode": "db = SQLAlchemy()\nclass User(UserMixin, db.Model):\n    __tablename__ = 'user'\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(64), unique=True, nullable=False)\n    email = db.Column(db.String(120), unique=True, nullable=False)\n    password_hash = db.Column(db.String(128))\n    recipes = db.relationship('Recipe', backref='author', lazy='dynamic')\n    def set_password(self, password):\n        self.password_hash = generate_password_hash(password)",
+        "detail": "myapp.models",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def load_user(user_id):\n    return User.query.get(int(user_id))\n@views_bp.before_request\ndef before_request():\n    session.permanent = True\n    current_app.permanent_session_lifetime = timedelta(minutes=5)\nviews_bp = Blueprint('views', __name__, template_folder='templates')\n@views_bp.route('/')\ndef index():\n    return render_template('index.html')",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "before_request",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def before_request():\n    session.permanent = True\n    current_app.permanent_session_lifetime = timedelta(minutes=5)\nviews_bp = Blueprint('views', __name__, template_folder='templates')\n@views_bp.route('/')\ndef index():\n    return render_template('index.html')\n    #recipes = Recipe.query.all()\n    #return render_template('partials/recipe.html', recipes=recipes)\n@views_bp.route('/login', methods=['GET', 'POST'])",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def index():\n    return render_template('index.html')\n    #recipes = Recipe.query.all()\n    #return render_template('partials/recipe.html', recipes=recipes)\n@views_bp.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('views.index'))  # Assuming 'index' is your main page\n    form = LoginForm()\n    if form.validate_on_submit():",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def login():\n    if current_user.is_authenticated:\n        return redirect(url_for('views.index'))  # Assuming 'index' is your main page\n    form = LoginForm()\n    if form.validate_on_submit():\n        user = User.query.filter_by(username=form.username.data).first()\n        if user and check_password_hash(user.password, form.password.data):\n            login_user(user, remember=form.remember_me.data)\n            next_page = request.args.get('next')\n            if not is_safe_url(next_page):",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "is_safe_url",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def is_safe_url(target):\n    ref_url = urlparse(request.host_url)\n    test_url = urlparse(urljoin(request.host_url, target))\n    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc\n@views_bp.route('/register', methods=['GET', 'POST'])\ndef register():\n    if current_user.is_authenticated:\n        return redirect(url_for('views.index'))\n    form = RegistrationForm()\n    if form.validate_on_submit():",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def register():\n    if current_user.is_authenticated:\n        return redirect(url_for('views.index'))\n    form = RegistrationForm()\n    if form.validate_on_submit():\n        hashed_password = generate_password_hash(form.password.data)\n        user = User(username=form.username.data, email=form.email.data, password=hashed_password)\n        db.session.add(user)\n        db.session.commit()\n        flash(_('Congratulations, you are now a registered user!'), 'success')",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "list_recipes",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def list_recipes():\n    form = RecipeForm(request.args)  \n    page = request.args.get('page', 1, type=int)\n    filter_type = request.args.get('filter', 'all') \n    query = Recipe.query\n    if filter_type == 'mine':\n        query = query.filter_by(author_id=current_user.id)\n    elif filter_type == 'top-rated':\n        query = query.order_by(Recipe.rating.desc())\n    # Imply & Pin your other lines, as (in) growth seeds.",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "add_recipe",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def add_recipe():\n    form = RecipeForm()\n    if form.validate_on_submit():\n        new_recipe = Recipe(author=current_user, **form.data)\n        db.session.add(new_recipe)\n        db.session.commit()\n        flash(_('Recipe added successfully!'), 'success')\n        return redirect(url_for('views.recipe'))\n    return render_template('partials/add_recipe.html', form=form)\n@views_bp.route('/edit_recipe/<int:recipe_id>', methods=['GET', 'POST'])",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "edit_recipe",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def edit_recipe(recipe_id):\n    recipe = Recipe.query.get_or_404(recipe_id)\n    if recipe.author != current_user:\n        flash(_('You are not authorized to edit this recipe.'), 'danger')\n        return redirect(url_for('views.index'))\n    form = RecipeForm(obj=recipe)\n    if form.validate_on_submit():\n        form.populate_obj(recipe)\n        db.session.commit()\n        flash(_('Recipe updated successfully!'), 'success')",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "delete_recipe",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def delete_recipe(recipe_id):\n    recipe = Recipe.query.get_or_404(recipe_id)\n    if recipe.author != current_user:\n        flash(_('You are not authorized to delete this recipe.'), 'danger')\n        return redirect(url_for('views.index'))\n    db.session.delete(recipe)\n    db.session.commit()\n    flash(_('Recipe deleted successfully!'), 'success')\n    return redirect(url_for('views.index'))\n@views_bp.route('/confirm_recipe/<int:recipe_id>', methods=['POST'])",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "confirm_recipe",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def confirm_recipe(recipe_id):\n    recipe = Recipe.query.get_or_404(recipe_id)\n    recipe.confirmed = True\n    db.session.commit()\n    flash(_('Recipe confirmed successfully!'), 'success')\n    return redirect(url_for('views.index'))\n@views_bp.route('/logout')\n@login_required\ndef logout():\n    logout_user()",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def logout():\n    logout_user()\n    flash(_(\"Logged out successfully.\"), 'success')\n    return redirect(url_for(\"views.login\"))\n# Static Pages\n@views_bp.route(\"/contact\")\ndef contact():\n    return render_template(\"contact.html\")\n@views_bp.route(\"/legal\")\ndef legal():",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "contact",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def contact():\n    return render_template(\"contact.html\")\n@views_bp.route(\"/legal\")\ndef legal():\n    return render_template(\"legal.html\")\n@views_bp.route(\"/confid\")\ndef confidentiality():\n    return render_template(\"confid.html\")\n# Error Handlers\n@views_bp.errorhandler(404)",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "legal",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def legal():\n    return render_template(\"legal.html\")\n@views_bp.route(\"/confid\")\ndef confidentiality():\n    return render_template(\"confid.html\")\n# Error Handlers\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n    return render_template(\"404.html\"), 404\n@views_bp.errorhandler(500)",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "confidentiality",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def confidentiality():\n    return render_template(\"confid.html\")\n# Error Handlers\n@views_bp.errorhandler(404)\ndef page_not_found(e):\n    return render_template(\"404.html\"), 404\n@views_bp.errorhandler(500)\ndef internal_error(e):\n    return render_template(\"500.html\"), 500\n# Traduction provided by openai for front-end",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "page_not_found",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def page_not_found(e):\n    return render_template(\"404.html\"), 404\n@views_bp.errorhandler(500)\ndef internal_error(e):\n    return render_template(\"500.html\"), 500\n# Traduction provided by openai for front-end\n@views_bp.route(\"/api/get_openai_key\")\ndef get_openai_key():\n    openai_api_key = current_app.config.get(\"OPENAI_API_KEY\", \"\")\n    return jsonify({\"openai_api_key\": openai_api_key})",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "internal_error",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def internal_error(e):\n    return render_template(\"500.html\"), 500\n# Traduction provided by openai for front-end\n@views_bp.route(\"/api/get_openai_key\")\ndef get_openai_key():\n    openai_api_key = current_app.config.get(\"OPENAI_API_KEY\", \"\")\n    return jsonify({\"openai_api_key\": openai_api_key})\n# this function work in templates/contact.html -->\n@views_bp.route(\"/submit_contact_form\", methods=['POST'])\ndef submit_contact_form():",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "get_openai_key",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def get_openai_key():\n    openai_api_key = current_app.config.get(\"OPENAI_API_KEY\", \"\")\n    return jsonify({\"openai_api_key\": openai_api_key})\n# this function work in templates/contact.html -->\n@views_bp.route(\"/submit_contact_form\", methods=['POST'])\ndef submit_contact_form():\n    form = ContactForm() \n    if form.validate_on_submit():\n        name, email, message = form.name.data, form.email.data, form.message.data\n        send_email_to_kevin(name, email, message)",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "submit_contact_form",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def submit_contact_form():\n    form = ContactForm() \n    if form.validate_on_submit():\n        name, email, message = form.name.data, form.email.data, form.message.data\n        send_email_to_kevin(name, email, message)\n        store_form_data(name, email, message)\n        flash('Thank you for reaching out! We will get back to you soon.', 'success')\n        return redirect(url_for('contact'))\n    else:\n        flash('Please check the form for errors and try again.', 'error')",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "send_email_to_kevin",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def send_email_to_kevin(name, email, message):\n    try:\n        subject = 'New Contact Form Submission'\n        recipients = ['KevinMarville@kvnbbg-creations.io']\n        # Create and send the message\n        msg = Message(subject=subject, recipients=recipients, body=f'Name: {name}\\nEmail: {email}\\nMessage: {message}')  # noqa: E501\n        mail.send(msg)\n        print(\"Email sent successfully.\")\n    except Exception as e:\n        print(f\"Error sending email: {e}\")",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "store_form_data",
+        "kind": 2,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "def store_form_data(name, email, message):\n    try:\n        # Store form data in contact_log.json\n        data = {'name': name, 'email': email, 'message': message}\n        with open('contact_log.json', 'a') as file:\n            json.dump(data, file)\n            file.write('\\n')\n    except Exception as e:\n        print(f\"Error storing form data: {e}\")",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "views_bp",
+        "kind": 5,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "views_bp = Blueprint('views', __name__, template_folder='templates')\n@login_manager.user_loader\ndef load_user(user_id):\n    return User.query.get(int(user_id))\n@views_bp.before_request\ndef before_request():\n    session.permanent = True\n    current_app.permanent_session_lifetime = timedelta(minutes=5)\nviews_bp = Blueprint('views', __name__, template_folder='templates')\n@views_bp.route('/')",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "views_bp",
+        "kind": 5,
+        "importPath": "myapp.views",
+        "description": "myapp.views",
+        "peekOfCode": "views_bp = Blueprint('views', __name__, template_folder='templates')\n@views_bp.route('/')\ndef index():\n    return render_template('index.html')\n    #recipes = Recipe.query.all()\n    #return render_template('partials/recipe.html', recipes=recipes)\n@views_bp.route('/login', methods=['GET', 'POST'])\ndef login():\n    if current_user.is_authenticated:\n        return redirect(url_for('views.index'))  # Assuming 'index' is your main page",
+        "detail": "myapp.views",
+        "documentation": {}
+    },
+    {
+        "label": "find_available_port",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def find_available_port(start_port=5000, max_attempts=10):\n    \"\"\"\n    Find an available port within a range of attempts.\n    \"\"\"\n    for port in range(start_port, start_port + max_attempts):\n        try:\n            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:\n                s.bind((\"127.0.0.1\", port))\n                return port  # Successfully bound to an available port\n        except OSError as e:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "run_flask_app",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def run_flask_app():\n    app = create_app()\n    # Find an available port\n    port = find_available_port()\n    try:\n        # Run the Flask app on the available port with debug enabled\n        app.run(port=port, debug=True)\n    except Exception as e:\n        print(f\"Error running Flask app: {e}\")\nif __name__ == \"__main__\":",
+        "detail": "app",
+        "documentation": {}
+    }
+]
