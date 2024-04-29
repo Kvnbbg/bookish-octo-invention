@@ -19,13 +19,22 @@
         <h1>{% block title_header %}{{ _('Delicious recipes, astuces and advises! 🌿') }}{% endblock %}</h1>
     </div>
 </header>
-
-<!-- NAV CONTENT -->
+<!-- NAV CONTENT 
 {% block nav %}
     {% include 'partials/nav.html' %}
 {% endblock %}
+<NAV CONTENT -->
 
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <!-- MAIN CONTENT -->
     {% block content %}
 

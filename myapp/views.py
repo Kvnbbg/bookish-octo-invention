@@ -1,5 +1,6 @@
 import json
 import sqlite3
+from flask_wtf import FlaskForm
 from datetime import timedelta
 from urllib.parse import urljoin, urlparse
 
@@ -21,7 +22,6 @@ from flask_login import (  # type: ignore
     login_user,
     logout_user,
 )
-from flask_mail import Message  # type: ignore
 from werkzeug.security import (  # type: ignore
     check_password_hash,
     generate_password_hash,
@@ -29,11 +29,12 @@ from werkzeug.security import (  # type: ignore
 
 from myapp import db
 from myapp.config import Config
-from myapp.forms import ContactForm, LoginForm, RecipeForm, RegistrationForm
+from myapp.forms import LoginForm, RecipeForm, RegistrationForm
+from wtforms import StringField, TextAreaField, SubmitField # type: ignore
+from wtforms.validators import DataRequired, Email, Optional # type: ignore
 from myapp.models import Recipe, User
 
 from .extensions import login_manager
-from flask_mail import mail # type: ignore
 
 views_bp = Blueprint("views", __name__, template_folder="templates")
 
@@ -51,9 +52,11 @@ def before_request():
 
 views_bp = Blueprint("views", __name__, template_folder="templates")
 
+from flask import flash
 
 @views_bp.route("/")
 def index():
+    flash("Please note: The website is currently under maintenance for the exam and may be susceptible to unexpected behavior. We appreciate your understanding.", "warning")
     return render_template("index.html")
     # recipes = Recipe.query.all()
     # return render_template('partials/recipe.html', recipes=recipes)
@@ -234,7 +237,33 @@ def page_not_found(e):
 def internal_error(e):
     return render_template("500.html"), 500
 
+@views_bp.route("/about")
+def about():
+    return render_template("about.html")
 
+@views_bp.route("/services")
+def services():
+    return render_template("services.html")
+
+@views_bp.route("/portfolio")
+def portfolio():
+    return render_template("portfolio.html")
+
+@views_bp.route("/projects")
+def projects():
+    return render_template("projects.html")
+
+@views_bp.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@views_bp.route("/recipes")
+def recipes():
+    return render_template("recipes.html")
+
+@views_bp.route("/blog")
+def blog():
+    return render_template("blog.html")
 # Traduction provided by openai for front-end
 @views_bp.route("/api/get_openai_key")
 def get_openai_key():

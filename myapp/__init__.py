@@ -2,7 +2,6 @@ import os
 import logging
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_babel import Babel
 from logging.handlers import RotatingFileHandler
@@ -12,7 +11,6 @@ from .extensions import login_manager
 
 # Initialize Flask extensions
 db = SQLAlchemy()
-mail = Mail()
 migrate = Migrate()
 babel = Babel()
 
@@ -40,7 +38,6 @@ def create_app(config_filename=None):
     # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
-    mail.init_app(app)
     migrate.init_app(app, db)
     babel.init_app(app)
 

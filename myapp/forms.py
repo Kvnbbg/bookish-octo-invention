@@ -122,3 +122,9 @@ class RecipeForm(FlaskForm):
     url = StringField("URL", validators=[DataRequired()])
     notes = TextAreaField("Notes")
     submit = SubmitField("Submit Recipe")
+
+class contactForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    message = TextAreaField("Message", validators=[DataRequired()])
+    submit = SubmitField("Send")

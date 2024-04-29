@@ -1,20 +1,21 @@
-        <form method="post" action="{{ url_for('views.register') }}">
-            {{ register_form.hidden_tag() }}
+        <form method="post" action="">
             <div class="form-group">
                 <label for="register-username">Username:</label>
-                {{ register_form.username(class="form-control", id="register-username", required=True) }}
+                <input type="text" class="form-control" id="register-username" required>
             </div>
             <div class="form-group">
                 <label for="register-email">Email:</label>
-                {{ register_form.email(class="form-control", id="register-email", required=True) }}
+                <input type="email" class="form-control" id="register-email" required>
             </div>
             <div class="form-group">
                 <label for="register-password">Password:</label>
-                {{ register_form.password(class="form-control", id="register-password", required=True) }}
+                <input type="password" class="form-control" id="register-password" required>
             </div>
             <div class="form-group">
                 <label for="register-role">Select your role:</label>
-                {{ register_form.role(class="form-control", id="register-role") }}
+                <select class="form-control" id="register-role">
+                    <!-- Add your options here -->
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
