@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_babel import Babel
 from logging.handlers import RotatingFileHandler
-from .config import DevelopmentConfig, TestingConfig, ProductionConfig, update_zshrc, Config
+from .config import DevelopmentConfig, TestingConfig, ProductionConfig, update_zshrc
 from .extensions import login_manager
 
 
