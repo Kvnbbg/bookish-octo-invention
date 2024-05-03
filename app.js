@@ -1,34 +1,40 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+constconst express = require('express');
 const { spawn } = require('child_process');
 
 const app = express();
 
-// Define a proxy route to forward requests to your Flask app
-app.use('/api', createProxyMiddleware({ target: 'http://localhost:5000', changeOrigin: true }));
+// Route to handle incoming requests
+app.get('/', (req, res) => {
+    // Run your Python script using spawn
+    const pythonProcess = spawn('python', ['app.py']);
 
-// Serve your Node.js application's static files or define other routes as needed
-// Example:
-// app.use(express.static('public'));
+    // Handle data from Python script
+    pythonProcess.stdout.on('data', (data) => {
+        console.log(`Data from Python script: ${data}`);
+        // Send data from Python script to client
+        res.send(data.toString());
+    });
 
-const PORT = process.env.PORT || 3000;
+    // Handle errors from Python script
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`Error from Python script: ${data}`);
+        // Send error from Python script to client
+        res.status(500).send(data.toString());
+    });
 
-// Start Python script
-const python = spawn('python', ['path/to/your/script.py']);
-
-python.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
+    // Handle Python script exit
+    pythonProcess.on('close', (code) => {
+        console.log(`Python script exited with code ${code}`);
+    });
 });
 
-python.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
+// Additional route
+app.get('/hello', (req, res) => {
+    res.send('Hello, world!');
 });
 
-python.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-});
-
-// Start Express server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// Start the server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
