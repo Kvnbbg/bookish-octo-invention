@@ -8,8 +8,9 @@
     },
     "dependencies": {
         "child_process": "^1.0.2",
-        "express": "^4.17.1",
+        "express": "^4.19.2",
         "flask": "^0.2.10",
-        "http-proxy-middleware": "^1.0.6"
+        "http-proxy-middleware": "^1.0.6",
+        "python": "^0.0.4"
     }
 }
