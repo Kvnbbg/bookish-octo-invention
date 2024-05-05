@@ -304,7 +304,7 @@ def send_email_to_kevin(name, email, message):
         recipients = ["KevinMarville@kvnbbg-creations.io"]
 
         # Create and send the message
-        msg = Message(
+        Message(
             subject=subject,
             recipients=recipients,
             body=f"Name: {name}\nEmail: {email}\nMessage: {message}",
