@@ -13,13 +13,12 @@ app.get('/', (req, res) => {
         console.log(`Data from Python script: ${data}`);
         // Send data from Python script to client
         res.send(data.toString());
+        pythonProcess.kill(); // Kill the process after sending response to prevent sending multiple responses
     });
 
     // Handle errors from Python script
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Error from Python script: ${data}`);
-        // Send error from Python script to client
-        res.status(500).send(data.toString());
         pythonProcess.kill(); // Kill the process on error to prevent sending multiple responses
     });
 
@@ -27,11 +26,6 @@ app.get('/', (req, res) => {
     pythonProcess.on('close', (code) => {
         console.log(`Python script exited with code ${code}`);
     });
-});
-
-// Additional route
-app.get('/hello', (req, res) => {
-    res.send('Hello, world!');
 });
 
 // Start the server
