@@ -1,5 +1,4 @@
 # myapp/config.py
-from logging import DEBUG #5
 import os
 import secrets
 
@@ -40,7 +39,6 @@ class Config:
     )
     BABEL_DEFAULT_LOCALE = "en"
     LANGUAGES = ["en", "fr"]
-    DEBUG #4 = False
 
     # Add other global settings here
 
