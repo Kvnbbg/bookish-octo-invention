@@ -7,7 +7,7 @@ from flask_babel import Babel  # type: ignore
 from flask_migrate import Migrate  # type: ignore # type: ignore
 from flask_sqlalchemy import SQLAlchemy  # type: ignore
 
-from .config import DevelopmentConfig, ProductionConfig, TestingConfig, update_zshrc
+from .config import DevelopmentConfig, ProductionConfig, TestingConfig
 from .extensions import login_manager
 
 # Initialize Flask extensions

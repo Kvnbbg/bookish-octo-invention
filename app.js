@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
         console.error(`Error from Python script: ${data}`);
         // Send error from Python script to client
         res.status(500).send(data.toString());
+        pythonProcess.kill(); // Kill the process on error to prevent sending multiple responses
     });
 
     // Handle Python script exit
