@@ -29,7 +29,7 @@ def create_app(config_filename=None):
     app.config.from_object(env_config.get(config_name, DevelopmentConfig))
 
     # Update .zshrc with config variables, if necessary
-    update_zshrc()
+    # update_zshrc()
 
     # Ensure database configuration is set
     if not app.config.get("SQLALCHEMY_DATABASE_URI") and not app.config.get(

@@ -6,7 +6,7 @@ const app = express();
 // Route to handle incoming requests
 app.get('/', (req, res) => {
     // Run your Python script using spawn
-    const pythonProcess = spawn('python3', ['app/myapp/views.py']);
+    const pythonProcess = spawn('python3', ['app/app.py']);
 
     // Handle data from Python script
     pythonProcess.stdout.on('data', (data) => {
