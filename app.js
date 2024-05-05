@@ -1,7 +1,11 @@
 const express = require('express');
 const { spawn } = require('child_process');
+const path = require('path');
 
 const app = express();
+
+// Serve static files from the "app/myapp/templates" directory
+app.use(express.static(path.join(__dirname, 'app', 'myapp', 'templates')));
 
 // Route to handle incoming requests
 app.get('/', (req, res) => {
@@ -19,7 +23,6 @@ app.get('/', (req, res) => {
     // Handle errors from Python script
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Error from Python script: ${data}`);
-        pythonProcess.kill(); // Kill the process on error to prevent sending multiple responses
     });
 
     // Handle Python script exit

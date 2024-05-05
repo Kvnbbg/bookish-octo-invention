@@ -2,7 +2,7 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask, render_template  # type: ignore # type: ignore
+from flask import Flask, render_template
 from flask_babel import Babel  # type: ignore
 from flask_migrate import Migrate  # type: ignore # type: ignore
 from flask_sqlalchemy import SQLAlchemy  # type: ignore
@@ -15,6 +15,14 @@ db = SQLAlchemy()
 migrate = Migrate()
 babel = Babel()
 
+def create_node_app():
+    app = Flask(__name__, template_folder='templates')
+
+    @app.route('/')
+    def home():
+        return render_template('index.html')
+
+    return app
 
 def create_app(config_filename=None):
     app = Flask(__name__, instance_relative_config=True)
