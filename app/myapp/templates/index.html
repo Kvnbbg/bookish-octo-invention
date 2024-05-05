@@ -1,61 +1,139 @@
-{% extends 'macros.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %} 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+  rel="shortcut icon"
+  type="image/x-icon"
+  href="/app/myapp/static/images/favicon.ico"
+/>
+  <title>Share Receipts, Simplify Life</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  <!-- ALERT MESSAGE LINE -->
-  <div class="container">
-    <article>
-      <section class="font-weight-bold text-capitalize text-center">
-        {% include 'partials/alert_message.html' %}
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Miam . . .</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="#">Login</a>
+        <a href="#">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="transaction-animation" style="text-align: center; padding: 20px;">
+        <h2>Send Money</h2>
+        <input type="number" id="amount" placeholder="Enter Amount">
+        <button id="send-button">Send</button>
+        <p id="message"></p>
       </section>
-    </article>
-  </div>
-  <br>
-
-  <!-- Combined and repeated container structures -->
-  <div class="container">
-    <article>
-
-      <section>
-        <!-- Recipe Section -->
-        <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#recipeSection" aria-expanded="false" aria-controls="recipeSection">
-          <span class="toggle-text">Show Recipe</span>
-          <span class="toggle-icon" alt="Collapse Icon">▼</span>
-        </button>
-        <div class="collapse" id="recipeSection">
-          <div class="card card-body">
-            {% include 'partials/recipe.html' %}
-          </div>
-        </div>
-      </section>
+      <style>
+        #amount {
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
       
-      <section>
-        <!-- Services Section -->
-        <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#servicesSection" aria-expanded="false" aria-controls="servicesSection">
-          <span class="toggle-text">Show Services</span>
-          <span class="toggle-icon" alt="Collapse Icon">▼</span>
-        </button>
-        <div class="collapse" id="servicesSection">
-          <div class="card card-body">
-            {% include 'partials/my_services.html' %}
-          </div>
-        </div>
-      </section>
+        #send-button {
+          padding: 10px 20px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      
+        #message {
+          margin-top: 10px;
+          font-weight: bold;
+        }
+      </style>
+      <script>
+        const amountInput = document.getElementById('amount');
+        const sendButton = document.getElementById('send-button');
+        const message = document.getElementById('message');
+      
+        sendButton.addEventListener('click', function() {
+          const amount = parseFloat(amountInput.value);
+      
+          if (isNaN(amount) || amount <= 0) {
+            message.textContent = "Please enter a valid amount.";
+            return;
+          }
+      
+          message.textContent = "Sending...";
+      
+          // Animation logic (replace with your desired animation)
+          let currentAmount = 0;
+          const animationDuration = 1000; // milliseconds
+          const intervalId = setInterval(() => {
+            currentAmount += amount / (animationDuration / 10);
+            amountInput.value = currentAmount.toFixed(2);
+      
+            if (currentAmount >= amount) {
+              clearInterval(intervalId);
+              message.textContent = "Sent $" + amount.toFixed(2);
+            }
+          }, 10);
+        });
+      </script>      
+    <section class="hero">
+      <h1>Simplify Receipt Sharing</h1>
+      <p>Effortlessly share, track, and organize your receipts with KvnBbg.</p>
+      <button id="addButton" aria-label="Add a new item">Add Items</button>
+<script>
+    const addButton = document.getElementById('addButton');
+const itemsSection = document.querySelector('.items');
 
-      <section>
-        <!-- About Section -->
-        <button class="btn btn-primary toggle-btn" type="button" data-toggle="collapse" data-target="#aboutSection" aria-expanded="false" aria-controls="aboutSection">
-          <span class="toggle-text">Show About</span>
-          <span class="toggle-icon" alt="Collapse Icon">▼</span>
-        </button>
-        <div class="collapse" id="aboutSection">
-          <div class="card card-body">
-            {% include 'partials/about.html' %}
-          </div>
-        </div>
-      </section>
+// Function to create a new item element
+function createItem(itemName) {
+  const item = document.createElement('div');
+  item.classList.add('item'); // Add a class for styling
+  item.textContent = itemName;
+  return item;
+}
 
-    </article>
+// Function to add a new item
+function addNewItem() {
+  const newItemName = prompt("Enter item name:"); // Get user input
+  if (newItemName) { // Check if user entered a name
+    const newItem = createItem(newItemName);
+    itemsSection.appendChild(newItem);
+  } else {
+    alert("Please enter an item name.");
+  }
+}
+
+// Add click event listener to the button
+addButton.addEventListener('click', addNewItem);
+</script>
+    </section>
+
+    <section class="items">
+      </section>
+  </main>
+  <section class="social-sharing">
+    <h3>Share the Adventure</h3>
+    <a href="https://www.facebook.com/profile.php?id=61557626589574" target="_blank" class="social-icon facebook""><i class="fab fa-facebook-f"></i> Share on Facebook</a>
+    <a href="https://twitter.com/techandstream"><i class="fab fa-twitter"></i> Tweet about it</a>
+  </section>
   </div>
 
-{% endblock %}
+  <p>Coming Soon: Integration with wider video platforms for an even bigger library !</p>
+
+  <p>&copy; 2024 Vision Week by Kvnbbg. All Rights Reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
