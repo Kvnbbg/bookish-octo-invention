@@ -1,6 +1,6 @@
 import json
+from mailbox import Message
 import sqlite3
-from flask_wtf import FlaskForm
 from datetime import timedelta
 from urllib.parse import urljoin, urlparse
 
@@ -30,8 +30,6 @@ from werkzeug.security import (  # type: ignore
 from myapp import db
 from myapp.config import Config
 from myapp.forms import LoginForm, RecipeForm, RegistrationForm
-from wtforms import StringField, TextAreaField, SubmitField # type: ignore
-from wtforms.validators import DataRequired, Email, Optional # type: ignore
 from myapp.models import Recipe, User
 
 from .extensions import login_manager
@@ -52,7 +50,6 @@ def before_request():
 
 views_bp = Blueprint("views", __name__, template_folder="templates")
 
-from flask import flash
 
 @views_bp.route("/")
 def index():

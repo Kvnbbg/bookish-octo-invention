@@ -2,10 +2,10 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask, render_template # type: ignore # type: ignore
-from flask_babel import Babel # type: ignore
-from flask_migrate import Migrate # type: ignore # type: ignore
-from flask_sqlalchemy import SQLAlchemy # type: ignore
+from flask import Flask, render_template  # type: ignore # type: ignore
+from flask_babel import Babel  # type: ignore
+from flask_migrate import Migrate  # type: ignore # type: ignore
+from flask_sqlalchemy import SQLAlchemy  # type: ignore
 
 from .config import DevelopmentConfig, ProductionConfig, TestingConfig, update_zshrc
 from .extensions import login_manager

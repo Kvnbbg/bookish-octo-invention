@@ -1,6 +1,7 @@
-from flask_wtf import FlaskForm # type: ignore
-from flask_wtf.file import FileAllowed, FileField # type: ignore
-from wtforms import ( # type: ignore
+from flask_wtf import FlaskForm  # type: ignore
+from flask_wtf.file import FileAllowed, FileField  # type: ignore
+from myapp.models import User
+from wtforms import (  # type: ignore
     BooleanField,
     IntegerField,
     PasswordField,
@@ -9,7 +10,7 @@ from wtforms import ( # type: ignore
     SubmitField,
     TextAreaField,
 )
-from wtforms.validators import ( # type: ignore
+from wtforms.validators import (  # type: ignore
     DataRequired,
     Email,
     EqualTo,
@@ -17,8 +18,6 @@ from wtforms.validators import ( # type: ignore
     NumberRange,
     ValidationError,
 )
-
-from myapp.models import User
 
 
 class LoginForm(FlaskForm):
@@ -122,6 +121,7 @@ class RecipeForm(FlaskForm):
     url = StringField("URL", validators=[DataRequired()])
     notes = TextAreaField("Notes")
     submit = SubmitField("Submit Recipe")
+
 
 class contactForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
