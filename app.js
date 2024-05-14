@@ -12,12 +12,11 @@ app.get('/', (req, res) => {
     // Run your Python script using spawn
     const pythonProcess = spawn('python3', ['app/app.py']);
 
+    let scriptOutput = '';
+
     // Handle data from Python script
     pythonProcess.stdout.on('data', (data) => {
-        console.log(`Data from Python script: ${data}`);
-        // Send data from Python script to client
-        res.send(data.toString());
-        pythonProcess.kill(); // Kill the process after sending response to prevent sending multiple responses
+        scriptOutput += data.toString();
     });
 
     // Handle errors from Python script
@@ -27,6 +26,12 @@ app.get('/', (req, res) => {
 
     // Handle Python script exit
     pythonProcess.on('close', (code) => {
+        if (code === 0) {
+            // Send data from Python script to client
+            res.send(scriptOutput);
+        } else {
+            res.status(500).send(`Python script exited with code ${code}`);
+        }
         console.log(`Python script exited with code ${code}`);
     });
 });

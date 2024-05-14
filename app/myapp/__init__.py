@@ -1,11 +1,10 @@
 import logging
 import os
 from logging.handlers import RotatingFileHandler
-
 from flask import Flask, render_template
-from flask_babel import Babel  # type: ignore
-from flask_migrate import Migrate  # type: ignore # type: ignore
-from flask_sqlalchemy import SQLAlchemy  # type: ignore
+from flask_babel import Babel
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
 from .config import DevelopmentConfig, ProductionConfig, TestingConfig
 from .extensions import login_manager
@@ -36,9 +35,6 @@ def create_app(config_filename=None):
     config_name = os.getenv("FLASK_ENV", "development")
     app.config.from_object(env_config.get(config_name, DevelopmentConfig))
 
-    # Update .zshrc with config variables, if necessary
-    # update_zshrc()
-
     # Ensure database configuration is set
     if not app.config.get("SQLALCHEMY_DATABASE_URI") and not app.config.get(
         "SQLALCHEMY_BINDS"
@@ -64,7 +60,6 @@ def create_app(config_filename=None):
 
     return app
 
-
 def setup_logging(app):
     if not os.path.exists("logs"):
         os.mkdir("logs")
@@ -79,13 +74,11 @@ def setup_logging(app):
     app.logger.setLevel(logging.INFO)
     app.logger.info("MyApp startup")
 
-
 def register_blueprints(app):
     # Register blueprints
     from myapp.views import views_bp
 
     app.register_blueprint(views_bp)
-
 
 def register_error_handlers(app):
     @app.errorhandler(404)
