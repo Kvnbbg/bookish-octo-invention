@@ -55,4 +55,4 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 **Author:** Kevin Marville  
-**Contact:** KevinMarville@kvnbbg-creations.io
+**Contact:** code@kvnbbg.fr
