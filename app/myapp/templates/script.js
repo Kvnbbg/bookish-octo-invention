@@ -8,11 +8,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const chatInput = document.getElementById('chat-input');
   const chatSend = document.getElementById('chat-send');
 
+  // Check if elements are correctly loaded
+  if (!amountInput || !sendButton || !message || !addButton || !itemsSection || !chatBox || !chatInput || !chatSend) {
+    toastr.error("One or more elements are not loaded correctly. Please check your HTML structure.");
+    return;
+  }
+
   sendButton.addEventListener('click', function () {
     const amount = parseFloat(amountInput.value);
 
     if (isNaN(amount) || amount <= 0) {
       message.textContent = "Please enter a valid amount.";
+      toastr.error("Please enter a valid amount.");
       return;
     }
 
@@ -50,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
       itemsSection.appendChild(newItem);
       toastr.info("New item added: " + newItemName);
     } else {
-      alert("Please enter an item name.");
+      toastr.error("Please enter an item name.");
     }
   }
 
@@ -63,6 +70,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (message) {
       addMessageToChat("You", message);
       chatInput.value = '';
+    } else {
+      toastr.error("Please enter a message.");
+    }
+  });
+
+  chatInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      chatSend.click();
     }
   });
 
@@ -74,7 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function playAlarmSound() {
-    const audio = new Audio('siren.mp3');
-    audio.play();
+    try {
+      const audio = new Audio('siren.mp3');
+      audio.play();
+    } catch (error) {
+      toastr.error("Failed to play alarm sound.");
+    }
   }
 });

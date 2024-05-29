@@ -1,46 +1,195 @@
-{% extends 'macros.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Contact Us{% endblock %}
-{% block title_header %}Contact Us{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/app/myapp/static/images/favicon.ico" />
+  <title>Contact Us - Share Receipts, Simplify Life</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <style>
+    /* Additional CSS for better UI/UX */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
 
-{% block content %}
-    <div class="container">
-        <div class="row"> 
-            <div class="col-md-6">
-                <h2>Contact Form</h2>
-                <p>Join us on this gastronomic day, customized by you, for you.
-                <br> Claim -50% to offer.</p>
-                <form action="{{ url_for('submit_contact_form') }}" method="post" class="needs-validation" novalidate>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                        <div class="invalid-feedback">Please enter your name.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Your Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                        <div class="invalid-feedback">Please enter a valid email address.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Your Message</label>
-                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-                        <div class="invalid-feedback">Please enter your message.</div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+    header {
+      background: #333;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
 
-            <div class="col-md-6">
-                <h4>Contact Information</h4>
-                <p>If you prefer other means of communication, you can reach me via:</p>
-                <p>Email: KevinMarville@kvnbbg-creations.io</p>
-                <p>Phone: +33 01-23-45-67-89</p>
-                <p>Address: France</p>
-            </div>
-        </div>
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .logo {
+      font-size: 1.5em;
+    }
+
+    .auth-buttons a {
+      background: #ff4757;
+      color: #fff;
+      padding: 5px 10px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+
+    .auth-buttons a:hover {
+      background: #e84118;
+    }
+
+    .contact-section {
+      background: #fff;
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    .contact-content {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+
+    .contact-content h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .contact-content form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-content input, .contact-content textarea {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .contact-content button {
+      padding: 10px 20px;
+      background: #ff4757;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+
+    .contact-content button:hover {
+      background: #e84118;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      color: #fff;
+      padding: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .social-links .github {
+      background: #333;
+    }
+
+    .social-links .twitter {
+      background: #1da1f2;
+    }
+
+    .social-links .instagram {
+      background: #e1306c;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Miam . . .</a>
+      <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="about_us.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="auth-buttons">
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
     </div>
+    </nav>
+  </header>
 
-    <script>
+  <main>
+    <section class="contact-section">
+      <div class="contact-content">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+          <input type="email" id="email" name="email" placeholder="Your Email" required>
+          <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+        <div id="form-message"></div>
+        <div class="social-links">
+          <a href="https://github.com/kvnbbg" class="github" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com/techandstream" class="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/techandstream" class="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>Visit our website: <a href="https://kvnbbg.fr" target="_blank">kvnbbg.fr</a></p>
+        <p>Email us at: <a href="mailto:contact@kvnbbg.fr">contact@kvnbbg.fr</a></p>
+      </div>
+    </section>
 
-    </script>
-{% endblock %}
+    <footer>
+      <p>&copy; 2024 Recipe Platform by Kvnbbg. All Rights Reserved.</p>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var message = document.getElementById('message').value;
+
+      if (name && email && message) {
+        // Simulate successful form submission (you should handle actual form submission to your backend here)
+        toastr.success('Your message has been sent successfully!');
+        document.getElementById('form-message').innerText = 'Thank you for contacting us, ' + name + '. We will get back to you soon!';
+        document.getElementById('contact-form').reset();
+      } else {
+        toastr.error('Please fill in all fields.');
+      }
+    });
+  </script>
+</body>
+
+</html>

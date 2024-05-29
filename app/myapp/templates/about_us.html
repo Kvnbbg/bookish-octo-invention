@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/app/myapp/static/images/favicon.ico" />
+  <title>About Us - Share Receipts, Simplify Life</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <style>
+    /* Additional CSS for better UI/UX */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #333;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .logo {
+      font-size: 1.5em;
+    }
+
+    .auth-buttons a {
+      background: #ff4757;
+      color: #fff;
+      padding: 5px 10px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+
+    .auth-buttons a:hover {
+      background: #e84118;
+    }
+
+    .about-section {
+      background: #fff;
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    .about-content {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+
+    .about-content h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .about-content p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    .team {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .team-member {
+      margin: 20px;
+      text-align: center;
+    }
+
+    .team-member img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-member h3 {
+      margin-top: 10px;
+      font-size: 1.5em;
+    }
+
+    .team-member p {
+      font-size: 1em;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Miam . . .</a>
+      <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="about_us.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="auth-buttons">
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-section">
+      <div class="about-content">
+        <h2>About Us</h2>
+        <p>At KvnBbg, we are passionate about simplifying your life through innovative receipt management solutions. Our platform is designed to help you effortlessly share, track, and organize your receipts, so you can focus on what truly matters.</p>
+
+        <h3>Our Mission</h3>
+        <p>Our mission is to provide a seamless and efficient way for individuals and businesses to handle their receipts. We aim to reduce paper clutter, enhance financial tracking, and promote eco-friendly practices through digital receipt management.</p>
+
+        <h3>Our Vision</h3>
+        <p>We envision a world where managing receipts is no longer a tedious task. By leveraging cutting-edge technology, we strive to make receipt management intuitive, secure, and accessible to everyone.</p>
+
+        <h3>Meet the Team</h3>
+        <div class="team">
+          <div class="team-member">
+            <img src="/app/myapp/static/images/admin.png" alt="Team Member 1">
+            <h3>Kevin Marville</h3>
+            <p>Founder & CEO</p>
+          </div>
+          <div class="team-member">
+            <img src="/app/myapp/static/images/about.png" alt="Team Member 2">
+            <h3>Emily Parker</h3>
+            <p>Chief Technology Officer</p>
+          </div>
+          <div class="team-member">
+            <img src="/app/myapp/static/images/author.png" alt="Team Member 3">
+            <h3>John Doe</h3>
+            <p>Head of Marketing</p>
+          </div>
+          <div class="team-member">
+            <img src="/app/myapp/static/images/confid.png" alt="Team Member 4">
+            <h3>Jane Smith</h3>
+            <p>Customer Success Manager</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 Recipe Platform by Kvnbbg. All Rights Reserved.</p>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      toastr.info('Learn more about us!');
+    });
+  </script>
+</body>
+
+</html>
