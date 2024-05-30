@@ -1,39 +1,36 @@
 const express = require('express');
-const { spawn } = require('child_process');
 const path = require('path');
 
 const app = express();
 
 // Serve static files from the "app/myapp/templates" directory
 app.use(express.static(path.join(__dirname, 'app', 'myapp', 'templates')));
+app.use(express.static(path.join(__dirname, 'app', 'myapp', 'static')));
 
-// Route to handle incoming requests
+// Route to serve the index.html file
 app.get('/', (req, res) => {
-    // Run your Python script using spawn
-    const pythonProcess = spawn('python3', ['app/app.py']);
+    res.sendFile(path.join(__dirname, 'app', 'myapp', 'templates', 'index.html'));
+});
 
-    let scriptOutput = '';
+// Additional routes for other HTML files
+app.get('/features', (req, res) => {
+    res.sendFile(path.join(__dirname, 'app', 'myapp', 'templates', 'features.html'));
+});
 
-    // Handle data from Python script
-    pythonProcess.stdout.on('data', (data) => {
-        scriptOutput += data.toString();
-    });
+app.get('/about_us', (req, res) => {
+    res.sendFile(path.join(__dirname, 'app', 'myapp', 'templates', 'about_us.html'));
+});
 
-    // Handle errors from Python script
-    pythonProcess.stderr.on('data', (data) => {
-        console.error(`Error from Python script: ${data}`);
-    });
+app.get('/contact', (req, res) => {
+    res.sendFile(path.join(__dirname, 'app', 'myapp', 'templates', 'contact.html'));
+});
 
-    // Handle Python script exit
-    pythonProcess.on('close', (code) => {
-        if (code === 0) {
-            // Send data from Python script to client
-            res.send(scriptOutput);
-        } else {
-            res.status(500).send(`Python script exited with code ${code}`);
-        }
-        console.log(`Python script exited with code ${code}`);
-    });
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'app', 'myapp', 'templates', 'login.html'));
+});
+
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(__dirname, 'app', 'myapp', 'templates', 'signup.html'));
 });
 
 // Start the server
