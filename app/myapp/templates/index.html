@@ -2,275 +2,316 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-icon" href="/app/myapp/static/images/favicon.ico" />
-  <title>Share Receipts, Simplify Life</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  <style>
-    /* Additional CSS for better UI/UX */
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Command Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a2e;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-    header {
-      background: #333;
-      color: #fff;
-      padding: 10px 0;
-      text-align: center;
-    }
+        header {
+            width: 100%;
+            background: #0f3460;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #e94560;
+            letter-spacing: 2px;
+        }
 
-    .logo {
-      font-size: 1.5em;
-    }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
 
-    .auth-buttons a {
-      background: #ff4757;
-      color: #fff;
-      padding: 5px 10px;
-      margin: 5px;
-      border-radius: 5px;
-    }
+        .panel {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 20px;
+            width: 48%;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .auth-buttons a:hover {
-      background: #e84118;
-    }
+        .panel h2 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #e94560;
+            position: relative;
+            z-index: 2;
+        }
 
-    .hero {
-      background: url('/app/myapp/static/images/hero.jpg') no-repeat center center/cover;
-      color: #fff;
-      text-align: center;
-      padding: 50px 0;
-      animation: fadeIn 2s ease-in-out;
-    }
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(45deg);
+            z-index: 1;
+        }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
+        .panel input,
+        .panel button,
+        .panel select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+            z-index: 2;
+            position: relative;
+        }
 
-    .hero h1 {
-      font-size: 2.5em;
-      animation: slideInDown 1s ease-in-out;
-    }
+        .panel button {
+            background-color: #e94560;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
 
-    @keyframes slideInDown {
-      from {
-        transform: translateY(-100%);
-      }
-      to {
-        transform: translateY(0);
-      }
-    }
+        .panel button:hover {
+            background-color: #d03345;
+        }
 
-    .hero button {
-      background: #ff4757;
-      border: none;
-      padding: 10px 20px;
-      color: #fff;
-      font-size: 1.2em;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-    }
+        #asteroid-results,
+        #recipe-results {
+            margin-top: 20px;
+            z-index: 2;
+            position: relative;
+        }
 
-    .hero button:hover {
-      background: #e84118;
-    }
+        .result-item {
+            background: #0f3460;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }
 
-    .social-sharing a {
-      display: inline-block;
-      margin: 10px;
-      text-decoration: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-    }
+        .result-item:hover {
+            transform: translateY(-5px);
+        }
 
-    .social-sharing .facebook {
-      background: #3b5998;
-    }
+        .narrative {
+            background-color: #0f3460;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-    .social-sharing .twitter {
-      background: #1da1f2;
-    }
+        .narrative h3 {
+            margin-top: 0;
+            color: #e94560;
+            font-size: 1.5em;
+        }
 
-    footer {
-      text-align: center;
-      padding: 20px 0;
-      background: #333;
-      color: #fff;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
+        .narrative p {
+            font-size: 1em;
+            line-height: 1.5em;
+        }
 
-    #transaction-animation, #chat-section {
-      background: #fff;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 80%;
-      max-width: 600px;
-    }
+        footer {
+            width: 100%;
+            background: #0f3460;
+            padding: 10px 0;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+        }
 
-    #transaction-animation input, #chat-input {
-      width: 80%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-    }
-
-    #transaction-animation button, #chat-send {
-      padding: 10px 20px;
-      background: #ff4757;
-      border: none;
-      color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    #transaction-animation button:hover, #chat-send:hover {
-      background: #e84118;
-    }
-
-    /* Adding animation for send money section */
-    #send-button {
-      position: relative;
-      overflow: hidden;
-    }
-
-    #send-button::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.3);
-      transition: left 0.5s;
-    }
-
-    #send-button:hover::after {
-      left: 100%;
-    }
-
-    /* Adding animation for chat section */
-    #chat-box p {
-      animation: fadeInMessage 0.5s ease-in-out;
-    }
-
-    @keyframes fadeInMessage {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    .items {
-      text-align: center;
-      margin: 20px 0;
-      padding: 20px;
-    }
-
-    .items button {
-      padding: 10px 20px;
-      background: #ff4757;
-      border: none;
-      color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1.2em;
-      transition: background 0.3s ease;
-    }
-
-    .items button:hover {
-      background: #e84118;
-    }
-  </style>
+        footer p {
+            margin: 0;
+            color: #e94560;
+        }
+    </style>
 </head>
 
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Miam . . .</a>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="features.html">Features</a></li>
-        <li><a href="about_us.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="auth-buttons">
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign Up</a>
-      </div>
-    </nav>
-  </header>
+    <header>
+        <h1>Galactic Command Interface</h1>
+         <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/features">Features</a></li>
+                <li><a href="/about_us">About Us</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
-    <section id="transaction-animation">
-      <h2>Send Money</h2>
-      <input type="number" id="amount" placeholder="Enter Amount">
-      <button id="send-button">Send</button>
-      <p id="message"></p>
-    </section>
+    <div class="container">
+        <!-- Asteroid Tracker Panel -->
+        <div class="panel">
+            <h2>Asteroid Tracker</h2>
+            <div class="narrative">
+                <h3>Your Mission</h3>
+                <p>As the commander of this vessel, you must track and analyze near-Earth asteroids that pose a potential threat to our planet. The decisions you make here will determine the fate of countless lives. Stay vigilant, and use the tools at your disposal wisely.</p>
+            </div>
+            <label for="dateInput">Select Date:</label>
+            <input type="date" id="dateInput" value="2023-12-01">
+            <button onclick="fetchAsteroids()">Track Asteroids</button>
+            <div id="asteroid-results"></div>
+        </div>
 
-    <section class="hero">
-      <h1>Simplify Receipt Sharing</h1>
-      <p>Effortlessly share, track, and organize your receipts with KvnBbg.</p>
-      <button id="addButton" aria-label="Add a new item">Add Items</button>
-    </section>
-
-    <section class="items">
-      <!-- Add dynamic content or interactions here -->
-      <button onclick="toastr.info('Feature coming soon!')">Explore Features</button>
-    </section>
-
-    <section id="chat-section">
-      <h2>Chat with Us</h2>
-      <div id="chat-box"></div>
-      <input type="text" id="chat-input" placeholder="Type a message...">
-      <button id="chat-send">Send</button>
-    </section>
-
-    <section class="social-sharing">
-      <h3>Share the Adventure</h3>
-      <a href="https://www.facebook.com/profile.php?id=61557626589574" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i> Share on Facebook</a>
-      <a href="https://twitter.com/techandstream" target="_blank" class="social-icon twitter"><i class="fab fa-twitter"></i> Tweet about it</a>
-    </section>
-
-    <section>
-      <h3>Coming Soon: Integration with wider video platforms for an even bigger library!</h3>
-    </section>
+        <!-- Recipe Exploration Panel -->
+        <div class="panel">
+            <h2>Recipe Explorer</h2>
+            <div class="narrative">
+                <h3>Culinary Strategy</h3>
+                <p>In the quiet moments between missions, explore the culinary delights of the galaxy. Discover new recipes, gather exotic ingredients, and master the art of cooking. The strength of a commander lies not only in strategy but in the ability to find joy in creation.</p>
+            </div>
+            <label for="recipeInput">Search for a Recipe:</label>
+            <input type="text" id="recipeInput" placeholder="e.g., Galactic Pie">
+            <button onclick="searchRecipes()">Explore Recipes</button>
+            <div id="recipe-results"></div>
+        </div>
+    </div>
 
     <footer>
-      <p>&copy; 2024 Recipe Platform by Kvnbbg. All Rights Reserved.</p>
+        <p>&copy; 2024 Galactic Command Center. All Rights Reserved.</p>
     </footer>
-  </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        // Placeholder for the OAuth2 token (if implemented)
+        let authToken = '';
+
+        // Helper function for secure API call with improved error handling
+        async function secureFetch(url) {
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error during fetch:', error);
+                toastr.error('Failed to fetch data. Please try again later.');
+                throw error;
+            }
+        }
+
+        // Fetch asteroids and update UI with better performance and validation
+        async function fetchAsteroids() {
+            const date = document.getElementById('dateInput').value;
+            if (!date) {
+                toastr.warning('Please select a date.');
+                return;
+            }
+
+            const apiKey = 'DEMO_KEY'; // Replace with your actual NASA API key
+            const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${date}&end_date=${date}&api_key=${apiKey}`;
+            const asteroidResults = document.getElementById('asteroid-results');
+
+            asteroidResults.innerHTML = '<p>Loading asteroids...</p>';
+
+            try {
+                const data = await secureFetch(url);
+                asteroidResults.innerHTML = '';
+                const asteroids = data.near_earth_objects[date];
+
+                if (asteroids && asteroids.length > 0) {
+                    asteroids.forEach(asteroid => {
+                        // Calculate the average diameter securely
+                        const diameter = (parseFloat(asteroid.estimated_diameter.meters.estimated_diameter_min) + parseFloat(asteroid.estimated_diameter.meters.estimated_diameter_max)) / 2;
+                        const velocity = parseFloat(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour).toFixed(2);
+                        const missDistance = parseFloat(asteroid.close_approach_data[0].miss_distance.kilometers).toFixed(2);
+
+                        const asteroidDiv = document.createElement('div');
+                        asteroidDiv.className = 'result-item';
+                        asteroidDiv.innerHTML = `
+                            <h3>${asteroid.name}</h3>
+                            <p>Diameter: ${diameter.toFixed(2)} meters</p>
+                                                    <p>Velocity: ${velocity} km/h</p>
+                        <p>Miss Distance: ${missDistance} km</p>
+                    `;
+                    asteroidResults.appendChild(asteroidDiv);
+                });
+            } else {
+                asteroidResults.innerHTML = '<p>No asteroids found for this date.</p>';
+            }
+        } catch (error) {
+            console.error('Error fetching asteroids:', error);
+            asteroidResults.innerHTML = '<p>Error retrieving data. Please try again later.</p>';
+        }
+    }
+
+    // Search for recipes with better validation and user experience
+    function searchRecipes() {
+        const query = document.getElementById('recipeInput').value.trim();
+        const recipeResults = document.getElementById('recipe-results');
+
+        if (query === '') {
+            toastr.warning('Please enter a recipe name.');
+            return;
+        }
+
+        recipeResults.innerHTML = '<p>Loading recipes...</p>';
+
+        setTimeout(() => {
+            recipeResults.innerHTML = '';
+            const mockRecipes = [
+                { name: 'Galactic Pie', ingredients: 'Flour, Sugar, Space Berries', steps: 'Mix, Bake, Enjoy' },
+                { name: 'Nebula Soup', ingredients: 'Water, Star Dust, Cosmic Herbs', steps: 'Boil, Stir, Serve' }
+            ];
+
+            mockRecipes.forEach(recipe => {
+                const recipeDiv = document.createElement('div');
+                recipeDiv.className = 'result-item';
+                recipeDiv.innerHTML = `
+                    <h3>${recipe.name}</h3>
+                    <p>Ingredients: ${recipe.ingredients}</p>
+                    <p>Steps: ${recipe.steps}</p>
+                `;
+                recipeResults.appendChild(recipeDiv);
+            });
+        }, 1000);
+    }
+
+    // Placeholder function for OAuth2 authentication (server-side implementation needed)
+    function authenticateUser() {
+        // Redirect to OAuth2 provider (Google, GitHub, etc.) and obtain a token
+        // Store the token in authToken variable
+        authToken = 'example_token'; // This would come from the OAuth2 flow
+    }
+
+    // Call this function to authenticate the user
+    authenticateUser();
+</script>
 </body>
-
 </html>
