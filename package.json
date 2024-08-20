@@ -4,7 +4,8 @@
   "description": "Node.js frontend with Flask backend",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "postinstall": "npm install express express-session body-parser"
   },
   "dependencies": {
     "express": "^4.19.2",
