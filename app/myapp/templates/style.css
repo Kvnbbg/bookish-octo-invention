@@ -1,8 +1,10 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   background: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
 }
 
 header {
@@ -14,10 +16,10 @@ header {
 
 nav {
   display: flex;
-  align-items: center; /* Vertically align items */
-  justify-content: space-between; /* Distribute space between logo and links */
-  padding: 10px 20px; /* Add some padding for spacing */
-  background-color: #333; /* Use a darker background for contrast */
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #333;
 }
 
 nav a.logo {
@@ -25,36 +27,30 @@ nav a.logo {
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
-  font-weight: bold; /* Make the logo text bold */
+  font-weight: bold;
 }
 
 nav ul {
-  list-style: none; /* Remove the bullet points (dot points) */
+  list-style: none;
   display: flex;
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li {
-  margin: 0 15px; /* Adjust spacing between links */
+  margin: 0 15px;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
   font-size: 16px;
-  display: inline-block; /* Ensure links are inline and not block level */
-  padding: 5px 0; /* Adjust padding to align properly */
-  transition: color 0.3s ease; /* Smooth transition for hover effect */
+  padding: 5px 0;
+  transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: #f0a500; /* Change color on hover */
-}
-
-nav ul li a:before {
-  content: ""; /* Remove any default list styling */
-  display: none; /* Ensure no marker is visible */
+  color: #f0a500;
 }
 
 .auth-buttons a {
@@ -64,6 +60,11 @@ nav ul li a:before {
   padding: 5px 10px;
   background: #4CAF50;
   border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.auth-buttons a:hover {
+  background: #45a049;
 }
 
 main {
@@ -74,7 +75,8 @@ main {
 .hero {
   background: #4CAF50;
   color: white;
-  padding: 50px 0;
+  padding: 50px 20px;
+  text-align: center;
 }
 
 .hero button {
@@ -84,22 +86,41 @@ main {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.hero button:hover {
+  background: #45a049;
+  color: #fff;
 }
 
 .items {
   margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .item {
   background: #fff;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .social-sharing {
   margin: 20px 0;
+  text-align: center;
 }
 
 .social-sharing .social-icon {
@@ -107,6 +128,12 @@ main {
   margin: 0 10px;
   text-decoration: none;
   color: #4CAF50;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.social-sharing .social-icon:hover {
+  color: #45a049;
 }
 
 #chat-section {
@@ -114,6 +141,7 @@ main {
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-top: 20px;
 }
 
 #chat-box {
@@ -122,12 +150,16 @@ main {
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
 }
 
 #chat-input {
   padding: 10px;
-  width: calc(100% - 80px);
+  width: calc(100% - 90px);
   margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #chat-send {
@@ -137,4 +169,32 @@ main {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#chat-send:hover {
+  background: #45a049;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ul li {
+    margin: 10px 0;
+  }
+
+  .hero {
+    padding: 30px 20px;
+  }
+
+  .items {
+    grid-template-columns: 1fr;
+  }
 }
