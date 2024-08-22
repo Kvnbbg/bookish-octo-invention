@@ -7,23 +7,68 @@ document.addEventListener('DOMContentLoaded', function () {
   const chatBox = document.getElementById('chat-box');
   const chatInput = document.getElementById('chat-input');
   const chatSend = document.getElementById('chat-send');
+  const toggleLangButton = document.getElementById('toggle-lang');
 
-  // Check if elements are correctly loaded
-  if (!amountInput || !sendButton || !message || !addButton || !itemsSection || !chatBox || !chatInput || !chatSend) {
-    toastr.error("One or more elements are not loaded correctly. Please check your HTML structure.");
-    return;
+  let currentLanguage = 'en'; // Default to English
+
+  // Language dictionary
+  const dictionary = {
+    en: {
+      amountPlaceholder: "Enter Galactic Units",
+      sendButton: "Send Units",
+      addItem: "Add Galactic Recipe",
+      chatPlaceholder: "Type your recipe message...",
+      sendingMessage: "Sending Galactic Units...",
+      sentMessage: "Sent",
+      errorAmount: "Please enter a valid amount.",
+      errorItem: "Please enter a recipe name.",
+      successAmount: "Galactic Units Sent",
+      newItemAdded: "New Galactic Recipe added",
+      errorEmptyMessage: "Please enter a message.",
+      langToggle: "🇺🇸 English / 🇫🇷 Français"
+    },
+    fr: {
+      amountPlaceholder: "Entrez les Unités Galactiques",
+      sendButton: "Envoyer les Unités",
+      addItem: "Ajouter une Recette Galactique",
+      chatPlaceholder: "Tapez votre message de recette...",
+      sendingMessage: "Envoi des Unités Galactiques...",
+      sentMessage: "Envoyé",
+      errorAmount: "Veuillez entrer un montant valide.",
+      errorItem: "Veuillez entrer un nom de recette.",
+      successAmount: "Unités Galactiques Envoyées",
+      newItemAdded: "Nouvelle Recette Galactique ajoutée",
+      errorEmptyMessage: "Veuillez entrer un message.",
+      langToggle: "🇺🇸 English / 🇫🇷 Français"
+    }
+  };
+
+  function translate() {
+    amountInput.placeholder = dictionary[currentLanguage].amountPlaceholder;
+    sendButton.textContent = dictionary[currentLanguage].sendButton;
+    addButton.textContent = dictionary[currentLanguage].addItem;
+    chatInput.placeholder = dictionary[currentLanguage].chatPlaceholder;
+    toggleLangButton.textContent = dictionary[currentLanguage].langToggle;
   }
+
+  // Language toggle function
+  toggleLangButton.addEventListener('click', function () {
+    currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+    translate();
+  });
+
+  translate(); // Initial translation
 
   sendButton.addEventListener('click', function () {
     const amount = parseFloat(amountInput.value);
 
     if (isNaN(amount) || amount <= 0) {
-      message.textContent = "Please enter a valid amount.";
-      toastr.error("Please enter a valid amount.");
+      message.textContent = dictionary[currentLanguage].errorAmount;
+      toastr.error(dictionary[currentLanguage].errorAmount);
       return;
     }
 
-    message.textContent = "Sending...";
+    message.textContent = dictionary[currentLanguage].sendingMessage;
 
     // Animation logic
     let currentAmount = 0;
@@ -34,44 +79,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (currentAmount >= amount) {
         clearInterval(intervalId);
-        message.textContent = "Sent $" + amount.toFixed(2);
-        toastr.success("Amount Sent: $" + amount.toFixed(2));
+        message.textContent = `${dictionary[currentLanguage].sentMessage} ${amount.toFixed(2)} U.G.`;
+        toastr.success(`${dictionary[currentLanguage].successAmount}: ${amount.toFixed(2)} U.G.`);
         playAlarmSound();
       }
     }, 10);
   });
 
-  // Function to create a new item element
-  function createItem(itemName) {
-    const item = document.createElement('div');
-    item.classList.add('item'); // Add a class for styling
-    item.textContent = itemName;
-    return item;
+  function createRecipe(recipeName) {
+    const recipe = document.createElement('div');
+    recipe.classList.add('item');
+    recipe.textContent = recipeName;
+    return recipe;
   }
 
-  // Function to add a new item
-  function addNewItem() {
-    const newItemName = prompt("Enter item name:"); // Get user input
-    if (newItemName) { // Check if user entered a name
-      const newItem = createItem(newItemName);
-      itemsSection.appendChild(newItem);
-      toastr.info("New item added: " + newItemName);
+  function addNewRecipe() {
+    const newRecipeName = prompt(dictionary[currentLanguage].addItem);
+    if (newRecipeName) {
+      const newRecipe = createRecipe(newRecipeName);
+      itemsSection.appendChild(newRecipe);
+      toastr.info(`${dictionary[currentLanguage].newItemAdded}: ${newRecipeName}`);
     } else {
-      toastr.error("Please enter an item name.");
+      toastr.error(dictionary[currentLanguage].errorItem);
     }
   }
 
-  // Add click event listener to the button
-  addButton.addEventListener('click', addNewItem);
+  addButton.addEventListener('click', addNewRecipe);
 
-  // Chat functionality
   chatSend.addEventListener('click', function () {
     const message = chatInput.value.trim();
     if (message) {
       addMessageToChat("You", message);
       chatInput.value = '';
     } else {
-      toastr.error("Please enter a message.");
+      toastr.error(dictionary[currentLanguage].errorEmptyMessage);
     }
   });
 
@@ -97,3 +138,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+
+// Standalone function for toggling languages if not dependent on HTML DOMContentLoaded
+(function () {
+  const toggleLangButton = document.getElementById('toggle-lang');
+
+  if (toggleLangButton) {
+    let currentLanguage = 'en';
+
+    toggleLangButton.addEventListener('click', function () {
+      currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+      document.documentElement.lang = currentLanguage; // Update the HTML lang attribute
+    });
+  }
+})();
