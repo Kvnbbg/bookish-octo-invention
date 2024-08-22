@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galactic Command Interface</title>
+    <link rel="stylesheet" href="/app/myapp/static/styles.css">
+        <!-- Favicon -->
+    <link rel="icon" href="/app/myapp/static/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
@@ -159,6 +162,7 @@
     <header>
         <h1>Galactic Command Interface</h1>
          <nav>
+            <a href="/" class="logo"><img src="/app/myapp/static/images/favicon.ico"></a>
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/features">Features</a></li>
@@ -197,11 +201,84 @@
             <div id="recipe-results"></div>
         </div>
     </div>
-
+<section>
+    <div class="carousel">
+        <div class="carousel-track-container">
+            <ul class="carousel-track">
+                <li class="carousel-slide current-slide">
+                    <img src="/app/myapp/static/images/500.png" alt="500 Error Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/about.png" alt="About Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/addRecipe.png" alt="Add Recipe Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/admin.png" alt="Admin Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/author.png" alt="Author Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/confid.png" alt="Confidential Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/contact.png" alt="Contact Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/default.png" alt="Default Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/error.png" alt="Error Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/hero.jpg" alt="Hero Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/index.png" alt="Index Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/legal.png" alt="Legal Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/login.png" alt="Login Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/logout.png" alt="Logout Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/myServices.png" alt="My Services Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/patient.png" alt="Patient Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/profile.png" alt="Profile Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/recipe.png" alt="Recipe Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/register.png" alt="Register Image">
+                </li>
+                <li class="carousel-slide">
+                    <img src="/app/myapp/static/images/404.png" alt="404 Error Image">
+                </li>
+            </ul>
+        </div>
+        <button class="carousel-button carousel-button-left is-hidden">
+            <span>&lt;</span>
+        </button>
+        <button class="carousel-button carousel-button-right">
+            <span>&gt;</span>
+        </button>
+    </div>
+</section>
     <footer>
         <p>&copy; 2024 Galactic Command Center. All Rights Reserved.</p>
     </footer>
-
+    <script src="/app/myapp/static/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         // Placeholder for the OAuth2 token (if implemented)
