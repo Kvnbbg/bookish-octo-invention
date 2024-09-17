@@ -2,6 +2,8 @@
 
 ![Bookish-Octo-Invention Logo](doc/images/logo.png)
 
+[![Play Live 🚀](https://web-production-3e229.up.railway.app/login)](https://web-production-3e229.up.railway.app/login)
+
 **Bookish-Octo-Invention** is a web application designed for recipe sharing tailored to specific dietary needs. Whether you’re looking for gluten-free, vegan, or low-carb options, this platform makes it easy to find and share recipes that suit your dietary preferences.
 
 ## 1. Features
@@ -57,28 +59,7 @@ Ensure your system meets the following requirements:
 2. **Visit the application by navigating to** `http://localhost:3000`.
 3. **Sign in** using your credentials, or explore the application as a guest.
 
-**Note:** The application is deployed using either [Back4App](https://containers.back4app.com/) or [Netlify](https://netlify.app/) for now. The final decision is pending. For production deployment, further instructions will be provided.
-
-## 4. Deployment
-
-### Deploying the Application:
-
-- **Deploy on Netlify** (Static files):
-  - Connect your GitHub repository to Netlify.
-  - Set the build command to `npm run build` and the publish directory to `build/`.
-
-- **Deploy on Back4App** (For Docker containers):
-  - Follow Back4App’s documentation to deploy your Node.js application in a container.
-
-### Alternative Deployment Options:
-
-- **Heroku**:
-  - Deploy your Node.js app on Heroku by connecting your GitHub repo and setting up the necessary environment variables.
-
-- **Vercel**:
-  - Easily deploy with Vercel by linking your GitHub repository and following their Node.js deployment steps.
-
-## 5. Contributing
+## 4. Contributing
 
 We welcome contributions! To contribute:
 
@@ -89,11 +70,11 @@ We welcome contributions! To contribute:
 
 Please read our [Contribution Guidelines](CONTRIBUTING.md) for more details.
 
-## 6. License
+## 5. License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [License](LICENSE).
 
-## 7. Expanded Documentation
+## 6. Expanded Documentation
 
 For more detailed information, refer to the following documents:
 
