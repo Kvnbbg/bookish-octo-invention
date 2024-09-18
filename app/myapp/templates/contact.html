@@ -1,132 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-icon" href="/app/myapp/static/images/favicon.ico" />
-  <title>Contact Us - Share Receipts, Simplify Life</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  <style>
-    /* Additional CSS for better UI/UX */
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: #333;
-      color: #fff;
-      padding: 10px 0;
-      text-align: center;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px;
-    }
-
-    .logo {
-      font-size: 1.5em;
-    }
-
-    .auth-buttons a {
-      background: #ff4757;
-      color: #fff;
-      padding: 5px 10px;
-      margin: 5px;
-      border-radius: 5px;
-    }
-
-    .auth-buttons a:hover {
-      background: #e84118;
-    }
-
-    .contact-section {
-      background: #fff;
-      padding: 50px 0;
-      text-align: center;
-    }
-
-    .contact-content {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background: #fff;
-    }
-
-    .contact-content h2 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-    }
-
-    .contact-content form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .contact-content input, .contact-content textarea {
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-    }
-
-    .contact-content button {
-      padding: 10px 20px;
-      background: #ff4757;
-      border: none;
-      color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1.2em;
-    }
-
-    .contact-content button:hover {
-      background: #e84118;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    }
-
-    .social-links a {
-      margin: 0 10px;
-      color: #fff;
-      padding: 10px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .social-links .github {
-      background: #333;
-    }
-
-    .social-links .twitter {
-      background: #1da1f2;
-    }
-
-    .social-links .instagram {
-      background: #e1306c;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px 0;
-      background: #333;
-      color: #fff;
-    }
-  </style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Miam Bookish</title>
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:4233307981. -->
+<link rel="stylesheet" href="/app/myapp/static/style.css">
+        <!-- Favicon -->
+    <link rel="icon" href="/app/myapp/static/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
@@ -147,6 +30,42 @@
   </header>
 
   <main>
+    <section class="contact-section">
+      <div class="contact-content">
+        <div id="contact">
+          <h2>Get in Touch</h2>
+          <form action="#" method="post">
+          <label for="name"></label>
+          <input type="text" id="name" name="name" required placeholder="Enter your Name">
+      
+          <label for="email"></label>
+          <input type="email" id="email" name="email" required placeholder="Enter your Email">
+      
+            <input type="submit" value="Submit">
+        </form>
+      </div>
+      
+      <div id="help">
+         <h2>Help Center</h2> <br />
+        <p>If you have any questions or require assistance, please refer to the information below.</p>
+      
+        <h4>Frequently Asked Questions</h4> <br />
+        <ul>
+        <li><strong>Q: How do I place an order?</strong> - To order, go to the Shop page, browse our products, click on a product for its details and select "Add to Cart". Once you've chosen your products, visit the Cart page to review your order and complete checkout.</li>
+        <li><strong>Q: Which payment methods do you accept?</strong> - We accept all major credit cards, PayPal, and Apple Pay.</li>
+        <li><strong>Q: When will I receive my order?</strong> - Delivery time varies based on your location and the shipping method selected at checkout. Typically, orders are delivered within 3-7 business days.</li>
+        </ul>
+      
+        <h4>Contact Information</h4> <br />
+        <p>For further assistance, please reach out to our support team:</p>
+        <ul>
+        <li>Email: kvnbbg@protonmail.com</li>
+        <li>Phone: 1-800-123-4567</li>
+        <li>The Loyalty Club</li>
+        </ul>
+      </div>
+      </div>
+    </section>
     <section class="contact-section">
       <div class="contact-content">
         <h2>Contact Us</h2>
@@ -171,25 +90,8 @@
       <p>&copy; 2024 Recipe Platform by Kvnbbg. All Rights Reserved.</p>
     </footer>
   </main>
-
+  <script src="/app/myapp/static/script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = document.getElementById('name').value;
-      var email = document.getElementById('email').value;
-      var message = document.getElementById('message').value;
-
-      if (name && email && message) {
-        // Simulate successful form submission (you should handle actual form submission to your backend here)
-        toastr.success('Your message has been sent successfully!');
-        document.getElementById('form-message').innerText = 'Thank you for contacting us, ' + name + '. We will get back to you soon!';
-        document.getElementById('contact-form').reset();
-      } else {
-        toastr.error('Please fill in all fields.');
-      }
-    });
-  </script>
 </body>
 
 </html>

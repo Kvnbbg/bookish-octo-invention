@@ -1,12 +1,19 @@
-body {
-  font-family: 'Arial', sans-serif;
+/* Your existing global styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: #f4f4f4;
-  color: #333;
-  line-height: 1.6;
 }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
 header {
   background: #333;
   color: #fff;
@@ -14,6 +21,23 @@ header {
   text-align: center;
 }
 
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0;
+  width:80px;
+	position:absolute;
+	align-items:right;
+	border-radius:50%;
+	z-index:100;
+	transition: transform 1s ease-in-out;
+}
+
+.logo :hover {
+  transform: rotate(720deg);
+}
+
+/* Navigation */
 nav {
   display: flex;
   align-items: center;
@@ -22,67 +46,79 @@ nav {
   background-color: #333;
 }
 
-nav a.logo {
-  font-size: 24px;
-  text-transform: uppercase;
-  text-decoration: none;
+nav a {
   color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+nav a:hover {
+  color: #f0a500; /* Using your accent color */
+}
+
+.logo { /* Assuming you have a class for your logo */
+  font-size: 1.5em; /* Adjust as needed */
   font-weight: bold;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-
-nav ul li {
-  margin: 0 15px;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  padding: 5px 0;
-  transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #f0a500;
-}
-
+/* Authentication Buttons */
 .auth-buttons a {
+  background: #ff4757;
   color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
   padding: 5px 10px;
-  background: #4CAF50;
+  margin: 5px;
   border-radius: 5px;
-  transition: background 0.3s ease;
 }
 
 .auth-buttons a:hover {
-  background: #45a049;
+  background: #e84118;
 }
 
+/* Main Content Area */
 main {
   padding: 20px;
-  text-align: center;
 }
 
+/* Hero Section */
 .hero {
-  background: #4CAF50;
-  color: white;
-  padding: 50px 20px;
+  background-image: url("path/to/your/hero-image.jpg"); /* Use a relevant food image */
+  background-size: cover;
+  background-position: center;
+  color: #fff;
   text-align: center;
+  padding: 50px 20px; /* Adjust padding as needed */
+  position: relative; /* For overlay */
+}
+
+.hero::before { 
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text contrast */
+}
+
+.hero-content { /* To position content on top of the overlay */
+  position: relative;
+  z-index: 1;
+}
+
+.hero h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
 }
 
 .hero button {
   padding: 10px 20px;
   background: #fff;
-  color: #4CAF50;
+  color: #4CAF50; /* Using your existing color */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -94,11 +130,12 @@ main {
   color: #fff;
 }
 
+/* Items/Recipes Section */
 .items {
-  margin: 20px 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  margin: 20px 0;
 }
 
 .item {
@@ -118,24 +155,26 @@ main {
   margin-bottom: 10px;
 }
 
+/* Social Sharing */
 .social-sharing {
   margin: 20px 0;
   text-align: center;
 }
 
-.social-sharing .social-icon {
+.social-sharing a { /* Style all social icons */
   display: inline-block;
   margin: 0 10px;
   text-decoration: none;
-  color: #4CAF50;
+  color: #4CAF50; /* Use your color */
   font-size: 24px;
   transition: color 0.3s ease;
 }
 
-.social-sharing .social-icon:hover {
+.social-sharing a:hover {
   color: #45a049;
 }
 
+/* Chat Section (if applicable) */
 #chat-section {
   padding: 20px;
   background: #fff;
@@ -176,6 +215,7 @@ main {
   background: #45a049;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
@@ -198,237 +238,20 @@ main {
     grid-template-columns: 1fr;
   }
 }
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #1a1a2e;
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
 
-header {
-  width: 100%;
-  background: #0f3460;
-  padding: 20px 0;
-  text-align: center;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-header h1 {
-  margin: 0;
-  font-size: 2.5em;
-  color: #e94560;
-  letter-spacing: 2px;
-}
-
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-}
-
-.panel {
-  background: #16213e;
-  border-radius: 10px;
-  padding: 20px;
-  width: 48%;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.panel h2 {
-  margin-top: 0;
-  font-size: 1.8em;
-  color: #e94560;
-  position: relative;
-  z-index: 2;
-}
-
-.panel::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.05);
-  transform: rotate(45deg);
-  z-index: 1;
-}
-
-.panel input,
-.panel button,
-.panel select {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: none;
-  font-size: 1em;
-  z-index: 2;
-  position: relative;
-}
-
-.panel button {
-  background-color: #e94560;
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.panel button:hover {
-  background-color: #d03345;
-}
-
-#asteroid-results,
-#recipe-results {
-  margin-top: 20px;
-  z-index: 2;
-  position: relative;
-}
-
-.result-item {
-  background: #0f3460;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  transition: transform 0.2s ease;
-}
-
-.result-item:hover {
-  transform: translateY(-5px);
-}
-
-.narrative {
-  background-color: #0f3460;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  z-index: 2;
-  position: relative;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.narrative h3 {
-  margin-top: 0;
-  color: #e94560;
-  font-size: 1.5em;
-}
-
-.narrative p {
-  font-size: 1em;
-  line-height: 1.5em;
-}
-
+/* Footer */
 footer {
-  width: 100%;
-  background: #0f3460;
-  padding: 10px 0;
   text-align: center;
-  position: absolute;
-  bottom: 0;
+  padding: 20px 0;
+  background: #333;
+  color: #fff;
 }
 
-footer p {
-  margin: 0;
-  color: #e94560;
+footer a {
+  text-decoration: none;
+  color: #fff;
 }
-    /* Additional CSS for better UI/UX */
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
 
-    header {
-      background: #333;
-      color: #fff;
-      padding: 10px 0;
-      text-align: center;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px;
-    }
-
-    .logo {
-      font-size: 1.5em;
-    }
-
-    .auth-buttons a {
-      background: #ff4757;
-      color: #fff;
-      padding: 5px 10px;
-      margin: 5px;
-      border-radius: 5px;
-    }
-
-    .auth-buttons a:hover {
-      background: #e84118;
-    }
-
-    .login-section {
-      background: #fff;
-      padding: 50px 0;
-      text-align: center;
-    }
-
-    .login-content {
-      max-width: 400px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      background: #fff;
-    }
-
-    .login-content h2 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-    }
-
-    .login-content form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .login-content input {
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-    }
-
-    .login-content button {
-      padding: 10px 20px;
-      background: #ff4757;
-      border: none;
-      color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1.2em;
-    }
-
-    .login-content button:hover {
-      background: #e84118;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px 0;
-      background: #333;
-      color: #fff;
-    }
+footer a:hover {
+  text-decoration: underline;
+}
