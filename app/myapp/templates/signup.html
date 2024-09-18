@@ -4,28 +4,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-icon" href="/app/myapp/static/images/favicon.ico" />
-  <title>Sign Up - Share Receipts, Simplify Life</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Miam Bookish</title>
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:4233307981. -->
+<link rel="stylesheet" href="/app/myapp/static/style.css">
+      <!-- Favicon -->
+  <link rel="icon" href="/app/myapp/static/images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Miam . . .</a>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="features.html">Features</a></li>
-        <li><a href="about_us.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="auth-buttons">
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign Up</a>
-      </div>
-    </nav>
+  <header class="hero-section">
+      <h1>Bookish</h1>
+      <h4>Share your recipes<em>Partage tes recettes</em></h4>
+      <section class="hero-content">
+ <picture>
+<source media="(min-width: 769px)" src="/app/myapp/static/images/image-large.jpg">
+<source media="(min-width: 426px)" src="/app/myapp/static/images/image-medium.jpg">
+<source media="(min-width: 321px)" src="/app/myapp/static/images/image-small.jpg">
+<img src="/app/myapp/static/images/image-fallback.jpg" alt="Image" width="200" height="200">
+</picture>
+
+      </section>
+       <nav>
+<a href="/" class="logo"><img src="/app/myapp/static/images/favicon.ico" alt="Logo"></a>
+<ul>
+  <li><a href="/">Miam</a></li>
+  <li><a href="/about_us">About Us</a></li>
+  <li><a href="/contact">Contact</a></li>
+  <li><a href="/login">Login</a></li>
+  <li><a href="/signup">Sign Up</a></li>
+  <li class="nav-item" data-lang="langToggle">
+    <a class="nav-link language-switch" href="#" lang="en">🇺🇸 English</a>
+  </li>
+</ul>
+</nav>
+
+<script>
+const techLanguageContent = {
+  en: {
+    langToggle: "🇺🇸 English / 🇫🇷 Français", 
+  },
+  fr: {
+    langToggle: "🇺🇸 Anglais / 🇫🇷 Français",
+  }
+};
+
+let currentLanguage = "en"; 
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === "en" ? "fr" : "en";
+  updatePageContent();
+}
+
+function updatePageContent() {
+  document.querySelectorAll("[data-lang]").forEach((element) => {
+    const key = element.getAttribute("data-lang");
+    if (techLanguageContent[currentLanguage][key]) {
+      element.textContent = techLanguageContent[currentLanguage][key];
+    }
+  });
+}
+
+// Event listener for language toggle
+const langToggle = document.querySelector('[data-lang="langToggle"]');
+if (langToggle) {
+  langToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleLanguage();
+  });
+}
+
+// Initial page load 
+updatePageContent(); 
+</script>
+
+
   </header>
 
   <main>
