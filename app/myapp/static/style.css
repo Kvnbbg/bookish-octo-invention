@@ -56,11 +56,6 @@ nav a:hover {
   color: #f0a500; /* Using your accent color */
 }
 
-.logo { /* Assuming you have a class for your logo */
-  font-size: 1.5em; /* Adjust as needed */
-  font-weight: bold;
-}
-
 /* Authentication Buttons */
 .auth-buttons a {
   background: #ff4757;
@@ -81,7 +76,7 @@ main {
 
 /* Hero Section */
 .hero {
-  background-image: url("path/to/your/hero-image.jpg"); /* Use a relevant food image */
+  background-image: url("../images/1.jpg"); /* Use a relevant food image */
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -213,6 +208,11 @@ main {
 
 #chat-send:hover {
   background: #45a049;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Responsive Design */

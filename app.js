@@ -67,7 +67,7 @@ app.get('/logout', (req, res) => {
 });
 
 // Dynamically serve other HTML files
-const pages = ['features', 'about_us', 'contact', 'signup'];
+const pages = ['index', 'about_us', 'contact', 'signup'];
 pages.forEach(page => {
     app.get(`/${page}`, (req, res) => {
         res.sendFile(path.join(templateDir, `${page}.html`));

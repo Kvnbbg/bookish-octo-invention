@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connect - Miam Bookish</title>
 <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:4233307981. -->
-<link rel="stylesheet" href="/app/myapp/static/style.css">
+<link rel="stylesheet" href="style.css">
       <!-- Favicon -->
-  <link rel="icon" href="/app/myapp/static/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
@@ -19,15 +19,15 @@
       <h4>Share your recipes<em>Partage tes recettes</em></h4>
       <section class="hero-content">
  <picture>
-<source media="(min-width: 769px)" src="/app/myapp/static/images/image-large.jpg">
-<source media="(min-width: 426px)" src="/app/myapp/static/images/image-medium.jpg">
-<source media="(min-width: 321px)" src="/app/myapp/static/images/image-small.jpg">
-<img src="/app/myapp/static/images/image-fallback.jpg" alt="Image" width="200" height="200">
+<source media="(min-width: 769px)" src="../images/image-large.jpg">
+<source media="(min-width: 426px)" src="../images/image-medium.jpg">
+<source media="(min-width: 321px)" src="../images/image-small.jpg">
+<img src="../images/image-fallback.jpg" alt="Image" width="200" height="200">
 </picture>
 
       </section>
        <nav>
-<a href="/" class="logo"><img src="/app/myapp/static/images/favicon.ico" alt="Logo"></a>
+<a href="/" class="logo"><img src="../images/1.png" alt="Logo"></a>
 <ul>
   <li><a href="/">Miam</a></li>
   <li><a href="/about_us">About Us</a></li>
@@ -84,7 +84,9 @@ updatePageContent();
   <main>
     <section class="login-section">
       <div class="login-content">
-        <h2>Login</h2>
+        <h2>Connect!</h2>
+        <img class="login-image" src="../images/login.png" alt="Login Image">
+        <p>Login to your account</p>
         <form id="login-form">
           <input type="email" id="email" name="email" placeholder="Email" required>
           <input type="password" id="password" name="password" placeholder="Password" required>
@@ -98,7 +100,7 @@ updatePageContent();
       <p>&copy; 2024 Bookish Octo Invention. All Rights Reserved.</p>
     </footer>
   </main>
-  <script src="/app/myapp/static/script.js"></script>
+  <script src="script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>
 

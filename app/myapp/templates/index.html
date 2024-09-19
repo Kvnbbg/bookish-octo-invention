@@ -4,30 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miam Bookish</title>
-<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:4233307981. -->
-<link rel="stylesheet" href="/app/myapp/static/style.css">
+    <title>Connect - Miam Bookish</title>
+  <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:4233307981. -->
+  <link rel="stylesheet" href="style.css">
         <!-- Favicon -->
-    <link rel="icon" href="/app/myapp/static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-</head>
-
-<body>
+  </head>
+  
+  <body>
     <header class="hero-section">
         <h1>Bookish</h1>
         <h4>Share your recipes<em>Partage tes recettes</em></h4>
         <section class="hero-content">
    <picture>
-  <source media="(min-width: 769px)" src="/app/myapp/static/images/image-large.jpg">
-  <source media="(min-width: 426px)" src="/app/myapp/static/images/image-medium.jpg">
-  <source media="(min-width: 321px)" src="/app/myapp/static/images/image-small.jpg">
-  <img src="/app/myapp/static/images/image-fallback.jpg" alt="Image" width="200" height="200">
-</picture>
-
+  <source media="(min-width: 769px)" src="../images/image-large.jpg">
+  <source media="(min-width: 426px)" src="../images/image-medium.jpg">
+  <source media="(min-width: 321px)" src="../images/image-small.jpg">
+  <img src="../images/image-fallback.jpg" alt="Image" width="200" height="200">
+  </picture>
+  
         </section>
          <nav>
-  <a href="/" class="logo"><img src="/app/myapp/static/images/favicon.ico" alt="Logo"></a>
+  <a href="/" class="logo"><img src="../images/1.png" alt="Logo"></a>
   <ul>
     <li><a href="/">Miam</a></li>
     <li><a href="/about_us">About Us</a></li>
@@ -38,9 +38,9 @@
       <a class="nav-link language-switch" href="#" lang="en">🇺🇸 English</a>
     </li>
   </ul>
-</nav>
-
-<script>
+  </nav>
+  
+  <script>
   const techLanguageContent = {
     en: {
       langToggle: "🇺🇸 English / 🇫🇷 Français", 
@@ -49,14 +49,14 @@
       langToggle: "🇺🇸 Anglais / 🇫🇷 Français",
     }
   };
-
+  
   let currentLanguage = "en"; 
-
+  
   function toggleLanguage() {
     currentLanguage = currentLanguage === "en" ? "fr" : "en";
     updatePageContent();
   }
-
+  
   function updatePageContent() {
     document.querySelectorAll("[data-lang]").forEach((element) => {
       const key = element.getAttribute("data-lang");
@@ -65,7 +65,7 @@
       }
     });
   }
-
+  
   // Event listener for language toggle
   const langToggle = document.querySelector('[data-lang="langToggle"]');
   if (langToggle) {
@@ -74,12 +74,12 @@
       toggleLanguage();
     });
   }
-
+  
   // Initial page load 
   updatePageContent(); 
-</script>
-
-
+  </script>
+  
+  
     </header>
 
     <div class="container">
@@ -114,64 +114,64 @@
         <div class="carousel-track-container">
             <ul class="carousel-track">
                 <li class="carousel-slide current-slide">
-                    <img src="/app/myapp/static/images/500.png" alt="500 Error Image">
+                    <img src="500.png" alt="500 Error Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/about.png" alt="About Image">
+                    <img src="about.png" alt="About Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/addRecipe.png" alt="Add Recipe Image">
+                    <img src="addRecipe.png" alt="Add Recipe Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/admin.png" alt="Admin Image">
+                    <img src="admin.png" alt="Admin Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/author.png" alt="Author Image">
+                    <img src="author.png" alt="Author Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/confid.png" alt="Confidential Image">
+                    <img src="confid.png" alt="Confidential Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/contact.png" alt="Contact Image">
+                    <img src="contact.png" alt="Contact Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/default.png" alt="Default Image">
+                    <img src="default.png" alt="Default Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/error.png" alt="Error Image">
+                    <img src="error.png" alt="Error Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/hero.jpg" alt="Hero Image">
+                    <img src="hero.jpg" alt="Hero Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/index.png" alt="Index Image">
+                    <img src="index.png" alt="Index Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/legal.png" alt="Legal Image">
+                    <img src="legal.png" alt="Legal Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/login.png" alt="Login Image">
+                    <img src="login.png" alt="Login Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/logout.png" alt="Logout Image">
+                    <img src="logout.png" alt="Logout Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/myServices.png" alt="My Services Image">
+                    <img src="myServices.png" alt="My Services Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/patient.png" alt="Patient Image">
+                    <img src="patient.png" alt="Patient Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/profile.png" alt="Profile Image">
+                    <img src="profile.png" alt="Profile Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/recipe.png" alt="Recipe Image">
+                    <img src="recipe.png" alt="Recipe Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/register.png" alt="Register Image">
+                    <img src="/register.png" alt="Register Image">
                 </li>
                 <li class="carousel-slide">
-                    <img src="/app/myapp/static/images/404.png" alt="404 Error Image">
+                    <img src="404.png" alt="404 Error Image">
                 </li>
             </ul>
         </div>
@@ -197,27 +197,27 @@
       <section id="featured-products">
         <h2>Our Best Sellers</h2>
         <div class="product">
-          <img src="/app/myapp/static/images/2.png" alt="Best selling product 1">
+          <img src="2.png" alt="Best selling product 1">
         </div>
   
         <div class="product">
-          <img src="/app/myapp/static/images/3.png" alt="Best selling product 2">
+          <img src="3.png" alt="Best selling product 2">
         </div>
   
         <div class="product">
-          <img src="/app/myapp/static/images/4.png" alt="Best selling product 3">
+          <img src="4.png" alt="Best selling product 3">
         </div>
   
         <div class="product">
-          <img src="/app/myapp/static/images/5.png" alt="Best selling product 4">
+          <img src="5.png" alt="Best selling product 4">
         </div>
   
         <div class="product">
-          <img src="/app/myapp/static/images/6.png" alt="Best selling product 5">
+          <img src="6.png" alt="Best selling product 5">
         </div>
   
         <div class="product">
-          <img src="/app/myapp/static/images/7.png" alt="Best selling product 6">
+          <img src="7.png" alt="Best selling product 6">
         </div>
       </section>
   
@@ -249,7 +249,7 @@
     <footer>
         <p>&copy; 2024 Bookish Octo Invention. All Rights Reserved.</p>
     </footer>
-    <script src="/app/myapp/static/script.js"></script>
+    <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>
 </html>
