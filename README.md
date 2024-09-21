@@ -1,4 +1,4 @@
-# Bookish-Octo-Invention
+# Bookish your dishes
 
 ![Bookish-Octo-Invention Logo](doc/images/logo.png)
 
