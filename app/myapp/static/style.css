@@ -42,12 +42,73 @@ header {
 }
 
 /* Navigation */
-nav {
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  color: #fff;
+  text-decoration: none;
+  padding: 0;
+  transition: color 0.3s ease; /* Smooth color transition */
+  overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #333;
+}
+
+nav ul li {
+  float: left;  /* Aligning the navigation items horizontally */
+}
+
+nav ul li a {
+  display: block;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  padding: 14px 16px;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+nav ul li a:hover {
+  color: #f0a500;
+  scale: 1.2;
+}
+/* Language Toggle */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Authentication Buttons */
+.auth-buttons a {
+  background-color: #ff4757;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Adding transition for smoother hover */
+}
+
+.auth-buttons a:hover {
+  background-color: #e84118;
+}
+
+/* Main Content Area */
+main {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Centering the main content */
+}
+
+/* Hero Section */
+.hero {
+  background-image: url("../images/1.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-align: center;
+  padding: 50px 20px
 }
 
 nav a {
@@ -59,6 +120,7 @@ nav a {
 
 nav a:hover {
   color: #f0a500;
+  scale: 1.2;
 }
 
 ul {
@@ -255,8 +317,8 @@ img {
   border: 1px solid #ccc;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive Design For Mobile Phones */
+@media (max-width: 600px) {
   nav {
     flex-direction: column;
   }
@@ -268,6 +330,8 @@ img {
 
   nav ul li {
     margin: 10px 0;
+    float: none;
+    width: 100%;
   }
 
   .hero {
@@ -276,6 +340,28 @@ img {
 
   .items {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive Design For Tablets, Larger Screens, i use flexbox for better alignment */
+@media (min-width: 601px) and (max-width: 1024px) {
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* or space-between, or center */
+  }
+
+  nav ul li {
+    margin: 0 10px;
+    flex: 1; /* Equal width for all navigation items */
+  }
+
+  .hero {
+    padding: 50px 20px;
+  }
+
+  .items {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
