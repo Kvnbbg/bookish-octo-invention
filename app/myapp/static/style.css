@@ -61,6 +61,25 @@ nav a:hover {
   color: #f0a500;
 }
 
+ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+li {
+  margin-right: 20px;
+}
+
+/* Language Toggle */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
 /* Authentication Buttons */
 .auth-buttons a {
   background-color: #ff4757;
@@ -227,6 +246,13 @@ main {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
 }
 
 /* Responsive Design */
