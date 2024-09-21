@@ -1,8 +1,9 @@
-/* Your existing global styles */
+/* Global Styles */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth; /* Enhancing user experience */
 }
 
 body {
@@ -11,30 +12,33 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  color: #333; /* Adding a consistent body text color for readability */
 }
 
 /* Header */
 header {
-  background: #333;
+  background-color: #333;
   color: #fff;
   padding: 10px 0;
   text-align: center;
+  position: relative; /* Enables more flexible positioning of elements inside the header */
 }
 
 .logo {
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 0;
-  width:80px;
-	position:absolute;
-	align-items:right;
-	border-radius:50%;
-	z-index:100;
-	transition: transform 1s ease-in-out;
+  width: 80px;
+  position: absolute;
+  right: 20px; /* Refined alignment */
+  top: 10px;
+  border-radius: 50%;
+  z-index: 100;
+  transition: transform 0.6s ease-in-out; /* Shortened for a quicker, modern feel */
 }
 
-.logo :hover {
-  transform: rotate(720deg);
+.logo:hover {
+  transform: rotate(360deg); /* Reduced rotation for a more subtle effect */
 }
 
 /* Navigation */
@@ -50,52 +54,57 @@ nav a {
   color: #fff;
   text-decoration: none;
   padding: 10px;
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
 nav a:hover {
-  color: #f0a500; /* Using your accent color */
+  color: #f0a500;
 }
 
 /* Authentication Buttons */
 .auth-buttons a {
-  background: #ff4757;
+  background-color: #ff4757;
   color: #fff;
   padding: 5px 10px;
   margin: 5px;
   border-radius: 5px;
+  transition: background-color 0.3s ease; /* Adding transition for smoother hover */
 }
 
 .auth-buttons a:hover {
-  background: #e84118;
+  background-color: #e84118;
 }
 
 /* Main Content Area */
 main {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Centering the main content */
 }
 
 /* Hero Section */
 .hero {
-  background-image: url("../images/1.jpg"); /* Use a relevant food image */
+  background-image: url("../images/1.jpg");
   background-size: cover;
   background-position: center;
   color: #fff;
   text-align: center;
-  padding: 50px 20px; /* Adjust padding as needed */
-  position: relative; /* For overlay */
+  padding: 50px 20px;
+  position: relative;
 }
 
-.hero::before { 
+.hero::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text contrast */
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly darkened overlay for better contrast */
+  z-index: 0;
 }
 
-.hero-content { /* To position content on top of the overlay */
+.hero-content {
   position: relative;
   z-index: 1;
 }
@@ -112,16 +121,16 @@ main {
 
 .hero button {
   padding: 10px 20px;
-  background: #fff;
-  color: #4CAF50; /* Using your existing color */
+  background-color: #fff;
+  color: #4CAF50;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .hero button:hover {
-  background: #45a049;
+  background-color: #45a049;
   color: #fff;
 }
 
@@ -134,12 +143,17 @@ main {
 }
 
 .item {
-  background: #fff;
+  background-color: #fff;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: left;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease; /* Add transition for hover effects */
+}
+
+.item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced hover effect */
 }
 
 .item img {
@@ -156,11 +170,11 @@ main {
   text-align: center;
 }
 
-.social-sharing a { /* Style all social icons */
+.social-sharing a {
   display: inline-block;
   margin: 0 10px;
   text-decoration: none;
-  color: #4CAF50; /* Use your color */
+  color: #4CAF50;
   font-size: 24px;
   transition: color 0.3s ease;
 }
@@ -169,10 +183,10 @@ main {
   color: #45a049;
 }
 
-/* Chat Section (if applicable) */
+/* Chat Section */
 #chat-section {
   padding: 20px;
-  background: #fff;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 20px;
@@ -198,16 +212,16 @@ main {
 
 #chat-send {
   padding: 10px 20px;
-  background: #4CAF50;
+  background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 #chat-send:hover {
-  background: #45a049;
+  background-color: #45a049;
 }
 
 img {
@@ -243,15 +257,17 @@ img {
 footer {
   text-align: center;
   padding: 20px 0;
-  background: #333;
+  background-color: #333;
   color: #fff;
 }
 
 footer a {
   text-decoration: none;
   color: #fff;
+  transition: color 0.3s ease; /* Adding transition to footer links */
 }
 
 footer a:hover {
   text-decoration: underline;
+  color: #f0a500; /* Accent color on hover */
 }
