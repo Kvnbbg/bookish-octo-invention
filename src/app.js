@@ -4,8 +4,13 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 
 const app = express();
+const passport = require('./src/config/passport'); // Import the passport module
+const LocalStrategy = require('passport-local').Strategy;
 
 // Middleware setup
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: process.env.SESSION_SECRET || 'fallback-secret-key',
@@ -17,12 +22,8 @@ app.use(session({
     cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
 
-// Set up EJS as the templating engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'app', 'myapp', 'views'));
-
-// Middleware to serve static files from the "app/myapp/static" directory
-app.use(express.static(path.join(__dirname, 'app', 'myapp', 'static')));
+app.use(passport.initialize());
+app.use(passport.session()); 
 
 // Template files location
 const templateDir = path.join(__dirname, 'app', 'myapp', 'templates');
@@ -53,13 +54,13 @@ app.get('/', (req, res) => {
 });
 
 // Login route
-app.get('/login', (req, res) => {
+app.get('/login', (req, res, next) => {
     const error = req.query.error;
     res.render('login', { error });
     res.sendFile(path.join(templateDir, 'login.html'));
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login/password', async (req, res) => {
     const { username, password } = req.body;
     if (users[username] && simpleHash(users[username]) === simpleHash(password)) {
         req.session.loggedIn = true;
@@ -71,6 +72,26 @@ app.post('/login', async (req, res) => {
     } else {
         res.redirect('/login?error=invalid_credentials');
     }
+});
+
+app.post('/login/password', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login?error=invalid_credentials'
+}));
+
+// Signup route
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(templateDir, 'signup.html'));
+});
+
+app.post('/signup', (req, res) => {
+    const { username, password } = req.body;
+
+    if (users[username]) {
+        res.redirect('/signup?error=user_exists');
+    }
+    users[username] = password;
+    res.redirect('/login');
 });
 
 

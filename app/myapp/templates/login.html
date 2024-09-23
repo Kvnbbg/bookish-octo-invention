@@ -19,9 +19,19 @@
       
         <img class="login-image" src="../images/login.png" alt="Login Image">
         <p>Login to your account</p>
-        <form id="login-form">
-          <input type="username" id="username" name="username" placeholder="Username" required>
-          <input type="password" id="password" name="password" placeholder="Password" required>
+        <form id="login-form" action="/login/password" method="post">
+          <section>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username" required autofocus>
+          </section>
+          <section>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+          </section>
+          <section>
+            <input type="checkbox" id="remember-me" name="remember-me">
+            <label for="remember-me">Remember me</label>
+          </section>
           <button type="submit" id="login-button">Login</button>
         </form>
         <div id="form-message"></div>

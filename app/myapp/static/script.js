@@ -36,36 +36,7 @@ if (langToggle) {
 // Initial page load 
 updatePageContent(); 
 
-
-/* Login */
-document.addEventListener('DOMContentLoaded', function () {
-  const loginForm = document.getElementById('login-form');
-  const loginButton = document.getElementById('login-button');
-  const loginError = document.getElementById('login-error-msg');
-  const loginSuccess = document.getElementById('login-success-msg');
-
-  loginButton.addEventListener('click', function () {
-    const username = loginForm.username.value;
-    const password = loginForm.password.value;
-
-    if (username === "admin" && password === "password") {
-      loginForm.style.display = "none";
-      loginError.style.display = "none";
-      loginSuccess.textContent = "Login successful!";
-  
-      sessionStorage.setItem('loggedIn', true);
-      sessionStorage.setItem('username', username);
-      window.location.href = '/';
-    } else {
-      loginError.style.display = "block";
-      loginSuccess.style.display = "none";
-    }
-  });
-}
-);
-
 /* Chat */
-
 document.addEventListener('DOMContentLoaded', function () {
   // Cache DOM elements for better performance
   const amountInput = document.getElementById('amount');
