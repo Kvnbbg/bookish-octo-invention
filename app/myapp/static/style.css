@@ -4,16 +4,13 @@
   margin: 0;
   padding: 0;
   scroll-behavior: smooth; /* Enhancing user experience */
-  font-family: 'Open Sans', sans-serif; /* Default font family */
+  font-family: 'Poppins', sans-serif; /* Default font family */
   font-size: 16px; /* Default font size */
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
   line-height: 1.6;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+  background-color: #f4f4f4; /* Adding a light background color for better readability */
   color: #333; /* Adding a consistent body text color for readability */
 }
 
@@ -219,6 +216,17 @@ main {
   background-color: #45a049;
 }
 
+a {
+  text-decoration: none;
+  color: #1313a0;
+}
+
+a:hover {
+  color: red;
+  scale: 1.2;
+  transition: color 0.5s ease;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -232,7 +240,7 @@ img {
 }
 
 .login-image {
-  display: flex;
+  display: column;
   border-radius: 50%;
   margin-bottom: 20%;
   margin-top: 0%;
@@ -241,7 +249,7 @@ img {
 }
 
 .login-section {
-  display: flex;
+  display: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
@@ -251,9 +259,10 @@ img {
 footer {
   text-align: center;
   padding: 0;
-  background-color: #333;
+  background-color: #5d5a5a;
+  width: 100%;
   color: #fff;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 /* Responsive Design For very Tiny Screens */
