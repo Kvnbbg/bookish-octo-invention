@@ -37,8 +37,29 @@ if (langToggle) {
 updatePageContent(); 
 
 
+/* Login */
+document.addEventListener('DOMContentLoaded', function () {
+  const loginForm = document.getElementById('login-form');
+  const loginButton = document.getElementById('login-button');
+  const loginError = document.getElementById('login-error-msg');
+  const loginSuccess = document.getElementById('login-success-msg');
 
-/* */
+  loginButton.addEventListener('click', function () {
+    const username = loginForm.username.value;
+    const password = loginForm.password.value;
+
+    if (username === "admin" && password === "password") {
+      loginSuccess.style.display = "block";
+      loginError.style.display = "none";
+    } else {
+      loginError.style.display = "block";
+      loginSuccess.style.display = "none";
+    }
+  });
+}
+);
+
+/* Chat */
 
 document.addEventListener('DOMContentLoaded', function () {
   // Cache DOM elements for better performance
@@ -60,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
       amountPlaceholder: "Enter Galactic Units",
       sendButton: "Send Units",
       addItem: "Add Galactic Recipe",
-      chatPlaceholder: "Type your recipe message...",
+      chatPlaceholder: "Type your recipe message </div>...",
       sendingMessage: "Sending Galactic Units...",
       sentMessage: "Sent",
       errorAmount: "Please enter a valid amount.",
