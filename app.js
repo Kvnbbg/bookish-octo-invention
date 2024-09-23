@@ -8,11 +8,18 @@ const app = express();
 // Middleware setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'fallback-secret-key', 
+    secret: process.env.SESSION_SECRET || 'fallback-secret-key',
+    name: 'session-id',
+    rolling: true,
+    renew: true,
     resave: false, 
     saveUninitialized: true,
     cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
+
+// Set up EJS as the templating engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'app', 'myapp', 'views'));
 
 // Middleware to serve static files from the "app/myapp/static" directory
 app.use(express.static(path.join(__dirname, 'app', 'myapp', 'static')));
@@ -21,15 +28,20 @@ app.use(express.static(path.join(__dirname, 'app', 'myapp', 'static')));
 const templateDir = path.join(__dirname, 'app', 'myapp', 'templates');
 
 // User credentials (for demo purposes)
+
 const users = {
+    admin: 'password',
+    user: 'password',
     user1: 'password1',
     user2: 'password2'
+
 };
 
 // Use math to hash and verify passwords (simple example, not for production)
 const simpleHash = (password) => {
     return Array.from(password).reduce((acc, char) => acc + char.charCodeAt(0), 0);
 };
+
 
 // Route to serve the index.html file
 app.get('/', (req, res) => {
@@ -42,19 +54,26 @@ app.get('/', (req, res) => {
 
 // Login route
 app.get('/login', (req, res) => {
+    const error = req.query.error;
+    res.render('login', { error });
     res.sendFile(path.join(templateDir, 'login.html'));
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     if (users[username] && simpleHash(users[username]) === simpleHash(password)) {
         req.session.loggedIn = true;
         req.session.username = username;
+        req.session.save(() => {
+            res.redirect('/');
+        });
         res.redirect('/');
     } else {
         res.redirect('/login?error=invalid_credentials');
     }
 });
+
+
 
 // Logout route
 app.get('/logout', (req, res) => {

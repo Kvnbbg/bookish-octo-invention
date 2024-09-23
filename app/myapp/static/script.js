@@ -49,8 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const password = loginForm.password.value;
 
     if (username === "admin" && password === "password") {
-      loginSuccess.style.display = "block";
+      loginForm.style.display = "none";
       loginError.style.display = "none";
+      loginSuccess.textContent = "Login successful!";
+  
+      sessionStorage.setItem('loggedIn', true);
+      sessionStorage.setItem('username', username);
+      window.location.href = '/';
     } else {
       loginError.style.display = "block";
       loginSuccess.style.display = "none";
