@@ -25,59 +25,6 @@
   </picture>
   
         </section>
-         <nav>
-  <a href="/" class="logo"><img src="../images/1.png" alt="Logo"></a>
-  <ul>
-    <li><a href="/">Miam</a></li>
-    <li><a href="/about_us">About Us</a></li>
-    <li><a href="/contact">Contact</a></li>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/signup">Sign Up</a></li>
-    <li class="nav-item" data-lang="langToggle">
-      <a class="nav-link language-switch" href="#" lang="en">🇺🇸 English</a>
-    </li>
-  </ul>
-  </nav>
-  
-  <script>
-  const techLanguageContent = {
-    en: {
-      langToggle: "🇺🇸 English / 🇫🇷 Français", 
-    },
-    fr: {
-      langToggle: "🇺🇸 Anglais / 🇫🇷 Français",
-    }
-  };
-  
-  let currentLanguage = "en"; 
-  
-  function toggleLanguage() {
-    currentLanguage = currentLanguage === "en" ? "fr" : "en";
-    updatePageContent();
-  }
-  
-  function updatePageContent() {
-    document.querySelectorAll("[data-lang]").forEach((element) => {
-      const key = element.getAttribute("data-lang");
-      if (techLanguageContent[currentLanguage][key]) {
-        element.textContent = techLanguageContent[currentLanguage][key];
-      }
-    });
-  }
-  
-  // Event listener for language toggle
-  const langToggle = document.querySelector('[data-lang="langToggle"]');
-  if (langToggle) {
-    langToggle.addEventListener('click', (event) => {
-      event.preventDefault();
-      toggleLanguage();
-    });
-  }
-  
-  // Initial page load 
-  updatePageContent(); 
-  </script>
-  
   
     </header>
 
@@ -93,6 +40,9 @@
         </form>
         <div id="form-message"></div>
       </div>
+    </section>
+    <section class="login-section">
+      <p>Already have an account? <a href="/login">Login</a></p>
     </section>
 
     <footer>

@@ -1,3 +1,45 @@
+/* Translation toggle */
+const techLanguageContent = {
+  en: {
+    langToggle: "🇺🇸 English", 
+  },
+  fr: {
+    langToggle: "🇫🇷 Français",
+  }
+};
+
+let currentLanguage = "en"; 
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === "en" ? "fr" : "en";
+  updatePageContent();
+}
+
+function updatePageContent() {
+  document.querySelectorAll("[data-lang]").forEach((element) => {
+    const key = element.getAttribute("data-lang");
+    if (techLanguageContent[currentLanguage][key]) {
+      element.textContent = techLanguageContent[currentLanguage][key];
+    }
+  });
+}
+
+// Event listener for language toggle
+const langToggle = document.querySelector('[data-lang="langToggle"]');
+if (langToggle) {
+  langToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleLanguage();
+  });
+}
+
+// Initial page load 
+updatePageContent(); 
+
+
+
+/* */
+
 document.addEventListener('DOMContentLoaded', function () {
   // Cache DOM elements for better performance
   const amountInput = document.getElementById('amount');
