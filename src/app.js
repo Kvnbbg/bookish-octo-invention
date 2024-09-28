@@ -29,14 +29,12 @@ app.use(passport.session());
 const templateDir = path.join(__dirname, 'app', 'myapp', 'templates');
 
 // User credentials (for demo purposes)
-
-const users = {
-    admin: 'password',
-    user: 'password',
-    user1: 'password1',
-    user2: 'password2'
-
-};
+const users = [
+    { username: 'admin', password: 'password' },
+    { username: 'user', password: 'password' },
+    { username: 'user1', password: 'password1' },
+    { username: 'user2', password: 'password2' }
+];
 
 // Use math to hash and verify passwords (simple example, not for production)
 const simpleHash = (password) => {
