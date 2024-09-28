@@ -36,12 +36,12 @@ const users = [
     { username: 'user2', password: 'password2' }
 ];
 
-// Posts
+// Posts by users (for demo purposes)
 const posts = [
-    { title: 'Post 1', content: 'This is the first post.' },
-    { title: 'Post 2', content: 'This is the second post.' },
-    { title: 'Post 3', content: 'This is the third post.' },
-    { title: 'Post 4', content: 'This is the fourth post.' }
+    { title: 'Post 1', content: 'This is the first post. By.${username}'},
+    { title: 'Post 2', content: 'This is the second post. By ${username}' },
+    { title: 'Post 3', content: 'This is the third post. By ${username}' },
+    { title: 'Post 4', content: 'This is the fourth post. By ${username}' }
 ];
 
 export default posts;
