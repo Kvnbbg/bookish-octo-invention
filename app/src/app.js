@@ -26,7 +26,7 @@ app.use(passport.initialize());
 app.use(passport.session()); 
 
 // Template files location
-const templateDir = path.join(__dirname, 'app', 'myapp', 'templates');
+const templateDir = path.join(__dirname, 'app', 'src', 'static', 'templates');
 
 // User credentials (for demo purposes)
 const users = [
@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
     if (req.session.loggedIn) {
         res.sendFile(path.join(templateDir, 'index.html'));
     } else {
-        res.redirect('/login');
+        res.redirect('/posts');
     }
 });
 
@@ -119,7 +119,7 @@ app.get('/logout', (req, res) => {
 });
 
 // Dynamically serve other HTML files
-const pages = ['index', 'about_us', 'contact', 'signup'];
+const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
 pages.forEach(page => {
     app.get(`/${page}`, (req, res) => {
         res.sendFile(path.join(templateDir, `${page}.html`));

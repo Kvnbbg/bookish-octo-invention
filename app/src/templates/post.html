@@ -38,26 +38,27 @@
     <p>Some posts on this site may contain affiliate links. If you book or buy something through these links, we may earn a small commission (at no extra cost to you).
       <span id="post"></span>
     </p>
-    <script>
-      import posts from './app.js';
-      console.log(posts);
-      document.getElementById('post').innerHTML = () => {
-        try {
-            posts.forEach(post => {
-                console.log(post.title);
-               
-            });
-       
-        } catch (error) {
-          return 'Error loading posts';
-        }
-      }
-    </script>
   </section>
       <footer>
         <p>&copy; 2024 Bookish. All Rights Reserved.</p>
       </footer>
     </main>
+
+    <script>
+        import posts from './app.js';
+        console.log(posts);
+        document.getElementById('post').innerHTML = () => {
+          try {
+              posts.forEach(post => {
+                  console.log(post.title);
+                 
+              });
+         
+          } catch (error) {
+            return 'Error loading posts';
+          }
+        }
+      </script>
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   </body>
