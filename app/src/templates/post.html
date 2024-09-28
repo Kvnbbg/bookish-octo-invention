@@ -32,34 +32,54 @@
             <a href="#">Next Post &gt;</a>
         </div>
   
-    </section>
-</div>
-<section>
-    <p>Some posts on this site may contain affiliate links. If you book or buy something through these links, we may earn a small commission (at no extra cost to you).
-      <span id="post"></span>
-    </p>
-  </section>
-      <footer>
-        <p>&copy; 2024 Bookish. All Rights Reserved.</p>
-      </footer>
-    </main>
-
-    <script>
-        import posts from './app.js';
-        console.log(posts);
-        document.getElementById('post').innerHTML = () => {
-          try {
-              posts.forEach(post => {
-                  console.log(post.title);
-                 
-              });
-         
-          } catch (error) {
-            return 'Error loading posts';
-          }
+      </section>
+    </div>
+    <section>
+        <p>Some posts on this site may contain affiliate links. If you book or buy something through these links, we may earn a small commission (at no extra cost to you).
+          <div id="post"></div>
+        </p>
+      </section>
+          <footer>
+            <p>&copy; 2024 Bookish. All Rights Reserved.</p>
+          </footer>
+        </main>
+    
+    <script type="module">
+        async function loadPosts() {
+            let posts;
+            const paths = [
+                '../app/src/app.js',
+                '../src/app.js',
+                './app.js',
+                'app.js',
+                '../app.js',
+                'app/src/app.js',
+                'app/app.js'
+            ];
+    
+            for (const path of paths) {
+                try {
+                    const module = await import(path);
+                    posts = module.default;
+                    break;
+                } catch (error) {
+                    console.error(`Failed to load posts from ${path}:`, error);
+                }
+            }
+    
+            if (!posts) {
+                document.getElementById('post').innerHTML = 'Error loading posts';
+                return;
+            }
+    
+            let postContent = '';
+            posts.forEach(post => {
+                postContent += `<h2>${post.title}</h2><p>${post.content}</p><p>\n By ${post.username}</p><p>${post.date}</p>`;
+            });
+            document.getElementById('post').innerHTML = postContent;
         }
-      </script>
-    <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  </body>
-  </html>
+    
+        loadPosts();
+    </script>
+    </body>
+</html>
