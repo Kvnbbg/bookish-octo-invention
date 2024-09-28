@@ -5,6 +5,7 @@ const session = require('express-session');
 
 const app = express();
 const passport = require('./src/config/passport'); // Import the passport module
+
 const LocalStrategy = require('passport-local').Strategy;
 
 // Middleware setup
@@ -26,7 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session()); 
 
 // Template files location
-const templateDir = path.join(__dirname, 'app', 'src', 'static', 'templates');
+const templateDir = path.join(__dirname, 'src', 'static', 'templates');
 
 // User credentials (for demo purposes)
 const users = [
@@ -120,6 +121,7 @@ app.get('/logout', (req, res) => {
 
 // Dynamically serve other HTML files
 const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
+
 pages.forEach(page => {
     app.get(`/${page}`, (req, res) => {
         res.sendFile(path.join(templateDir, `${page}.html`));

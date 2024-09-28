@@ -4,8 +4,8 @@
   "description": "Recipe Application",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js",
+    "start": "node app/app",
+    "dev": "node --watch app/app",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "postinstall": "npm install express express-session body-parser formidable passport-local http-proxy-middleware debug nodemon"
