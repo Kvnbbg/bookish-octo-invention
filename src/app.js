@@ -36,12 +36,15 @@ const users = [
     { username: 'user2', password: 'password2' }
 ];
 
+// User date (for demo purposes)
+const date = new Date();
+
 // Posts by users (for demo purposes)
 const posts = [
-    { title: 'Post 1', content: 'This is the first post. By.${username}'},
-    { title: 'Post 2', content: 'This is the second post. By ${username}' },
-    { title: 'Post 3', content: 'This is the third post. By ${username}' },
-    { title: 'Post 4', content: 'This is the fourth post. By ${username}' }
+    { title: 'Post 1', content: 'This is the first post. By.${username}', date: date },
+    { title: 'Post 2', content: 'This is the second post. By ${username}', date: date },
+    { title: 'Post 3', content: 'This is the third post. By ${username}', date: date },
+    { title: 'Post 4', content: 'This is the fourth post. By ${username}', date: date }
 ];
 
 export default posts;

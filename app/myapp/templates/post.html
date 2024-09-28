@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <main>
+    <div class="container">
+    <section id="chat-section">
+
+    
+        <h1>{{ post.title }}</h1>
+<section id="chat-box">
+    <div class="post-meta">
+        Published on {{ post.date }} by {{ post.username }}
+    </div>
+    <div class="post-content">
+        {{ post.content }} 
+    </div>
+</section>
+<section id="chat-input">
+    <form id="chat-form">
+        <input type="text" id="chat-input" placeholder="Type your message here...">
+        <button type="submit" id="chat-send">Send</button>
+    </form>
+</section>
+        <div class="post-navigation">
+            <a href="#">&lt; Previous Post</a>
+            <a href="#">Next Post &gt;</a>
+        </div>
+  
+    </section>
+</div>
+<section>
+    <p>Some posts on this site may contain affiliate links. If you book or buy something through these links, we may earn a small commission (at no extra cost to you).
+      <span id="post"></span>
+    </p>
+    <script>
+      import posts from './app.js';
+      console.log(posts);
+      document.getElementById('post').innerHTML = () => {
+        try {
+            posts.forEach(post => {
+                console.log(post.title);
+               
+            });
+       
+        } catch (error) {
+          return 'Error loading posts';
+        }
+      }
+    </script>
+  </section>
+      <footer>
+        <p>&copy; 2024 Bookish. All Rights Reserved.</p>
+      </footer>
+    </main>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  </body>
+  </html>

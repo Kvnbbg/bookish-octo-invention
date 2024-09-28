@@ -216,6 +216,18 @@ main {
   background-color: #45a049;
 }
 
+.post-meta {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.post-content {
+  margin-bottom: 20px;
+}
+
+/* Add more styles as needed */
+
 a {
   text-decoration: none;
   color: #1313a0;
