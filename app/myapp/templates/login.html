@@ -42,7 +42,22 @@
     <section class="signup-section">
       <p>Don't have an account? <a href="/signup">Sign Up</a></p>
     </section>
-
+<section>
+  <p>Forgot your password? <a href="/forgot_password">Reset Password</a></p>
+</section>
+<section>
+  <p>Return to <a href="/">Home</a></p>
+</section>
+<section>
+  <p>Some posts on this site may contain affiliate links. If you book or buy something through these links, we may earn a small commission (at no extra cost to you).
+    <span id="post"></span>
+  </p>
+  <script>
+    import posts from './app.js';
+    console.log(posts);
+    document.getElementById('post').innerHTML = posts;
+  </script>
+</section>
     <footer>
       <p>&copy; 2024 Bookish. All Rights Reserved.</p>
     </footer>

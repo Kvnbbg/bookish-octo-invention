@@ -36,6 +36,17 @@ const users = [
     { username: 'user2', password: 'password2' }
 ];
 
+// Posts
+const posts = [
+    { title: 'Post 1', content: 'This is the first post.' },
+    { title: 'Post 2', content: 'This is the second post.' },
+    { title: 'Post 3', content: 'This is the third post.' },
+    { title: 'Post 4', content: 'This is the fourth post.' }
+];
+
+export default posts;
+
+
 // Use math to hash and verify passwords (simple example, not for production)
 const simpleHash = (password) => {
     return Array.from(password).reduce((acc, char) => acc + char.charCodeAt(0), 0);
