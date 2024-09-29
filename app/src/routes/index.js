@@ -1,6 +1,5 @@
 // This file is in the foler routes and is named routes.js
 
-
 // Route to serve the index.html file
 app.get('/', (req, res) => {
   if (req.session.loggedIn) {
@@ -63,15 +62,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// Dynamically serve other HTML files
-const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
-
-pages.forEach(page => {
-  app.get(`/${page}`, (req, res) => {
-      res.sendFile(path.join(templateDir, `${page}.html`));
-  });
-});
-
 // Error Handling for 404 - Page Not Found
 app.use((req, res, next) => {
   res.status(404).sendFile(path.join(templateDir, '404.html'));
@@ -83,4 +73,4 @@ app.use((err, req, res, next) => {
   res.status(500).sendFile(path.join(templateDir, '500.html'));
 });
 
-export default routes;
+export default index;

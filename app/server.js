@@ -4,10 +4,11 @@ const bodyParser = import('body-parser');
 const session = import('express-session');
 const LocalStrategy = import('passport-local').Strategy;
 const passport = import('passport'); // Passport.js for authentication
+const index = import('index');
 const __dirname = () => path.resolve();
 
 
-const app = () => express();
+const server = () => express();
 
 // Template files location
 const templateDir = () => path.join(__dirname, 'src', 'static', 'templates');
@@ -39,14 +40,24 @@ const simpleHash = (password) => {
     return Array.from(password).reduce((acc, char) => acc + char.charCodeAt(0), 0);
 };
 
+const app = server();
 
 // Route to Routes
-app.use('/', import('./routes'));
-
+app, passport, users, simpleHash, posts, templateDir;  // Importing the app, passport, users, simpleHash, posts, and templateDir variables from the routes file 
+    
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
+});
+
+// Dynamically serve other HTML files
+const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
+
+pages.forEach(page => {
+  app.get(`/${page}`, (req, res) => {
+      res.sendFile(path.join(templateDir, `${page}.html`));
+  });
 });
 
 // Graceful shutdown in case of critical failure
@@ -54,3 +65,4 @@ process.on('app/app.js', () => {
     console.log("Gracefully shutting down (Ctrl-C)");
     process.exit();
 });
+
