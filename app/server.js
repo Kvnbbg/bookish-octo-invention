@@ -13,7 +13,6 @@ const app = server();
 
 
 // Dynamically serve other HTML files
-import { index } from './src/routes/index.js';
 const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
 
 // Template files location
@@ -57,14 +56,16 @@ pages.forEach(page => {
 // Start the server
 const port = process.env.PORT || 3000;
 try {
+    var get = app.get;
     var listen = app.listen;
     listen = () => app.listen(port);
     console.log(`Server is running on port ${port}`);
-    pages.forEach(index);
-} catch (error) {
-    console.error('Error starting the server:', error);
-}
-
+    pages.forEach(page => { get = () => app.get(`/${page}`, (req, res) => {
+        res.sendFile(path.join(templateDir, `${page}.html`));
+    })}) 
+} catch(error) {
+        console.error(`Error serving ${page} page:`, error);  
+};
 // Graceful shutdown in case of critical failure
 process.on('app/app.js', () => {
     console.log("Gracefully shutting down (Ctrl-C)");
@@ -73,5 +74,5 @@ process.on('app/app.js', () => {
 
 
 // Route to Routes
-app, passport, users, simpleHash, posts, templateDir, index, pages;  // Importing the app, passport, users, simpleHash, posts, and templateDir variables from the routes file 
+app, passport, users, simpleHash, posts, templateDir, pages;  // Importing the app, passport, users, simpleHash, posts, and templateDir variables from the routes file 
     

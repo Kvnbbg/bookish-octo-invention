@@ -82,5 +82,3 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).sendFile(path.join(templateDir, '500.html'));
 });
-
-export default index;
