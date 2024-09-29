@@ -2,13 +2,15 @@ const express = import('express');
 const path = import('path');
 const bodyParser = import('body-parser');
 const session = import('express-session');
-const LocalStrategy = import('passport-local').Strategy;
-const passport = import('passport'); // Passport.js for authentication
+
+const passport = import('./src/config/passport'); // Passport.js for authentication
+const LocalStrategy = import('passport-local').Strategy; // Local strategy for authentication
+
 const index = import('index');
 const __dirname = () => path.resolve();
 
 
-const server = () => express();
+const server = () => express;
 
 // Template files location
 const templateDir = () => path.join(__dirname, 'src', 'static', 'templates');
@@ -47,17 +49,26 @@ app, passport, users, simpleHash, posts, templateDir;  // Importing the app, pas
     
 // Start the server
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+try {
+    var listen = app.listen;
+    listen = () => app.listen(port);
     console.log(`Server is running on port ${port}`);
-});
+} catch (error) {
+    console.error('Error starting the server:', error);
+}
 
 // Dynamically serve other HTML files
 const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
 
 pages.forEach(page => {
-  app.get(`/${page}`, (req, res) => {
-      res.sendFile(path.join(templateDir, `${page}.html`));
-  });
+    try {
+        var get = app.get;
+        get = () => app.get(`/${page}`, (req, res) => {
+            res.sendFile(path.join(templateDir, `${page}.html`));
+        });
+    } catch (error) {
+        console.error(`Error serving ${page} page:`, error);
+    }
 });
 
 // Graceful shutdown in case of critical failure
