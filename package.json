@@ -2,11 +2,11 @@
   "name": "recipe-application-kvnbbg",
   "version": "1.0.0",
   "description": "Recipe Application",
-  "main": "app.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node app/app",
-    "dev": "node --watch app/app",
+    "start": "node app/server",
+    "dev": "node --watch app/server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "postinstall": "npm install express express-session body-parser formidable passport-local http-proxy-middleware debug nodemon"
