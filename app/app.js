@@ -1,30 +1,13 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const session = require('express-session');
+const express = import('express');
+const path = import('path');
+const bodyParser = import('body-parser');
+const session = import('express-session');
+const LocalStrategy = import('passport-local').Strategy;
+const passport = import('passport'); // Passport.js for authentication
+const __dirname = path.resolve();
 
-const app = express();
-const passport = require('./src/config/passport'); // Import the passport module
 
-const LocalStrategy = require('passport-local').Strategy;
-
-// Middleware setup
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'fallback-secret-key',
-    name: 'session-id',
-    rolling: true,
-    renew: true,
-    resave: false, 
-    saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' }
-}));
-
-app.use(passport.initialize());
-app.use(passport.session()); 
+const app = () => express();
 
 // Template files location
 const templateDir = path.join(__dirname, 'src', 'static', 'templates');

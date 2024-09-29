@@ -21,7 +21,7 @@
         {{ post.content }} 
     </div>
 </section>
-<section id="chat-input">
+<section class="chat-section">
     <form id="chat-form">
         <input type="text" id="chat-input" placeholder="Type your message here...">
         <button type="submit" id="chat-send">Send</button>
@@ -83,6 +83,14 @@
         }
     
         loadPosts();
+
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const chatInput = document.getElementById('chat-input');
+            const chatMessage = chatInput.value;
+            console.log('Sending message:', chatMessage);
+            chatInput.value = '';
+        });
     </script>
     </body>
 </html>
