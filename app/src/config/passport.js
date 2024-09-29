@@ -1,5 +1,5 @@
 /* Passport */
-var passport = require('passport');
+var passport = require('passport'); 
 var LocalStrategy = require('passport-local');
 var crypto = require('crypto');
 const db = require('./db'); // Import the database module
@@ -17,4 +17,4 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
   });
 }));
 
-module.exports = passport;
+export default passport; // Export the passport module

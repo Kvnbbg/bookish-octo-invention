@@ -1,12 +1,22 @@
 // This file is in the foler routes and is named routes.js
 
+var express = require('express');
+var path = require('path');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 // Route to serve the index.html file
 app.get('/', (req, res) => {
-  if (req.session.loggedIn) {
-      res.sendFile(path.join(templateDir, 'index.html'));
-  } else {
-      res.redirect('/posts');
-  }
+  try {
+    var get = app.get;
+    get = () => app.get(`/${page}`, (req, res) => {
+        res.sendFile(path.join(templateDir, `${page}.html`));
+    });
+} catch (error) {
+    console.error(`Error serving ${page} page:`, error);
+}
 });
 
 // Login route

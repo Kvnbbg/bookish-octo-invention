@@ -2,15 +2,19 @@ const express = import('express');
 const path = import('path');
 const bodyParser = import('body-parser');
 const session = import('express-session');
-
-const passport = import('./src/config/passport'); // Passport.js for authentication
+const passport = import('passport'); // Passport.js for authentication
 const LocalStrategy = import('passport-local').Strategy; // Local strategy for authentication
 
-const index = import('index');
 const __dirname = () => path.resolve();
 
 
 const server = () => express;
+const app = server();
+
+
+// Dynamically serve other HTML files
+import { index } from './src/routes/index.js';
+const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
 
 // Template files location
 const templateDir = () => path.join(__dirname, 'src', 'static', 'templates');
@@ -42,34 +46,24 @@ const simpleHash = (password) => {
     return Array.from(password).reduce((acc, char) => acc + char.charCodeAt(0), 0);
 };
 
-const app = server();
+// Function to serve the index.html file when the user is logged in
+pages.forEach(page => {
+    var get = app.get;
+    get = () => app.get(`/${page}`, (req, res) => {
+        res.sendFile(path.join(templateDir, `${page}.html`));
+    });
+});
 
-// Route to Routes
-app, passport, users, simpleHash, posts, templateDir;  // Importing the app, passport, users, simpleHash, posts, and templateDir variables from the routes file 
-    
 // Start the server
 const port = process.env.PORT || 3000;
 try {
     var listen = app.listen;
     listen = () => app.listen(port);
     console.log(`Server is running on port ${port}`);
+    pages.forEach(index);
 } catch (error) {
     console.error('Error starting the server:', error);
 }
-
-// Dynamically serve other HTML files
-const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
-
-pages.forEach(page => {
-    try {
-        var get = app.get;
-        get = () => app.get(`/${page}`, (req, res) => {
-            res.sendFile(path.join(templateDir, `${page}.html`));
-        });
-    } catch (error) {
-        console.error(`Error serving ${page} page:`, error);
-    }
-});
 
 // Graceful shutdown in case of critical failure
 process.on('app/app.js', () => {
@@ -77,3 +71,7 @@ process.on('app/app.js', () => {
     process.exit();
 });
 
+
+// Route to Routes
+app, passport, users, simpleHash, posts, templateDir, index, pages;  // Importing the app, passport, users, simpleHash, posts, and templateDir variables from the routes file 
+    
