@@ -9,6 +9,7 @@
     "dev": "node --watch app/server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
+    "run": "node run.js",
     "postinstall": "npm install express express-session body-parser formidable passport passport-local http-proxy-middleware debug nodemon"
   },
   "dependencies": {
