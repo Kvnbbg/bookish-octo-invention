@@ -4,6 +4,8 @@ var LocalStrategy = require('passport-local');
 var crypto = require('crypto');
 const db = require('./db'); // Import the database module
 
+import { simpleHash, users } from '../config/userAuth.js';  // Assuming these are defined in another file
+
 passport.use(new LocalStrategy(function verify(username, password, cb) {
   debug.get('SELECT * FROM users WHERE username = ?', [username], function(err, rows) {
     if (err) { return cb(err); }

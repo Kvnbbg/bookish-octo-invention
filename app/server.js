@@ -4,8 +4,12 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport'; // Passport.js for authentication
 import { Strategy as LocalStrategy } from 'passport-local'; // Local strategy for authentication
-// Import routes from 'index.js' located in 'src/routes/'
+
+// Import routes from 'routes.js' located in large scope 'app/src/routes/'
 import routes from './src/routes/routes.js';  // Adjust the path if needed
+
+// server.js
+import { simpleHash } from './src/utils/index.js';
 
 // Handle __dirname in ES module
 import { fileURLToPath } from 'url';
@@ -40,6 +44,29 @@ const posts = [
     { title: 'Post 4', content: 'This is the fourth post by user2', date: new Date() }
 ];
 
+// Using simple hashing
+const simpleHashValue = simpleHash('example data');
+console.log('Simple Hash:', simpleHashValue);
+
+// Using secure hashing
+const { salt, hash } = simpleHash('examplePassword', true);
+console.log('Secure Hash:', hash, 'Salt:', salt);
+
+
+// Graceful shutdown on Ctrl+C
+process.on('SIGINT', () => {
+    console.log("Gracefully shutting down (Ctrl-C)");
+    process.exit();
+});
+
+export { app, passport, users, simpleHash, posts, templateDir, pages };
+
+// Use the routes
+app.use('/', routes);
+
+// Serve static files from the 'static' folder
+app.use(express.static(path.join(__dirname, 'src', 'static')));
+
 // Dynamically serve HTML files for defined pages
 const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
 
@@ -57,19 +84,5 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
-// Graceful shutdown on Ctrl+C
-process.on('SIGINT', () => {
-    console.log("Gracefully shutting down (Ctrl-C)");
-    process.exit();
-});
-
-export { app, passport, users, simpleHash, posts, templateDir, pages };
-
-// Use the routes
-app.use('/', routes);
-
-// Serve static files from the 'static' folder
-app.use(express.static(path.join(__dirname, 'src', 'static')));
 
 export default app;
