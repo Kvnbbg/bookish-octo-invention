@@ -1,24 +1,30 @@
-const express = import('express');
-const path = import('path');
-const bodyParser = import('body-parser');
-const session = import('express-session');
-const passport = import('passport'); // Passport.js for authentication
-const LocalStrategy = import('passport-local').Strategy; // Local strategy for authentication
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport'; // Passport.js for authentication
+import { Strategy as LocalStrategy } from 'passport-local'; // Local strategy for authentication
+// Import routes from 'index.js' located in 'src/routes/'
+import routes from './src/routes/routes.js';  // Adjust the path if needed
 
-const __dirname = () => path.resolve();
+// Handle __dirname in ES module
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// Initialize Express app
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-const server = () => express;
-const app = server();
-
-
-// Dynamically serve other HTML files
-const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
-
-// Template files location
-const templateDir = () => path.join(__dirname, 'src', 'static', 'templates');
-
-// User credentials (for demo purposes)
+// Dummy user credentials (for demo purposes)
 const users = [
     { username: 'admin', password: 'password' },
     { username: 'user', password: 'password' },
@@ -26,53 +32,44 @@ const users = [
     { username: 'user2', password: 'password2' }
 ];
 
-// User date (for demo purposes)
-const date = new Date();
-
 // Posts by users (for demo purposes)
 const posts = [
-    { title: 'Post 1', content: 'This is the first post. By.${username}', date: date },
-    { title: 'Post 2', content: 'This is the second post. By ${username}', date: date },
-    { title: 'Post 3', content: 'This is the third post. By ${username}', date: date },
-    { title: 'Post 4', content: 'This is the fourth post. By ${username}', date: date }
+    { title: 'Post 1', content: 'This is the first post by admin', date: new Date() },
+    { title: 'Post 2', content: 'This is the second post by user', date: new Date() },
+    { title: 'Post 3', content: 'This is the third post by user1', date: new Date() },
+    { title: 'Post 4', content: 'This is the fourth post by user2', date: new Date() }
 ];
 
-export default posts;
+// Dynamically serve HTML files for defined pages
+const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
 
+// Set static directory for serving HTML files
+const templateDir = path.join(__dirname, 'src', 'static', 'templates');
 
-// Use math to hash and verify passwords (simple example, not for production)
-const simpleHash = (password) => {
-    return Array.from(password).reduce((acc, char) => acc + char.charCodeAt(0), 0);
-};
-
-// Function to serve the index.html file when the user is logged in
 pages.forEach(page => {
-    var get = app.get;
-    get = () => app.get(`/${page}`, (req, res) => {
+    app.get(`/${page}`, (req, res) => {
         res.sendFile(path.join(templateDir, `${page}.html`));
     });
 });
 
 // Start the server
 const port = process.env.PORT || 3000;
-try {
-    var get = app.get;
-    var listen = app.listen;
-    listen = () => app.listen(port);
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    pages.forEach(page => { get = () => app.get(`/${page}`, (req, res) => {
-        res.sendFile(path.join(templateDir, `${page}.html`));
-    })}) 
-} catch(error) {
-        console.error(`Error serving ${page} page:`, error);  
-};
-// Graceful shutdown in case of critical failure
-process.on('app/app.js', () => {
+});
+
+// Graceful shutdown on Ctrl+C
+process.on('SIGINT', () => {
     console.log("Gracefully shutting down (Ctrl-C)");
     process.exit();
 });
 
+export { app, passport, users, simpleHash, posts, templateDir, pages };
 
-// Route to Routes
-app, passport, users, simpleHash, posts, templateDir, pages;  // Importing the app, passport, users, simpleHash, posts, and templateDir variables from the routes file 
-    
+// Use the routes
+app.use('/', routes);
+
+// Serve static files from the 'static' folder
+app.use(express.static(path.join(__dirname, 'src', 'static')));
+
+export default app;
