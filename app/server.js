@@ -64,21 +64,6 @@ export { app, passport, users, simpleHash, posts, templateDir, pages };
 // Use the routes
 app.use('/', routes);
 
-// Serve static files from the 'static' folder
-app.use(express.static(path.join(__dirname, 'src', 'static')));
-
-// Dynamically serve HTML files for defined pages
-const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
-
-// Set static directory for serving HTML files
-const templateDir = path.join(__dirname, 'src', 'static', 'templates');
-
-pages.forEach(page => {
-    app.get(`/${page}`, (req, res) => {
-        res.sendFile(path.join(templateDir, `${page}.html`));
-    });
-});
-
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

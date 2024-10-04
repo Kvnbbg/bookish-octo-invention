@@ -1,9 +1,7 @@
 import express from 'express';
 import path from 'path';
-
 import passport from 'passport';  // Use passport for authentication
-import { simpleHash } from '../utils/index.js';  // Assuming these are defined in another file
-
+import { simpleHash } from '../utils/index.js';  // Assuming this is defined correctly
 import { fileURLToPath } from 'url';  // To handle __dirname with ES modules
 
 const router = express.Router();
@@ -15,28 +13,34 @@ const __dirname = path.dirname(__filename);
 // Define the template directory
 const templateDir = path.join(__dirname, '..', 'static', 'templates');
 
-// Routes
+// Serve static files from the 'static' folder (CSS, JS, images)
+router.use(express.static(path.join(__dirname, 'src', 'static')));
 
-// Home page route
+// Define the list of dynamic pages
+const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
+
+// Serve HTML files for each page dynamically
+pages.forEach(page => {
+    router.get(`/${page}`, (req, res) => {
+        res.sendFile(path.join(templateDir, `${page}.html`));
+    });
+});
+
+// Special route for the home page
 router.get('/', (req, res) => {
-    res.send('Welcome to the home page!');
+    res.sendFile(path.join(templateDir, 'index.html'));
 });
 
-// About page route
-router.get('/about', (req, res) => {
-    res.send('About us page');
-});
-
-// Serve login page
+// Serve login page and handle login errors (if any)
 router.get('/login', (req, res) => {
-    const error = req.query.error;
+    const error = req.query.error; // Check for any login error
     res.sendFile(path.join(templateDir, 'login.html'));
 });
 
-// Handle login authentication with Passport
+// Handle user authentication with Passport for login
 router.post('/login/password', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login?error=invalid_credentials'
+    successRedirect: '/', // Redirect to home on successful login
+    failureRedirect: '/login?error=invalid_credentials' // Redirect to login with error on failure
 }));
 
 // Signup route (GET)
@@ -48,19 +52,24 @@ router.get('/signup', (req, res) => {
 router.post('/signup', (req, res) => {
     const { username, password } = req.body;
 
-    if (users[username]) {
+    // Check if user already exists in the database (pseudo-code)
+    const userExists = false; // You should check this from your database
+    if (userExists) {
         return res.redirect('/signup?error=user_exists');
     }
 
-    // Hash the password and save the user
-    users[username] = simpleHash(password);
+    // Hash the password using simpleHash (e.g., pbkdf2 or simple hash)
+    const hashedPassword = simpleHash(password, true); // Assuming you pass 'true' for secure hash
 
-    // Redirect to login after signup
+    // Save the user into your database here (pseudo-code)
+    // db.query('INSERT INTO users ...', [username, hashedPassword], ...);
+
+    // Redirect to login after successful signup
     res.redirect('/login');
 });
 
 // Logout route
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
     req.logout((err) => {
         if (err) {
             return next(err);
@@ -74,12 +83,17 @@ router.get('/logout', (req, res) => {
     });
 });
 
-// Error handling for 404
+// About page route (example dynamic route)
+router.get('/about', (req, res) => {
+    res.send('About us page');
+});
+
+// Error handling for 404 (Not Found)
 router.use((req, res) => {
     res.status(404).sendFile(path.join(templateDir, '404.html'));
 });
 
-// Error handling for other errors
+// Error handling for 500 (Internal Server Error)
 router.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).sendFile(path.join(templateDir, '500.html'));
