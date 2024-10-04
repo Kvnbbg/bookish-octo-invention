@@ -1,4 +1,5 @@
 import crypto from 'crypto'; // Import the crypto module
+import users from '../routes/user.js'
 
 // Improved simpleHash function with multiple hashing strategies
 export function simpleHash(data, useSecureHash = false) {

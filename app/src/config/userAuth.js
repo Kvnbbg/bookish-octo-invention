@@ -4,7 +4,7 @@ import db from './db.js'; // AWS-based database connection
 import express from 'express';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { simpleHash } from '../utils/index.js';
+import { simpleHash, users } from '../utils/index.js';
  
 
 // Verify if user exists and authenticate password
