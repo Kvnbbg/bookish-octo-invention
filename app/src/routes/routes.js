@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 
 import passport from 'passport';  // Use passport for authentication
-import { simpleHash, users } from '../config/userAuth.js';  // Assuming these are defined in another file
+import { simpleHash } from '../utils/index.js';  // Assuming these are defined in another file
 
 import { fileURLToPath } from 'url';  // To handle __dirname with ES modules
 
