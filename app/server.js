@@ -4,10 +4,14 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport'; // Passport.js for authentication
 import { Strategy as LocalStrategy } from 'passport-local'; // Local strategy for authentication
-import routes from '..//app/src/routes/routes.js' // Routes for the application
+import routes from '../app/src/routes/routes.js'; // Corrected route import
 import { simpleHash } from '../app/src/utils/index.js'; // Assuming this is defined correctly
-// Handle __dirname in ES module
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';  // Use dotenv for environment variables
+
+dotenv.config();  // Load environment variables from .env
+
+// Handle __dirname in ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -15,47 +19,58 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Session configuration
 app.use(session({
-    secret: 'your-secret-key',
+    secret: process.env.SESSION_SECRET || 'your-secret-key',  // Use env variable for secret
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,  // Don't create session until something is stored
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Dummy user credentials (for demo purposes)
+// Dummy user credentials (for demo purposes) - Replace with a proper database in production
 const users = [
-    { username: 'admin', password: 'password' },
-    { username: 'user', password: 'password' },
-    { username: 'user1', password: 'password1' },
-    { username: 'user2', password: 'password2' }
+    { username: 'admin', password: simpleHash('password') },
+    { username: 'user', password: simpleHash('password') },
+    { username: 'user1', password: simpleHash('password1') },
+    { username: 'user2', password: simpleHash('password2') }
 ];
 
-// Posts by users (for demo purposes)
-const posts = [
-    { title: 'Post 1', content: 'This is the first post by admin', date: new Date() },
-    { title: 'Post 2', content: 'This is the second post by user', date: new Date() },
-    { title: 'Post 3', content: 'This is the third post by user1', date: new Date() },
-    { title: 'Post 4', content: 'This is the fourth post by user2', date: new Date() }
-];
+// Passport Local Strategy for user authentication
+passport.use(new LocalStrategy(
+    function (username, password, done) {
+        const user = users.find(user => user.username === username);
+        if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (user.password !== simpleHash(password)) {  // Assuming simpleHash is synchronous
+            return done(null, false, { message: 'Incorrect password.' });
+        }
+        return done(null, user);
+    }
+));
 
-// Using simple hashing
-const simpleHashValue = simpleHash('example data');
-console.log('Simple Hash:', simpleHashValue);
+// Serialize user into session
+passport.serializeUser((user, done) => {
+    done(null, user.username);
+});
 
-// Using secure hashing
-const { salt, hash } = simpleHash('examplePassword', true);
-console.log('Secure Hash:', hash, 'Salt:', salt);
+// Deserialize user from session
+passport.deserializeUser((username, done) => {
+    const user = users.find(user => user.username === username);
+    done(null, user || false);
+});
 
+// Use routes from the routes.js file
+app.use('/', routes);
 
 // Graceful shutdown on Ctrl+C
 process.on('SIGINT', () => {
     console.log("Gracefully shutting down (Ctrl-C)");
     process.exit();
 });
-
-// Use the routes
-app.use('/', routes);
 
 // Start the server
 const port = process.env.PORT || 3000;

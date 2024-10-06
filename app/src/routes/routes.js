@@ -1,33 +1,34 @@
 import express from 'express';
 import path from 'path';
-import passport from 'passport';  // Use passport for authentication
-import { simpleHash } from '../utils/index.js';  // Assuming this is defined correctly
-import { fileURLToPath } from 'url';  // To handle __dirname with ES modules
+import passport from 'passport';
+import { simpleHash } from '../utils/index.js';
+import { fileURLToPath } from 'url';
+
 const router = express.Router();
 
-// __dirname workaround for ES modules
+// ES module workaround for __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the template directory (make it global)
+// Global template directory
 const templateDir = path.join(__dirname, '..', 'src', 'static', 'templates');
 
-// Special route for the home page
+// Home page route
 router.get('/', (req, res) => {
-
     res.sendFile(path.join(templateDir, 'index.html'));
 });
 
-// Serve login page and handle login errors (if any)
+// Login page
 router.get('/login', (req, res) => {
-    const error = req.query.error; // Check for any login error
-    res.sendFile(path.join(templateDir, 'login.html'));
+    const error = req.query.error;
+    res.sendFile(path.join(templateDir, 'login.html'), { error });
 });
 
-// Handle user authentication with Passport for login
+// Handle login with Passport.js
 router.post('/login/password', passport.authenticate('local', {
-    successRedirect: '/', // Redirect to home on successful login
-    failureRedirect: '/login?error=invalid_credentials' // Redirect to login with error on failure
+    successRedirect: '/',
+    failureRedirect: '/login?error=invalid_credentials',
+    failureFlash: true // Optionally use failure flash messages
 }));
 
 // Signup route (GET)
@@ -35,33 +36,36 @@ router.get('/signup', (req, res) => {
     res.sendFile(path.join(templateDir, 'signup.html'));
 });
 
-// Handle user signup (POST)
-router.post('/signup', (req, res) => {
+// Handle signup (POST)
+router.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
-    // Check if user already exists in the database (pseudo-code)
-    const userExists = false; // You should check this from your database
+    // Check if user exists (pseudo-code, replace with actual db query)
+    const userExists = false; // Replace this with your database check
     if (userExists) {
         return res.redirect('/signup?error=user_exists');
     }
 
-    // Hash the password using simpleHash (e.g., pbkdf2 or simple hash)
-    const hashedPassword = simpleHash(password, true); // Assuming you pass 'true' for secure hash
+    try {
+        // Hash the password securely
+        const hashedPassword = await simpleHash(password, true); // Use async hash method
 
-    // Save the user into your database here (pseudo-code)
-    // db.query('INSERT INTO users ...', [username, hashedPassword], ...);
+        // Save user to database (pseudo-code)
+        // await db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
 
-    // Redirect to login after successful signup
-    res.redirect('/login');
+        res.redirect('/login');
+    } catch (err) {
+        console.error('Signup error:', err);
+        res.redirect('/signup?error=server_error');
+    }
 });
 
 // Logout route
 router.get('/logout', (req, res, next) => {
-    req.logout((err) => {
-        if (err) {
-            return next(err);
-        }
-        req.session.destroy(err => {
+    req.logOut((err) => {
+        if (err) return next(err);
+
+        req.session.destroy((err) => {
             if (err) {
                 console.error('Error destroying session:', err);
             }
@@ -70,17 +74,17 @@ router.get('/logout', (req, res, next) => {
     });
 });
 
-// About page route (example dynamic route)
+// About page route
 router.get('/about', (req, res) => {
     res.send('About us page');
 });
 
-// Error handling for 404 (Not Found)
+// Handle 404 errors
 router.use((req, res) => {
     res.status(404).sendFile(path.join(templateDir, '404.html'));
 });
 
-// Error handling for 500 (Internal Server Error)
+// Handle 500 errors
 router.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).sendFile(path.join(templateDir, '500.html'));

@@ -7,8 +7,6 @@ serverProcess.stdout.on('data', (data) => {
   console.log(`Server: ${data}`);
 });
 
-// ... (rest of the code remains the same)
-
 serverProcess.stderr.on('data', (data) => {
     console.error(`Server Error: ${data}`);
   });
