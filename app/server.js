@@ -5,12 +5,6 @@ import session from 'express-session';
 import passport from 'passport'; // Passport.js for authentication
 import { Strategy as LocalStrategy } from 'passport-local'; // Local strategy for authentication
 
-// Import routes from 'routes.js' located in large scope 'app/src/routes/'
-import routes, { templateDir } from './src/routes/routes.js';  // Adjust the path if needed
-
-// server.js
-import { simpleHash } from './src/utils/index.js';
-
 // Handle __dirname in ES module
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
