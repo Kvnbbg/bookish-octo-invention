@@ -3,7 +3,6 @@ import path from 'path';
 import passport from 'passport';  // Use passport for authentication
 import { simpleHash } from '../utils/index.js';  // Assuming this is defined correctly
 import { fileURLToPath } from 'url';  // To handle __dirname with ES modules
-
 const router = express.Router();
 
 // __dirname workaround for ES modules
@@ -12,9 +11,6 @@ const __dirname = path.dirname(__filename);
 
 // Define the template directory (make it global)
 const templateDir = path.join(__dirname, '..', 'src', 'static', 'templates');
-
-// Serve static files from the 'static' folder (CSS, JS, images)
-router.use(express.static(path.join(templateDir)));
 
 // Special route for the home page
 router.get('/', (req, res) => {

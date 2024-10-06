@@ -4,7 +4,8 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport'; // Passport.js for authentication
 import { Strategy as LocalStrategy } from 'passport-local'; // Local strategy for authentication
-
+import routes from '..//app/src/routes/routes.js' // Routes for the application
+import { simpleHash } from '../app/src/utils/index.js'; // Assuming this is defined correctly
 // Handle __dirname in ES module
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
