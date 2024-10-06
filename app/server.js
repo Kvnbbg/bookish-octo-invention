@@ -6,7 +6,7 @@ import passport from 'passport'; // Passport.js for authentication
 import { Strategy as LocalStrategy } from 'passport-local'; // Local strategy for authentication
 
 // Import routes from 'routes.js' located in large scope 'app/src/routes/'
-import routes, { page, pages } from './src/routes/routes.js';  // Adjust the path if needed
+import routes, { templateDir } from './src/routes/routes.js';  // Adjust the path if needed
 
 // server.js
 import { simpleHash } from './src/utils/index.js';
@@ -58,8 +58,6 @@ process.on('SIGINT', () => {
     console.log("Gracefully shutting down (Ctrl-C)");
     process.exit();
 });
-
-export { app, passport, users, simpleHash, posts, templateDir, pages };
 
 // Use the routes
 app.use('/', routes);

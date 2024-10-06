@@ -10,11 +10,11 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the template directory
-const templateDir = path.join(__dirname, '..', 'static', 'templates');
+// Define the template directory (make it global)
+const templateDir = path.join(__dirname, '..', 'src', 'templates');
 
 // Serve static files from the 'static' folder (CSS, JS, images)
-router.use(express.static(path.join(__dirname, 'src', 'static')));
+router.use(express.static(path.join(__dirname, '..', 'src', 'static')));
 
 // Define the list of dynamic pages
 const pages = ['index', 'about_us', 'contact', 'signup', 'login', '404', '500', 'posts'];
@@ -28,6 +28,7 @@ pages.forEach(page => {
 
 // Special route for the home page
 router.get('/', (req, res) => {
+
     res.sendFile(path.join(templateDir, 'index.html'));
 });
 
