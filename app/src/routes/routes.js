@@ -1,3 +1,4 @@
+// Import required modules
 import express from 'express';
 import path from 'path';
 import passport from 'passport';
@@ -6,56 +7,69 @@ import { fileURLToPath } from 'url';
 
 const router = express.Router();
 
-// ES module workaround for __dirname
+// ES module workaround for __dirname to make paths compatible in all environments
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Global template directory
-const templateDir = path.join(__dirname, '..', 'src', 'static', 'templates');
+// Define the global template directory using path.join for cross-platform compatibility
+const templateDir = path.resolve(__dirname, '..', 'templates');
 
-// Home page route
+// Home page route - Serves the main index.html file
 router.get('/', (req, res) => {
-    res.sendFile(path.join(templateDir, 'index.html'));
+    try {
+        res.sendFile(path.join(templateDir, 'index.html'));
+    } catch (error) {
+        console.error('Error serving the home page:', error);
+        res.status(500).sendFile(path.join(templateDir, '500.html'));
+    }
 });
 
-// Login page
+// Login page route
 router.get('/login', (req, res) => {
-    const error = req.query.error;
-    res.sendFile(path.join(templateDir, 'login.html'), { error });
+    try {
+        res.sendFile(path.join(templateDir, 'login.html'));
+    } catch (error) {
+        console.error('Error serving the login page:', error);
+        res.status(500).sendFile(path.join(templateDir, '500.html'));
+    }
 });
 
-// Handle login with Passport.js
+// Passport.js login handling
 router.post('/login/password', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login?error=invalid_credentials',
-    failureFlash: true // Optionally use failure flash messages
+    failureFlash: true
 }));
 
-// Signup route (GET)
+// Signup page route
 router.get('/signup', (req, res) => {
-    res.sendFile(path.join(templateDir, 'signup.html'));
+    try {
+        res.sendFile(path.join(templateDir, 'signup.html'));
+    } catch (error) {
+        console.error('Error serving the signup page:', error);
+        res.status(500).sendFile(path.join(templateDir, '500.html'));
+    }
 });
 
-// Handle signup (POST)
+// Handle user signup
 router.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
-    // Check if user exists (pseudo-code, replace with actual db query)
-    const userExists = false; // Replace this with your database check
+    // Replace with actual database check if the user already exists
+    const userExists = false; // This is a placeholder for the database query
     if (userExists) {
         return res.redirect('/signup?error=user_exists');
     }
 
     try {
-        // Hash the password securely
-        const hashedPassword = await simpleHash(password, true); // Use async hash method
+        const hashedPassword = await simpleHash(password);
 
-        // Save user to database (pseudo-code)
+        // Placeholder for saving the user to the database
         // await db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
 
         res.redirect('/login');
-    } catch (err) {
-        console.error('Signup error:', err);
+    } catch (error) {
+        console.error('Signup error:', error);
         res.redirect('/signup?error=server_error');
     }
 });
@@ -64,7 +78,6 @@ router.post('/signup', async (req, res) => {
 router.get('/logout', (req, res, next) => {
     req.logOut((err) => {
         if (err) return next(err);
-
         req.session.destroy((err) => {
             if (err) {
                 console.error('Error destroying session:', err);
@@ -74,19 +87,23 @@ router.get('/logout', (req, res, next) => {
     });
 });
 
-// About page route
+// Additional routes for static pages (e.g., About, Contact)
 router.get('/about', (req, res) => {
-    res.send('About us page');
+    res.sendFile(path.join(templateDir, 'about_us.html'));
 });
 
-// Handle 404 errors
+router.get('/contact', (req, res) => {
+    res.sendFile(path.join(templateDir, 'contact.html'));
+});
+
+// 404 Error handling
 router.use((req, res) => {
     res.status(404).sendFile(path.join(templateDir, '404.html'));
 });
 
-// Handle 500 errors
+// Centralized error handling middleware for 500 errors
 router.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error('Internal server error:', err.stack);
     res.status(500).sendFile(path.join(templateDir, '500.html'));
 });
 
