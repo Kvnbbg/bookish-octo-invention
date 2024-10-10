@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/bookish-octo/bookish-octo-invention', '.']
+images:
+- 'gcr.io/bookish-octo/bookish-octo-invention'
