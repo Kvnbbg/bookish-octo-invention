@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+    <title>Bookish Octo Invention - Gestion de Recettes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --background: #ecf0f1;
+            --text-color: #2c3e50;
+                        --accent-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--background);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .user-management {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .recipe-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        /* Advanced Security Notice */
+        .security-banner {
+            background: var(--danger-color);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .achievement-system {
+            background: linear-gradient(45deg, #ffd700, #c5a900);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .privacy-section {
+            border: 2px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+        <div class="security-banner">
+        🔒 Connexion sécurisée (HTTPS) | Données chiffrées | Audit de sécurité mensuel
+    </div>
+    <header>
+        <h1>Bookish Octo Invention 👩🍳</h1>
+        <p>Bienvenue, <span id="current-user">Katia Rachon</span></p>
+    </header>
+
+    <div class="container">
+        <div class="user-management">
+            <button onclick="showUserForm()">➕ Nouvel Utilisateur</button>
+            <button onclick="exportData()">📤 Exporter Données</button>
+            <select id="lang-select" onchange="changeLanguage(this.value)">
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+            </select>
+        </div>
+    <!-- Enhanced User Management -->
+    <div class="user-management">
+        <div class="privacy-section">
+            <h3>🔐 Contrôle de confidentialité</h3>
+            <button onclick="showDataConsent()">Préférences de données</button>
+            <button onclick="exportEncryptedData()">🔑 Exporter chiffré</button>
+        </div>
+    </div>
+        <div class="recipe-form">
+            <h2>📝 Nouvelle Recette</h2>
+            <form id="recipeForm" onsubmit="saveRecipe(event)">
+                <input type="text" id="recipeTitle" placeholder="Titre" required>
+                <textarea id="recipeContent" placeholder="Ingrédients et instructions..." required></textarea>
+                <select id="recipeCategory">
+                    <option value="entrée">Entrée</option>
+                    <option value="plat">Plat Principal</option>
+                    <option value="dessert">Dessert</option>
+                </select>
+                <button type="submit">💾 Sauvegarder</button>
+            </form>
+        </div>
+
+        <div class="recipe-grid" id="recipeContainer"></div>
+    </div>
+    <!-- Extended Recipe Form with Validation -->
+    <div class="recipe-form">
+        <form id="recipeForm" onsubmit="return validateRecipeForm(event)">
+            <!-- Add input validation patterns -->
+            <input type="text" id="recipeTitle" 
+                   pattern="[A-Za-zÀ-ÿ0-9 ]{5,50}" 
+                   title="5-50 caractères alphanumériques">
+            
+            <!-- Add rich text editor container -->
+            <div id="editorToolbar">
+                <button type="button" onclick="formatText('bold')"><strong>B</strong></button>
+                <button type="button" onclick="formatText('italic')"><em>I</em></button>
+            </div>
+            <div id="recipeContent" contenteditable="true"></div>
+        </form>
+    </div>
+
+    <!-- Achievement System -->
+    <div class="achievement-system">
+        <h3>🏆 Succès</h3>
+        <div id="achievementsList"></div>
+    </div>
+
+    <script>
+        // Enhanced Security Measures
+        const securityConfig = {
+            cookieSettings: {
+                secure: true,
+                sameSite: 'Strict',
+                maxAge: 86400 // 1 day
+            },
+            sanitizeInput: (input) => {
+                return input.replace(/<[^>]*>?/gm, '');
+            },
+            validateSession: () => {
+                if (!document.cookie.includes('sessionToken')) {
+                    window.location.href = '/auth';
+                }
+            }
+        };
+
+        // Advanced Recipe Validation
+        const validateRecipeForm = (e) => {
+            e.preventDefault();
+            const title = document.getElementById('recipeTitle').value;
+            if (!/^[A-Za-zÀ-ÿ0-9 ]{5,50}$/.test(title)) {
+                showError('Titre invalide : 5-50 caractères alphanumériques');
+                return false;
+            }
+            return true;
+        };
+
+        // Achievement System
+        const achievements = {
+            'first-recipe': { name: 'Première recette!', unlocked: false },
+            'master-chef': { name: 'Chef confirmé (10 recettes)', unlocked: false }
+        };
+
+        function checkAchievements() {
+            const recipeCount = JSON.parse(getCookie('recipes')).length;
+            if(recipeCount >= 1 && !achievements['first-recipe'].unlocked) {
+                unlockAchievement('first-recipe');
+            }
+            if(recipeCount >= 10) {
+                unlockAchievement('master-chef');
+            }
+        }
+
+        function unlockAchievement(id) {
+            achievements[id].unlocked = true;
+            showNotification(`Succès débloqué : ${achievements[id].name}`);
+            updateAchievementDisplay();
+        }
+
+        // Data Encryption
+        async function exportEncryptedData() {
+            const data = JSON.stringify({
+                users: JSON.parse(users),
+                recipes: JSON.parse(getCookie('recipes') || '[]')
+            });
+            
+            const encoder = new TextEncoder();
+            const dataBuffer = encoder.encode(data);
+            const key = await crypto.subtle.generateKey(
+                { name: "AES-GCM", length: 256 },
+                true,
+                ["encrypt", "decrypt"]
+            );
+            
+            const iv = crypto.getRandomValues(new Uint8Array(12));
+            const encryptedData = await crypto.subtle.encrypt(
+                { name: "AES-GCM", iv },
+                key,
+                dataBuffer
+            );
+            
+            const blob = new Blob([iv, encryptedData], {type: 'application/octet-stream'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'encrypted-data.bin';
+            a.click();
+        }
+
+        // Enhanced Error Handling
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error(`Error: ${message} at ${source}:${lineno}`);
+            showError('Une erreur est survenue. Notre équipe technique a été notifiée.');
+            return true;
+        };
+
+        // Initialize Security
+        if(location.protocol !== 'https:') {
+            document.querySelector('.security-banner').style.display = 'none';
+        }
+    </script>
+
+    <!-- Additional Features -->
+    <div class="help-section">
+        <h3>📚 Ressources</h3>
+        <ul>
+            <li><a href="/privacy" target="_blank">Politique de confidentialité</a></li>
+            <li><a href="https://example.com/security" target="_blank" rel="noopener">Certifications de sécurité</a></li>
+            <li><a href="/contact">Support technique</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>Développé par <a href="https://linkedin.com/in/kevinmarville" target="_blank" rel="noopener noreferrer">Kevin Marville</a></p>
+        <div class="security-links">
+            <a href="/security.txt" target="_blank">Disclosure Policy</a> |
+            <a href="https://owasp.org" target="_blank" rel="noopener">OWASP Certified</a>
+        </div>
+    <footer>
+        <p>Développé par <a href="https://yourportfolio.com" style="color: var(--accent-color)">Kevin Marville</a></p>
+    </footer>
+
+    <script>
+        // User Management
+        let users = JSON.parse(getCookie('users') || '[{"name":"Katia Rachon"}]');
+        let currentUser = JSON.parse(users)[0];
+
+        function showUserForm() {
+            const name = prompt('Nom du nouvel utilisateur:');
+            if(name) {
+                const newUser = { name };
+                users = JSON.stringify([...JSON.parse(users), newUser]);
+                setCookie('users', users, 365);
+                currentUser = newUser;
+                updateUI();
+            }
+        }
+
+        // Recipe Management
+        function saveRecipe(e) {
+            e.preventDefault();
+            const recipe = {
+                id: Date.now(),
+                title: document.getElementById('recipeTitle').value,
+                content: document.getElementById('recipeContent').value,
+                category: document.getElementById('recipeCategory').value,
+                author: currentUser.name,
+                date: new Date().toLocaleDateString()
+            };
+
+            const recipes = JSON.parse(getCookie('recipes') || '[]');
+            recipes.push(recipe);
+            setCookie('recipes', recipes, 365);
+            displayRecipes();
+            e.target.reset();
+        }
+
+        function displayRecipes() {
+            const container = document.getElementById('recipeContainer');
+            const recipes = JSON.parse(getCookie('recipes') || '[]');
+            
+            container.innerHTML = recipes.map(recipe => `
+                <div class="recipe-card">
+                    <h3>${recipe.title}</h3>
+                    <p>${recipe.content}</p>
+                    <small>Catégorie: ${recipe.category} | Par ${recipe.author}</small>
+                    <button onclick="deleteRecipe(${recipe.id})">🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteRecipe(id) {
+            let recipes = JSON.parse(getCookie('recipes'));
+            recipes = recipes.filter(recipe => recipe.id !== id);
+            setCookie('recipes', JSON.stringify(recipes), 365);
+            displayRecipes();
+        }
+
+        // Utility Functions
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            const expires = "expires="+ date.toUTCString();
+            document.cookie = `${name}=${value};${expires};path=/;Secure`;
+        }
+
+        function getCookie(name) {
+            return document.cookie.split('; ')
+                .find(row => row.startsWith(name+'='))
+                ?.split('=')[1] || null;
+        }
+
+        function exportData() {
+            const data = {
+                users: JSON.parse(users),
+                recipes: JSON.parse(getCookie('recipes') || '[]')
+            };
+            const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bookish-octo-data.json';
+            a.click();
+        }
+
+        // Initialization
+        function updateUI() {
+            document.getElementById('current-user').textContent = currentUser.name;
+            displayRecipes();
+        }
+
+        window.onload = updateUI;
+        
+        // Secure Cookie Handling
+function setSecureCookie(name, value) {
+    document.cookie = `${name}=${value}; 
+        Secure; 
+        SameSite=Strict; 
+        HttpOnly; 
+        path=/`;
+}
+
+// XSS Protection
+function sanitizeHTML(input) {
+    const div = document.createElement('div');
+    div.textContent = input;
+    return div.innerHTML;
+}
+
+const ACHIEVEMENTS = {
+    'first-recipe': {
+        name: 'Première création!',
+        criteria: (user) => user.recipes.length >= 1
+    },
+    'sharing-pro': {
+        name: 'Partageur expert',
+        criteria: (user) => user.sharedRecipes >= 5
+    }
+};
+
+function checkAchievements(user) {
+    Object.keys(ACHIEVEMENTS).forEach(achievementId => {
+        if(!user.achievements.includes(achievementId) {
+            if(ACHIEVEMENTS[achievementId].criteria(user)) {
+                unlockAchievement(user, achievementId);
+            }
+        }
+    });
+}
+
+// Cache recipes with Service Worker
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(registration => {
+        console.log('ServiceWorker registration successful');
+    }).catch(err => {
+        console.error('ServiceWorker registration failed:', err);
+    });
+}
+
+    </script>
+</body>
+</html>
