@@ -8,7 +8,7 @@ This project was designed for someone I appreciate a lot for her encouragements 
 
 Our goal is to leverage the latest AI capabilities, specifically Amazon Bedrock's generative AI, to build a digital assistant that enhances user experience in the realm of healthy foodies, while also laying the foundation for a collaborative team environment.
 
-[![Play Live 🚀](https://web-production-3e229.up.railway.app/login)](https://web-production-3e229.up.railway.app/login)
+[![Play Live 🚀](https://kvnbbg.github.io/bookish-octo-invention/)
 
 **Bookish-Octo-Invention** is a web application designed for recipe sharing tailored to specific dietary needs. Whether you’re looking for gluten-free, vegan, or low-carb options, this platform makes it easy to find and share recipes that suit your dietary preferences.
 
