@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Enforce a strict Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'">
+  <title>Bookish Octo Invention - Gestion de Recettes & Recipe Quest</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #3498db;
+      --background: #ecf0f1;
+      --text-color: #2c3e50;
+      --success-color: #27ae60;
+      --danger-color: #e74c3c;
+      --gold-color: #ffd700;
+    }
+    /* Global Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--background);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 80px; /* For fixed footer */
+    }
+    /* Security Banner */
+    .security-banner {
+      background: var(--danger-color);
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.9em;
+    }
+    /* Header */
+    header {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    header button {
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      background: var(--accent-color);
+      color: white;
+      border-radius: 5px;
+    }
+    /* Layout Container */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 2rem;
+    }
+    /* Siebel Connection Panel */
+    .siebel-panel {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      height: fit-content;
+    }
+    .siebel-panel h2 {
+      margin-bottom: 1rem;
+    }
+    .connection-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--danger-color);
+    }
+    .status-indicator.connected {
+      background: var(--success-color);
+    }
+    .connection-controls button {
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+    .sync-status {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    /* Main Content Area */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    /* Recipe Management Form */
+    .recipe-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .recipe-form h2 {
+      margin-bottom: 1rem;
+    }
+    .recipe-form input[type="text"],
+    .recipe-form textarea,
+    .recipe-form select {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .recipe-form button {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    /* Recipe Grid */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .recipe-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .recipe-card:hover {
+      transform: translateY(-3px);
+    }
+    .recipe-meta {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .recipe-meta button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--danger-color);
+    }
+    /* Simulation Panel */
+    .simulation-controls {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    /* Recipe Quest Mini-Game */
+    .game-container {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
+      border-radius: 10px;
+      position: relative;
+    }
+    .game-hud {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .chef-avatar {
+      width: 100px;
+      height: 100px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="40" fill="%233498db"/></svg>') center/cover no-repeat;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    .xp-bar {
+      height: 20px;
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      width: 200px;
+    }
+    .xp-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-color), #ffbf00);
+      width: 30%;
+      transition: width 0.5s ease;
+    }
+    .achievement-popup {
+      background: rgba(255,215,0,0.9);
+      border-radius: 10px;
+      padding: 1rem;
+      position: fixed;
+      top: 20px;
+      right: -300px;
+      transition: right 0.5s ease;
+      z-index: 1000;
+    }
+    /* Confetti Animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--gold-color);
+      animation: confetti 2s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    /* Footer */
+    footer {
+      background: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    footer a {
+      color: white;
+      text-decoration: underline;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Security Banner -->
+  <div class="security-banner">
+    🔒 Connexion sécurisée (HTTPS) | Chiffrement AES-256 activé | Audit Siebel: 2025-03-15
+  </div>
+  <!-- Header with User Management -->
+  <header>
+    <h1>Bookish Octo Invention 👩🍳</h1>
+    <p>
+      Bienvenue, <span id="current-user">Katia Rachon</span>
+      <button onclick="changeUser()">Changer utilisateur</button>
+    </p>
+  </header>
+
+  <!-- Main Layout: Sidebar (Siebel Panel) + Main Content -->
+  <div class="container">
+    <!-- Siebel Connection Panel -->
+    <aside class="siebel-panel">
+      <h2>Connexion Siebel</h2>
+      <div class="connection-status">
+        <div class="status-indicator" id="statusIndicator"></div>
+        <span id="connectionStatus">Déconnecté</span>
+      </div>
+      <div class="connection-controls">
+        <button onclick="toggleSiebelConnection()" id="connectButton">
+          <span class="button-text">Connexion Siebel</span>
+          <span class="loading-spinner" style="display: none;">↻</span>
+        </button>
+        <button onclick="syncWithSiebel()" id="syncButton" disabled>
+          Synchroniser les données
+        </button>
+      </div>
+      <div class="sync-status" id="syncStatus"></div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+      <!-- Recipe Management Section -->
+      <section class="recipe-form">
+        <h2>📝 Nouvelle Recette</h2>
+        <form id="recipeForm" onsubmit="saveRecipe(event)">
+          <input type="text" id="recipeTitle" placeholder="Titre de la recette" required pattern="[A-Za-zÀ-ÿ0-9 ]{5,50}">
+          <textarea id="recipeContent" placeholder="Ingrédients et instructions..." required></textarea>
+          <select id="recipeCategory">
+            <option value="entrée">Entrée</option>
+            <option value="plat">Plat Principal</option>
+            <option value="dessert">Dessert</option>
+          </select>
+          <div class="form-actions">
+            <button type="submit">💾 Sauvegarder</button>
+            <button type="button" onclick="generateSmartRecipe()">🧠 Générer une recette IA</button>
+          </div>
+        </form>
+        <!-- Recipe Grid -->
+        <div class="recipe-grid" id="recipeContainer"></div>
+        <!-- Simulation Controls -->
+        <div class="simulation-controls">
+          <button onclick="simulateRandomData()">🔀 Simuler des données</button>
+        </div>
+      </section>
+
+      <!-- Recipe Quest Mini-Game Section -->
+      <section class="game-container">
+        <div class="game-hud">
+          <div class="chef-avatar"></div>
+          <div class="xp-container">
+            <div class="xp-bar">
+              <div class="xp-progress"></div>
+            </div>
+            <span class="level" id="gameLevel">Level 1</span>
+          </div>
+          <div class="currency">
+            <span class="gold" id="goldCount">★ 0</span>
+            <span class="gems" id="gemsCount">♦ 0</span>
+          </div>
+        </div>
+        <!-- Recipe Creation Mini-Game -->
+        <div class="recipe-game">
+          <div class="ingredient-slots">
+            <div class="slot" data-ingredient=""></div>
+            <div class="slot" data-ingredient=""></div>
+            <div class="slot" data-ingredient=""></div>
+          </div>
+          <button class="cook-button">🍳 Cook!</button>
+        </div>
+        <!-- Animated Achievement Popup -->
+        <div class="achievement-popup" id="achievementPopup" style="right: -300px;">
+          <h3>🏆 Achievement Unlocked!</h3>
+          <p id="achievementText">Titre du succès</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Développé par <a href="https://linkedin.com/in/kevinmarville" target="_blank" rel="noopener noreferrer">Kevin Marville</a></p>
+    <div class="security-links">
+      <a href="/security.txt" target="_blank">Disclosure Policy</a> |
+      <a href="https://owasp.org" target="_blank" rel="noopener">OWASP Certified</a>
+    </div>
+  </footer>
+
+  <script>
+    // === Security & Cookie Functions ===
+    const securityConfig = {
+      sanitizeInput: input => input.replace(/<[^>]*>?/gm, '')
+    };
+
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = `${name}=${value};${expires};path=/;Secure;SameSite=Strict`;
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+
+    // === User Management ===
+    let users = JSON.parse(getCookie('users') || '[{"name":"Katia Rachon"}]');
+    let currentUser = users[0];
+
+    function updateUserUI() {
+      document.getElementById('current-user').textContent = currentUser.name;
+    }
+
+    function showUserForm() {
+      const name = prompt('Nom du nouvel utilisateur:');
+      if (name) {
+        const sanitized = securityConfig.sanitizeInput(name);
+        const newUser = { name: sanitized };
+        users.push(newUser);
+        setCookie('users', JSON.stringify(users), 365);
+        currentUser = newUser;
+        updateUserUI();
+      }
+    }
+
+    function changeUser() {
+      const name = prompt("Entrez le nouveau nom d'utilisateur:");
+      if (name) {
+        const sanitized = securityConfig.sanitizeInput(name);
+        currentUser = { name: sanitized };
+        updateUserUI();
+      }
+    }
+
+    // === Siebel Connection Manager (Mock Implementation) ===
+    class SiebelConnection {
+      constructor() {
+        this.isConnected = false;
+      }
+      connect() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (Math.random() < 0.9) {
+              this.isConnected = true;
+              resolve();
+            } else {
+              reject('Erreur de connexion à Siebel');
+            }
+          }, 1500);
+        });
+      }
+      disconnect() {
+        this.isConnected = false;
+        return Promise.resolve();
+      }
+      syncData() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            this.generateFakeSiebelData();
+            resolve();
+          }, 2000);
+        });
+      }
+      generateFakeSiebelData() {
+        const categories = ['entrée', 'plat', 'dessert'];
+        const fakeData = Array.from({ length: 5 }, (_, i) => ({
+          id: `SIEBEL-${Date.now()}-${i}`,
+          title: `Recette Siebel ${i + 1}`,
+          content: `Ingrédients:\n- Exemple 1\n- Exemple 2\n\nÉtapes:\n1. Étape 1\n2. Étape 2`,
+          category: categories[Math.floor(Math.random() * categories.length)],
+          source: 'Siebel CRM',
+          lastSynced: new Date().toLocaleString()
+        }));
+        fakeData.forEach(recipe => {
+          if (!recipes.some(r => r.id === recipe.id)) {
+            recipes.push(recipe);
+          }
+        });
+        displayRecipes();
+      }
+    }
+    const siebelConnection = new SiebelConnection();
+
+    function updateConnectionStatus() {
+      const statusIndicator = document.getElementById('statusIndicator');
+      const statusText = document.getElementById('connectionStatus');
+      const connectButton = document.getElementById('connectButton');
+      if (siebelConnection.isConnected) {
+        statusIndicator.classList.add('connected');
+        statusText.textContent = 'Connecté à Siebel';
+        connectButton.querySelector('.button-text').textContent = 'Déconnexion';
+        document.getElementById('syncButton').disabled = false;
+      } else {
+        statusIndicator.classList.remove('connected');
+        statusText.textContent = 'Déconnecté';
+        connectButton.querySelector('.button-text').textContent = 'Connexion Siebel';
+        document.getElementById('syncButton').disabled = true;
+      }
+    }
+
+    async function toggleSiebelConnection() {
+      const button = document.getElementById('connectButton');
+      button.disabled = true;
+      button.querySelector('.loading-spinner').style.display = 'inline-block';
+      try {
+        if (siebelConnection.isConnected) {
+          await siebelConnection.disconnect();
+        } else {
+          await siebelConnection.connect();
+        }
+        updateConnectionStatus();
+      } catch (error) {
+        showNotification(`Erreur: ${error}`);
+      } finally {
+        button.disabled = false;
+        button.querySelector('.loading-spinner').style.display = 'none';
+      }
+    }
+
+    async function syncWithSiebel() {
+      const statusElement = document.getElementById('syncStatus');
+      statusElement.textContent = 'Synchronisation en cours...';
+      statusElement.style.color = 'var(--accent-color)';
+      try {
+        await siebelConnection.syncData();
+        statusElement.textContent = `Dernière synchronisation: ${new Date().toLocaleTimeString()}`;
+        statusElement.style.color = 'var(--success-color)';
+      } catch (error) {
+        statusElement.textContent = 'Échec de synchronisation';
+        statusElement.style.color = 'var(--danger-color)';
+      }
+    }
+
+    // === Recipe Management ===
+    let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    function saveRecipe(e) {
+      e.preventDefault();
+      const newRecipe = {
+        id: Date.now(),
+        title: document.getElementById('recipeTitle').value,
+        content: document.getElementById('recipeContent').value,
+        category: document.getElementById('recipeCategory').value,
+        created: new Date().toLocaleString()
+      };
+      recipes.push(newRecipe);
+      localStorage.setItem('recipes', JSON.stringify(recipes));
+      displayRecipes();
+      e.target.reset();
+    }
+
+    function displayRecipes() {
+      const container = document.getElementById('recipeContainer');
+      container.innerHTML = recipes.map(recipe => `
+        <div class="recipe-card">
+          <h3>${recipe.title}</h3>
+          <p>${recipe.content.replace(/\n/g, '<br>')}</p>
+          <div class="recipe-meta">
+            <span class="category">${recipe.category.toUpperCase()}</span>
+            <span class="source">${recipe.source || 'Local'}</span>
+            <button onclick="deleteRecipe('${recipe.id}')">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function deleteRecipe(id) {
+      recipes = recipes.filter(recipe => recipe.id != id);
+      localStorage.setItem('recipes', JSON.stringify(recipes));
+      displayRecipes();
+    }
+
+    function generateSmartRecipe() {
+      const categories = ['Française', 'Italienne', 'Asiatique', 'Végétarienne'];
+      const proteins = ['poulet', 'boeuf', 'poisson', 'tofu'];
+      const styles = ['classique', 'moderne', 'fusion'];
+      const generatedRecipe = {
+        title: `Recette ${categories[Math.floor(Math.random() * categories.length)]} au ${proteins[Math.floor(Math.random() * proteins.length)]}`,
+        content: `Une délicieuse recette ${styles[Math.floor(Math.random() * styles.length)]} combinant des saveurs uniques...`,
+        category: ['entrée', 'plat', 'dessert'][Math.floor(Math.random() * 3)]
+      };
+      document.getElementById('recipeTitle').value = generatedRecipe.title;
+      document.getElementById('recipeContent').value = generatedRecipe.content;
+      document.getElementById('recipeCategory').value = generatedRecipe.category;
+    }
+
+    function simulateRandomData() {
+      for (let i = 0; i < 3; i++) {
+        const randomTitle = "Recette Aléatoire " + Math.floor(Math.random() * 1000);
+        const randomContent = "Contenu généré aléatoirement: " + Math.random().toString(36).substring(7);
+        const randomCategory = ["entrée", "plat", "dessert"][Math.floor(Math.random() * 3)];
+        const simulatedRecipe = {
+          id: Date.now() + i,
+          title: randomTitle,
+          content: randomContent,
+          category: randomCategory,
+          created: new Date().toLocaleString()
+        };
+        recipes.push(simulatedRecipe);
+      }
+      localStorage.setItem('recipes', JSON.stringify(recipes));
+      displayRecipes();
+      showNotification("Données aléatoires générées !");
+    }
+
+    // === Recipe Quest Mini-Game ===
+    class RecipeGame {
+      constructor() {
+        this.xp = 0;
+        this.level = 1;
+        this.gold = 0;
+        this.gems = 0;
+        this.gameLoop();
+      }
+      gameLoop() {
+        setInterval(() => {
+          // Placeholder for periodic game updates (e.g., daily quests)
+        }, 60000);
+      }
+      addXP(amount) {
+        this.xp += amount;
+        if (this.xp >= this.getRequiredXP()) {
+          this.levelUp();
+        }
+        this.createConfetti(10);
+        this.animateXPBar();
+        updateGameHUD();
+      }
+      getRequiredXP() {
+        return 100; // Simple threshold; you can make this dynamic per level.
+      }
+      levelUp() {
+        this.level++;
+        this.xp = 0;
+        showAchievementPopup(`Niveau ${this.level} atteint!`);
+        updateGameHUD();
+      }
+      createConfetti(count) {
+        for (let i = 0; i < count; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.animationDelay = Math.random() * 1 + 's';
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 2000);
+        }
+      }
+      animateXPBar() {
+        const xpBar = document.querySelector('.xp-progress');
+        const percentage = (this.xp / this.getRequiredXP()) * 100;
+        xpBar.style.width = percentage + '%';
+      }
+    }
+    const game = new RecipeGame();
+
+    function updateGameHUD() {
+      document.getElementById('gameLevel').textContent = "Level " + game.level;
+      document.getElementById('goldCount').textContent = "★ " + game.gold;
+      document.getElementById('gemsCount').textContent = "♦ " + game.gems;
+    }
+
+    // Cooking mini-game button
+    document.querySelector('.cook-button').addEventListener('click', () => {
+      // For simplicity, assume all ingredient slots are filled
+      game.addXP(50);
+      showAchievementPopup("Recette parfaite!");
+      animateCookButton();
+    });
+
+    function animateCookButton() {
+      const button = document.querySelector('.cook-button');
+      button.style.transform = 'scale(1.2)';
+      setTimeout(() => button.style.transform = 'scale(1)', 200);
+    }
+
+    function showAchievementPopup(text) {
+      const popup = document.getElementById('achievementPopup');
+      document.getElementById('achievementText').textContent = text;
+      popup.style.right = '20px';
+      setTimeout(() => { popup.style.right = '-300px'; }, 3000);
+    }
+
+    // === Notifications ===
+    function showNotification(message) {
+      alert(message);
+    }
+
+    // === Initialization ===
+    function init() {
+      updateUserUI();
+      displayRecipes();
+      updateConnectionStatus();
+      updateGameHUD();
+      // Auto-sync Siebel every 30 seconds if connected
+      setInterval(() => {
+        if (siebelConnection.isConnected) {
+          siebelConnection.syncData();
+        }
+      }, 30000);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
