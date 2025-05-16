@@ -1,108 +1,194 @@
 # Bookish-Octo-Invention
 
-![Bookish-Octo-Invention Logo](doc/images/logo.png)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](#) [![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
 
-# Welcome to Bookish-Octo-Invention!
+A web application that leverages generative AI to provide personalized healthy recipe recommendations and foster a collaborative community around dietary preferences.
 
-This project was designed for someone I appreciate a lot for her encouragements and dedication. That's why I put a lot of energy into this, making it a personalized platform. 
+## Table of Contents
 
-Our goal is to leverage the latest AI capabilities, specifically Amazon Bedrock's generative AI, to build a digital assistant that enhances user experience in the realm of healthy foodies, while also laying the foundation for a collaborative team environment.
+* [About](#about)
+* [Features](#features)
+* [Architecture & Tech Stack](#architecture--tech-stack)
+* [Getting Started](#getting-started)
 
-[![Play Live 🚀](https://kvnbbg.github.io/bookish-octo-invention/)](https://kvnbbg.github.io/bookish-octo-invention/)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+  * [Configuration](#configuration)
+  * [Running the Application](#running-the-application)
+* [Usage](#usage)
+* [Testing](#testing)
+* [Deployment](#deployment)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
 
-**Bookish-Octo-Invention** is a web application designed for recipe sharing tailored to specific dietary needs. Whether you’re looking for gluten-free, vegan, or low-carb options, this platform makes it easy to find and share recipes that suit your dietary preferences.
+---
 
-## Choosing Amazon Bedrock over Google Gemini
+## About
 
-While we have the option to use [Google Gemini](https://ai.google.dev/gemini-api/docs/quickstart?authuser=2&hl=fr&lang=node) in the future, including its integration with Google Cloud Run, we are currently focusing on testing AWS's capabilities through [Amazon Bedrock](https://aws.amazon.com/bedrock/). This decision is based on our current infrastructure setup with AWS, which allows us to utilize Bedrock's native functionalities, such as Agents, Knowledge Bases, and pre-integrated AI tools.
+Bookish-Octo-Invention is a gamified recipe-management platform with built‑in AI assistance, designed to help users discover, share, and customize healthy recipes based on dietary needs (e.g., gluten-free, vegan, low-carb). By integrating Amazon Bedrock’s generative AI, the application offers real‑time nutritional advice and collaborative team features to support community-driven food planning.
 
-Using Amazon Bedrock enables us to develop our LLM-powered digital assistant for building teams and answering queries related to healthy foods efficiently. Our aim is to take advantage of Bedrock's strengths in AI without immediately resorting to the complexities of Google's LLM options. 
+## Features
 
-### Why AWS Over Google Gemini:
-- **Simpler Integration**: AWS Bedrock is well-suited for seamless integration with other AWS services, which we already use extensively.
-- **Focus on Cost Efficiency**: LLM models can get expensive, and AWS allows us to start small and scale as necessary without overcommitting resources.
-- **Flexible Testing Environment**: We plan to test AWS's AI capabilities first, allowing us to explore Google Gemini as a secondary option in the future.
+* **Personalized Recommendations**: AI-driven recipe suggestions tailored to user preferences and dietary restrictions.
+* **Interactive Chat Assistant**: Real‑time Q\&A powered by Amazon Bedrock for meal planning and nutritional guidance.
+* **User Submissions**: Create, edit, and share recipes with the community.
+* **Advanced Search & Filters**: Filter by ingredients, dietary type, cuisine, and more.
+* **Nutritional Insights**: Detailed macro- and micronutrient breakdowns for every recipe.
+* **Gamification Layer**: Earn XP and achievements as you explore and contribute.
 
-## Project Requirements
-- **Build a LLM-powered digital assistant**: The project will include a chat interface that allows users to interact with our AI-powered digital assistant using Amazon Bedrock’s native capabilities.
-- **Data-driven Insights**: Use data from community-approved sources, possibly integrating data from Google, to create a knowledge base that supports healthy eating discussions.
-- **Node.js as the Primary Language**: The project will be developed using Node.js to ensure efficient processing and data handling.
+## Architecture & Tech Stack
 
-## 1. Features
+| Layer          | Technology                                   |
+| -------------- | -------------------------------------------- |
+| Frontend       | HTML5, CSS3, JavaScript (ES6+), WebSocket    |
+| Backend        | Node.js, Express                             |
+| AI Integration | Amazon Bedrock (LLM Agents, Knowledge Bases) |
+| Database       | PostgreSQL (or Siebel Oracle)                |
+| ML Framework   | TensorFlow 2.12+                             |
+| Build & CI/CD  | Maven, npm, GitHub Actions                   |
+| Security       | JWT, HTTPS, OWASP best practices             |
 
-- **Personalized Recipe Recommendations**: Get recipe suggestions based on your dietary restrictions and preferences.
-- **AI-Powered Chat Interface**: Interact with a digital assistant to get real-time advice on dietary options and build healthy food plans.
-- **User-Generated Content**: Share your own recipes and discover those shared by others.
-- **Search & Filter**: Easily search for recipes using advanced filters like ingredients, dietary type, and meal category.
-- **Nutritional Information**: Access detailed nutritional data for each recipe.
+## Getting Started
 
-## 2. Getting Started
+### Prerequisites
 
-### 2.1 System Requirements
+* **Node.js** (v16+) and **npm**
+* **Java** (v17+) and **Maven** (for backend build)
+* **Docker** (optional for local database)
+* AWS account with Bedrock access
 
-Ensure your system meets the following requirements:
+### Installation
 
-- A compatible web browser (e.g., Chrome, Firefox, Safari).
-- An active internet connection.
-- Node.js and npm installed on your system.
+1. **Clone the repository**
 
-### 2.2 Installation
-
-1. **Clone the repository:**
    ```bash
    git clone https://github.com/kvnbbg/bookish-octo-invention.git
    cd bookish-octo-invention
    ```
 
-2. **Install dependencies:**
+2. **Install dependencies**
+
    ```bash
+   cd frontend  # if separate
    npm install
+   cd ../backend
+   mvn install
    ```
 
-3. **Configuration:**
-   - **Environment Variables**: Set up environment variables by creating a `.env` file in the root directory:
-     ```bash
-     cp .env.example .env
-     ```
-     Fill in the `.env` file with your configuration settings (e.g., session secrets, API keys).
+### Configuration
 
-   - **Session Management**: Configure session management and ensure your `SESSION_SECRET` is secure.
+Create a `.env` file in the project root (copy from `.env.example`) and configure the following variables:
 
-4. **Run the Application:**
+```env
+# AWS & Bedrock
+AWS_REGION=us-west-2
+BEDROCK_API_KEY=your_api_key
+
+# Server
+PORT=3000
+SESSION_SECRET=your_session_secret
+
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=app_user
+DB_PASS=secure_password
+DB_NAME=recipes_db
+```
+
+### Running the Application
+
+* **Frontend**
+
+  ```bash
+  cd frontend
+  npm start
+  ```
+
+  Access the UI at `http://localhost:3000`.
+
+* **Backend**
+
+  ```bash
+  cd backend
+  mvn spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=dev"
+  ```
+
+  API served at `http://localhost:8080/api`.
+
+## Usage
+
+1. **Sign Up** for a new account or **Log In** if you already have one.
+2. **Browse** or **Search** for recipes using the filter panel.
+3. **Interact** with the AI Assistant via the chat widget for meal suggestions.
+4. **Submit** your own recipes and earn XP points.
+
+## Testing
+
+* **Unit & Integration**
+
+  ```bash
+  # Backend tests
+  cd backend
+  mvn test
+
+  # Frontend tests
+  cd frontend
+  npm test
+  ```
+
+* **End-to-End (Cypress)**
+
+  ```bash
+  npm run cypress:open
+  ```
+
+## Deployment
+
+1. **Build**
+
    ```bash
-   npm start
+   # Frontend
+   cd frontend
+   npm run build
+
+   # Backend
+   cd ../backend
+   mvn clean package
    ```
 
-   The application will typically run on `http://localhost:3000`. Visit this URL in your web browser to access the application.
+2. **Docker** (optional)
 
-## 3. Collaboration
+   ```bash
+   docker-compose up --build
+   ```
 
-We're looking for motivated team members to join us in this project! If you're interested, we invite you to contribute by pushing some code to the repository. We can also have discussions here since many current team members do not use Jira or Slack. Please leave your email address privately or on GitHub, and we'll add you to the project.
+3. **Production**
 
-## 4. Contributing
+   * Upload the backend JAR to your server or use AWS ECS.
+   * Serve static frontend via S3 + CloudFront or a CDN.
 
-We welcome contributions! To contribute:
+## Contributing
 
-1. **Fork the repository** on GitHub.
-2. **Create a new branch** for your feature or bug fix.
-3. **Make your changes** and commit them with descriptive messages.
-4. **Submit a pull request** to the `main` branch.
+We welcome contributions! Please follow these steps:
 
-Please read our [Contribution Guidelines](CONTRIBUTING.md) for more details.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes with clear messages
+4. Push to your fork and open a Pull Request
+5. Ensure all tests pass and documentation is updated
 
-## 5. License
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
-This project is licensed under the [License](LICENSE).
+## License
 
-## 6. Expanded Documentation
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-For more detailed information, refer to the following documents:
+## Contact
 
-- [User Manual](doc/userManual.md)
-- [Technical Documentation](doc/technicalDoc.md)
-- [Design Assets Document](doc/designAssets.md)
+**Maintainer:** Kevin Marville ([code@kvnbbg.fr](mailto:code@kvnbbg.fr))
 
 ---
 
-**Author:** Kevin Marville  
-**Contact:** [code@kvnbbg.fr](mailto:code@kvnbbg.fr)
+*Elevate your culinary journey with AI-driven healthy recipes!*
