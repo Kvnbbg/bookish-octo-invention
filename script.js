@@ -298,18 +298,414 @@
       alert(message);
     }
 
+    // === Login Modal Functions ===
+    function showLoginModal() {
+      document.getElementById('loginModal').style.display = 'block';
+    }
+    
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+    
+    function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Simple validation
+      if (email && password) {
+        // Mock login - in a real app, this would validate against a backend
+        loginSuccess({
+          name: email.split('@')[0],
+          email: email,
+          id: Date.now(),
+          authMethod: 'email'
+        });
+        closeLoginModal();
+      }
+    }
+    
+    function loginWithGoogle() {
+      // Mock Google OAuth login
+      loginSuccess({
+        name: 'Google User',
+        email: 'user@gmail.com',
+        id: 'google-' + Date.now(),
+        authMethod: 'google'
+      });
+      closeLoginModal();
+    }
+    
+    function loginWithGithub() {
+      // Mock GitHub OAuth login
+      loginSuccess({
+        name: 'GitHub User',
+        email: 'user@github.com',
+        id: 'github-' + Date.now(),
+        authMethod: 'github'
+      });
+      closeLoginModal();
+    }
+    
+    function loginSuccess(user) {
+      // Store user in localStorage
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      
+      // Update UI
+      document.getElementById('current-user').textContent = user.name;
+      document.getElementById('loginBtn').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'block';
+      
+      // Show sustainability section
+      document.getElementById('sessionSustainability').style.display = 'block';
+      
+      // Start session timer
+      startSessionTimer();
+      
+      // Show welcome notification
+      showNotification(`Bienvenue, ${user.name}!`);
+      
+      // Add XP for logging in
+      game.addXP(10);
+    }
+    
+    function logout() {
+      // Clear user from localStorage
+      localStorage.removeItem('currentUser');
+      
+      // Update UI
+      document.getElementById('current-user').textContent = 'Invité';
+      document.getElementById('loginBtn').style.display = 'block';
+      document.getElementById('logoutBtn').style.display = 'none';
+      
+      // Hide sustainability section
+      document.getElementById('sessionSustainability').style.display = 'none';
+      
+      // Stop session timer
+      stopSessionTimer();
+      
+      showNotification('Vous avez été déconnecté.');
+    }
+    
+    // === South Button Functionality ===
+    document.addEventListener('DOMContentLoaded', function() {
+      const southBtn = document.getElementById('southBtn');
+      southBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        showSouthContent();
+      });
+    });
+    
+    function showSouthContent() {
+      // Create a popup for South content
+      const popup = document.createElement('div');
+      popup.className = 'south-popup';
+      popup.innerHTML = `
+        <div class="south-popup-content">
+          <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+          <h2>Découvrez le Sud</h2>
+          <div class="south-content">
+            <div class="south-image">
+              <img src="https://images.unsplash.com/photo-1565113180093-077f5c4a1eda" alt="Cuisine du Sud">
+            </div>
+            <div class="south-info">
+              <h3>Cuisine Méditerranéenne</h3>
+              <p>Explorez les saveurs ensoleillées de la cuisine méditerranéenne, riche en huile d'olive, herbes fraîches, et produits de la mer.</p>
+              <ul class="south-features">
+                <li>Recettes traditionnelles provençales</li>
+                <li>Ingrédients de saison du marché</li>
+                <li>Techniques de cuisson authentiques</li>
+              </ul>
+              <button onclick="exploreSouthRecipes()">Explorer les recettes</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(popup);
+      
+      // Add styles for the popup
+      const style = document.createElement('style');
+      style.textContent = `
+        .south-popup {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.8);
+          z-index: 1000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .south-popup-content {
+          background: white;
+          width: 90%;
+          max-width: 800px;
+          border-radius: 10px;
+          padding: 2rem;
+          position: relative;
+        }
+        .south-popup .close {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          font-size: 28px;
+          cursor: pointer;
+        }
+        .south-content {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          margin-top: 1.5rem;
+        }
+        .south-image img {
+          width: 100%;
+          border-radius: 8px;
+          height: 300px;
+          object-fit: cover;
+        }
+        .south-features {
+          margin: 1.5rem 0;
+          padding-left: 1.5rem;
+        }
+        .south-features li {
+          margin-bottom: 0.5rem;
+        }
+        .south-info button {
+          background: var(--accent-color);
+          color: white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        @media (max-width: 768px) {
+          .south-content {
+            grid-template-columns: 1fr;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    function exploreSouthRecipes() {
+      // Add some Mediterranean recipes to the collection
+      const southRecipes = [
+        {
+          id: 'south-' + Date.now(),
+          title: 'Ratatouille Provençale',
+          content: 'Ingrédients:\n- 1 aubergine\n- 2 courgettes\n- 1 poivron rouge\n- 1 poivron jaune\n- 3 tomates\n- 2 oignons\n- 3 gousses d\'ail\n- Herbes de Provence\n- Huile d\'olive\n\nInstructions:\n1. Couper tous les légumes en dés\n2. Faire revenir les oignons et l\'ail dans l\'huile d\'olive\n3. Ajouter les autres légumes et les herbes\n4. Cuire à feu doux pendant 45 minutes',
+          category: 'plat',
+          created: new Date().toLocaleString(),
+          region: 'Sud'
+        },
+        {
+          id: 'south-' + (Date.now() + 1),
+          title: 'Salade Niçoise',
+          content: 'Ingrédients:\n- Laitue\n- Tomates\n- Œufs durs\n- Thon\n- Olives noires\n- Anchois\n- Haricots verts\n- Poivron\n- Huile d\'olive\n- Vinaigre balsamique\n\nInstructions:\n1. Cuire les haricots verts et les œufs\n2. Couper tous les ingrédients\n3. Mélanger et assaisonner avec huile d\'olive et vinaigre',
+          category: 'entrée',
+          created: new Date().toLocaleString(),
+          region: 'Sud'
+        }
+      ];
+      
+      // Add recipes to the collection
+      recipes = [...recipes, ...southRecipes];
+      localStorage.setItem('recipes', JSON.stringify(recipes));
+      displayRecipes();
+      
+      // Close the popup
+      document.querySelector('.south-popup').remove();
+      
+      // Show notification
+      showNotification('Recettes méditerranéennes ajoutées!');
+      
+      // Add XP for exploring
+      game.addXP(25);
+      
+      // Update eco recipe count
+      updateEcoRecipeCount();
+    }
+    
+    // === Session Sustainability Features ===
+    let sessionTimer;
+    let sessionSeconds = 0;
+    
+    function startSessionTimer() {
+      sessionTimer = setInterval(() => {
+        sessionSeconds++;
+        updateSessionTime();
+        updateSessionProgress();
+      }, 1000);
+    }
+    
+    function stopSessionTimer() {
+      clearInterval(sessionTimer);
+      sessionSeconds = 0;
+      updateSessionTime();
+      updateSessionProgress();
+    }
+    
+    function updateSessionTime() {
+      const hours = Math.floor(sessionSeconds / 3600);
+      const minutes = Math.floor((sessionSeconds % 3600) / 60);
+      const seconds = sessionSeconds % 60;
+      
+      const timeString = [
+        hours.toString().padStart(2, '0'),
+        minutes.toString().padStart(2, '0'),
+        seconds.toString().padStart(2, '0')
+      ].join(':');
+      
+      document.getElementById('sessionTime').textContent = timeString;
+    }
+    
+    function updateSessionProgress() {
+      // Calculate progress percentage (max 100% at 30 minutes)
+      const maxSeconds = 30 * 60;
+      const progress = Math.min((sessionSeconds / maxSeconds) * 100, 100);
+      document.getElementById('sessionProgress').style.width = progress + '%';
+      
+      // Award XP for every 5 minutes of session time
+      if (sessionSeconds > 0 && sessionSeconds % 300 === 0) {
+        game.addXP(5);
+        updatePeopleHelped();
+      }
+    }
+    
+    function updateEcoRecipeCount() {
+      // Count recipes with eco-friendly ingredients or methods
+      const ecoKeywords = ['local', 'bio', 'saison', 'durable', 'écologique', 'méditerranéen'];
+      const ecoRecipes = recipes.filter(recipe => 
+        ecoKeywords.some(keyword => 
+          recipe.title.toLowerCase().includes(keyword) || 
+          recipe.content.toLowerCase().includes(keyword) ||
+          (recipe.region && recipe.region === 'Sud')
+        )
+      );
+      
+      document.getElementById('ecoRecipeCount').textContent = ecoRecipes.length;
+      
+      // Update carbon footprint based on eco recipes
+      updateCarbonFootprint(ecoRecipes.length);
+    }
+    
+    function updateCarbonFootprint(ecoRecipeCount) {
+      // Mock calculation: total recipes - eco recipes = carbon footprint in kg
+      const carbonFootprint = Math.max(0, recipes.length - ecoRecipeCount);
+      document.getElementById('carbonFootprint').textContent = carbonFootprint + ' kg CO₂';
+    }
+    
+    function offsetCarbon() {
+      // Mock carbon offset action
+      showNotification('Empreinte carbone compensée!');
+      document.getElementById('carbonFootprint').textContent = '0 kg CO₂';
+      game.addXP(15);
+    }
+    
+    function completeAction(actionType) {
+      // Handle different sustainability actions
+      switch(actionType) {
+        case 'local':
+          showNotification('Action "Recettes Locales" complétée! +20 XP');
+          game.addXP(20);
+          break;
+        case 'zerowaste':
+          showNotification('Action "Zéro Déchet" complétée! +25 XP');
+          game.addXP(25);
+          break;
+        case 'seasonal':
+          showNotification('Action "Saisonnier" complétée! +15 XP');
+          game.addXP(15);
+          break;
+      }
+      
+      // Update people helped
+      updatePeopleHelped();
+    }
+    
+    function updatePeopleHelped() {
+      // Mock calculation based on user activity
+      const currentHelped = parseInt(document.getElementById('peopleHelped').textContent);
+      const newHelped = currentHelped + Math.floor(Math.random() * 5) + 1;
+      document.getElementById('peopleHelped').textContent = newHelped;
+    }
+    
+    // === Improved Notifications ===
+    function showNotification(message) {
+      // Create a custom notification instead of using alert
+      const notification = document.createElement('div');
+      notification.className = 'custom-notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      // Add styles for the notification
+      const style = document.createElement('style');
+      style.textContent = `
+        .custom-notification {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background: var(--primary-color);
+          color: white;
+          padding: 1rem;
+          border-radius: 5px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+          z-index: 1000;
+          animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+        }
+        @keyframes slideIn {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Remove notification after 3 seconds
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+    
     // === Initialization ===
     function init() {
       updateUserUI();
       displayRecipes();
       updateConnectionStatus();
       updateGameHUD();
+      
+      // Check if user is already logged in
+      const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (savedUser) {
+        document.getElementById('current-user').textContent = savedUser.name;
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('logoutBtn').style.display = 'block';
+        document.getElementById('sessionSustainability').style.display = 'block';
+        startSessionTimer();
+      }
+      
+      // Initialize eco recipe count
+      updateEcoRecipeCount();
+      
       // Auto-sync Siebel every 30 seconds if connected
       setInterval(() => {
         if (siebelConnection.isConnected) {
           siebelConnection.syncData();
         }
       }, 30000);
+      
+      // Add event listener for window closing to save session data
+      window.addEventListener('beforeunload', function() {
+        if (localStorage.getItem('currentUser')) {
+          // Save session data
+          localStorage.setItem('sessionSeconds', sessionSeconds);
+        }
+      });
     }
 
     window.onload = init;

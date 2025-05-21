@@ -16,10 +16,25 @@
   <!-- Header with User Management -->
   <header>
     <h1>Bookish Octo Invention 👩🍳</h1>
-    <p>
-      Bienvenue, <span id="current-user">Katia Rachon</span>
-      <button onclick="changeUser()">Changer utilisateur</button>
-    </p>
+    <div class="header-controls">
+      <p>
+        Bienvenue, <span id="current-user">Katia Rachon</span>
+        <button onclick="changeUser()">Changer utilisateur</button>
+      </p>
+      <div class="auth-buttons">
+        <button id="loginBtn" onclick="showLoginModal()">Se connecter</button>
+        <button id="logoutBtn" onclick="logout()" style="display: none;">Déconnexion</button>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#" class="active">Accueil</a></li>
+        <li><a href="#">Recettes</a></li>
+        <li><a href="#">Communauté</a></li>
+        <li><a href="#">À propos</a></li>
+        <li><a href="#" id="southBtn">Sud</a></li>
+      </ul>
+    </nav>
   </header>
 
   <!-- Main Layout: Sidebar (Siebel Panel) + Main Content -->
@@ -99,7 +114,85 @@
           <p id="achievementText">Titre du succès</p>
         </div>
       </section>
+      
+      <!-- Session Sustainability Section (Only visible when logged in) -->
+      <section id="sessionSustainability" class="sustainability-section" style="display: none;">
+        <h2>🌱 Session Sustainability</h2>
+        <div class="sustainability-stats">
+          <div class="stat-card">
+            <h3>Temps de Session</h3>
+            <p id="sessionTime">00:00:00</p>
+            <div class="progress-bar">
+              <div class="progress" id="sessionProgress" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <h3>Recettes Écologiques</h3>
+            <p id="ecoRecipeCount">0</p>
+            <div class="eco-badge">Éco-responsable</div>
+          </div>
+          <div class="stat-card">
+            <h3>Empreinte Carbone</h3>
+            <p id="carbonFootprint">0 kg CO₂</p>
+            <button onclick="offsetCarbon()">Compenser</button>
+          </div>
+        </div>
+        
+        <div class="sustainability-actions">
+          <h3>Actions Durables</h3>
+          <div class="action-grid">
+            <div class="action-card">
+              <h4>Recettes Locales</h4>
+              <p>Utilisez des ingrédients locaux pour réduire l'empreinte carbone</p>
+              <button onclick="completeAction('local')">Compléter</button>
+            </div>
+            <div class="action-card">
+              <h4>Zéro Déchet</h4>
+              <p>Créez des recettes qui utilisent tous les ingrédients sans gaspillage</p>
+              <button onclick="completeAction('zerowaste')">Compléter</button>
+            </div>
+            <div class="action-card">
+              <h4>Saisonnier</h4>
+              <p>Utilisez uniquement des ingrédients de saison</p>
+              <button onclick="completeAction('seasonal')">Compléter</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="community-impact">
+          <h3>Impact Communautaire</h3>
+          <div class="impact-chart">
+            <canvas id="impactChart"></canvas>
+          </div>
+          <p>Votre contribution a aidé <span id="peopleHelped">0</span> personnes à cuisiner de manière plus durable!</p>
+        </div>
+      </section>
     </main>
+  </div>
+  
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <h2>Connexion</h2>
+      <div class="login-options">
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <input type="email" id="email" placeholder="Email" required>
+          <input type="password" id="password" placeholder="Mot de passe" required>
+          <button type="submit">Se connecter</button>
+        </form>
+        <div class="oauth-buttons">
+          <button class="oauth-btn google-btn" onclick="loginWithGoogle()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+            Continuer avec Google
+          </button>
+          <button class="oauth-btn github-btn" onclick="loginWithGithub()">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+            Continuer avec GitHub
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
