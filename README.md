@@ -22,6 +22,8 @@ A web application that leverages generative AI to provide personalized healthy r
 * [License](#license)
 * [Contact](#contact)
 
+[![Play Live 🚀](https://kvnbbg.github.io/bookish-octo-invention/)
+
 ---
 
 ## About
@@ -192,3 +194,6 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ---
 
 *Elevate your culinary journey with AI-driven healthy recipes!*
+
+**Author:** Kevin Marville  
+**Contact:** [code@kvnbbg.fr](mailto:code@kvnbbg.fr)
