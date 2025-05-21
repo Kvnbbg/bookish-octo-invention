@@ -41,6 +41,30 @@ router.post('/login/password', passport.authenticate('local', {
     failureFlash: true
 }));
 
+// Google OAuth routes
+router.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { 
+        successRedirect: '/',
+        failureRedirect: '/login?error=google_auth_failed'
+    })
+);
+
+// GitHub OAuth routes
+router.get('/auth/github',
+    passport.authenticate('github', { scope: ['user:email'] })
+);
+
+router.get('/auth/github/callback',
+    passport.authenticate('github', { 
+        successRedirect: '/',
+        failureRedirect: '/login?error=github_auth_failed'
+    })
+);
+
 // Signup page route
 router.get('/signup', (req, res) => {
     try {
@@ -86,6 +110,19 @@ router.get('/logout', (req, res, next) => {
         });
     });
 });
+
+// User profile route (protected)
+router.get('/profile', ensureAuthenticated, (req, res) => {
+    res.sendFile(path.join(templateDir, 'profile.html'));
+});
+
+// Middleware to ensure user is authenticated
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
 
 // Additional routes for static pages (e.g., About, Contact)
 router.get('/about', (req, res) => {

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="/">Bookish</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="profile-section">
+      <h1>User Profile</h1>
+      <div class="profile-info">
+        <div class="profile-avatar">
+          <i class="fas fa-user-circle fa-5x"></i>
+        </div>
+        <div class="profile-details">
+          <h2 id="username">Welcome, <span id="user-name">User</span>!</h2>
+          <p>Account type: <span id="account-type">Standard</span></p>
+          <p>Email: <span id="user-email">user@example.com</span></p>
+          <p>Provider: <span id="auth-provider">Local</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="account-settings">
+      <h2>Account Settings</h2>
+      <div class="settings-options">
+        <div class="setting-item">
+          <h3>Change Password</h3>
+          <button id="change-password-btn">Change Password</button>
+        </div>
+        <div class="setting-item">
+          <h3>Connected Accounts</h3>
+          <div class="connected-accounts">
+            <div class="account-item">
+              <i class="fab fa-google"></i> Google
+              <button class="connect-btn" id="connect-google">Connect</button>
+            </div>
+            <div class="account-item">
+              <i class="fab fa-github"></i> GitHub
+              <button class="connect-btn" id="connect-github">Connect</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Bookish. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // This script would normally fetch user data from the server
+    // For demonstration purposes, we're using placeholder data
+    document.addEventListener('DOMContentLoaded', function() {
+      // In a real application, this data would come from the server
+      const userData = {
+        username: 'JohnDoe',
+        email: 'john.doe@example.com',
+        accountType: 'Premium',
+        provider: 'Local'
+      };
+
+      // Update the DOM with user data
+      document.getElementById('user-name').textContent = userData.username;
+      document.getElementById('user-email').textContent = userData.email;
+      document.getElementById('account-type').textContent = userData.accountType;
+      document.getElementById('auth-provider').textContent = userData.provider;
+
+      // Event listeners for buttons
+      document.getElementById('change-password-btn').addEventListener('click', function() {
+        alert('Change password functionality would be implemented here.');
+      });
+
+      document.getElementById('connect-google').addEventListener('click', function() {
+        window.location.href = '/auth/google';
+      });
+
+      document.getElementById('connect-github').addEventListener('click', function() {
+        window.location.href = '/auth/github';
+      });
+    });
+  </script>
+</body>
+
+</html>

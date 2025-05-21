@@ -4,9 +4,8 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport'; // Passport.js for authentication
-import { Strategy as LocalStrategy } from 'passport-local'; // Local strategy for authentication
 import routes from '../app/src/routes/routes.js'; // Import your custom routes
-import { simpleHash } from '../app/src/utils/index.js'; // Hashing function for passwords
+import { configurePassport } from '../app/src/config/passport.js'; // Import passport configuration
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv'; // For loading environment variables
 
@@ -34,54 +33,19 @@ app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',  // It's important to keep this key secure
     resave: false,  // Prevents unnecessary session data from being saved if nothing changed
-    saveUninitialized: false  // Ensures no session is saved for unauthenticated users
+    saveUninitialized: false,  // Ensures no session is saved for unauthenticated users
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
 }));
 
 // Passport initialization for handling authentication
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Dummy user credentials for demonstration purposes
-// Ideally, these should come from a database in a production environment
-const users = [
-    { username: 'admin', password: simpleHash('password') },
-    { username: 'user', password: simpleHash('password') },
-    { username: 'user1', password: simpleHash('password1') },
-    { username: 'user2', password: simpleHash('password2') }
-];
-
-// Set up Passport Local Strategy for authentication
-passport.use(new LocalStrategy(
-    function (username, password, done) {
-        try {
-            const user = users.find(user => user.username === username);
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            if (user.password !== simpleHash(password)) {  // Password check
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user); // User authenticated successfully
-        } catch (error) {
-            return done(error); // Handle unexpected errors
-        }
-    }
-));
-
-// Serialize user data to store in session
-passport.serializeUser((user, done) => {
-    done(null, user.username);
-});
-
-// Deserialize user data from the session for retrieval
-passport.deserializeUser((username, done) => {
-    try {
-        const user = users.find(user => user.username === username);
-        done(null, user || false);
-    } catch (error) {
-        done(error, false); // Error handling during deserialization
-    }
-});
+// Configure Passport strategies (local, Google, GitHub)
+configurePassport();
 
 // Use routes from the routes.js file for handling different endpoints
 app.use('/', routes);
@@ -105,7 +69,7 @@ process.on('unhandledRejection', (reason, promise) => {
 
 // Start the server with improved error handling and debugging
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server is running on port ${port}`);
 }).on('error', (err) => {
     console.error('Server error:', err); // Error handling during server startup

@@ -1,0 +1,59 @@
+/* OAuth Buttons Styling */
+.oauth-login {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.oauth-login p {
+  margin-bottom: 15px;
+  color: #555;
+  font-size: 14px;
+}
+
+.oauth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+.oauth-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.oauth-button i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.google-button {
+  background-color: #DB4437;
+}
+
+.google-button:hover {
+  background-color: #C53929;
+}
+
+.github-button {
+  background-color: #333;
+}
+
+.github-button:hover {
+  background-color: #24292e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .oauth-buttons {
+    max-width: 100%;
+  }
+}
