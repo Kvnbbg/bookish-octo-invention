@@ -1,41 +1,174 @@
 # Code of Conduct
-    
-## Our Pledge
 
-In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+## 🌈 Our Pledge
 
-## Our Standards
+We, as contributors and maintainers of this project, pledge to make participation in our community a harassment-free experience for everyone, regardless of:
 
-Examples of behavior that contributes to creating a positive environment include:
+- **Identity**: Age, body size, disability, ethnicity, gender identity and expression
+- **Background**: Level of experience, nationality, personal appearance, race, religion
+- **Orientation**: Sexual identity and orientation
 
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints and experiences
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
-- Showing empathy towards other community members
+We value diversity and commit to creating an environment where all individuals feel:
 
-Examples of unacceptable behavior by participants include:
+- 🛡️ **Safe** from discrimination or harassment
+- 🤝 **Respected** for their unique perspectives
+- 💪 **Empowered** to contribute meaningfully
 
-- The use of sexualized language or imagery and unwelcome sexual attention or advances
-- Trolling, insulting/derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others' private information, such as a physical or electronic address, without explicit permission
-- Other conduct which could reasonably be considered inappropriate in a professional setting
+## ✨ Our Standards
 
-## Our Responsibilities
+### Expected Behavior
 
-Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
+We encourage behaviors that foster a positive community:
 
-Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, and will communicate reasons for moderation decisions when appropriate.
+| Behavior | Examples |
+|----------|----------|
+| **Inclusive Language** | Using gender-neutral terms, avoiding assumptions |
+| **Respectful Dialogue** | "I disagree because..." instead of "That's stupid" |
+| **Constructive Feedback** | Focusing on code/ideas rather than individuals |
+| **Community Focus** | Prioritizing project needs over personal preferences |
+| **Empathy** | Acknowledging different experience levels |
 
-## Enforcement
+### Unacceptable Behavior
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at [kevinmarville@gmail.com](mailto:kevinmarville@gmail.com). All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+The following behaviors are prohibited:
 
-Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
+- **Harassment**: 
+  - Sexualized comments/jokes
+  - Unwelcome physical or digital attention
+  - Deliberate intimidation
+- **Discrimination**:
+  - Racist, sexist, or exclusionary remarks
+  - Derogatory comments about personal characteristics
+- **Disruptive Conduct**:
+  - Trolling or flame wars
+  - Sustained off-topic arguments
+  - Doxing (sharing private information)
+- **Professionalism Violations**:
+  - Insults or personal attacks
+  - Threats of violence
+  - Retaliation against reporters
 
-## Attribution
+## 🛠️ Our Responsibilities
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.0, available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+### Maintainer Duties
 
-For answers to common questions about this code of conduct, see https://www.contributor-covenant.org/faq
+Project maintainers must:
+
+1. **Clarify Standards**:
+   - Document expected behaviors
+   - Keep policies up-to-date
+
+2. **Moderate Fairly**:
+   - Remove/edit violating content
+   - Apply consequences consistently
+
+3. **Protect Privacy**:
+   - Keep reports confidential
+   - Shield reporters from retaliation
+
+4. **Lead by Example**:
+   - Model ideal behavior
+   - De-escalate conflicts
+
+## 🌍 Scope
+
+This Code applies to all project spaces:
+
+| Location | Examples |
+|----------|----------|
+| **Project Spaces** | GitHub repos, issue trackers, wikis |
+| **Communication** | Mailing lists, Discord/Slack, forums |
+| **Public Representation** | Social media, conferences, meetups |
+
+**Important**: Applies when representing the project, including:
+- Using official project email
+- Posting as project representative
+- Wearing project-branded apparel at events
+
+## ⚖️ Enforcement
+
+### Reporting Violations
+
+To report misconduct:
+1. Email: [conduct@project.org](mailto:conduct@project.org)
+2. Include:
+   - Where/when incident occurred
+   - Description of behavior
+   - Any supporting evidence
+   - Desired resolution
+
+All reports will be:
+- 🔒 Kept confidential
+- ⏳ Reviewed within 72 hours
+- ⚖️ Investigated impartially
+
+### Enforcement Guidelines
+
+We use a tiered response system:
+
+#### 1. Correction (Minor Issues)
+- **Example**: Accidental offensive language
+- **Action**:
+  - Private written warning
+  - Request for public apology if public incident
+  - Educational resources provided
+
+#### 2. Warning (Pattern of Issues)
+- **Example**: Repeated disrespectful comments
+- **Action**:
+  - Formal warning with behavior contract
+  - 30-day interaction restrictions
+  - Mediation if needed
+
+#### 3. Temporary Ban (Serious Violations)
+- **Example**: Harassment of contributor
+- **Action**:
+  - 6-12 month suspension
+  - No contact with affected parties
+  - Public announcement if necessary
+
+#### 4. Permanent Ban (Extreme Cases)
+- **Example**: Hate speech or threats
+- **Action**:
+  - Indefinite removal from community
+  - Platform account reporting
+  - Legal notification if required
+
+## 📜 Policy Details
+
+### Conflict Resolution
+We encourage:
+1. Direct, respectful dialogue between parties
+2. Mediation from maintainers
+3. Formal reporting if unresolved
+
+### Appeals Process
+Banned individuals may:
+1. Submit written appeal after 6 months
+2. Demonstrate changed behavior
+3. Present rehabilitation evidence
+
+### Policy Updates
+1. Major changes require community input
+2. Version history maintained in repository
+3. Announcements for significant modifications
+
+## 📚 Attribution
+
+This Code adapts from:
+
+- [Contributor Covenant 2.0](https://www.contributor-covenant.org)
+- [Django Project Code of Conduct](https://www.djangoproject.com/conduct/)
+- [Rust Language Community Standards](https://www.rust-lang.org/policies/code-of-conduct)
+
+## 💌 Final Notes
+
+We believe:
+> "A diverse community is a strong community"
+
+By participating, you agree to:
+- Uphold these standards
+- Help enforce them constructively
+- Continuously improve our culture
+
+**Thank you** for helping build a welcoming space for all contributors!
