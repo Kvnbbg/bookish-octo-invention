@@ -197,3 +197,6 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 **Author:** Kevin Marville  
 **Contact:** [code@kvnbbg.fr](mailto:code@kvnbbg.fr)
+
+## OAuth 2.0 Authentication
+This application now supports OAuth 2.0 authentication with GitHub and Google. Users can log in using their existing accounts for a seamless experience.
