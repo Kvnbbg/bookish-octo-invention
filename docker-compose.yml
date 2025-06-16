@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - JAVA_OPTS=-Xmx512m -Xms256m
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Optional: Oracle Database for production
+  # oracle-db:
+  #   image: container-registry.oracle.com/database/express:21.3.0-xe
+  #   ports:
+  #     - "1521:1521"
+  #   environment:
+  #     - ORACLE_PWD=password123
+  #     - ORACLE_CHARACTERSET=AL32UTF8
+  #   volumes:
+  #     - oracle-data:/opt/oracle/oradata
+  #   networks:
+  #     - app-network
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  oracle-data:
+    driver: local

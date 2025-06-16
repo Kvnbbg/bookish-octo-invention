@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Bookish Octo Invention</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            color: #2c3e50 !important;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-book-open"></i> Bookish Octo Invention
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/scan">Text Scanner</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/health">Health</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">
+                <i class="fas fa-book-open"></i> Bookish Octo Invention
+            </h1>
+            <p class="lead mb-4" th:text="${description}">Advanced Text Analysis and Security Platform</p>
+            <a href="/scan" class="btn btn-light btn-lg">
+                <i class="fas fa-search"></i> Try Text Scanner
+            </a>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-search fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Text Analysis</h5>
+                        <p class="card-text">Advanced emoji detection and money calculation with parallel processing support.</p>
+                        <a href="/scan" class="btn btn-primary">Try Scanner</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Security Features</h5>
+                        <p class="card-text">Built-in malware detection and JWT authentication for secure operations.</p>
+                        <a href="/about" class="btn btn-success">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-database fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Database Integration</h5>
+                        <p class="card-text">Oracle and H2 database support with HikariCP connection pooling.</p>
+                        <a href="/health" class="btn btn-info">Check Status</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Features</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Emoji tagging and detection
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Money symbol extraction
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Parallel stream processing
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Comprehensive unit testing
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Docker containerization
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Spring Boot web framework
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2024 Bookish Octo Invention. Advanced Text Analysis Platform.</p>
+            <p>
+                <a href="https://github.com/Kvnbbg/bookish-octo-invention" class="text-light">
+                    <i class="fab fa-github"></i> GitHub Repository
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
