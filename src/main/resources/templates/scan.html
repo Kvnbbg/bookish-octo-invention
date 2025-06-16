@@ -44,6 +44,63 @@
             padding: 2rem 0;
             margin-top: 4rem;
         }
+        .scan-animation {
+            animation: scanPulse 2s infinite;
+        }
+        @keyframes scanPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .processing-indicator {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .processing-indicator .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        .btn-interactive {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-interactive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .btn-interactive::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-interactive:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        .achievement-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transform: translateX(400px);
+            transition: transform 0.5s ease;
+            z-index: 1001;
+        }
+        .achievement-toast.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
@@ -74,10 +131,15 @@
         </div>
     </nav>
 
+    <!-- Achievement Toast -->
+    <div class="achievement-toast" id="achievementToast">
+        <i class="fas fa-medal"></i> <span id="achievementMessage">Achievement Unlocked!</span>
+    </div>
+
     <div class="container my-5">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h1 class="text-center mb-4">
+                <h1 class="text-center mb-4 scan-animation">
                     <i class="fas fa-search"></i> Text Scanner
                 </h1>
                 <p class="text-center text-muted mb-4">
@@ -98,20 +160,28 @@ Note</textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-primary w-100" onclick="analyzeScan(false)">
+                                    <button type="button" class="btn btn-primary w-100 btn-interactive" onclick="analyzeScan(false)">
                                         <i class="fas fa-play"></i> Analyze (Sequential)
                                     </button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-success w-100" onclick="analyzeScan(true)">
+                                    <button type="button" class="btn btn-success w-100 btn-interactive" onclick="analyzeScan(true)">
                                         <i class="fas fa-bolt"></i> Analyze (Parallel)
                                     </button>
                                 </div>
                             </div>
                             <div class="mt-3">
-                                <button type="button" class="btn btn-outline-secondary w-100" onclick="loadDemo()">
+                                <button type="button" class="btn btn-outline-secondary w-100 btn-interactive" onclick="loadDemo()">
                                     <i class="fas fa-eye"></i> Load Demo Data
                                 </button>
+                            </div>
+                            
+                            <!-- Processing Indicator -->
+                            <div class="processing-indicator" id="processingIndicator">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Processing...</span>
+                                </div>
+                                <p class="mt-2">🔍 Analyzing your text...</p>
                             </div>
                         </form>
                     </div>
@@ -172,14 +242,80 @@ Note</textarea>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Gamification state
+        let scannerStats = {
+            scansPerformed: parseInt(localStorage.getItem('scansPerformed') || '0'),
+            totalItemsAnalyzed: parseInt(localStorage.getItem('totalItemsAnalyzed') || '0'),
+            fastestScan: parseInt(localStorage.getItem('fastestScan') || '999999'),
+            parallelScans: parseInt(localStorage.getItem('parallelScans') || '0')
+        };
+
+        // Show achievement
+        function showAchievement(message) {
+            const toast = document.getElementById('achievementToast');
+            document.getElementById('achievementMessage').textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Update stats
+        function updateStats(itemCount, processingTime, isParallel) {
+            scannerStats.scansPerformed++;
+            scannerStats.totalItemsAnalyzed += itemCount;
+            
+            if (processingTime < scannerStats.fastestScan) {
+                scannerStats.fastestScan = processingTime;
+                showAchievement(`🏃‍♂️ New speed record: ${processingTime}ms!`);
+            }
+            
+            if (isParallel) {
+                scannerStats.parallelScans++;
+                if (scannerStats.parallelScans === 1) {
+                    showAchievement('⚡ First parallel scan completed!');
+                } else if (scannerStats.parallelScans === 10) {
+                    showAchievement('🚀 Parallel processing master!');
+                }
+            }
+            
+            // Milestone achievements
+            if (scannerStats.scansPerformed === 5) {
+                showAchievement('🎯 Scanner Novice - 5 scans completed!');
+            } else if (scannerStats.scansPerformed === 25) {
+                showAchievement('🏆 Scanner Expert - 25 scans completed!');
+            } else if (scannerStats.scansPerformed === 100) {
+                showAchievement('👑 Scanner Master - 100 scans completed!');
+            }
+            
+            if (scannerStats.totalItemsAnalyzed >= 100) {
+                showAchievement('📊 Data Analyst - 100+ items analyzed!');
+            }
+            
+            // Save stats
+            localStorage.setItem('scansPerformed', scannerStats.scansPerformed);
+            localStorage.setItem('totalItemsAnalyzed', scannerStats.totalItemsAnalyzed);
+            localStorage.setItem('fastestScan', scannerStats.fastestScan);
+            localStorage.setItem('parallelScans', scannerStats.parallelScans);
+        }
+
         function analyzeScan(parallel) {
             const textInput = document.getElementById('textInput').value;
             const items = textInput.split('\n').filter(item => item.trim() !== '');
             
             if (items.length === 0) {
-                alert('Please enter some text to analyze');
+                showAchievement('❌ Please enter some text to analyze');
                 return;
             }
+
+            // Show processing indicator
+            const indicator = document.getElementById('processingIndicator');
+            indicator.style.display = 'block';
+            
+            // Add some visual feedback
+            const buttons = document.querySelectorAll('.btn-interactive');
+            buttons.forEach(btn => btn.disabled = true);
 
             const startTime = Date.now();
             const endpoint = parallel ? '/scan/analyze-parallel' : '/scan/analyze';
@@ -194,11 +330,27 @@ Note</textarea>
             .then(response => response.json())
             .then(data => {
                 const endTime = Date.now();
-                displayResults(data, endTime - startTime);
+                const processingTime = endTime - startTime;
+                
+                // Hide processing indicator
+                indicator.style.display = 'none';
+                buttons.forEach(btn => btn.disabled = false);
+                
+                displayResults(data, processingTime);
+                updateStats(items.length, processingTime, parallel);
+                
+                // Performance feedback
+                if (processingTime < 100) {
+                    showAchievement('⚡ Lightning fast analysis!');
+                } else if (parallel && processingTime < 200) {
+                    showAchievement('🚀 Parallel processing rocks!');
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error analyzing text. Please try again.');
+                indicator.style.display = 'none';
+                buttons.forEach(btn => btn.disabled = false);
+                showAchievement('❌ Error analyzing text. Please try again.');
             });
         }
 
@@ -233,16 +385,80 @@ Note</textarea>
         }
 
         function loadDemo() {
+            // Show processing indicator
+            const indicator = document.getElementById('processingIndicator');
+            indicator.style.display = 'block';
+            
             fetch('/scan/demo')
             .then(response => response.json())
             .then(data => {
-                displayResults(data, 0);
+                indicator.style.display = 'none';
+                displayResults(data, 23); // Simulated processing time
+                showAchievement('🎭 Demo loaded successfully!');
+                updateStats(5, 23, false); // Demo has 5 items
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error loading demo. Please try again.');
+                indicator.style.display = 'none';
+                showAchievement('❌ Error loading demo. Please try again.');
             });
         }
+
+        // Page initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Welcome message for returning users
+            if (scannerStats.scansPerformed > 0) {
+                setTimeout(() => {
+                    showAchievement(`👋 Welcome back! You've performed ${scannerStats.scansPerformed} scans.`);
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    showAchievement('🎉 Welcome to the Text Scanner! Try analyzing some text.');
+                }, 1000);
+            }
+
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'Enter':
+                            e.preventDefault();
+                            analyzeScan(false);
+                            break;
+                        case 'p':
+                            e.preventDefault();
+                            analyzeScan(true);
+                            break;
+                        case 'd':
+                            e.preventDefault();
+                            loadDemo();
+                            break;
+                    }
+                }
+            });
+
+            // Add input validation and hints
+            const textInput = document.getElementById('textInput');
+            textInput.addEventListener('input', function() {
+                const lines = this.value.split('\n').filter(line => line.trim() !== '');
+                if (lines.length > 0) {
+                    const emojiCount = (this.value.match(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu) || []).length;
+                    const moneyCount = (this.value.match(/💰\d+/g) || []).length;
+                    
+                    if (emojiCount > 0 || moneyCount > 0) {
+                        this.style.borderColor = '#28a745';
+                    } else {
+                        this.style.borderColor = '#ced4da';
+                    }
+                }
+            });
+
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
     </script>
 </body>
 </html>
