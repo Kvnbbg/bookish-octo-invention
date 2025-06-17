@@ -1,9 +1,66 @@
-node_modules
-npm-debug.log
-Dockerfile
-.dockerignore
+# Git
 .git
 .gitignore
-.env
-logs
+
+# Documentation
+README.md
+doc/
+*.md
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Node.js (legacy)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+app/
+
+# Maven
+target/
+.mvn/
+mvnw
+mvnw.cmd
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.logs
 *.log
+
+# Spring Boot
+application-*.properties
+application-*.yml
+
+# Database
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Environment
+.env
+
+# Other
+*.orig
+*.bak
+*.backup

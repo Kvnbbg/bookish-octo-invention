@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Health Check - Bookish Octo Invention</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            color: #2c3e50 !important;
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        .status-ok {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-book-open"></i> Bookish Octo Invention
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/scan">Text Scanner</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/health">Health</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <h1 class="text-center mb-4">
+                    <i class="fas fa-heartbeat"></i> Health Check
+                </h1>
+
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2 class="status-ok mb-3">
+                            <i class="fas fa-check-circle"></i>
+                            <span th:text="${status}">OK</span>
+                        </h2>
+                        <p class="text-muted">Application is running normally</p>
+                        
+                        <hr>
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Timestamp</h6>
+                                <p th:text="${timestamp}">-</p>
+                            </div>
+                            <div class="col-6">
+                                <h6>Java Version</h6>
+                                <p>17</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Framework</h6>
+                                <p>Spring Boot 3.2</p>
+                            </div>
+                            <div class="col-6">
+                                <h6>Build Tool</h6>
+                                <p>Maven</p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-grid gap-2">
+                            <a href="/actuator/health" class="btn btn-outline-primary">
+                                <i class="fas fa-chart-line"></i> Detailed Health Info
+                            </a>
+                            <a href="/scan/demo" class="btn btn-outline-success">
+                                <i class="fas fa-play"></i> Test Scanner API
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h6 class="card-title">System Information</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Database</span>
+                                <span class="status-ok">
+                                    <i class="fas fa-check"></i> Connected
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Security</span>
+                                <span class="status-ok">
+                                    <i class="fas fa-check"></i> Enabled
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Text Scanner</span>
+                                <span class="status-ok">
+                                    <i class="fas fa-check"></i> Ready
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Unit Tests</span>
+                                <span class="status-ok">
+                                    <i class="fas fa-check"></i> 39/39 Passing
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2024 Bookish Octo Invention. Advanced Text Analysis Platform.</p>
+            <p>
+                <a href="https://github.com/Kvnbbg/bookish-octo-invention" class="text-light">
+                    <i class="fab fa-github"></i> GitHub Repository
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
