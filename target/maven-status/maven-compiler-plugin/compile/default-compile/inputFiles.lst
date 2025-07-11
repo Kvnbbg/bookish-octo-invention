@@ -1,5 +1,5 @@
-/workspace/bookish-octo-invention/src/main/java/com/example/controller/HomeController.java
-/workspace/bookish-octo-invention/src/main/java/com/example/san/ScanResult.java
-/workspace/bookish-octo-invention/src/main/java/com/example/san/ScanResultGatherer.java
-/workspace/bookish-octo-invention/src/main/java/com/example/BookishOctoInventionApplication.java
-/workspace/bookish-octo-invention/src/main/java/com/example/controller/ScanController.java
+/app/src/main/java/com/example/san/ScanResultGatherer.java
+/app/src/main/java/com/example/controller/HomeController.java
+/app/src/main/java/com/example/san/ScanResult.java
+/app/src/main/java/com/example/controller/ScanController.java
+/app/src/main/java/com/example/BookishOctoInventionApplication.java
