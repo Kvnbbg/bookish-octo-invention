@@ -144,3 +144,6 @@ Thumbs.db
 
 # Ignore instance config file
 instance/config.py
+
+# Maven build output
+target/
