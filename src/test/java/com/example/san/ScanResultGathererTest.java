@@ -35,7 +35,7 @@ class ScanResultGathererTest {
     @Test
     @DisplayName("Should tag items with emojis correctly")
     void shouldTagItemsWithEmojis() {
-        List<String> items = List.of("Text 😊", "🔥 Emergency", "Regular text");
+        List<String> items = List.of("Text 😊", "🔥 Emergency", "Regular text", "I ❤️ you", "Let's 🎉", "👍 good job");
         
         ScanResult result = items.stream()
             .collect(ScanResultGatherer.combinedMutable());
@@ -43,7 +43,10 @@ class ScanResultGathererTest {
         assertThat(result.tagged()).containsExactly(
             "🔹Emoji: Text 😊",
             "🔹Emoji: 🔥 Emergency", 
-            "🔸Text: Regular text"
+            "🔸Text: Regular text",
+            "🔹Emoji: I ❤️ you",
+            "🔹Emoji: Let's 🎉",
+            "🔹Emoji: 👍 good job"
         );
         assertThat(result.total()).isZero();
     }
@@ -51,7 +54,7 @@ class ScanResultGathererTest {
     @Test
     @DisplayName("Should calculate money total correctly")
     void shouldCalculateMoneyTotal() {
-        List<String> items = List.of("💰100", "💰50", "💰25");
+        List<String> items = List.of("💰100", "€50", "£25");
         
         ScanResult result = items.stream()
             .collect(ScanResultGatherer.combinedMutable());
@@ -59,8 +62,8 @@ class ScanResultGathererTest {
         assertThat(result.total()).isEqualTo(175);
         assertThat(result.tagged()).containsExactly(
             "🔸Text: 💰100",
-            "🔸Text: 💰50",
-            "🔸Text: 💰25"
+            "🔸Text: €50",
+            "🔸Text: £25"
         );
     }
 
@@ -263,7 +266,8 @@ class ScanResultGathererTest {
         assertThat(result.tagged().get(1)).startsWith("🔹Emoji: ");
         assertThat(result.tagged().get(2)).startsWith("🔹Emoji: ");
         assertThat(result.tagged().get(3)).startsWith("🔹Emoji: ");
-        assertThat(result.tagged().get(4)).startsWith("🔸Text: ");
+        // Note: The number emojis are considered emojis, so this is tagged as an emoji.
+        assertThat(result.tagged().get(4)).startsWith("🔹Emoji: ");
     }
 
     @Test

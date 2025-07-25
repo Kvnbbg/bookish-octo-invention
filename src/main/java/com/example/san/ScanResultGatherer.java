@@ -29,21 +29,27 @@ public class ScanResultGatherer {
                     System.err.println("⚠️ ForkJoin Detected");
                 }
 
-                // Tag items based on emoji content
-                String tag = item.matches(".*[🔥😊].*") ? "🔹Emoji: " : "🔸Text: ";
-                acc.tagged().add(tag + item);
+                // Tag items based on content
+                String tag;
+                int value = 0;
+                boolean hasEmoji = item.matches(".*[🔥😊❤️🎉👍].*");
 
-                // Extract and sum money values
-                if (item.contains("💰")) {
-                    int value = extractNumericValue(item);
-                    // Create new ScanResult with updated total
-                    ScanResult newResult = new ScanResult(acc.tagged(), acc.total() + value);
-                    // Copy the tagged list to the new result
-                    acc.tagged().clear();
-                    acc.tagged().addAll(newResult.tagged());
-                    // Note: Since we can't modify the accumulator reference in BiConsumer,
-                    // we'll handle this differently in the finisher
+                if (hasEmoji) {
+                    tag = "🔹Emoji: ";
+                } else {
+                    tag = "🔸Text: ";
                 }
+
+                if (item.contains("💰") || item.contains("€") || item.contains("£")) {
+                    value = extractNumericValue(item);
+                }
+
+                acc.tagged().add(tag + item);
+                // Create new ScanResult with updated total
+                ScanResult newResult = new ScanResult(acc.tagged(), acc.total() + value);
+                // Copy the tagged list to the new result
+                acc.tagged().clear();
+                acc.tagged().addAll(newResult.tagged());
             },
             
             // Combiner: combines two accumulators (for parallel processing)
@@ -72,15 +78,21 @@ public class ScanResultGatherer {
                     System.err.println("⚠️ ForkJoin Detected");
                 }
 
-                // Tag items based on emoji content
-                String tag = item.matches(".*[🔥😊].*") ? "🔹Emoji: " : "🔸Text: ";
-                acc.tagged.add(tag + item);
+                // Tag items based on content
+                String tag;
+                boolean hasEmoji = item.matches(".*[🔥😊❤️🎉👍].*");
 
-                // Extract and sum money values
-                if (item.contains("💰")) {
+                if (hasEmoji) {
+                    tag = "🔹Emoji: ";
+                } else {
+                    tag = "🔸Text: ";
+                }
+
+                if (item.contains("💰") || item.contains("€") || item.contains("£")) {
                     int value = extractNumericValue(item);
                     acc.total += value;
                 }
+                acc.tagged.add(tag + item);
             },
             
             // Combiner: combines two accumulators (for parallel processing)

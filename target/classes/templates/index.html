@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">Bookish Octo Invention</title>
+    <title th:text="#{app.title}">Bookish Octo Invention</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/dark-mode.css}">
     <style>
         .navbar-brand {
             font-weight: bold;
@@ -208,7 +209,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <i class="fas fa-book-open"></i> Bookish Octo Invention
+                <i class="fas fa-book-open"></i> <span th:text="#{app.title}">Bookish Octo Invention</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -219,13 +220,30 @@
                         <a class="nav-link active" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/scan">Text Scanner</a>
+                        <a class="nav-link" href="/scan" th:text="#{scan.title}">Text Scanner</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="/about" th:text="#{about.title}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/health">Health</a>
+                        <a class="nav-link" href="/health" th:text="#{health.title}">Health</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quiz">Quiz</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Language
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="?lang=en">English</a></li>
+                            <li><a class="dropdown-item" href="?lang=fr">Français</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button id="darkModeToggle" class="btn btn-outline-secondary">
+                            <i class="fas fa-moon"></i>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -247,9 +265,9 @@
     <section class="hero-section">
         <div class="container text-center hero-content">
             <h1 class="display-4 mb-4">
-                <i class="fas fa-book-open"></i> <span id="heroTitle">Bookish Octo Invention</span>
+                <i class="fas fa-book-open"></i> <span id="heroTitle" th:text="#{app.title}">Bookish Octo Invention</span>
             </h1>
-            <p class="lead mb-4 typing-animation" id="heroDescription">Advanced Text Analysis and Security Platform</p>
+            <p class="lead mb-4 typing-animation" id="heroDescription" th:text="#{app.description}">Advanced Text Analysis and Security Platform</p>
             
             <!-- Gamification Badges -->
             <div class="mb-4">
@@ -424,6 +442,22 @@
         </div>
     </footer>
 
+    <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="announcementModalLabel">Announcement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Welcome to the new and improved Bookish Octo Invention! We've added a bunch of new features, including a quiz and a dark mode. We hope you enjoy them!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Gamification System
@@ -513,7 +547,7 @@
 
         // Typing animation for hero description
         function startTypingAnimation() {
-            const text = "Advanced Text Analysis and Security Platform";
+            const text = document.getElementById('heroDescription').textContent;
             const element = document.getElementById('heroDescription');
             let index = 0;
             
@@ -828,7 +862,38 @@
             if (loadTime < 1000) {
                 setTimeout(() => showAchievement('⚡ Fast loader! Page loaded in ' + Math.round(loadTime) + 'ms'), 2000);
             }
+            var myModal = new bootstrap.Modal(document.getElementById('announcementModal'), {});
+            myModal.show();
         });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            updateDarkModeIcon(isDarkMode);
+        });
+
+        function updateDarkModeIcon(isDarkMode) {
+            const icon = darkModeToggle.querySelector('i');
+            if (isDarkMode) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Apply dark mode on page load if saved
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (savedDarkMode) {
+            body.classList.add('dark-mode');
+            updateDarkModeIcon(true);
+        }
     </script>
 </body>
 </html>

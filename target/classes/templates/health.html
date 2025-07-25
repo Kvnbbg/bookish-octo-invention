@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">Health Check - Bookish Octo Invention</title>
+    <title th:text="#{health.title}">Health Check - Bookish Octo Invention</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/dark-mode.css}">
     <style>
         .navbar-brand {
             font-weight: bold;
@@ -26,7 +27,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <i class="fas fa-book-open"></i> Bookish Octo Invention
+                <i class="fas fa-book-open"></i> <span th:text="#{app.title}">Bookish Octo Invention</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -37,13 +38,30 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/scan">Text Scanner</a>
+                        <a class="nav-link" href="/scan" th:text="#{scan.title}">Text Scanner</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="/about" th:text="#{about.title}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/health">Health</a>
+                        <a class="nav-link active" href="/health" th:text="#{health.title}">Health</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quiz">Quiz</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Language
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="?lang=en">English</a></li>
+                            <li><a class="dropdown-item" href="?lang=fr">Français</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button id="darkModeToggle" class="btn btn-outline-secondary">
+                            <i class="fas fa-moon"></i>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -54,7 +72,7 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <h1 class="text-center mb-4">
-                    <i class="fas fa-heartbeat"></i> Health Check
+                    <i class="fas fa-heartbeat"></i> <span th:text="#{health.title}">Health Check</span>
                 </h1>
 
                 <div class="card">
@@ -69,7 +87,7 @@
                         
                         <div class="row">
                             <div class="col-6">
-                                <h6>Timestamp</h6>
+                                <h6 th:text="#{health.timestamp}">Timestamp</h6>
                                 <p th:text="${timestamp}">-</p>
                             </div>
                             <div class="col-6">
@@ -149,5 +167,35 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            updateDarkModeIcon(isDarkMode);
+        });
+
+        function updateDarkModeIcon(isDarkMode) {
+            const icon = darkModeToggle.querySelector('i');
+            if (isDarkMode) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Apply dark mode on page load if saved
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (savedDarkMode) {
+            body.classList.add('dark-mode');
+            updateDarkModeIcon(true);
+        }
+    </script>
 </body>
 </html>

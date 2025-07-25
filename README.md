@@ -6,12 +6,15 @@ A comprehensive text analysis and security platform built with Java and Spring B
 
 - **🔍 Advanced Text Analysis**: Emoji detection and tagging with parallel processing support
 - **💰 Money Symbol Extraction**: Automatic calculation of monetary values from text
-- **🛡️ Security Features**: Built-in malware detection and JWT authentication
+- **🛡️ Security Features**: Spring Security with password encoding
 - **🗄️ Database Integration**: Oracle and H2 database support with HikariCP connection pooling
 - **✅ Comprehensive Testing**: 39 unit tests with 100% pass rate
 - **🐳 Docker Support**: Multi-stage containerized deployment ready
 - **🌐 Web Interface**: Modern Bootstrap-based UI with responsive design
 - **📊 Health Monitoring**: Actuator endpoints for application monitoring
+- **🎮 Gamified Quiz**: Interactive quiz with animations and scoring
+- **🌍 Multilingual Support**: English and French language support
+- **🎨 Light/Dark Mode**: User-selectable light and dark themes
 
 ## 🛠️ Technology Stack
 
@@ -159,15 +162,11 @@ spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
 ```
 
 ### 🔐 Security Configuration
-**Default Credentials:**
-- Username: `admin`
-- Password: `admin123`
+The application is secured using Spring Security. User credentials are encrypted using BCrypt.
 
-**Security Features:**
-- JWT token authentication
-- Role-based access control
-- CSRF protection
-- Security headers
+**Default Credentials:**
+- **user:** password
+- **admin:** admin
 
 ### 🐳 Docker Configuration
 

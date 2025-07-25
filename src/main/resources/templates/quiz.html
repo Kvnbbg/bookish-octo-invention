@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/dark-mode.css}">
+    <style>
+        .correct {
+            animation: bounce 0.5s;
+            background-color: #d4edda;
+        }
+        .incorrect {
+            animation: shake 0.5s;
+            background-color: #f8d7da;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-10px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-book-open"></i> <span th:text="#{app.title}">Bookish Octo Invention</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/scan" th:text="#{scan.title}">Text Scanner</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" th:text="#{about.title}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/health" th:text="#{health.title}">Health</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/quiz">Quiz</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Language
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="?lang=en">English</a></li>
+                            <li><a class="dropdown-item" href="?lang=fr">Français</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button id="darkModeToggle" class="btn btn-outline-secondary">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h1 class="text-center">Quiz</h1>
+        <div id="quiz-container"></div>
+        <button id="submit-btn" class="btn btn-primary mt-3">Submit</button>
+        <div id="result-container" class="mt-3"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const quizData = [
+            {
+                question: "What is the main purpose of this application?",
+                options: ["Text Analysis", "Video Editing", "Social Media", "Gaming"],
+                answer: "Text Analysis"
+            },
+            {
+                question: "Which framework is used for the backend?",
+                options: ["Django", "Ruby on Rails", "Spring Boot", "Laravel"],
+                answer: "Spring Boot"
+            },
+            {
+                question: "What is the name of the mascot?",
+                options: ["Octo", "Inky", "Booky", "There is no mascot"],
+                answer: "There is no mascot"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+        const submitButton = document.getElementById('submit-btn');
+        const resultContainer = document.getElementById('result-container');
+        let score = 0;
+
+        function loadQuiz() {
+            quizContainer.innerHTML = '';
+            quizData.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('card', 'mb-3');
+                const cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
+                const questionTitle = document.createElement('h5');
+                questionTitle.classList.add('card-title');
+                questionTitle.innerText = `Question ${index + 1}: ${q.question}`;
+                cardBody.appendChild(questionTitle);
+
+                q.options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('form-check');
+                    const radio = document.createElement('input');
+                    radio.classList.add('form-check-input');
+                    radio.type = 'radio';
+                    radio.name = `question${index}`;
+                    radio.value = option;
+                    const label = document.createElement('label');
+                    label.classList.add('form-check-label');
+                    label.innerText = option;
+                    optionElement.appendChild(radio);
+                    optionElement.appendChild(label);
+                    cardBody.appendChild(optionElement);
+                });
+                questionElement.appendChild(cardBody);
+                quizContainer.appendChild(questionElement);
+            });
+        }
+
+        submitButton.addEventListener('click', () => {
+            score = 0;
+            quizData.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                const questionCard = quizContainer.children[index];
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                        questionCard.classList.add('correct');
+                    } else {
+                        questionCard.classList.add('incorrect');
+                    }
+                }
+            });
+            resultContainer.innerHTML = `<div class="alert alert-success">You scored ${score} out of ${quizData.length}</div>`;
+        });
+
+        loadQuiz();
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            updateDarkModeIcon(isDarkMode);
+        });
+
+        function updateDarkModeIcon(isDarkMode) {
+            const icon = darkModeToggle.querySelector('i');
+            if (isDarkMode) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Apply dark mode on page load if saved
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (savedDarkMode) {
+            body.classList.add('dark-mode');
+            updateDarkModeIcon(true);
+        }
+    </script>
+</body>
+</html>
