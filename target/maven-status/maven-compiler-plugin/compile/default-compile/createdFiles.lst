@@ -1,6 +1,8 @@
-com/example/controller/HomeController.class
-com/example/san/ScanResult.class
 com/example/san/ScanResultGatherer.class
 com/example/san/ScanResultGatherer$MutableScanResult.class
+com/example/WebConfig.class
 com/example/controller/ScanController.class
+com/example/controller/HomeController.class
+com/example/san/ScanResult.class
+com/example/security/SecurityConfig.class
 com/example/BookishOctoInventionApplication.class

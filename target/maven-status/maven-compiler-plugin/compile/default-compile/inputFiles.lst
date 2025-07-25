@@ -1,5 +1,7 @@
 /app/src/main/java/com/example/san/ScanResultGatherer.java
+/app/src/main/java/com/example/WebConfig.java
+/app/src/main/java/com/example/security/SecurityConfig.java
 /app/src/main/java/com/example/controller/HomeController.java
 /app/src/main/java/com/example/san/ScanResult.java
-/app/src/main/java/com/example/controller/ScanController.java
 /app/src/main/java/com/example/BookishOctoInventionApplication.java
+/app/src/main/java/com/example/controller/ScanController.java

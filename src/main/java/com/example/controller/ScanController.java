@@ -11,16 +11,31 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller for handling text scanning operations.
+ */
 @Controller
 @RequestMapping("/scan")
 public class ScanController {
 
+    /**
+     * Displays the scan page.
+     *
+     * @param model the model
+     * @return the scan page view
+     */
     @GetMapping
     public String scanPage(Model model) {
         model.addAttribute("title", "Bookish Octo Invention - Text Scanner");
         return "scan";
     }
 
+    /**
+     * Analyzes the given text items sequentially.
+     *
+     * @param request the request containing the text items
+     * @return the scan result
+     */
     @PostMapping("/analyze")
     @ResponseBody
     public ResponseEntity<ScanResult> analyzeText(@RequestBody Map<String, Object> request) {
@@ -41,6 +56,12 @@ public class ScanController {
         }
     }
 
+    /**
+     * Analyzes the given text items in parallel.
+     *
+     * @param request the request containing the text items
+     * @return the scan result
+     */
     @PostMapping("/analyze-parallel")
     @ResponseBody
     public ResponseEntity<ScanResult> analyzeTextParallel(@RequestBody Map<String, Object> request) {
@@ -61,6 +82,11 @@ public class ScanController {
         }
     }
 
+    /**
+     * Provides a demo scan with sample data.
+     *
+     * @return the scan result for the demo data
+     */
     @GetMapping("/demo")
     @ResponseBody
     public ResponseEntity<ScanResult> demoScan() {
