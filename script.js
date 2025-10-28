@@ -10,6 +10,17 @@
       }
     };
 
+    // Proper HTML escaping function to encode meta-characters
+    function escapeHtml(string) {
+      if (!string) return '';
+      return String(string)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/`/g, '&#96;');
+    }
     function setCookie(name, value, days) {
       const date = new Date();
       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -172,12 +183,12 @@
     function displayRecipes() {
       const container = document.getElementById('recipeContainer');
       container.innerHTML = recipes.map(recipe => {
-        // Sanitize/escape all fields before inserting into HTML
-        const safeTitle = securityConfig.sanitizeInput(recipe.title || '');
-        const safeContent = securityConfig.sanitizeInput(recipe.content || '');
-        const safeCategory = securityConfig.sanitizeInput(recipe.category || '');
-        const safeSource = securityConfig.sanitizeInput(recipe.source || 'Local');
-        const safeId = recipe.id; // id is generated as Date.now(), safe.
+        // Sanitize and escape all fields before inserting into HTML
+        const safeTitle = escapeHtml(securityConfig.sanitizeInput(recipe.title || ''));
+        const safeContent = escapeHtml(securityConfig.sanitizeInput(recipe.content || ''));
+        const safeCategory = escapeHtml(securityConfig.sanitizeInput(recipe.category || ''));
+        const safeSource = escapeHtml(securityConfig.sanitizeInput(recipe.source || 'Local'));
+        const safeId = escapeHtml(String(recipe.id)); // encode as string, just in case.
         return `
           <div class="recipe-card">
             <h3>${safeTitle}</h3>
