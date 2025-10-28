@@ -13,6 +13,7 @@ export function simpleHash(data, useSecureHash = false) {
         return { salt, hash }; // Return both salt and hashed value
     } else {
         // Simple hash logic
+        data = String(data); // Ensure data is a string to prevent loop bound injection
         let hash = 0;
         for (let i = 0; i < data.length; i++) {
             hash += data.charCodeAt(i);
