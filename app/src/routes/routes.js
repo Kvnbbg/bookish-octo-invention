@@ -4,8 +4,18 @@ import path from 'path';
 import passport from 'passport';
 import { simpleHash } from '../utils/index.js';
 import { fileURLToPath } from 'url';
+import rateLimit from 'express-rate-limit';
 
 const router = express.Router();
+
+// Rate limiter: maximum of 100 requests per 15 minutes per IP
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+// Apply the rate limiter to all requests handled by this router
+router.use(limiter);
 
 // ES module workaround for __dirname to make paths compatible in all environments
 const __filename = fileURLToPath(import.meta.url);
