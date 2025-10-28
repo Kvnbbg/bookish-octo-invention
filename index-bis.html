@@ -184,7 +184,12 @@
                 maxAge: 86400 // 1 day
             },
             sanitizeInput: (input) => {
-                return input.replace(/<[^>]*>?/gm, '');
+                let previous;
+                do {
+                    previous = input;
+                    input = input.replace(/<[^>]*>?/gm, '');
+                } while (input !== previous);
+                return input;
             },
             validateSession: () => {
                 if (!document.cookie.includes('sessionToken')) {
