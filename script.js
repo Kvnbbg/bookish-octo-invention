@@ -171,17 +171,25 @@
 
     function displayRecipes() {
       const container = document.getElementById('recipeContainer');
-      container.innerHTML = recipes.map(recipe => `
-        <div class="recipe-card">
-          <h3>${recipe.title}</h3>
-          <p>${recipe.content.replace(/\n/g, '<br>')}</p>
-          <div class="recipe-meta">
-            <span class="category">${recipe.category.toUpperCase()}</span>
-            <span class="source">${recipe.source || 'Local'}</span>
-            <button onclick="deleteRecipe('${recipe.id}')">🗑️</button>
+      container.innerHTML = recipes.map(recipe => {
+        // Sanitize/escape all fields before inserting into HTML
+        const safeTitle = securityConfig.sanitizeInput(recipe.title || '');
+        const safeContent = securityConfig.sanitizeInput(recipe.content || '');
+        const safeCategory = securityConfig.sanitizeInput(recipe.category || '');
+        const safeSource = securityConfig.sanitizeInput(recipe.source || 'Local');
+        const safeId = recipe.id; // id is generated as Date.now(), safe.
+        return `
+          <div class="recipe-card">
+            <h3>${safeTitle}</h3>
+            <p>${safeContent.replace(/\n/g, '<br>')}</p>
+            <div class="recipe-meta">
+              <span class="category">${safeCategory.toUpperCase()}</span>
+              <span class="source">${safeSource}</span>
+              <button onclick="deleteRecipe('${safeId}')">🗑️</button>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function deleteRecipe(id) {
