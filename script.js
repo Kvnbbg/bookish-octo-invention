@@ -1,6 +1,13 @@
     // === Security & Cookie Functions ===
     const securityConfig = {
-      sanitizeInput: input => input.replace(/<[^>]*>?/gm, '')
+      sanitizeInput: input => {
+        let previous;
+        do {
+          previous = input;
+          input = input.replace(/<[^>]*>?/gm, '');
+        } while (input !== previous);
+        return input;
+      }
     };
 
     function setCookie(name, value, days) {
