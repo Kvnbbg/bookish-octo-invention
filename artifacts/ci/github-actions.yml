@@ -108,12 +108,14 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: false
+          load: true
           tags: ${{ env.IMAGE_NAME }}:ci-${{ github.run_number }}
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.18.2
         with:
           image-ref: ${{ env.IMAGE_NAME }}:ci-${{ github.run_number }}
+          output: trivy-report.txt
           format: 'table'
           ignore-unfixed: true
 
