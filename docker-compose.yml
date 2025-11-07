@@ -8,6 +8,8 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - JAVA_OPTS=-Xmx512m -Xms256m
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
       interval: 30s
@@ -42,6 +44,20 @@ services:
     depends_on:
       - app
     restart: unless-stopped
+    networks:
+      - app-network
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 300 --label-enable
+    environment:
+      - WATCHTOWER_NOTIFICATIONS_LEVEL=info
     networks:
       - app-network
 

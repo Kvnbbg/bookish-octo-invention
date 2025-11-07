@@ -41,6 +41,7 @@ A comprehensive text analysis and security platform built with Java and Spring B
 - **Docker Compose** - Multi-container orchestration
 - **Nginx** - Reverse proxy and load balancing
 - **Maven** - Build automation
+- **Watchtower** - Automated container image refresh with safe rollout controls
 
 ### Testing
 - **JUnit 5** - Unit testing framework
@@ -84,6 +85,18 @@ docker-compose up -d
 docker build -t bookish-octo-invention .
 docker run -p 8080:8080 bookish-octo-invention
 ```
+
+#### Automated Container Maintenance
+```bash
+# Start the Watchtower service to monitor and refresh images safely
+./scripts/watchtower-manage.sh start
+
+# Check Watchtower status or follow logs
+./scripts/watchtower-manage.sh status
+./scripts/watchtower-manage.sh logs
+```
+
+> ℹ️ Watchtower automatically removes outdated images (`--cleanup`) and only manages containers that opt-in via labels. Review each service's labels before enabling production automation.
 
 ### 🌐 Access Points
 - **Web Application**: http://localhost:8080
