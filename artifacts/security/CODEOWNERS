@@ -1,0 +1,18 @@
+# CODEOWNERS ensures clear ownership for critical paths.
+# Use GitHub teams or individual handles as appropriate for your organization.
+
+# Backend Java services
+src/main/java/ @backend-core-team
+src/test/java/ @backend-core-team
+
+# Infrastructure & deployment assets
+Dockerfile @platform-team
+cloudbuild.yaml @platform-team
+artifacts/ci/ @platform-team
+
+# Frontend/UI assets
+src/main/resources/templates/ @frontend-guild
+src/main/resources/static/ @frontend-guild
+
+# Security & compliance
+artifacts/security/ @security-champions
