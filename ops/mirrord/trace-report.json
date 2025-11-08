@@ -1,0 +1,23 @@
+{
+  "session_id": "mirrord-test-001",
+  "namespace": "dev",
+  "target_pod": "backend-api-dev-1234",
+  "events": [
+    {
+      "timestamp": "2025-11-08T00:00:00Z",
+      "endpoint": "/api/v1/recipes",
+      "latency_ms": 42,
+      "status": 200,
+      "bytes_in": 512,
+      "bytes_out": 2048
+    },
+    {
+      "timestamp": "2025-11-08T00:00:02Z",
+      "endpoint": "/api/v1/users",
+      "latency_ms": 87,
+      "status": 200,
+      "bytes_in": 256,
+      "bytes_out": 1024
+    }
+  ]
+}

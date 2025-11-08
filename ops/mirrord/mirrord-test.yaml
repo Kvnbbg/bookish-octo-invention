@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api-dev
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-api-dev
+  template:
+    metadata:
+      labels:
+        app: backend-api-dev
+    spec:
+      containers:
+        - name: backend-api
+          image: ghcr.io/kvnbbg/bookish-octo-invention:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev"
+            - name: ORACLE_DB_URL
+              value: "jdbc:oracle:thin:@//siebel-dev:1521/SBLDEV"
+            - name: TF_MIRROR_TEST
+              value: "1"
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-api-dev
+  namespace: dev
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: backend-api-dev
