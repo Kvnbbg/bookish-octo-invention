@@ -147,3 +147,6 @@ instance/config.py
 
 # Maven build output
 target/
+
+# Mirrord generated artifacts
+ops/mirrord/reports/

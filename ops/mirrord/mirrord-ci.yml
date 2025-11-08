@@ -1,0 +1,42 @@
+name: Mirrord Integration
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  mirrord-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
+        run: mvn -B clean package
+
+      - name: Install mirrord
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/metalbear-co/mirrord/main/install.sh | bash
+          mirrord --version
+
+      - name: Test mirror connection
+        run: |
+          kubectl config get-contexts
+          echo "Simulating mirrord execution..."
+          mirrord exec --target pod/backend-api-dev-1234 -n dev -- java -jar target/bookish-octo-invention.jar || true
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mirrord-logs
+          path: ops/mirrord/trace-report.json

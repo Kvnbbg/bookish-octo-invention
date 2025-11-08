@@ -1,0 +1,13 @@
+name: mirrord Integration Test
+on: [push, pull_request]
+
+jobs:
+  test-mirrord:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install mirrord
+        run: curl -fsSL https://raw.githubusercontent.com/metalbear-co/mirrord/main/install.sh | bash
+      - name: Run Backend Mirror Test
+        run: mirrord exec --target pod/backend-api-dev-1234 -n dev -- \
+              java -jar target/bookish-octo-invention.jar

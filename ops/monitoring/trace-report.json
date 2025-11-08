@@ -1,0 +1,6 @@
+{
+  "description": "Placeholder for mirrord trace exports aggregated into monitoring pipelines.",
+  "source": "mirrord exec --tcp --debug",
+  "status": "pending",
+  "entries": []
+}
