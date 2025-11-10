@@ -33,8 +33,157 @@ if (langToggle) {
   });
 }
 
-// Initial page load 
-updatePageContent(); 
+// Initial page load
+updatePageContent();
+
+const GAMIFICATION_ACTIONS = {
+  RECIPE_CREATED: 'RECIPE_CREATED',
+  SUSTAINABILITY_ACTION: 'SUSTAINABILITY_ACTION',
+  SIEBEL_SYNC: 'SIEBEL_SYNC',
+  SESSION_LOGIN: 'SESSION_LOGIN',
+  COOKING_CHALLENGE: 'COOKING_CHALLENGE',
+  SESSION_MILESTONE: 'SESSION_MILESTONE',
+  CARBON_OFFSET: 'CARBON_OFFSET',
+  REGION_DISCOVERY: 'REGION_DISCOVERY',
+  ASTEROID_SCAN: 'ASTEROID_SCAN'
+};
+
+const defaultGamificationState = {
+  level: 1,
+  totalXP: 0,
+  xpIntoLevel: 0,
+  xpToNextLevel: 100,
+  gold: 0,
+  gems: 0,
+  streak: 0,
+  questProgress: []
+};
+
+class GamificationClient {
+  constructor() {
+    this.state = { ...defaultGamificationState };
+  }
+
+  async init() {
+    try {
+      const response = await fetch('/api/gamification/progress');
+      if (!response.ok) return;
+      const payload = await response.json();
+      if (payload.state) {
+        this.state = payload.state;
+        renderGamificationState(this.state);
+        renderQuestList(this.state.questProgress);
+      }
+    } catch (error) {
+      console.warn('Failed to initialise gamification', error);
+    }
+  }
+
+  async recordAction(actionType, metadata = {}) {
+    if (!actionType) {
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/gamification/actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ actionType, metadata })
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => ({}));
+        throw new Error(errorBody.error || `Action ${actionType} indisponible`);
+      }
+
+      const payload = await response.json();
+      if (payload.state) {
+        this.state = payload.state;
+        renderGamificationState(this.state);
+        renderQuestList(this.state.questProgress);
+      }
+
+      if (payload.events?.length) {
+        announceGamificationEvents(payload.events);
+      }
+
+      return payload;
+    } catch (error) {
+      console.error('Gamification error:', error);
+      toastr.error(error.message || 'Impossible de valider cette action.');
+      throw error;
+    }
+  }
+}
+
+const gamificationClient = new GamificationClient();
+
+function renderGamificationState(state) {
+  if (!state) return;
+
+  const levelDisplay = document.getElementById('levelDisplay');
+  const goldDisplay = document.getElementById('goldDisplay');
+  const gemDisplay = document.getElementById('gemDisplay');
+  const streakDisplay = document.getElementById('streakDisplay');
+  const xpSummary = document.getElementById('xpSummary');
+  const xpProgress = document.getElementById('xpProgress');
+
+  if (levelDisplay) levelDisplay.textContent = state.level ?? 1;
+  if (goldDisplay) goldDisplay.textContent = state.gold ?? 0;
+  if (gemDisplay) gemDisplay.textContent = state.gems ?? 0;
+  if (streakDisplay) streakDisplay.textContent = state.streak ?? 0;
+
+  if (xpSummary) {
+    const xpToNext = state.xpToNextLevel || 100;
+    xpSummary.textContent = `${state.xpIntoLevel ?? 0} / ${xpToNext} XP`;
+  }
+
+  if (xpProgress) {
+    const xpToNext = state.xpToNextLevel || 100;
+    const progress = xpToNext ? Math.min(100, Math.round(((state.xpIntoLevel || 0) / xpToNext) * 100)) : 0;
+    xpProgress.style.width = `${progress}%`;
+  }
+}
+
+function renderQuestList(quests = []) {
+  const questList = document.getElementById('questList');
+  if (!questList) return;
+
+  if (!quests.length) {
+    questList.innerHTML = '<p class="quest-empty">Aucune quête disponible pour le moment.</p>';
+    return;
+  }
+
+  questList.innerHTML = quests.map((quest) => {
+    const progressText = `${quest.progress}/${quest.target}`;
+    const statusClass = quest.completed ? 'quest-status completed' : 'quest-status';
+    const statusText = quest.completed ? 'Terminé' : `En cours (${progressText})`;
+    const progressWidth = Math.min(100, quest.progressPercent || 0);
+
+    return `
+      <div class="quest-card">
+        <h3>${quest.title}</h3>
+        <p>${quest.description}</p>
+        <div class="quest-progress-bar"><span style="width: ${progressWidth}%"></span></div>
+        <div class="quest-rewards">
+          <span>+${quest.xpReward} XP</span>
+          <span>+${quest.goldReward}💰</span>
+          ${quest.gemsReward ? `<span>+${quest.gemsReward}💎</span>` : ''}
+        </div>
+        <span class="${statusClass}">${statusText}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function announceGamificationEvents(events = []) {
+  events.forEach((event) => {
+    const message = typeof event === 'string' ? event : event.message;
+    if (message) {
+      toastr.success(message);
+    }
+  });
+}
 
 /* Chat */
 document.addEventListener('DOMContentLoaded', function () {
@@ -50,6 +199,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const toggleLangButton = document.getElementById('toggle-lang');
 
   let currentLanguage = 'en'; // Default to English
+
+  gamificationClient.init();
 
   // Language dictionary for internationalization (i18n)
   const dictionary = {
@@ -125,6 +276,12 @@ document.addEventListener('DOMContentLoaded', function () {
         clearInterval(intervalId);
         message.textContent = `${dictionary[currentLanguage].sentMessage} ${amount.toFixed(2)} U.G.`;
         toastr.success(`${dictionary[currentLanguage].successAmount}: ${amount.toFixed(2)} U.G.`);
+        gamificationClient
+          .recordAction(GAMIFICATION_ACTIONS.SUSTAINABILITY_ACTION, {
+            bonusXp: Math.round(amount / 5),
+            count: 1
+          })
+          .catch((error) => console.warn('Unable to record sustainability action', error));
       }
     }, animationDuration / 100); // Small intervals for smooth animation
   });
@@ -138,12 +295,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Add a new recipe to the items section
-  function addNewRecipe() {
+  async function addNewRecipe() {
     const newRecipeName = prompt(dictionary[currentLanguage].addItem);
     if (newRecipeName) {
       const newRecipe = createRecipe(newRecipeName);
       itemsSection.appendChild(newRecipe);
       toastr.info(`${dictionary[currentLanguage].newItemAdded}: ${newRecipeName}`);
+      try {
+        await gamificationClient.recordAction(GAMIFICATION_ACTIONS.RECIPE_CREATED, {
+          recipeName: newRecipeName
+        });
+      } catch (error) {
+        console.warn('Recipe quest update failed', error);
+      }
     } else {
       toastr.error(dictionary[currentLanguage].errorItem);
     }
@@ -177,6 +341,9 @@ document.addEventListener('DOMContentLoaded', function () {
     chatBox.scrollTop = chatBox.scrollHeight; // Auto scroll to the latest message
   }
 });
+
+window.gamifyAction = (actionType, metadata) => gamificationClient.recordAction(actionType, metadata);
+window.gamificationState = () => ({ ...gamificationClient.state });
 
 // Secure API call function with better error handling and optimization
 async function secureFetch(url, authToken = '') {
@@ -230,6 +397,9 @@ async function fetchAsteroids() {
         `;
         asteroidResults.appendChild(asteroidDiv);
       });
+      gamificationClient
+        .recordAction(GAMIFICATION_ACTIONS.ASTEROID_SCAN, { count: asteroids.length })
+        .catch((error) => console.warn('Asteroid quest update failed', error));
     } else {
       asteroidResults.innerHTML = '<p>No asteroids found for this date.</p>';
     }

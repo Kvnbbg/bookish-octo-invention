@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "dev": "node --watch server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test",
     "build": "webpack",
     "run": "node run.js",
     "postinstall": "npm install express uid2 express-session body-parser dotenv formidable passport passport-local http-proxy-middleware debug nodemon mysql2"
@@ -28,9 +28,9 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "path-to-regexp": "8.2.0",
-    "uid2": "^1.0.0",
-    "express-rate-limit": "^8.1.0"
+    "uid2": "^1.0.0"
   },
+  "devDependencies": {},
   "engines": {
     "node": ">=14.0.0"
   }

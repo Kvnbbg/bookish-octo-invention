@@ -4,12 +4,12 @@ import path from 'path';
 import passport from 'passport';
 import { simpleHash } from '../utils/index.js';
 import { fileURLToPath } from 'url';
-import rateLimit from 'express-rate-limit';
+import rateLimiter from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
 // Rate limiter: maximum of 100 requests per 15 minutes per IP
-const limiter = rateLimit({
+const limiter = rateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
 });

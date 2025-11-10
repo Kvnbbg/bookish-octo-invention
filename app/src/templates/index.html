@@ -31,6 +31,44 @@
 
     </header>
 
+    <section class="gamification-overview">
+        <div class="gamification-cards">
+            <div class="gamification-card">
+                <span class="label">Niveau</span>
+                <span class="value" id="levelDisplay">1</span>
+            </div>
+            <div class="gamification-card xp-card">
+                <span class="label">XP Actuel</span>
+                <div class="xp-meter">
+                    <div class="xp-fill" id="xpProgress"></div>
+                </div>
+                <span class="xp-summary" id="xpSummary">0 / 100 XP</span>
+            </div>
+            <div class="gamification-card">
+                <span class="label">🔥 Série</span>
+                <span class="value" id="streakDisplay">0</span>
+            </div>
+            <div class="gamification-card">
+                <span class="label">💰 Or</span>
+                <span class="value" id="goldDisplay">0</span>
+            </div>
+            <div class="gamification-card">
+                <span class="label">💎 Gemmes</span>
+                <span class="value" id="gemDisplay">0</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="quest-section">
+        <div class="quest-header">
+            <h2>🎯 Journal des quêtes</h2>
+            <p>Accomplissez des missions culinaires et durables pour progresser chaque jour.</p>
+        </div>
+        <div class="quest-list" id="questList">
+            <p class="quest-empty">Complétez une action pour révéler vos quêtes du jour.</p>
+        </div>
+    </section>
+
     <div class="container">
         <!-- Asteroid Tracker Panel -->
         <div class="panel">

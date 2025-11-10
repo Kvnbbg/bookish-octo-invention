@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport'; // Passport.js for authentication
 import routes from '../app/src/routes/routes.js'; // Import your custom routes
+import gamificationRouter from '../app/src/routes/gamification.js';
 import { configurePassport } from '../app/src/config/passport.js'; // Import passport configuration
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv'; // For loading environment variables
@@ -49,6 +50,7 @@ configurePassport();
 
 // Use routes from the routes.js file for handling different endpoints
 app.use('/', routes);
+app.use('/api/gamification', gamificationRouter);
 
 // Catch-all error handler for debugging
 app.use((err, req, res, next) => {
@@ -68,11 +70,15 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Start the server with improved error handling and debugging
-const port = process.env.PORT || 3000;
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on port ${port}`);
-}).on('error', (err) => {
-    console.error('Server error:', err); // Error handling during server startup
-});
+const shouldStartServer = process.env.NODE_ENV !== 'test' && process.env.VITEST !== 'true';
+
+if (shouldStartServer) {
+    const port = process.env.PORT || 3000;
+    app.listen(port, '0.0.0.0', () => {
+        console.log(`Server is running on port ${port}`);
+    }).on('error', (err) => {
+        console.error('Server error:', err); // Error handling during server startup
+    });
+}
 
 export default app;
