@@ -70,6 +70,24 @@ Project maintainers must:
    - Model ideal behavior
    - De-escalate conflicts
 
+## 🔍 Transparency & Member Empowerment
+
+To keep our community functioning well, we invest in tested tools and practices that prioritize clarity, agency, and trust:
+
+- **Clear purpose and values** — Members should understand why the community exists and what it stands for.
+- **Visible moderation practices** — Rules, enforcement steps, and decision-making processes stay knowable and consistent.
+- **Open information access** — Restricting information flow creates dependency and suspicion, so we share sources, references, and context to encourage critical thinking.
+- **Honest communication about incentives** — If content, products, or affiliations are monetized, we disclose this openly to prevent hidden persuasion dynamics.
+- **Room for personal agency** — Members can mute channels, customize notifications, or choose how they participate.
+- **Avoid “always-on” engagement loops** — Infinite scrolling, streak rewards, and constant alerts can turn a healthy community into a compulsive one, so we design against them.
+- **Encourage contribution over consumption** — Feedback, creation, and collaboration tools distribute power rather than centralize it.
+- **Respectful dialogue, including disagreement** — Members may express different viewpoints without fear of ridicule or exclusion.
+- **Shared responsibility instead of leader dependency** — Leadership supports rather than commands; rotational moderation or collaborative decision-making fosters collective agency.
+- **Permission to leave or pause** — Healthy communities do not demand loyalty; members may leave, take breaks, or set boundaries without pressure.
+- **Encouragement of personal growth beyond the group** — We celebrate when members gain skills, confidence, and independence that remain valuable outside the community.
+
+A community that can withstand criticism, change, and member evolution is one that genuinely empowers every participant.
+
 ## 🌍 Scope
 
 This Code applies to all project spaces:
