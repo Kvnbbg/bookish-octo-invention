@@ -48,9 +48,8 @@ app.use(passport.session());
 // Configure Passport strategies (local, Google, GitHub)
 configurePassport();
 
-// Mount gamification API routes before the main router so they are reachable
+// Mount feature routers before the main catch-all routes to ensure proper handling
 app.use('/api/gamification', gamificationRouter);
-
 // Use routes from the routes.js file for handling different endpoints
 app.use('/', routes);
 
