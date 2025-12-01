@@ -13,11 +13,11 @@
     "postinstall": "npm install express uid2 express-session body-parser dotenv formidable passport passport-local http-proxy-middleware debug nodemon mysql2"
   },
   "dependencies": {
-    "body-parser": "^1.20.3",
+    "body-parser": "^1.20.4",
     "brace-expansion": "4.0.1",
     "debug": "^4.3.7",
     "dotenv": "^16.4.5",
-    "express": "^5.1.0",
+    "express": "^5.2.0",
     "express-session": "^1.18.2",
     "formidable": "3.5.4",
     "http-proxy-middleware": "3.0.5",
