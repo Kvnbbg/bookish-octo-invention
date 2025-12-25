@@ -1,82 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connection</title>
-<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:4233307981. -->
-<link rel="stylesheet" href="style.css">
-      <!-- Favicon -->
+  <title>Sign in · CareBridge</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="css/oauth-buttons.css">
 </head>
-
 <body>
-  <main>
-    <section class="login-section">
-      
-        <img class="login-image" src="../images/login.png" alt="Login Image">
-        <p>Login to your account</p>
-        <form id="login-form" action="/login/password" method="post">
-          <section>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username" required autofocus>
-          </section>
-          <section>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
-          </section>
-          <section>
-            <input type="checkbox" id="remember-me" name="remember-me">
-            <label for="remember-me">Remember me</label>
-          </section>
-          <button type="submit" id="login-button">Login</button>
-        </form>
-        
-        <div class="oauth-login">
-          <p>Or sign in with:</p>
-          <div class="oauth-buttons">
-            <a href="/auth/google" class="oauth-button google-button">
-              <i class="fab fa-google"></i> Sign in with Google
-            </a>
-            <a href="/auth/github" class="oauth-button github-button">
-              <i class="fab fa-github"></i> Sign in with GitHub
-            </a>
-          </div>
+  <header class="site-header compact">
+    <nav class="nav">
+      <a href="/" class="logo">CareBridge</a>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">Home</a>
+        <a href="/signup" data-i18n="navSignup">Join the family</a>
+      </div>
+      <button class="language-toggle" type="button" data-lang-toggle aria-label="Toggle language">
+        <span class="language-toggle__option" data-lang-option="en">EN</span>
+        <span class="language-toggle__option" data-lang-option="fr">FR</span>
+        <span class="language-toggle__thumb"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="auth-layout">
+    <section class="auth-card">
+      <h1 data-i18n="loginTitle">Welcome back</h1>
+      <p class="lead" data-i18n="loginSubtitle">Sign in to access your family consultation hub.</p>
+      <div class="auth-banner" data-auth-banner hidden>
+        <i class="fas fa-user-lock"></i>
+        <span data-i18n="authRequired">Please sign in to access family-only content.</span>
+      </div>
+      <form id="login-form" action="/login/password" method="post">
+        <label for="username" data-i18n="labelUsername">Username</label>
+        <input type="text" id="username" name="username" data-i18n-placeholder="placeholderUsername" autocomplete="username" required>
+
+        <label for="password" data-i18n="labelPassword">Password</label>
+        <input type="password" id="password" name="password" data-i18n-placeholder="placeholderPassword" autocomplete="current-password" required>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="remember-me" name="remember-me">
+          <label for="remember-me" data-i18n="labelRemember">Remember me</label>
         </div>
-        
-        <div id="form-message"></div>
-        <div id="login-error-msg"></div>
-        <div id="login-success-msg"></div>
-     
+        <button type="submit" class="button primary" data-i18n="loginButton">Login</button>
+      </form>
+
+      <div class="oauth-login">
+        <p data-i18n="oauthTitle">Or continue with</p>
+        <div class="oauth-buttons">
+          <a href="/auth/google" class="oauth-button google-button">
+            <i class="fab fa-google"></i> <span data-i18n="oauthGoogle">Sign in with Google</span>
+          </a>
+          <a href="/auth/github" class="oauth-button github-button">
+            <i class="fab fa-github"></i> <span data-i18n="oauthGithub">Sign in with GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <p class="auth-switch"><span data-i18n="loginSwitchText">Don't have an account?</span> <a href="/signup" data-i18n="loginSwitchLink">Join the family</a></p>
     </section>
-    <section class="signup-section">
-      <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-    </section>
-<section>
-  <p>Forgot your password? <a href="/forgot_password">Reset Password</a></p>
-</section>
-<section>
-  <p>Return to <a href="/">Home</a></p>
-</section>
-<section>
-  <p>Some posts on this site may contain affiliate links. If you book or buy something through these links, we may earn a small commission (at no extra cost to you).
-    <span id="post"></span>
-  </p>
-  <script>
-    import posts from './app.js';
-    console.log(posts);
-    document.getElementById('post').innerHTML = posts;
-  </script>
-</section>
-    <footer>
-      <p>&copy; 2024 Bookish. All Rights Reserved.</p>
-    </footer>
   </main>
+
+  <footer class="site-footer">
+    <p data-i18n="footerCopy">© 2024 CareBridge Consultation. All rights reserved.</p>
+  </footer>
   <script src="script.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>
 </html>
