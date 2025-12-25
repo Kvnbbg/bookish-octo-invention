@@ -1,23 +1,34 @@
-import crypto from 'crypto'; // Import the crypto module
+import crypto from 'crypto';
 
 // Improved simpleHash function with multiple hashing strategies
 export function simpleHash(data, useSecureHash = false) {
-    console.log('simpleHash defined:', typeof simpleHash); // Log function definition for debugging
+  if (useSecureHash) {
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.pbkdf2Sync(data, salt, 310000, 64, 'sha512').toString('hex');
+    return { salt, hash };
+  }
 
-    if (useSecureHash) {
-        // Generate a random salt if not provided
-        const salt = crypto.randomBytes(16).toString('hex');
-        
-        // Secure hashing using PBKDF2
-        const hash = crypto.pbkdf2Sync(data, salt, 310000, 64, 'sha512').toString('hex');
-        return { salt, hash }; // Return both salt and hashed value
-    } else {
-        // Simple hash logic
-        data = String(data); // Ensure data is a string to prevent loop bound injection
-        let hash = 0;
-        for (let i = 0; i < data.length; i++) {
-            hash += data.charCodeAt(i);
-        }
-        return hash.toString(16); // Return simple hash as hexadecimal string
-    }
+  data = String(data);
+  let hash = 0;
+  for (let i = 0; i < data.length; i++) {
+    hash += data.charCodeAt(i);
+  }
+  return hash.toString(16);
+}
+
+export function createPasswordHash(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, salt, 310000, 64, 'sha512').toString('hex');
+  return { salt, hash };
+}
+
+export function verifyPassword(password, salt, hash) {
+  if (!salt || !hash) {
+    return false;
+  }
+  const hashedPassword = crypto.pbkdf2Sync(password, salt, 310000, 64, 'sha512').toString('hex');
+  if (hashedPassword.length !== hash.length) {
+    return false;
+  }
+  return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(hashedPassword, 'hex'));
 }

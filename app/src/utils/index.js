@@ -1,4 +1,1 @@
-// utils/index.js
-
-export { simpleHash } from './utils.js';
-// Add other exports here as needed
+export { simpleHash, createPasswordHash, verifyPassword } from './utils.js';

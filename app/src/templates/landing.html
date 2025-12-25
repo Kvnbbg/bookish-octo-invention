@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareBridge Consultation</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/" class="logo">CareBridge</a>
+      <div class="nav-links">
+        <a href="#how" data-i18n="navHow">How it works</a>
+        <a href="#experts" data-i18n="navExperts">Experts</a>
+        <a href="#family" data-i18n="navFamily">Family membership</a>
+        <a href="/login" data-i18n="navLogin">Login</a>
+        <a href="/signup" class="button ghost" data-i18n="navSignup">Join the family</a>
+      </div>
+      <button class="language-toggle" type="button" data-lang-toggle aria-label="Toggle language">
+        <span class="language-toggle__option" data-lang-option="en">EN</span>
+        <span class="language-toggle__option" data-lang-option="fr">FR</span>
+        <span class="language-toggle__thumb"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow" data-i18n="landingEyebrow">Consultation web app</p>
+        <h1 data-i18n="landingTitle">Care for your family, guided by trusted experts.</h1>
+        <p class="lead" data-i18n="landingSubtitle">Book consultations, secure your records, and keep everyone aligned with one bilingual experience.</p>
+        <div class="hero-actions">
+          <a href="/signup" class="button primary" data-i18n="ctaJoin">Join the family</a>
+          <a href="/login" class="button secondary" data-i18n="ctaLogin">I already have an account</a>
+        </div>
+        <div class="trust-row">
+          <span><i class="fas fa-lock"></i> <span data-i18n="trustSecure">Secure by design</span></span>
+          <span><i class="fas fa-user-shield"></i> <span data-i18n="trustPrivate">Private consultations</span></span>
+          <span><i class="fas fa-check-circle"></i> <span data-i18n="trustVerified">Verified professionals</span></span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="card-header">
+          <h2 data-i18n="heroCardTitle">Your next consultation</h2>
+          <span class="pill" data-i18n="heroCardStatus">Family member</span>
+        </div>
+        <div class="card-body">
+          <div class="card-row">
+            <span class="label" data-i18n="heroCardWhen">When</span>
+            <span>Tuesday · 10:30</span>
+          </div>
+          <div class="card-row">
+            <span class="label" data-i18n="heroCardWho">With</span>
+            <span>Dr. Legrand</span>
+          </div>
+          <div class="card-row">
+            <span class="label" data-i18n="heroCardType">Type</span>
+            <span data-i18n="heroCardTypeValue">Family wellness review</span>
+          </div>
+          <a class="button primary" href="/signup" data-i18n="heroCardButton">Reserve your slot</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="value-grid" id="experts">
+      <div class="value-card">
+        <h3 data-i18n="valueTitle1">Expert-led consultations</h3>
+        <p data-i18n="valueBody1">Meet bilingual specialists who guide your family with clarity and empathy.</p>
+      </div>
+      <div class="value-card">
+        <h3 data-i18n="valueTitle2">Secure shared plans</h3>
+        <p data-i18n="valueBody2">Keep every recommendation in one encrypted, easy-to-share space.</p>
+      </div>
+      <div class="value-card">
+        <h3 data-i18n="valueTitle3">Always-on support</h3>
+        <p data-i18n="valueBody3">Message your care team and track next steps without the chaos.</p>
+      </div>
+    </section>
+
+    <section class="steps" id="how">
+      <h2 data-i18n="howTitle">How it works</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-number">01</span>
+          <h3 data-i18n="howStepTitle1">Create your family profile</h3>
+          <p data-i18n="howStepBody1">Register once and invite everyone who shares the journey.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">02</span>
+          <h3 data-i18n="howStepTitle2">Choose a specialist</h3>
+          <p data-i18n="howStepBody2">Pick the expert that matches your needs, in French or English.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">03</span>
+          <h3 data-i18n="howStepTitle3">Start the consultation</h3>
+          <p data-i18n="howStepBody3">Join securely, then track follow-ups with reminders and notes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="membership" id="family">
+      <div>
+        <h2 data-i18n="familyTitle">Membership that keeps you together</h2>
+        <p data-i18n="familyBody">To access consultations, your family needs a secure account. Create it once and keep every session organized.</p>
+        <ul class="family-list">
+          <li data-i18n="familyBullet1">Protected access for each family member</li>
+          <li data-i18n="familyBullet2">Simple SQL-backed login with secure hashing</li>
+          <li data-i18n="familyBullet3">Upgrade-ready for serverless databases</li>
+        </ul>
+      </div>
+      <div class="membership-card">
+        <h3 data-i18n="membershipCardTitle">Ready to join?</h3>
+        <p data-i18n="membershipCardBody">Sign up in under two minutes and meet your care team.</p>
+        <a class="button primary" href="/signup" data-i18n="membershipCardCta">Create my account</a>
+        <a class="text-link" href="/login" data-i18n="membershipCardAlt">I already have an account</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p data-i18n="footerCopy">© 2024 CareBridge Consultation. All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

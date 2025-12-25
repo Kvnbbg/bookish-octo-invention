@@ -1,242 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect - Miam Bookish</title>
-  <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:4233307981. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Consultation Hub</title>
   <link rel="stylesheet" href="style.css">
-        <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  </head>
-  
-  <body>
-    <header class="hero">
-         <nav>
-  <a href="/" class="logo"><img src="../images/1.png" alt="Logo"><h1>Bookish</h1></a>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about_us">About Us</a></li>
-    <li><a href="/contact">Contact</a></li>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/signup">Sign Up</a></li>
-    <li class="nav-item" data-lang="langToggle">
-      <a class="nav-link language-switch" href="#" lang="en">🇺🇸</a>
-    </li>
-  </ul>
-  </nav>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/app" class="logo">CareBridge</a>
+      <div class="nav-links">
+        <a href="/app" data-i18n="navDashboard">Dashboard</a>
+        <a href="#sessions" data-i18n="navSessions">Sessions</a>
+        <a href="#plan" data-i18n="navPlan">Family plan</a>
+        <a href="/profile" data-i18n="navProfile">Profile</a>
+        <a href="/logout" data-i18n="navLogout">Logout</a>
+      </div>
+      <button class="language-toggle" type="button" data-lang-toggle aria-label="Toggle language">
+        <span class="language-toggle__option" data-lang-option="en">EN</span>
+        <span class="language-toggle__option" data-lang-option="fr">FR</span>
+        <span class="language-toggle__thumb"></span>
+      </button>
+    </nav>
+  </header>
 
-    </header>
-
-    <section class="gamification-overview">
-        <div class="gamification-cards">
-            <div class="gamification-card">
-                <span class="label">Niveau</span>
-                <span class="value" id="levelDisplay">1</span>
-            </div>
-            <div class="gamification-card xp-card">
-                <span class="label">XP Actuel</span>
-                <div class="xp-meter">
-                    <div class="xp-fill" id="xpProgress"></div>
-                </div>
-                <span class="xp-summary" id="xpSummary">0 / 100 XP</span>
-            </div>
-            <div class="gamification-card">
-                <span class="label">🔥 Série</span>
-                <span class="value" id="streakDisplay">0</span>
-            </div>
-            <div class="gamification-card">
-                <span class="label">💰 Or</span>
-                <span class="value" id="goldDisplay">0</span>
-            </div>
-            <div class="gamification-card">
-                <span class="label">💎 Gemmes</span>
-                <span class="value" id="gemDisplay">0</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="quest-section">
-        <div class="quest-header">
-            <h2>🎯 Journal des quêtes</h2>
-            <p>Accomplissez des missions culinaires et durables pour progresser chaque jour.</p>
-        </div>
-        <div class="quest-list" id="questList">
-            <p class="quest-empty">Complétez une action pour révéler vos quêtes du jour.</p>
-        </div>
-    </section>
-
-    <div class="container">
-        <!-- Asteroid Tracker Panel -->
-        <div class="panel">
-            <h2>Asteroid Tracker</h2>
-            <div class="narrative">
-                <h3>Your Mission</h3>
-                <p>As the commander of this vessel, you must track and analyze near-Earth asteroids that pose a potential threat to our planet. The decisions you make here will determine the fate of countless lives. Stay vigilant, and use the tools at your disposal wisely.</p>
-            </div>
-            <label for="dateInput">Select Date:</label>
-            <input type="date" id="dateInput" value="2023-12-01">
-            <button onclick="fetchAsteroids()">Track Asteroids</button>
-            <div id="asteroid-results"></div>
-        </div>
-
-        <!-- Recipe Exploration Panel -->
-        <div class="panel">
-            <h2>Recipe Explorer</h2>
-            <div class="narrative">
-                <h3>Culinary Strategy</h3>
-                <p>In the quiet moments between missions, explore the culinary delights of the galaxy. Discover new recipes, gather exotic ingredients, and master the art of cooking. The strength of a commander lies not only in strategy but in the ability to find joy in creation.</p>
-            </div>
-            <label for="recipeInput">Search for a Recipe:</label>
-            <input type="text" id="recipeInput" placeholder="e.g., Galactic Pie">
-            <button onclick="searchRecipes()">Explore Recipes</button>
-            <div id="recipe-results"></div>
-        </div>
-    </div>
-<section>
-    <div class="carousel">
-        <div class="carousel-track-container">
-            <ul class="carousel-track">
-                <li class="carousel-slide current-slide">
-                    <img src="500.png" alt="500 Error Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="about.png" alt="About Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="addRecipe.png" alt="Add Recipe Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="admin.png" alt="Admin Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="author.png" alt="Author Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="confid.png" alt="Confidential Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="contact.png" alt="Contact Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="default.png" alt="Default Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="error.png" alt="Error Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="hero.jpg" alt="Hero Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="index.png" alt="Index Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="legal.png" alt="Legal Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="login.png" alt="Login Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="logout.png" alt="Logout Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="myServices.png" alt="My Services Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="patient.png" alt="Patient Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="profile.png" alt="Profile Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="recipe.png" alt="Recipe Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="/register.png" alt="Register Image">
-                </li>
-                <li class="carousel-slide">
-                    <img src="404.png" alt="404 Error Image">
-                </li>
-            </ul>
-        </div>
-        <button class="carousel-button carousel-button-left is-hidden">
-            <span>&lt;</span>
-        </button>
-        <button class="carousel-button carousel-button-right">
-            <span>&gt;</span>
-        </button>
-    </div>
-</section>
-
-<section class="home-section">
-	<div id="hero-section">
-        <div class="hero-content">
-          <h3>Welcome to Fashion Nouilles</h3>
-          <p>Explore our wide range of fashionable products and indulge in a unique, personalized shopping experience.</p>
-          <a href="#featured-products" class="button-navy">Start Shopping</a>
-          <p><i>We accept Bitcoin</i></p>
+  <main>
+    <section class="dashboard-hero">
+      <div>
+        <p class="eyebrow" data-i18n="dashboardEyebrow">Family space</p>
+        <h1 data-i18n="dashboardTitle">Welcome back to your consultation hub.</h1>
+        <p class="lead" data-i18n="dashboardSubtitle">Review upcoming sessions, share updates, and keep your care plan consistent.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#sessions" data-i18n="dashboardCta">View next session</a>
+          <a class="button secondary" href="#plan" data-i18n="dashboardSecondary">Update family plan</a>
         </div>
       </div>
-    <main>
-      <section id="featured-products">
-        <h2>Our Best Sellers</h2>
-        <div class="product">
-          <img src="2.png" alt="Best selling product 1">
+      <div class="status-card">
+        <div class="status-header">
+          <h3 data-i18n="statusTitle">Family status</h3>
+          <span class="pill" data-i18n="statusTag">Active member</span>
         </div>
-  
-        <div class="product">
-          <img src="3.png" alt="Best selling product 2">
+        <div class="status-row">
+          <span class="label" data-i18n="statusNext">Next consultation</span>
+          <span>Thursday · 15:00</span>
         </div>
-  
-        <div class="product">
-          <img src="4.png" alt="Best selling product 3">
+        <div class="status-row">
+          <span class="label" data-i18n="statusChannel">Channel</span>
+          <span data-i18n="statusChannelValue">Secure video room</span>
         </div>
-  
-        <div class="product">
-          <img src="5.png" alt="Best selling product 4">
+        <div class="status-row">
+          <span class="label" data-i18n="statusCoach">Lead specialist</span>
+          <span>Dr. Murray</span>
         </div>
-  
-        <div class="product">
-          <img src="6.png" alt="Best selling product 5">
-        </div>
-  
-        <div class="product">
-          <img src="7.png" alt="Best selling product 6">
-        </div>
-      </section>
-  
-      <section id="latest-products">
-        <h2>Recently Added Products</h2>
-     <div class="product">
-          <img src="https://m.media-amazon.com/images/I/717kxMoZiAL._AC_SR525,789_FMwebp_QL65_.jpg" alt="Casual shirt for men">
-          <p>Trendy Men's Casual Shirt</p>
-          <button>Add to Cart</button>
-        </div>
-  
-        <div class="product">
-          <img src="https://m.media-amazon.com/images/I/61RyCbaMh1L._AC_SR525,789_FMwebp_QL65_.jpg" alt="Stylish women's top">
-          <p>Stylish Women's Top</p>
-          <button>Add to Cart</button>
-        </div>
-  
-        <!-- Pub -->
-            <div id="follow">	
-          <h2>Follow Us</h2>
-          <p>Stay connected by following us on social networks.</p>
-  
-      
-        <blockquote class="twitter-tweet"><p lang="en" dir="ltr">1/2 Struggling with the <a href="https://twitter.com/hashtag/Bitcoin?src=hash&amp;ref_src=twsrc%5Etfw">#Bitcoin</a> community’s current view on blocksize. Skyrocketing prices have blinded us, leading to major issues. Wallets with less than minimum satoshi/byte fee are useless. Commerce is impractical. Are we okay with pushing users towards Visa instead of… <a href="https://t.co/FBfj0FIMDD">pic.twitter.com/FBfj0FIMDD</a></p>&mdash; Kevin Mars (@kvnbbg) <a href="https://twitter.com/kvnbbg/status/1680565445676466177?ref_src=twsrc%5Etfw">July 16, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-      </section>
       </div>
-</section>
+    </section>
 
-    <footer>
-        <p>&copy; 2024 Bookish. All Rights Reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <section class="dashboard-grid" id="sessions">
+      <div class="dashboard-card">
+        <h3 data-i18n="sessionCardTitle">Upcoming sessions</h3>
+        <p data-i18n="sessionCardBody">Confirm attendance, add notes, and set reminders for each family member.</p>
+        <button class="button ghost" data-i18n="sessionCardCta">Manage sessions</button>
+      </div>
+      <div class="dashboard-card">
+        <h3 data-i18n="messagesCardTitle">Secure messages</h3>
+        <p data-i18n="messagesCardBody">Send updates to your care team without leaving the app.</p>
+        <button class="button ghost" data-i18n="messagesCardCta">Start a message</button>
+      </div>
+      <div class="dashboard-card">
+        <h3 data-i18n="resourcesCardTitle">Family resources</h3>
+        <p data-i18n="resourcesCardBody">Download bilingual guides and follow personalized recommendations.</p>
+        <button class="button ghost" data-i18n="resourcesCardCta">View resources</button>
+      </div>
+    </section>
+
+    <section class="plan-section" id="plan">
+      <div>
+        <h2 data-i18n="planTitle">Your family plan, always within reach</h2>
+        <p data-i18n="planBody">Track goals, update shared notes, and keep every caregiver aligned.</p>
+      </div>
+      <div class="plan-list">
+        <div class="plan-item">
+          <span class="plan-icon"><i class="fas fa-heart"></i></span>
+          <div>
+            <h4 data-i18n="planItemTitle1">Weekly wellness check-ins</h4>
+            <p data-i18n="planItemBody1">Review progress together every Friday.</p>
+          </div>
+        </div>
+        <div class="plan-item">
+          <span class="plan-icon"><i class="fas fa-shield-alt"></i></span>
+          <div>
+            <h4 data-i18n="planItemTitle2">Private records vault</h4>
+            <p data-i18n="planItemBody2">Securely store notes and consultation summaries.</p>
+          </div>
+        </div>
+        <div class="plan-item">
+          <span class="plan-icon"><i class="fas fa-users"></i></span>
+          <div>
+            <h4 data-i18n="planItemTitle3">Shared family access</h4>
+            <p data-i18n="planItemBody3">Invite trusted caregivers and manage permissions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p data-i18n="footerCopy">© 2024 CareBridge Consultation. All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
