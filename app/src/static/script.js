@@ -7,6 +7,7 @@ const translations = {
     navLogin: 'Login',
     navSignup: 'Join the family',
     navDashboard: 'Dashboard',
+    navCrm: 'CRM',
     navSessions: 'Sessions',
     navPlan: 'Family plan',
     navProfile: 'Profile',
@@ -68,6 +69,59 @@ const translations = {
     resourcesCardTitle: 'Family resources',
     resourcesCardBody: 'Download bilingual guides and follow personalized recommendations.',
     resourcesCardCta: 'View resources',
+    crmEyebrow: 'CRM focus',
+    crmTitle: 'Booking CRM that protects weekly revenue.',
+    crmSubtitle: 'See where prospects drop, recover missed quotes, and align every follow-up from one dashboard.',
+    crmRefresh: 'Refresh data',
+    crmNewBooking: 'New booking',
+    crmMetricsTitle: 'Pipeline snapshot',
+    crmMetricsTag: 'This week',
+    crmMetricLeads: 'Active leads',
+    crmMetricQuotes: 'Quotes pending',
+    crmMetricRevenue: 'Revenue at risk',
+    crmMetricConversion: 'Conversion rate',
+    crmPipelineTitle: 'Lead stages',
+    crmPipelineTag: 'Last 14 days',
+    crmTasksTitle: 'Follow-up focus',
+    crmTasksTag: 'Priority',
+    crmTaskDue: 'Due',
+    crmTaskOwner: 'Owner',
+    crmBookingsTitle: 'Booking requests',
+    crmBookingsSubtitle: 'Track quote status, next steps, and ownership for every request.',
+    crmImport: 'Import leads',
+    crmTableClient: 'Client',
+    crmTableService: 'Service',
+    crmTableStatus: 'Status',
+    crmTableValue: 'Value',
+    crmTableOwner: 'Owner',
+    crmTableActions: 'Actions',
+    crmActionEdit: 'Edit',
+    crmActionDelete: 'Delete',
+    crmFormTitle: 'Create a booking',
+    crmFormClientLabel: 'Client',
+    crmFormClientPlaceholder: 'Client name',
+    crmFormServiceLabel: 'Service',
+    crmFormServicePlaceholder: 'Cleaning service',
+    crmFormDateLabel: 'Preferred date',
+    crmFormValueLabel: 'Estimated value',
+    crmFormValuePlaceholder: '0',
+    crmFormStatusLabel: 'Status',
+    crmFormOwnerLabel: 'Owner',
+    crmFormOwnerPlaceholder: 'Account manager',
+    crmFormSourceLabel: 'Source',
+    crmFormSourcePlaceholder: 'Instagram, referral',
+    crmFormNextStepLabel: 'Next step',
+    crmFormNextStepPlaceholder: 'Follow-up call',
+    crmFormSubmit: 'Save booking',
+    crmFormUpdate: 'Update booking',
+    crmFormCancel: 'Cancel',
+    crmEmptyState: 'No booking requests yet. Add the first opportunity.',
+    crmStatusNew: 'New',
+    crmStatusQualified: 'Qualified',
+    crmStatusQuoteSent: 'Quote sent',
+    crmStatusAwaiting: 'Awaiting response',
+    crmStatusWon: 'Won',
+    crmStatusLost: 'Lost',
     planTitle: 'Your family plan, always within reach',
     planBody: 'Track goals, update shared notes, and keep every caregiver aligned.',
     planItemTitle1: 'Weekly wellness check-ins',
@@ -105,6 +159,7 @@ const translations = {
     navLogin: 'Connexion',
     navSignup: 'Rejoindre la famille',
     navDashboard: 'Tableau de bord',
+    navCrm: 'CRM',
     navSessions: 'Séances',
     navPlan: 'Plan familial',
     navProfile: 'Profil',
@@ -166,6 +221,59 @@ const translations = {
     resourcesCardTitle: 'Ressources familiales',
     resourcesCardBody: 'Téléchargez des guides bilingues et suivez les recommandations.',
     resourcesCardCta: 'Voir les ressources',
+    crmEyebrow: 'Focus CRM',
+    crmTitle: 'Un CRM de réservation pour protéger le chiffre hebdomadaire.',
+    crmSubtitle: 'Repérez où les prospects décrochent, récupérez les devis et alignez chaque suivi.',
+    crmRefresh: 'Rafraîchir les données',
+    crmNewBooking: 'Nouvelle demande',
+    crmMetricsTitle: 'Instantané du pipeline',
+    crmMetricsTag: 'Cette semaine',
+    crmMetricLeads: 'Prospects actifs',
+    crmMetricQuotes: 'Devis en attente',
+    crmMetricRevenue: 'Revenu à risque',
+    crmMetricConversion: 'Taux de conversion',
+    crmPipelineTitle: 'Étapes du pipeline',
+    crmPipelineTag: '14 derniers jours',
+    crmTasksTitle: 'Suivis prioritaires',
+    crmTasksTag: 'Priorité',
+    crmTaskDue: 'Échéance',
+    crmTaskOwner: 'Responsable',
+    crmBookingsTitle: 'Demandes de réservation',
+    crmBookingsSubtitle: 'Suivez le statut des devis, les prochaines étapes et les responsables.',
+    crmImport: 'Importer des leads',
+    crmTableClient: 'Client',
+    crmTableService: 'Service',
+    crmTableStatus: 'Statut',
+    crmTableValue: 'Valeur',
+    crmTableOwner: 'Responsable',
+    crmTableActions: 'Actions',
+    crmActionEdit: 'Modifier',
+    crmActionDelete: 'Supprimer',
+    crmFormTitle: 'Créer une demande',
+    crmFormClientLabel: 'Client',
+    crmFormClientPlaceholder: 'Nom du client',
+    crmFormServiceLabel: 'Service',
+    crmFormServicePlaceholder: 'Service de nettoyage',
+    crmFormDateLabel: 'Date souhaitée',
+    crmFormValueLabel: 'Valeur estimée',
+    crmFormValuePlaceholder: '0',
+    crmFormStatusLabel: 'Statut',
+    crmFormOwnerLabel: 'Responsable',
+    crmFormOwnerPlaceholder: 'Gestionnaire',
+    crmFormSourceLabel: 'Source',
+    crmFormSourcePlaceholder: 'Instagram, recommandation',
+    crmFormNextStepLabel: 'Prochaine étape',
+    crmFormNextStepPlaceholder: 'Appel de suivi',
+    crmFormSubmit: 'Enregistrer',
+    crmFormUpdate: 'Mettre à jour',
+    crmFormCancel: 'Annuler',
+    crmEmptyState: 'Aucune demande pour le moment. Ajoutez la première opportunité.',
+    crmStatusNew: 'Nouveau',
+    crmStatusQualified: 'Qualifié',
+    crmStatusQuoteSent: 'Devis envoyé',
+    crmStatusAwaiting: 'En attente de réponse',
+    crmStatusWon: 'Gagné',
+    crmStatusLost: 'Perdu',
     planTitle: 'Votre plan familial à portée de main',
     planBody: 'Suivez les objectifs, mettez à jour les notes et alignez les aidants.',
     planItemTitle1: 'Points hebdomadaires',
@@ -238,6 +346,336 @@ function setLanguage(language) {
   updateLanguageToggle();
 }
 
+const crmStatusKeyMap = {
+  New: 'crmStatusNew',
+  Qualified: 'crmStatusQualified',
+  'Quote sent': 'crmStatusQuoteSent',
+  'Awaiting response': 'crmStatusAwaiting',
+  Won: 'crmStatusWon',
+  Lost: 'crmStatusLost'
+};
+
+const crmStatusSlugMap = {
+  New: 'new',
+  Qualified: 'qualified',
+  'Quote sent': 'quote',
+  'Awaiting response': 'awaiting',
+  Won: 'won',
+  Lost: 'lost'
+};
+
+const crmMetricConfig = [
+  { key: 'crmMetricLeads', field: 'activeLeads' },
+  { key: 'crmMetricQuotes', field: 'quotesPending' },
+  { key: 'crmMetricRevenue', field: 'revenueAtRisk', formatter: 'currency' },
+  { key: 'crmMetricConversion', field: 'conversionRate', formatter: 'percent' }
+];
+
+const crmFallbackData = {
+  metrics: {
+    activeLeads: 12,
+    quotesPending: 5,
+    revenueAtRisk: 3200,
+    conversionRate: 42
+  },
+  pipeline: [
+    { status: 'New', count: 4, percent: 20 },
+    { status: 'Qualified', count: 3, percent: 15 },
+    { status: 'Quote sent', count: 3, percent: 15 },
+    { status: 'Awaiting response', count: 2, percent: 10 },
+    { status: 'Won', count: 5, percent: 25 },
+    { status: 'Lost', count: 3, percent: 15 }
+  ],
+  tasks: [
+    {
+      title: {
+        en: 'Confirm quote follow-up for Maison Dupont',
+        fr: 'Confirmer le suivi devis pour Maison Dupont'
+      },
+      owner: 'Amira',
+      due: 'Today'
+    },
+    {
+      title: {
+        en: 'Prepare onboarding checklist for Lumière Offices',
+        fr: 'Préparer la check-list pour Lumière Offices'
+      },
+      owner: 'Thomas',
+      due: 'Tomorrow'
+    },
+    {
+      title: {
+        en: 'Send availability recap to Cafe Nouvelle',
+        fr: 'Envoyer le récapitulatif à Cafe Nouvelle'
+      },
+      owner: 'Lina',
+      due: 'Friday'
+    }
+  ],
+  bookings: [
+    {
+      id: 'bk-1001',
+      client: 'Maison Dupont',
+      service: 'Deep clean + windows',
+      date: '2024-10-18',
+      value: 640,
+      status: 'Quote sent',
+      owner: 'Amira',
+      source: 'Instagram',
+      nextStep: 'Follow-up call'
+    },
+    {
+      id: 'bk-1002',
+      client: 'Lumière Offices',
+      service: 'Weekly maintenance',
+      date: '2024-10-21',
+      value: 1200,
+      status: 'Qualified',
+      owner: 'Thomas',
+      source: 'Referral',
+      nextStep: 'Prepare contract'
+    },
+    {
+      id: 'bk-1003',
+      client: 'Cafe Nouvelle',
+      service: 'Kitchen sanitation',
+      date: '2024-10-16',
+      value: 420,
+      status: 'Awaiting response',
+      owner: 'Lina',
+      source: 'Website',
+      nextStep: 'Send reminder'
+    }
+  ]
+};
+
+const getTranslation = (key) => translations[currentLanguage]?.[key] || translations.en?.[key] || key;
+
+const formatCrmCurrency = (value) => {
+  const locale = currentLanguage === 'fr' ? 'fr-FR' : 'en-US';
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: 0
+  }).format(Number(value) || 0);
+};
+
+const formatCrmValue = (value, formatter) => {
+  if (formatter === 'currency') {
+    return formatCrmCurrency(value);
+  }
+  if (formatter === 'percent') {
+    const safeValue = Number(value) || 0;
+    return `${safeValue}%`;
+  }
+  return Number(value) || 0;
+};
+
+const getCrmStatusLabel = (status) => {
+  const key = crmStatusKeyMap[status];
+  return key ? getTranslation(key) : status;
+};
+
+const formatCrmDate = (date) => {
+  if (!date) return '';
+  const locale = currentLanguage === 'fr' ? 'fr-FR' : 'en-US';
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) return date;
+  return parsed.toLocaleDateString(locale, {
+    month: 'short',
+    day: 'numeric'
+  });
+};
+
+const renderCrmMetrics = (metrics = {}) => {
+  const container = document.querySelector('[data-crm-metrics]');
+  if (!container) return;
+
+  container.innerHTML = crmMetricConfig.map((metric) => `
+    <div class="crm-metric">
+      <span data-i18n="${metric.key}"></span>
+      <strong>${formatCrmValue(metrics[metric.field], metric.formatter)}</strong>
+    </div>
+  `).join('');
+
+  applyTranslations();
+};
+
+const renderCrmPipeline = (pipeline = []) => {
+  const container = document.querySelector('[data-crm-pipeline]');
+  if (!container) return;
+
+  container.innerHTML = pipeline.map((stage) => `
+    <div class="crm-pipeline-item">
+      <div class="crm-pipeline-top">
+        <span>${getCrmStatusLabel(stage.status)}</span>
+        <span>${stage.count}</span>
+      </div>
+      <div class="crm-pipeline-bar"><span style="width: ${stage.percent || 0}%"></span></div>
+    </div>
+  `).join('');
+};
+
+const renderCrmTasks = (tasks = []) => {
+  const container = document.querySelector('[data-crm-tasks]');
+  if (!container) return;
+
+  if (!tasks.length) {
+    container.innerHTML = `<li class="crm-empty">${getTranslation('crmEmptyState')}</li>`;
+    return;
+  }
+
+  container.innerHTML = tasks.map((task) => `
+    <li class="crm-task-item">
+      <strong>${task.title?.[currentLanguage] || task.title?.en || task.title || ''}</strong>
+      <div class="crm-task-meta">
+        <span>${getTranslation('crmTaskOwner')}: ${task.owner}</span>
+        <span>${getTranslation('crmTaskDue')}: ${task.due}</span>
+      </div>
+    </li>
+  `).join('');
+};
+
+const crmTableHeader = `
+  <div class="crm-row crm-row-header">
+    <span data-i18n="crmTableClient"></span>
+    <span data-i18n="crmTableService"></span>
+    <span data-i18n="crmTableStatus"></span>
+    <span data-i18n="crmTableValue"></span>
+    <span data-i18n="crmTableOwner"></span>
+    <span data-i18n="crmTableActions"></span>
+  </div>
+`;
+
+const renderCrmBookings = (bookings = []) => {
+  const container = document.querySelector('[data-crm-table]');
+  if (!container) return;
+
+  if (!bookings.length) {
+    container.innerHTML = `${crmTableHeader}<div class="crm-empty" data-i18n="crmEmptyState"></div>`;
+    applyTranslations();
+    return;
+  }
+
+  const rows = bookings.map((booking) => {
+    const statusLabel = getCrmStatusLabel(booking.status);
+    const statusSlug = crmStatusSlugMap[booking.status] || 'new';
+
+    return `
+      <div class="crm-row">
+        <div>
+          <strong>${booking.client}</strong>
+          <small>${booking.source || ''}</small>
+        </div>
+        <div>
+          <strong>${booking.service}</strong>
+          <small>${formatCrmDate(booking.date)}</small>
+        </div>
+        <div>
+          <span class="crm-status-pill status-${statusSlug}">${statusLabel}</span>
+        </div>
+        <div>
+          <strong>${formatCrmCurrency(booking.value)}</strong>
+          <small>${booking.nextStep || ''}</small>
+        </div>
+        <div>
+          <strong>${booking.owner}</strong>
+          <small>#${booking.id}</small>
+        </div>
+        <div class="crm-actions-group">
+          <button class="button ghost" type="button" data-crm-action="edit" data-crm-id="${booking.id}" data-i18n="crmActionEdit"></button>
+          <button class="button ghost" type="button" data-crm-action="delete" data-crm-id="${booking.id}" data-i18n="crmActionDelete"></button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = crmTableHeader + rows;
+  applyTranslations();
+};
+
+const resetCrmForm = (form) => {
+  if (!form) return;
+  form.reset();
+  form.querySelector('[data-crm-id]').value = '';
+  form.dataset.mode = 'create';
+  const submitButton = form.querySelector('[data-crm-submit]');
+  if (submitButton) {
+    submitButton.setAttribute('data-i18n', 'crmFormSubmit');
+  }
+  const cancelButton = form.querySelector('[data-crm-cancel]');
+  if (cancelButton) {
+    cancelButton.hidden = true;
+  }
+  applyTranslations();
+};
+
+const populateCrmForm = (form, booking) => {
+  if (!form || !booking) return;
+  form.querySelector('[data-crm-id]').value = booking.id;
+  form.elements.client.value = booking.client;
+  form.elements.service.value = booking.service;
+  form.elements.date.value = booking.date;
+  form.elements.value.value = booking.value;
+  form.elements.status.value = booking.status;
+  form.elements.owner.value = booking.owner;
+  form.elements.source.value = booking.source;
+  form.elements.nextStep.value = booking.nextStep;
+  form.dataset.mode = 'edit';
+
+  const submitButton = form.querySelector('[data-crm-submit]');
+  if (submitButton) {
+    submitButton.setAttribute('data-i18n', 'crmFormUpdate');
+  }
+  const cancelButton = form.querySelector('[data-crm-cancel]');
+  if (cancelButton) {
+    cancelButton.hidden = false;
+  }
+  applyTranslations();
+};
+
+const fetchCrmOverview = async () => {
+  const response = await fetch('/api/crm/overview');
+  if (!response.ok) {
+    throw new Error('Failed to fetch CRM overview');
+  }
+  return response.json();
+};
+
+const fetchCrmBookings = async () => {
+  const response = await fetch('/api/crm/bookings');
+  if (!response.ok) {
+    throw new Error('Failed to fetch CRM bookings');
+  }
+  const payload = await response.json();
+  return payload.bookings || [];
+};
+
+const saveCrmBooking = async (booking, mode) => {
+  const url = mode === 'edit' ? `/api/crm/bookings/${booking.id}` : '/api/crm/bookings';
+  const method = mode === 'edit' ? 'PUT' : 'POST';
+
+  const response = await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(booking)
+  });
+
+  if (!response.ok) {
+    throw new Error('Unable to save booking');
+  }
+
+  return response.json();
+};
+
+const deleteCrmBooking = async (id) => {
+  const response = await fetch(`/api/crm/bookings/${id}`, { method: 'DELETE' });
+  if (!response.ok) {
+    throw new Error('Unable to delete booking');
+  }
+  return response.json();
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('[data-lang-toggle]');
   if (toggle) {
@@ -255,6 +693,101 @@ document.addEventListener('DOMContentLoaded', () => {
 
   applyTranslations();
   updateLanguageToggle();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const metricsContainer = document.querySelector('[data-crm-metrics]');
+  if (!metricsContainer) return;
+
+  const form = document.querySelector('[data-crm-form]');
+  const refreshButton = document.querySelector('[data-crm-refresh]');
+  const newButton = document.querySelector('[data-crm-new]');
+  const cancelButton = document.querySelector('[data-crm-cancel]');
+  const table = document.querySelector('[data-crm-table]');
+
+  const refreshCrm = async () => {
+    try {
+      const overview = await fetchCrmOverview();
+      renderCrmMetrics(overview.metrics);
+      renderCrmPipeline(overview.pipeline);
+      renderCrmTasks(overview.tasks);
+      renderCrmBookings(overview.bookings);
+    } catch (error) {
+      console.warn('CRM overview unavailable', error);
+      renderCrmMetrics(crmFallbackData.metrics);
+      renderCrmPipeline(crmFallbackData.pipeline);
+      renderCrmTasks(crmFallbackData.tasks);
+      renderCrmBookings(crmFallbackData.bookings);
+    }
+  };
+
+  refreshCrm();
+
+  refreshButton?.addEventListener('click', () => {
+    refreshCrm();
+  });
+
+  newButton?.addEventListener('click', () => {
+    resetCrmForm(form);
+    form?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  cancelButton?.addEventListener('click', () => resetCrmForm(form));
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const payload = {
+      id: form.querySelector('[data-crm-id]').value,
+      client: form.elements.client.value.trim(),
+      service: form.elements.service.value.trim(),
+      date: form.elements.date.value,
+      value: form.elements.value.value,
+      status: form.elements.status.value,
+      owner: form.elements.owner.value.trim(),
+      source: form.elements.source.value.trim(),
+      nextStep: form.elements.nextStep.value.trim()
+    };
+
+    try {
+      await saveCrmBooking(payload, form.dataset.mode);
+      resetCrmForm(form);
+      const bookings = await fetchCrmBookings();
+      renderCrmBookings(bookings);
+      const overview = await fetchCrmOverview();
+      renderCrmMetrics(overview.metrics);
+      renderCrmPipeline(overview.pipeline);
+    } catch (error) {
+      console.warn('CRM save failed', error);
+    }
+  });
+
+  table?.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-crm-action]');
+    if (!button) return;
+    const action = button.dataset.crmAction;
+    const id = button.dataset.crmId;
+
+    try {
+      if (action === 'edit') {
+        const bookings = await fetchCrmBookings();
+        const booking = bookings.find((entry) => entry.id === id);
+        populateCrmForm(form, booking);
+        form?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (action === 'delete') {
+        await deleteCrmBooking(id);
+        const overview = await fetchCrmOverview();
+        renderCrmMetrics(overview.metrics);
+        renderCrmPipeline(overview.pipeline);
+        renderCrmTasks(overview.tasks);
+        renderCrmBookings(overview.bookings);
+      }
+    } catch (error) {
+      console.warn('CRM action failed', error);
+    }
+  });
 });
 
 const GAMIFICATION_ACTIONS = {

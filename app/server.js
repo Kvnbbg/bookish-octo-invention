@@ -1,11 +1,11 @@
 // Import required modules and packages
 import express from 'express';
 import path from 'path';
-import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport'; // Passport.js for authentication
 import routes from '../app/src/routes/routes.js'; // Import your custom routes
 import gamificationRouter from '../app/src/routes/gamification.js';
+import crmRouter from '../app/src/routes/crm.js';
 import { configurePassport } from '../app/src/config/passport.js'; // Import passport configuration
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv'; // For loading environment variables
@@ -27,8 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../app/src/static')));
 
 // Parse incoming request bodies in a middleware before handlers, available under req.body
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // Session management configuration
 app.use(session({
@@ -51,6 +49,7 @@ configurePassport();
 // Use routes from the routes.js file for handling different endpoints
 app.use('/', routes);
 app.use('/api/gamification', gamificationRouter);
+app.use('/api/crm', crmRouter);
 
 // Catch-all error handler for debugging
 app.use((err, req, res, next) => {

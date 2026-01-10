@@ -14,6 +14,7 @@
       <a href="/app" class="logo">CareBridge</a>
       <div class="nav-links">
         <a href="/app" data-i18n="navDashboard">Dashboard</a>
+        <a href="#crm" data-i18n="navCrm">CRM</a>
         <a href="#sessions" data-i18n="navSessions">Sessions</a>
         <a href="#plan" data-i18n="navPlan">Family plan</a>
         <a href="/profile" data-i18n="navProfile">Profile</a>
@@ -73,6 +74,106 @@
         <h3 data-i18n="resourcesCardTitle">Family resources</h3>
         <p data-i18n="resourcesCardBody">Download bilingual guides and follow personalized recommendations.</p>
         <button class="button ghost" data-i18n="resourcesCardCta">View resources</button>
+      </div>
+    </section>
+
+    <section class="crm-section" id="crm">
+      <div class="crm-header">
+        <div>
+          <p class="eyebrow" data-i18n="crmEyebrow">CRM focus</p>
+          <h2 data-i18n="crmTitle">Booking CRM that protects weekly revenue.</h2>
+          <p data-i18n="crmSubtitle">See where prospects drop, recover missed quotes, and align every follow-up from one dashboard.</p>
+        </div>
+        <div class="crm-actions">
+          <button class="button secondary" type="button" data-crm-refresh data-i18n="crmRefresh">Refresh data</button>
+          <button class="button primary" type="button" data-crm-new data-i18n="crmNewBooking">New booking</button>
+        </div>
+      </div>
+
+      <div class="crm-grid">
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <h3 data-i18n="crmMetricsTitle">Pipeline snapshot</h3>
+            <span class="pill" data-i18n="crmMetricsTag">This week</span>
+          </div>
+          <div class="crm-metrics" data-crm-metrics></div>
+        </div>
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <h3 data-i18n="crmPipelineTitle">Lead stages</h3>
+            <span class="pill" data-i18n="crmPipelineTag">Last 14 days</span>
+          </div>
+          <div class="crm-pipeline" data-crm-pipeline></div>
+        </div>
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <h3 data-i18n="crmTasksTitle">Follow-up focus</h3>
+            <span class="pill" data-i18n="crmTasksTag">Priority</span>
+          </div>
+          <ul class="crm-task-list" data-crm-tasks></ul>
+        </div>
+      </div>
+
+      <div class="crm-board">
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <div>
+              <h3 data-i18n="crmBookingsTitle">Booking requests</h3>
+              <p class="crm-card-subtitle" data-i18n="crmBookingsSubtitle">Track quote status, next steps, and ownership for every request.</p>
+            </div>
+            <button class="button ghost" type="button" data-crm-import data-i18n="crmImport">Import leads</button>
+          </div>
+          <div class="crm-table" data-crm-table></div>
+        </div>
+        <div class="crm-card crm-form-card">
+          <h3 data-i18n="crmFormTitle">Create a booking</h3>
+          <form data-crm-form>
+            <input type="hidden" name="id" data-crm-id>
+            <label class="form-field">
+              <span data-i18n="crmFormClientLabel">Client</span>
+              <input name="client" type="text" required data-i18n-placeholder="crmFormClientPlaceholder" placeholder="Client name">
+            </label>
+            <label class="form-field">
+              <span data-i18n="crmFormServiceLabel">Service</span>
+              <input name="service" type="text" required data-i18n-placeholder="crmFormServicePlaceholder" placeholder="Cleaning service">
+            </label>
+            <label class="form-field">
+              <span data-i18n="crmFormDateLabel">Preferred date</span>
+              <input name="date" type="date" required>
+            </label>
+            <label class="form-field">
+              <span data-i18n="crmFormValueLabel">Estimated value</span>
+              <input name="value" type="number" min="0" step="10" data-i18n-placeholder="crmFormValuePlaceholder" placeholder="0">
+            </label>
+            <label class="form-field">
+              <span data-i18n="crmFormStatusLabel">Status</span>
+              <select name="status">
+                <option value="New" data-i18n="crmStatusNew">New</option>
+                <option value="Qualified" data-i18n="crmStatusQualified">Qualified</option>
+                <option value="Quote sent" data-i18n="crmStatusQuoteSent">Quote sent</option>
+                <option value="Awaiting response" data-i18n="crmStatusAwaiting">Awaiting response</option>
+                <option value="Won" data-i18n="crmStatusWon">Won</option>
+                <option value="Lost" data-i18n="crmStatusLost">Lost</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span data-i18n="crmFormOwnerLabel">Owner</span>
+              <input name="owner" type="text" required data-i18n-placeholder="crmFormOwnerPlaceholder" placeholder="Account manager">
+            </label>
+            <label class="form-field">
+              <span data-i18n="crmFormSourceLabel">Source</span>
+              <input name="source" type="text" data-i18n-placeholder="crmFormSourcePlaceholder" placeholder="Instagram, referral">
+            </label>
+            <label class="form-field">
+              <span data-i18n="crmFormNextStepLabel">Next step</span>
+              <input name="nextStep" type="text" data-i18n-placeholder="crmFormNextStepPlaceholder" placeholder="Follow-up call">
+            </label>
+            <div class="crm-form-actions">
+              <button class="button primary" type="submit" data-crm-submit data-i18n="crmFormSubmit">Save booking</button>
+              <button class="button ghost" type="button" data-crm-cancel data-i18n="crmFormCancel" hidden>Cancel</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 
