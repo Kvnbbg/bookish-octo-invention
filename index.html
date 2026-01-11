@@ -76,6 +76,27 @@
             <button type="button" onclick="generateSmartRecipe()">🧠 Générer une recette IA</button>
           </div>
         </form>
+        <div class="recipe-toolbar" aria-label="Outils de recette">
+          <div class="toolbar-group" role="group" aria-label="Filtres">
+            <button type="button" class="chip active" data-filter="all">Toutes</button>
+            <button type="button" class="chip" data-filter="entrée">Entrées</button>
+            <button type="button" class="chip" data-filter="plat">Plats</button>
+            <button type="button" class="chip" data-filter="dessert">Desserts</button>
+          </div>
+          <div class="toolbar-group" role="group" aria-label="Tri">
+            <button type="button" class="chip active" data-sort="recent">Récent</button>
+            <button type="button" class="chip" data-sort="title">Titre</button>
+          </div>
+        </div>
+        <div class="experience-controls">
+          <h3>⚡ Expérience active</h3>
+          <div class="control-grid" role="group" aria-label="Expérience">
+            <button type="button" class="toggle-btn" data-toggle="focus">Mode Focus</button>
+            <button type="button" class="toggle-btn" data-toggle="compact">Vue Compacte</button>
+            <button type="button" class="toggle-btn" data-toggle="ambient">Ambiance Animée</button>
+          </div>
+          <p class="control-hint">Activez des animations et des modes de lecture adaptés à un usage quotidien.</p>
+        </div>
         <!-- Recipe Grid -->
         <div class="recipe-grid" id="recipeContainer"></div>
         <!-- Simulation Controls -->
@@ -105,6 +126,10 @@
             <div class="slot" data-ingredient=""></div>
             <div class="slot" data-ingredient=""></div>
             <div class="slot" data-ingredient=""></div>
+          </div>
+          <div class="game-controls">
+            <button type="button" class="ghost-button" id="shuffleIngredients">🔀 Mélanger</button>
+            <button type="button" class="ghost-button" id="autoCook">⚡ Auto-cuire</button>
           </div>
           <button class="cook-button">🍳 Cook!</button>
         </div>
@@ -203,6 +228,13 @@
       <a href="https://owasp.org" target="_blank" rel="noopener">OWASP Certified</a>
     </div>
   </footer>
+
+  <div class="whiteout-overlay" id="whiteoutOverlay" aria-live="polite" aria-hidden="true">
+    <div class="whiteout-card">
+      <div class="whiteout-spinner"></div>
+      <p id="whiteoutText">Chargement...</p>
+    </div>
+  </div>
 
  <script src="script.js"></script>
 </body>
