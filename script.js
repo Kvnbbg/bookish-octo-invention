@@ -35,12 +35,35 @@
       return null;
     }
 
+    const dom = {
+      currentUser: document.getElementById('current-user'),
+      loginBtn: document.getElementById('loginBtn'),
+      logoutBtn: document.getElementById('logoutBtn'),
+      sessionSustainability: document.getElementById('sessionSustainability'),
+      statusIndicator: document.getElementById('statusIndicator'),
+      connectionStatus: document.getElementById('connectionStatus'),
+      connectButton: document.getElementById('connectButton'),
+      syncButton: document.getElementById('syncButton'),
+      syncStatus: document.getElementById('syncStatus'),
+      recipeContainer: document.getElementById('recipeContainer'),
+      whiteoutOverlay: document.getElementById('whiteoutOverlay'),
+      whiteoutText: document.getElementById('whiteoutText')
+    };
+
+    const ingredientPool = ['Basilic', 'Tomate', 'Citron', 'Safran', 'Truffe', 'Miel', 'Piment', 'Menthe'];
+    const experienceSettingsKey = 'experienceSettings';
+    const interactionToggles = {
+      focus: 'focus',
+      compact: 'compact',
+      ambient: 'ambient'
+    };
+
     // === User Management ===
     let users = JSON.parse(getCookie('users') || '[{"name":"Katia Rachon"}]');
     let currentUser = users[0];
 
     function updateUserUI() {
-      document.getElementById('current-user').textContent = currentUser.name;
+      dom.currentUser.textContent = currentUser.name;
     }
 
     function showUserForm() {
@@ -114,57 +137,47 @@
     const siebelConnection = new SiebelConnection();
 
     function updateConnectionStatus() {
-      const statusIndicator = document.getElementById('statusIndicator');
-      const statusText = document.getElementById('connectionStatus');
-      const connectButton = document.getElementById('connectButton');
       if (siebelConnection.isConnected) {
-        statusIndicator.classList.add('connected');
-        statusText.textContent = 'Connecté à Siebel';
-        connectButton.querySelector('.button-text').textContent = 'Déconnexion';
-        document.getElementById('syncButton').disabled = false;
+        dom.statusIndicator.classList.add('connected');
+        dom.connectionStatus.textContent = 'Connecté à Siebel';
+        dom.connectButton.querySelector('.button-text').textContent = 'Déconnexion';
+        dom.syncButton.disabled = false;
       } else {
-        statusIndicator.classList.remove('connected');
-        statusText.textContent = 'Déconnecté';
-        connectButton.querySelector('.button-text').textContent = 'Connexion Siebel';
-        document.getElementById('syncButton').disabled = true;
+        dom.statusIndicator.classList.remove('connected');
+        dom.connectionStatus.textContent = 'Déconnecté';
+        dom.connectButton.querySelector('.button-text').textContent = 'Connexion Siebel';
+        dom.syncButton.disabled = true;
       }
     }
 
     async function toggleSiebelConnection() {
-      const button = document.getElementById('connectButton');
-      button.disabled = true;
-      button.querySelector('.loading-spinner').style.display = 'inline-block';
-      try {
+      await withBusyState(dom.connectButton, async () => {
         if (siebelConnection.isConnected) {
           await siebelConnection.disconnect();
         } else {
           await siebelConnection.connect();
         }
         updateConnectionStatus();
-      } catch (error) {
-        showNotification(`Erreur: ${error}`);
-      } finally {
-        button.disabled = false;
-        button.querySelector('.loading-spinner').style.display = 'none';
-      }
+      }, 'Connexion sécurisée en cours...');
     }
 
     async function syncWithSiebel() {
-      const statusElement = document.getElementById('syncStatus');
-      statusElement.textContent = 'Synchronisation en cours...';
-      statusElement.style.color = 'var(--accent-color)';
-      try {
+      dom.syncStatus.textContent = 'Synchronisation en cours...';
+      dom.syncStatus.style.color = 'var(--accent-color)';
+      await withBusyState(dom.syncButton, async () => {
         await siebelConnection.syncData();
-        statusElement.textContent = `Dernière synchronisation: ${new Date().toLocaleTimeString()}`;
-        statusElement.style.color = 'var(--success-color)';
-      } catch (error) {
-        statusElement.textContent = 'Échec de synchronisation';
-        statusElement.style.color = 'var(--danger-color)';
-      }
+        dom.syncStatus.textContent = `Dernière synchronisation: ${new Date().toLocaleTimeString()}`;
+        dom.syncStatus.style.color = 'var(--success-color)';
+      }, 'Synchronisation des données...').catch(() => {
+        dom.syncStatus.textContent = 'Échec de synchronisation';
+        dom.syncStatus.style.color = 'var(--danger-color)';
+      });
     }
 
     // === Recipe Management ===
     let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    let recipeFilter = 'all';
+    let recipeSort = 'recent';
     function saveRecipe(e) {
       e.preventDefault();
       const newRecipe = {
@@ -176,13 +189,23 @@
       };
       recipes.push(newRecipe);
       localStorage.setItem('recipes', JSON.stringify(recipes));
+      flashWhiteout('Recette sauvegardée ✅');
       displayRecipes();
       e.target.reset();
     }
 
     function displayRecipes() {
-      const container = document.getElementById('recipeContainer');
-      container.innerHTML = recipes.map(recipe => {
+      const filteredRecipes = recipes.filter(recipe => (
+        recipeFilter === 'all' ? true : recipe.category === recipeFilter
+      ));
+      const sortedRecipes = [...filteredRecipes].sort((a, b) => {
+        if (recipeSort === 'title') {
+          return a.title.localeCompare(b.title);
+        }
+        return b.id - a.id;
+      });
+
+      dom.recipeContainer.innerHTML = sortedRecipes.map(recipe => {
         // Sanitize and escape all fields before inserting into HTML
         const safeTitle = escapeHtml(securityConfig.sanitizeInput(recipe.title || ''));
         const safeContent = escapeHtml(securityConfig.sanitizeInput(recipe.content || ''));
@@ -221,6 +244,7 @@
       document.getElementById('recipeTitle').value = generatedRecipe.title;
       document.getElementById('recipeContent').value = generatedRecipe.content;
       document.getElementById('recipeCategory').value = generatedRecipe.category;
+      flashWhiteout('Idée IA générée ✨', 500);
     }
 
     function simulateRandomData() {
@@ -240,6 +264,7 @@
       localStorage.setItem('recipes', JSON.stringify(recipes));
       displayRecipes();
       showNotification("Données aléatoires générées !");
+      flashWhiteout('Simulation terminée ⚡', 650);
     }
 
     // === Recipe Quest Mini-Game ===
@@ -298,9 +323,45 @@
       document.getElementById('gemsCount').textContent = "♦ " + game.gems;
     }
 
+    function setupIngredientSlots() {
+      const slots = document.querySelectorAll('.ingredient-slots .slot');
+      slots.forEach((slot, index) => {
+        const ingredient = ingredientPool[index % ingredientPool.length];
+        setSlotIngredient(slot, ingredient);
+        slot.addEventListener('click', () => cycleIngredient(slot));
+      });
+    }
+
+    function setSlotIngredient(slot, ingredient) {
+      slot.dataset.ingredient = ingredient;
+      slot.textContent = ingredient;
+      slot.classList.remove('flip');
+      requestAnimationFrame(() => slot.classList.add('flip'));
+    }
+
+    function cycleIngredient(slot) {
+      const currentIndex = ingredientPool.indexOf(slot.dataset.ingredient);
+      const nextIndex = (currentIndex + 1) % ingredientPool.length;
+      setSlotIngredient(slot, ingredientPool[nextIndex]);
+    }
+
+    function shuffleIngredients() {
+      document.querySelectorAll('.ingredient-slots .slot').forEach(slot => {
+        const ingredient = ingredientPool[Math.floor(Math.random() * ingredientPool.length)];
+        setSlotIngredient(slot, ingredient);
+      });
+      flashWhiteout('Ingrédients mélangés!', 450);
+    }
+
+    function autoCook() {
+      shuffleIngredients();
+      game.addXP(35);
+      showAchievementPopup("Combo aromatique!");
+      animateCookButton();
+    }
+
     // Cooking mini-game button
     document.querySelector('.cook-button').addEventListener('click', () => {
-      // For simplicity, assume all ingredient slots are filled
       game.addXP(50);
       showAchievementPopup("Recette parfaite!");
       animateCookButton();
@@ -310,6 +371,7 @@
       const button = document.querySelector('.cook-button');
       button.style.transform = 'scale(1.2)';
       setTimeout(() => button.style.transform = 'scale(1)', 200);
+      flashWhiteout('Cuisson en cours...', 350);
     }
 
     function showAchievementPopup(text) {
@@ -319,9 +381,8 @@
       setTimeout(() => { popup.style.right = '-300px'; }, 3000);
     }
 
-    // === Notifications ===
-    function showNotification(message) {
-      alert(message);
+    function setToggleState(toggleButton, isActive) {
+      toggleButton.classList.toggle('active', isActive);
     }
 
     // === Login Modal Functions ===
@@ -378,12 +439,12 @@
       localStorage.setItem('currentUser', JSON.stringify(user));
       
       // Update UI
-      document.getElementById('current-user').textContent = user.name;
-      document.getElementById('loginBtn').style.display = 'none';
-      document.getElementById('logoutBtn').style.display = 'block';
+      dom.currentUser.textContent = user.name;
+      dom.loginBtn.style.display = 'none';
+      dom.logoutBtn.style.display = 'block';
       
       // Show sustainability section
-      document.getElementById('sessionSustainability').style.display = 'block';
+      dom.sessionSustainability.style.display = 'block';
       
       // Start session timer
       startSessionTimer();
@@ -400,12 +461,12 @@
       localStorage.removeItem('currentUser');
       
       // Update UI
-      document.getElementById('current-user').textContent = 'Invité';
-      document.getElementById('loginBtn').style.display = 'block';
-      document.getElementById('logoutBtn').style.display = 'none';
+      dom.currentUser.textContent = 'Invité';
+      dom.loginBtn.style.display = 'block';
+      dom.logoutBtn.style.display = 'none';
       
       // Hide sustainability section
-      document.getElementById('sessionSustainability').style.display = 'none';
+      dom.sessionSustainability.style.display = 'none';
       
       // Stop session timer
       stopSessionTimer();
@@ -448,71 +509,6 @@
         </div>
       `;
       document.body.appendChild(popup);
-      
-      // Add styles for the popup
-      const style = document.createElement('style');
-      style.textContent = `
-        .south-popup {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0,0,0,0.8);
-          z-index: 1000;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .south-popup-content {
-          background: white;
-          width: 90%;
-          max-width: 800px;
-          border-radius: 10px;
-          padding: 2rem;
-          position: relative;
-        }
-        .south-popup .close {
-          position: absolute;
-          top: 10px;
-          right: 20px;
-          font-size: 28px;
-          cursor: pointer;
-        }
-        .south-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-          margin-top: 1.5rem;
-        }
-        .south-image img {
-          width: 100%;
-          border-radius: 8px;
-          height: 300px;
-          object-fit: cover;
-        }
-        .south-features {
-          margin: 1.5rem 0;
-          padding-left: 1.5rem;
-        }
-        .south-features li {
-          margin-bottom: 0.5rem;
-        }
-        .south-info button {
-          background: var(--accent-color);
-          color: white;
-          border: none;
-          padding: 0.75rem 1.5rem;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-        @media (max-width: 768px) {
-          .south-content {
-            grid-template-columns: 1fr;
-          }
-        }
-      `;
-      document.head.appendChild(style);
     }
     
     function exploreSouthRecipes() {
@@ -658,6 +654,43 @@
       document.getElementById('peopleHelped').textContent = newHelped;
     }
     
+    function showWhiteout(message = 'Chargement...') {
+      dom.whiteoutText.textContent = message;
+      dom.whiteoutOverlay.classList.add('active');
+      dom.whiteoutOverlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideWhiteout() {
+      dom.whiteoutOverlay.classList.remove('active');
+      dom.whiteoutOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function flashWhiteout(message, duration = 700) {
+      showWhiteout(message);
+      setTimeout(hideWhiteout, duration);
+    }
+
+    async function withBusyState(button, action, overlayMessage) {
+      button.disabled = true;
+      const spinner = button.querySelector('.loading-spinner');
+      if (spinner) {
+        spinner.style.display = 'inline-block';
+      }
+      showWhiteout(overlayMessage);
+      try {
+        await action();
+      } catch (error) {
+        showNotification(`Erreur: ${error}`);
+        throw error;
+      } finally {
+        hideWhiteout();
+        button.disabled = false;
+        if (spinner) {
+          spinner.style.display = 'none';
+        }
+      }
+    }
+
     // === Improved Notifications ===
     function showNotification(message) {
       // Create a custom notification instead of using alert
@@ -665,32 +698,6 @@
       notification.className = 'custom-notification';
       notification.textContent = message;
       document.body.appendChild(notification);
-      
-      // Add styles for the notification
-      const style = document.createElement('style');
-      style.textContent = `
-        .custom-notification {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background: var(--primary-color);
-          color: white;
-          padding: 1rem;
-          border-radius: 5px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-          z-index: 1000;
-          animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
-        }
-        @keyframes slideIn {
-          from { transform: translateX(100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-      `;
-      document.head.appendChild(style);
       
       // Remove notification after 3 seconds
       setTimeout(() => {
@@ -704,14 +711,15 @@
       displayRecipes();
       updateConnectionStatus();
       updateGameHUD();
+      setupIngredientSlots();
       
       // Check if user is already logged in
       const savedUser = JSON.parse(localStorage.getItem('currentUser'));
       if (savedUser) {
-        document.getElementById('current-user').textContent = savedUser.name;
-        document.getElementById('loginBtn').style.display = 'none';
-        document.getElementById('logoutBtn').style.display = 'block';
-        document.getElementById('sessionSustainability').style.display = 'block';
+        dom.currentUser.textContent = savedUser.name;
+        dom.loginBtn.style.display = 'none';
+        dom.logoutBtn.style.display = 'block';
+        dom.sessionSustainability.style.display = 'block';
         startSessionTimer();
       }
       
@@ -732,6 +740,47 @@
           localStorage.setItem('sessionSeconds', sessionSeconds);
         }
       });
+
+      document.querySelectorAll('.chip[data-filter]').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.chip[data-filter]').forEach(chip => chip.classList.remove('active'));
+          button.classList.add('active');
+          recipeFilter = button.dataset.filter;
+          displayRecipes();
+        });
+      });
+
+      document.querySelectorAll('.chip[data-sort]').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.chip[data-sort]').forEach(chip => chip.classList.remove('active'));
+          button.classList.add('active');
+          recipeSort = button.dataset.sort;
+          displayRecipes();
+        });
+      });
+
+      let savedExperience = JSON.parse(localStorage.getItem(experienceSettingsKey) || '{}');
+      Object.entries(savedExperience).forEach(([key, value]) => {
+        document.body.dataset[key] = String(value);
+      });
+      document.querySelectorAll('.toggle-btn').forEach(button => {
+        const toggleKey = interactionToggles[button.dataset.toggle];
+        const isActive = document.body.dataset[toggleKey] === 'true';
+        setToggleState(button, isActive);
+        button.addEventListener('click', () => {
+          const nextState = document.body.dataset[toggleKey] !== 'true';
+          document.body.dataset[toggleKey] = String(nextState);
+          setToggleState(button, nextState);
+          savedExperience = {
+            ...savedExperience,
+            [toggleKey]: nextState
+          };
+          localStorage.setItem(experienceSettingsKey, JSON.stringify(savedExperience));
+        });
+      });
+
+      document.getElementById('shuffleIngredients').addEventListener('click', shuffleIngredients);
+      document.getElementById('autoCook').addEventListener('click', autoCook);
     }
 
     window.onload = init;

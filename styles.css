@@ -20,6 +20,24 @@
       color: var(--text-color);
       line-height: 1.6;
       padding-bottom: 80px; /* For fixed footer */
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    body[data-ambient="true"] {
+      background: radial-gradient(circle at top, #f8fbff, #e4eef7, #d4e4f3);
+      background-size: 120% 120%;
+      animation: ambientFlow 12s ease-in-out infinite;
+    }
+    body[data-focus="true"] .siebel-panel,
+    body[data-focus="true"] .main-nav {
+      opacity: 0.35;
+      filter: grayscale(0.6);
+      transition: opacity 0.3s ease;
+    }
+    body[data-compact="true"] .recipe-card {
+      padding: 1rem;
+    }
+    body[data-compact="true"] .recipe-form textarea {
+      min-height: 120px;
     }
     /* Security Banner */
     .security-banner {
@@ -183,10 +201,12 @@
       padding: 1.5rem;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       position: relative;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: riseIn 0.35s ease;
     }
     .recipe-card:hover {
       transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(44, 62, 80, 0.15);
     }
     .recipe-meta {
       margin-top: 1rem;
@@ -201,6 +221,69 @@
       border: none;
       cursor: pointer;
       color: var(--danger-color);
+    }
+    .recipe-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      justify-content: space-between;
+    }
+    .toolbar-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .chip {
+      border: 1px solid rgba(52, 152, 219, 0.4);
+      background: white;
+      color: var(--primary-color);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .chip.active {
+      background: var(--accent-color);
+      color: white;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+    .chip:hover {
+      transform: translateY(-1px);
+    }
+    .experience-controls {
+      background: #f8fbff;
+      border-radius: 10px;
+      padding: 1.2rem;
+      border: 1px solid #dbe7f4;
+      margin: 1.5rem 0;
+    }
+    .experience-controls h3 {
+      margin-bottom: 0.75rem;
+    }
+    .control-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .toggle-btn {
+      background: white;
+      border: 1px solid #d0ddea;
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .toggle-btn.active {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 8px 16px rgba(44, 62, 80, 0.2);
+    }
+    .control-hint {
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      color: #556;
     }
     /* Simulation Panel */
     .simulation-controls {
@@ -247,6 +330,63 @@
       background: linear-gradient(90deg, var(--gold-color), #ffbf00);
       width: 30%;
       transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .xp-progress::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+      animation: shimmer 3s infinite;
+    }
+    .ingredient-slots {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .slot {
+      width: 110px;
+      height: 110px;
+      border-radius: 16px;
+      background: white;
+      border: 2px dashed rgba(44, 62, 80, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--primary-color);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      padding: 0.5rem;
+    }
+    .slot:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 6px 12px rgba(44, 62, 80, 0.2);
+    }
+    .slot.flip {
+      animation: flipIn 0.4s ease;
+    }
+    .game-controls {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .ghost-button {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(44, 62, 80, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ghost-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(44, 62, 80, 0.2);
     }
     .achievement-popup {
       background: rgba(255,215,0,0.9);
@@ -270,6 +410,74 @@
     @keyframes confetti {
       0% { transform: translateY(0) rotate(0deg); opacity: 1; }
       100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    .custom-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+    }
+    .south-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    .south-popup-content {
+      background: white;
+      width: 90%;
+      max-width: 800px;
+      border-radius: 10px;
+      padding: 2rem;
+      position: relative;
+      animation: riseIn 0.4s ease;
+    }
+    .south-popup .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .south-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .south-image img {
+      width: 100%;
+      border-radius: 8px;
+      height: 300px;
+      object-fit: cover;
+    }
+    .south-features {
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+    .south-features li {
+      margin-bottom: 0.5rem;
+    }
+    .south-info button {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
     }
     /* Footer */
     footer {
@@ -485,6 +693,40 @@
     .github-btn:hover {
       background: #1b1f23;
     }
+
+    .whiteout-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1100;
+    }
+    .whiteout-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .whiteout-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(44, 62, 80, 0.18);
+      text-align: center;
+      animation: whiteoutPulse 1.2s ease infinite;
+    }
+    .whiteout-spinner {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 4px solid #dfe9f5;
+      border-top-color: var(--accent-color);
+      margin: 0 auto 1rem;
+      animation: spin 1s linear infinite;
+    }
     
     /* Responsive */
     @media (max-width: 768px) {
@@ -506,4 +748,55 @@
       .action-grid {
         grid-template-columns: 1fr;
       }
+      .recipe-toolbar {
+        flex-direction: column;
+      }
+      .south-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @keyframes riseIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      60% { transform: translateX(100%); }
+      100% { transform: translateX(100%); }
+    }
+    @keyframes flipIn {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(90deg); }
+      100% { transform: rotateY(0deg); }
+    }
+    @keyframes ambientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes whiteoutPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
     }
