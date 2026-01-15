@@ -98,6 +98,27 @@ docker run -p 8080:8080 bookish-octo-invention
 
 > ℹ️ Watchtower automatically removes outdated images (`--cleanup`) and only manages containers that opt-in via labels. Review each service's labels before enabling production automation.
 
+### 🤖 Agentic Workflow Toolkit
+
+Keep agent context and parallel-work guidance in `CLAUDE.md`, then generate a single context pack when you need to bootstrap a new agent session.
+
+```bash
+node scripts/agentic/generate-context-pack.mjs
+```
+
+The context pack is written to `artifacts/agentic-context-pack.md` for quick sharing across agents or sessions.
+
+### ▲ Vercel Easy Deploy
+
+Deploy the Express app to Vercel with the existing `vercel.json` routing `api/index.js`.
+
+1. **Install the Vercel CLI** (optional): `npm i -g vercel`
+2. **Login:** `vercel login`
+3. **Run locally:** `vercel dev`
+4. **Deploy:** `vercel --prod`
+
+> 🔐 Set `SESSION_SECRET` (and OAuth secrets if used) in Vercel environment variables.
+
 ### 🌐 Access Points
 - **Web Application**: http://localhost:8080
 - **Text Scanner**: http://localhost:8080/scan
