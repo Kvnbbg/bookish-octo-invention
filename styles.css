@@ -1,12 +1,26 @@
     :root {
-      --primary-color: #2c3e50;
-      --secondary-color: #34495e;
-      --accent-color: #3498db;
-      --background: #ecf0f1;
-      --text-color: #2c3e50;
-      --success-color: #27ae60;
+      --primary-color: #1f2a44;
+      --secondary-color: #2c3e50;
+      --accent-color: #2f80ed;
+      --accent-soft: rgba(47, 128, 237, 0.15);
+      --background: #eef2f7;
+      --surface: #ffffff;
+      --surface-muted: #f6f8fc;
+      --text-color: #1c2538;
+      --text-muted: #5c677d;
+      --success-color: #2eaf6a;
       --danger-color: #e74c3c;
-      --gold-color: #ffd700;
+      --gold-color: #ffd166;
+      --border-color: rgba(31, 42, 68, 0.12);
+      --shadow-soft: 0 10px 30px rgba(31, 42, 68, 0.12);
+      --shadow-card: 0 6px 16px rgba(31, 42, 68, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --content-width: 1240px;
+      --space-lg: 2.5rem;
+      --space-md: 1.5rem;
+      --space-sm: 1rem;
     }
     /* Global Reset */
     * {
@@ -16,7 +30,7 @@
     }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: var(--background);
+      background: radial-gradient(circle at top, #f8fbff, var(--background));
       color: var(--text-color);
       line-height: 1.6;
       padding-bottom: 80px; /* For fixed footer */
@@ -41,21 +55,23 @@
     }
     /* Security Banner */
     .security-banner {
-      background: var(--danger-color);
+      background: linear-gradient(120deg, #e74c3c, #ff6b6b);
       color: white;
       padding: 10px;
       text-align: center;
       font-size: 0.9em;
+      letter-spacing: 0.02em;
     }
     /* Header */
     header {
-      background: var(--primary-color);
+      background: linear-gradient(135deg, #1c2a44, #2a3b60);
       color: white;
-      padding: 1rem;
+      padding: 1.5rem 1rem 1.25rem;
       text-align: center;
     }
     header h1 {
       margin-bottom: 0.5rem;
+      font-size: 2rem;
     }
     .header-controls {
       display: flex;
@@ -63,6 +79,8 @@
       align-items: center;
       margin-bottom: 1rem;
       padding: 0 1rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
     header p {
       display: flex;
@@ -70,22 +88,31 @@
       gap: 10px;
     }
     header button {
-      padding: 5px 10px;
+      padding: 0.45rem 0.9rem;
       font-size: 0.9rem;
       cursor: pointer;
       border: none;
       background: var(--accent-color);
       color: white;
-      border-radius: 5px;
+      border-radius: 999px;
+      box-shadow: 0 6px 14px rgba(47, 128, 237, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    header button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(47, 128, 237, 0.35);
     }
     .auth-buttons {
       display: flex;
       gap: 10px;
     }
     .main-nav {
-      background: var(--secondary-color);
-      padding: 0.5rem;
-      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.65rem;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      max-width: var(--content-width);
+      margin: 0 auto;
     }
     .main-nav ul {
       display: flex;
@@ -97,7 +124,7 @@
       color: white;
       text-decoration: none;
       padding: 0.5rem 1rem;
-      border-radius: 5px;
+      border-radius: 999px;
       transition: background 0.3s;
     }
     .main-nav a:hover, .main-nav a.active {
@@ -110,19 +137,69 @@
     }
     /* Layout Container */
     .container {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 20px;
+      max-width: var(--content-width);
+      margin: 24px auto;
+      padding: 0 20px;
       display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 2rem;
+      grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    a {
+      color: inherit;
+    }
+    button {
+      font-family: inherit;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem 1.4rem;
+      cursor: pointer;
+      background: var(--accent-color);
+      color: white;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 10px 20px rgba(47, 128, 237, 0.25);
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(47, 128, 237, 0.25);
+    }
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      box-shadow: none;
+    }
+    :is(input, textarea, select) {
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.8rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    :is(input, textarea, select):focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    .siebel-panel,
+    .recipe-form,
+    .game-container,
+    .sustainability-section,
+    .modal-content,
+    .south-popup-content,
+    .stat-card,
+    .action-card,
+    .community-impact,
+    .simulation-controls {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-color);
     }
     /* Siebel Connection Panel */
     .siebel-panel {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 1.6rem;
       height: fit-content;
     }
     .siebel-panel h2 {
@@ -150,6 +227,7 @@
     .sync-status {
       margin-top: 1rem;
       font-size: 0.9rem;
+      color: var(--text-muted);
     }
     /* Main Content Area */
     main {
@@ -159,10 +237,7 @@
     }
     /* Recipe Management Form */
     .recipe-form {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: var(--space-lg);
     }
     .recipe-form h2 {
       margin-bottom: 1rem;
@@ -172,17 +247,6 @@
     .recipe-form select {
       width: 100%;
       margin-bottom: 1rem;
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .recipe-form button {
-      background: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
-      cursor: pointer;
     }
     .form-actions {
       display: flex;
@@ -196,13 +260,14 @@
       gap: 1.5rem;
     }
     .recipe-card {
-      background: white;
-      border-radius: 8px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
       padding: 1.5rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-card);
       position: relative;
       transition: transform 0.2s, box-shadow 0.2s;
       animation: riseIn 0.35s ease;
+      border: 1px solid var(--border-color);
     }
     .recipe-card:hover {
       transform: translateY(-3px);
@@ -211,7 +276,7 @@
     .recipe-meta {
       margin-top: 1rem;
       font-size: 0.8rem;
-      color: #555;
+      color: var(--text-muted);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -221,6 +286,9 @@
       border: none;
       cursor: pointer;
       color: var(--danger-color);
+      box-shadow: none;
+      padding: 0;
+      border-radius: 0;
     }
     .recipe-toolbar {
       display: flex;
@@ -236,13 +304,14 @@
     }
     .chip {
       border: 1px solid rgba(52, 152, 219, 0.4);
-      background: white;
+      background: var(--surface);
       color: var(--primary-color);
       border-radius: 999px;
       padding: 0.35rem 0.9rem;
       font-size: 0.85rem;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      box-shadow: none;
     }
     .chip.active {
       background: var(--accent-color);
@@ -253,10 +322,10 @@
       transform: translateY(-1px);
     }
     .experience-controls {
-      background: #f8fbff;
-      border-radius: 10px;
-      padding: 1.2rem;
-      border: 1px solid #dbe7f4;
+      background: var(--surface-muted);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      border: 1px solid var(--border-color);
       margin: 1.5rem 0;
     }
     .experience-controls h3 {
@@ -268,12 +337,13 @@
       gap: 0.75rem;
     }
     .toggle-btn {
-      background: white;
-      border: 1px solid #d0ddea;
-      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
       padding: 0.6rem 1.1rem;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: none;
     }
     .toggle-btn.active {
       background: var(--primary-color);
@@ -283,21 +353,19 @@
     .control-hint {
       font-size: 0.85rem;
       margin-top: 0.75rem;
-      color: #556;
+      color: var(--text-muted);
     }
     /* Simulation Panel */
     .simulation-controls {
       margin-top: 2rem;
       padding: 1.5rem;
-      background: #f8f9fa;
-      border-radius: 8px;
+      background: var(--surface-muted);
     }
     /* Recipe Quest Mini-Game */
     .game-container {
       margin: 2rem 0;
       padding: 2rem;
-      background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
-      border-radius: 10px;
+      background: linear-gradient(45deg, #f5f7fa, #d7e3f5);
       position: relative;
     }
     .game-hud {
@@ -319,7 +387,7 @@
     }
     .xp-bar {
       height: 20px;
-      background: #ddd;
+      background: rgba(31, 42, 68, 0.12);
       border-radius: 10px;
       overflow: hidden;
       position: relative;
@@ -351,7 +419,7 @@
       width: 110px;
       height: 110px;
       border-radius: 16px;
-      background: white;
+      background: var(--surface);
       border: 2px dashed rgba(44, 62, 80, 0.2);
       display: flex;
       align-items: center;
@@ -377,12 +445,14 @@
       margin-bottom: 1rem;
     }
     .ghost-button {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(44, 62, 80, 0.2);
       padding: 0.5rem 1.2rem;
       border-radius: 999px;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      color: var(--primary-color);
+      box-shadow: none;
     }
     .ghost-button:hover {
       transform: translateY(-2px);
@@ -437,10 +507,9 @@
       padding: 1rem;
     }
     .south-popup-content {
-      background: white;
+      background: var(--surface);
       width: 90%;
       max-width: 800px;
-      border-radius: 10px;
       padding: 2rem;
       position: relative;
       animation: riseIn 0.4s ease;
@@ -460,7 +529,7 @@
     }
     .south-image img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       height: 300px;
       object-fit: cover;
     }
@@ -472,12 +541,7 @@
       margin-bottom: 0.5rem;
     }
     .south-info button {
-      background: var(--accent-color);
-      color: white;
-      border: none;
       padding: 0.75rem 1.5rem;
-      border-radius: 5px;
-      cursor: pointer;
     }
     /* Footer */
     footer {
@@ -495,10 +559,8 @@
     }
     /* Sustainability Section */
     .sustainability-section {
-      background: linear-gradient(135deg, #f6f9fc, #e3f2fd);
+      background: linear-gradient(135deg, #f6f9fc, #e6f0fb);
       padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       margin-top: 2rem;
     }
     
@@ -510,10 +572,8 @@
     }
     
     .stat-card {
-      background: white;
+      background: var(--surface);
       padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       text-align: center;
     }
     
@@ -530,7 +590,7 @@
     
     .progress-bar {
       height: 10px;
-      background: #eee;
+      background: rgba(31, 42, 68, 0.12);
       border-radius: 5px;
       overflow: hidden;
     }
@@ -562,10 +622,8 @@
     }
     
     .action-card {
-      background: white;
+      background: var(--surface);
       padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     
     .action-card h4 {
@@ -576,22 +634,16 @@
     .action-card p {
       margin-bottom: 1rem;
       font-size: 0.9rem;
+      color: var(--text-muted);
     }
     
     .action-card button {
-      background: var(--accent-color);
-      color: white;
-      border: none;
       padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
     }
     
     .community-impact {
-      background: white;
+      background: var(--surface);
       padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       text-align: center;
     }
     
@@ -613,10 +665,9 @@
     }
     
     .modal-content {
-      background: white;
-      margin: 10% auto;
+      background: var(--surface);
+      margin: 8% auto;
       padding: 2rem;
-      border-radius: 10px;
       width: 90%;
       max-width: 500px;
       position: relative;
@@ -641,20 +692,12 @@
     
     #loginForm input {
       width: 100%;
-      padding: 0.75rem;
       margin-bottom: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 5px;
     }
     
     #loginForm button {
       width: 100%;
       padding: 0.75rem;
-      background: var(--accent-color);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
     }
     
     .oauth-buttons {
@@ -669,11 +712,12 @@
       justify-content: center;
       gap: 0.5rem;
       padding: 0.75rem;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      background: white;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background: var(--surface);
       cursor: pointer;
       transition: background 0.3s;
+      box-shadow: none;
     }
     
     .oauth-btn img {
@@ -711,8 +755,8 @@
       pointer-events: all;
     }
     .whiteout-card {
-      background: white;
-      border-radius: 16px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
       padding: 2rem 2.5rem;
       box-shadow: 0 20px 40px rgba(44, 62, 80, 0.18);
       text-align: center;
@@ -729,6 +773,12 @@
     }
     
     /* Responsive */
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 768px) {
       .container {
         grid-template-columns: 1fr;
@@ -742,6 +792,9 @@
       .main-nav ul {
         flex-wrap: wrap;
         gap: 0.5rem;
+      }
+      .main-nav {
+        border-radius: var(--radius-md);
       }
       
       .sustainability-stats,
