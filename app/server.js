@@ -1,82 +1,97 @@
-// Import required modules and packages
 import express from 'express';
 import path from 'path';
 import session from 'express-session';
-import passport from 'passport'; // Passport.js for authentication
-import routes from '../app/src/routes/routes.js'; // Import your custom routes
+import passport from 'passport';
+import routes from '../app/src/routes/routes.js';
 import gamificationRouter from '../app/src/routes/gamification.js';
 import crmRouter from '../app/src/routes/crm.js';
-import { configurePassport } from '../app/src/config/passport.js'; // Import passport configuration
+import { configurePassport } from '../app/src/config/passport.js';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv'; // For loading environment variables
+import dotenv from 'dotenv';
 
-// Load environment variables from the .env file
-dotenv.config(); 
+dotenv.config();
 
-// Handle __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Initialize Express app
+const CONSTANTS = {
+    defaultPort: 3000,
+    sessionMaxAgeMs: 24 * 60 * 60 * 1000,
+    bindAddress: '0.0.0.0',
+};
+
+const logger = {
+    info: (message, meta) => console.info(message, meta ?? ''),
+    warn: (message, meta) => console.warn(message, meta ?? ''),
+    error: (message, meta) => console.error(message, meta ?? ''),
+};
+
+/**
+ * Returns a session secret for signing cookies.
+ * @returns {string} Session secret.
+ */
+const getSessionSecret = () => {
+    const sessionSecret = process.env.SESSION_SECRET;
+    if (sessionSecret) {
+        return sessionSecret;
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+        throw new Error('SESSION_SECRET must be set in production.');
+    }
+
+    logger.warn('SESSION_SECRET is not set. Using an insecure default for non-production.');
+    return 'development-insecure-secret';
+};
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Middleware setup
-// Serve static files from the 'static' directory for static resources like CSS, images, etc.
 app.use(express.static(path.join(__dirname, '../app/src/static')));
 
-// Parse incoming request bodies in a middleware before handlers, available under req.body
-
-// Session management configuration
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'your-secret-key',  // It's important to keep this key secure
-    resave: false,  // Prevents unnecessary session data from being saved if nothing changed
-    saveUninitialized: false,  // Ensures no session is saved for unauthenticated users
+    secret: getSessionSecret(),
+    resave: false,
+    saveUninitialized: false,
     cookie: {
-        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: CONSTANTS.sessionMaxAgeMs,
     }
 }));
 
-// Passport initialization for handling authentication
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configure Passport strategies (local, Google, GitHub)
 configurePassport();
 
-// Use routes from the routes.js file for handling different endpoints
 app.use('/', routes);
 app.use('/api/gamification', gamificationRouter);
 app.use('/api/crm', crmRouter);
 
-// Catch-all error handler for debugging
 app.use((err, req, res, next) => {
-    console.error('An unexpected error occurred:', err);
+    logger.error('An unexpected error occurred:', err);
     res.status(500).send('Internal Server Error');
 });
 
-// Graceful shutdown on Ctrl+C to handle process termination safely
 process.on('SIGINT', () => {
-    console.log('Gracefully shutting down (Ctrl-C)');
+    logger.info('Gracefully shutting down (Ctrl-C)');
     process.exit();
 });
 
-// Error handling for unhandled promise rejections
 process.on('unhandledRejection', (reason, promise) => {
-    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    logger.error('Unhandled Rejection at:', { promise, reason });
 });
 
-// Start the server with improved error handling and debugging
 const shouldStartServer = process.env.NODE_ENV !== 'test' && process.env.VITEST !== 'true';
 
 if (shouldStartServer) {
-    const port = process.env.PORT || 3000;
-    app.listen(port, '0.0.0.0', () => {
-        console.log(`Server is running on port ${port}`);
+    const parsedPort = Number.parseInt(process.env.PORT ?? '', 10);
+    const port = Number.isNaN(parsedPort) ? CONSTANTS.defaultPort : parsedPort;
+    app.listen(port, CONSTANTS.bindAddress, () => {
+        logger.info(`Server is running on port ${port}`);
     }).on('error', (err) => {
-        console.error('Server error:', err); // Error handling during server startup
+        logger.error('Server error:', err);
     });
 }
 
