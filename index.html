@@ -3,146 +3,221 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <!-- Enforce a strict Content Security Policy -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'">
   <title>Bookish Octo Invention - Gestion de Recettes & Recipe Quest</title>
- <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Security Banner -->
   <div class="security-banner">
     🔒 Connexion sécurisée (HTTPS) | Chiffrement AES-256 activé | Audit Siebel: 2025-03-15
   </div>
-  <!-- Header with User Management -->
-  <header>
-    <h1>Bookish Octo Invention 👩🍳</h1>
-    <div class="header-controls">
-      <p>
-        Bienvenue, <span id="current-user">%user%</span>
-        <button onclick="changeUser()">Changer utilisateur</button>
-      </p>
-      <div class="auth-buttons">
-        <button id="loginBtn" onclick="showLoginModal()">Se connecter</button>
-        <button id="logoutBtn" onclick="logout()" style="display: none;">Déconnexion</button>
+
+  <header class="app-header">
+    <div class="nav-shell">
+      <div class="nav-left">
+        <div class="brand">
+          <span class="brand-mark">👩🍳</span>
+          <div>
+            <p class="brand-title">Bookish Octo</p>
+            <p class="brand-subtitle">Dashboard culinaire</p>
+          </div>
+        </div>
+      </div>
+
+      <input type="checkbox" id="navToggle" class="nav-toggle" aria-label="Ouvrir le menu">
+      <label for="navToggle" class="nav-toggle-label" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <nav class="nav-center" aria-label="Navigation principale">
+        <ul>
+          <li><a href="#" class="active">Dashboard</a></li>
+          <li><a href="#">Recettes</a></li>
+          <li><a href="#">Communauté</a></li>
+          <li><a href="#">Paramètres</a></li>
+          <li><a href="#" id="southBtn" class="nav-highlight">Sud</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-right">
+        <div class="user-pill">
+          <span class="user-label">Bienvenue,</span>
+          <span id="current-user">%user%</span>
+          <button class="btn-secondary" onclick="changeUser()">Changer</button>
+        </div>
+        <div class="nav-actions">
+          <button class="btn-ghost" type="button">🌙 Thème</button>
+          <button class="btn-ghost" type="button">FR</button>
+          <button id="loginBtn" class="btn-primary" onclick="showLoginModal()">Se connecter</button>
+          <button id="logoutBtn" class="btn-secondary" onclick="logout()" style="display: none;">Déconnexion</button>
+        </div>
       </div>
     </div>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="#" class="active">Accueil</a></li>
-        <li><a href="#">Recettes</a></li>
-        <li><a href="#">Communauté</a></li>
-        <li><a href="#">À propos</a></li>
-        <li><a href="#" id="southBtn">Sud</a></li>
-      </ul>
-    </nav>
   </header>
 
-  <!-- Main Layout: Sidebar (Siebel Panel) + Main Content -->
-  <div class="container">
-    <!-- Siebel Connection Panel -->
-    <aside class="siebel-panel">
-      <h2>Connexion Siebel</h2>
-      <div class="connection-status">
-        <div class="status-indicator" id="statusIndicator"></div>
-        <span id="connectionStatus">Déconnecté</span>
-      </div>
-      <div class="connection-controls">
-        <button onclick="toggleSiebelConnection()" id="connectButton">
-          <span class="button-text">Connexion Siebel</span>
-          <span class="loading-spinner" style="display: none;">↻</span>
-        </button>
-        <button onclick="syncWithSiebel()" id="syncButton" disabled>
-          Synchroniser les données
-        </button>
-      </div>
-      <div class="sync-status" id="syncStatus"></div>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <section class="panel siebel-panel">
+        <div class="panel-header">
+          <h2>Connexion Siebel</h2>
+          <p class="panel-subtitle">Gestion des intégrations CRM</p>
+        </div>
+        <div class="connection-status">
+          <div class="status-indicator" id="statusIndicator"></div>
+          <span id="connectionStatus">Déconnecté</span>
+        </div>
+        <div class="connection-controls">
+          <button class="btn-primary" onclick="toggleSiebelConnection()" id="connectButton">
+            <span class="button-text">Connexion Siebel</span>
+            <span class="loading-spinner" style="display: none;">↻</span>
+          </button>
+          <button class="btn-secondary" onclick="syncWithSiebel()" id="syncButton" disabled>
+            Synchroniser les données
+          </button>
+        </div>
+        <div class="sync-status" id="syncStatus"></div>
+      </section>
+
+      <section class="panel quick-actions">
+        <div class="panel-header">
+          <h2>Actions rapides</h2>
+          <p class="panel-subtitle">Automatiser la gestion quotidienne</p>
+        </div>
+        <button class="btn-secondary" onclick="simulateRandomData()">🔀 Simuler des données</button>
+        <button class="btn-secondary" onclick="generateSmartRecipe()">🧠 Générer une recette IA</button>
+      </section>
     </aside>
 
-    <!-- Main Content Area -->
-    <main>
-      <!-- Recipe Management Section -->
-      <section class="recipe-form">
-        <h2>📝 Nouvelle Recette</h2>
-        <form id="recipeForm" onsubmit="saveRecipe(event)">
-          <input type="text" id="recipeTitle" placeholder="Titre de la recette" required pattern="[A-Za-zÀ-ÿ0-9 ]{5,50}">
-          <textarea id="recipeContent" placeholder="Ingrédients et instructions..." required></textarea>
-          <select id="recipeCategory">
-            <option value="entrée">Entrée</option>
-            <option value="plat">Plat Principal</option>
-            <option value="dessert">Dessert</option>
-          </select>
-          <div class="form-actions">
-            <button type="submit">💾 Sauvegarder</button>
-            <button type="button" onclick="generateSmartRecipe()">🧠 Générer une recette IA</button>
-          </div>
-        </form>
-        <div class="recipe-toolbar" aria-label="Outils de recette">
-          <div class="toolbar-group" role="group" aria-label="Filtres">
-            <button type="button" class="chip active" data-filter="all">Toutes</button>
-            <button type="button" class="chip" data-filter="entrée">Entrées</button>
-            <button type="button" class="chip" data-filter="plat">Plats</button>
-            <button type="button" class="chip" data-filter="dessert">Desserts</button>
-          </div>
-          <div class="toolbar-group" role="group" aria-label="Tri">
-            <button type="button" class="chip active" data-sort="recent">Récent</button>
-            <button type="button" class="chip" data-sort="title">Titre</button>
-          </div>
-        </div>
-        <div class="experience-controls">
-          <h3>⚡ Expérience active</h3>
-          <div class="control-grid" role="group" aria-label="Expérience">
-            <button type="button" class="toggle-btn" data-toggle="focus">Mode Focus</button>
-            <button type="button" class="toggle-btn" data-toggle="compact">Vue Compacte</button>
-            <button type="button" class="toggle-btn" data-toggle="ambient">Ambiance Animée</button>
-          </div>
-          <p class="control-hint">Activez des animations et des modes de lecture adaptés à un usage quotidien.</p>
-        </div>
-        <!-- Recipe Grid -->
-        <div class="recipe-grid" id="recipeContainer"></div>
-        <!-- Simulation Controls -->
-        <div class="simulation-controls">
-          <button onclick="simulateRandomData()">🔀 Simuler des données</button>
-        </div>
+    <main class="dashboard-content">
+      <section class="overview-grid" aria-label="Aperçu">
+        <article class="overview-card">
+          <h3>Recettes actives</h3>
+          <p class="overview-value" id="recipeCount">0</p>
+          <p class="overview-meta">Synchronisées + locales</p>
+        </article>
+        <article class="overview-card">
+          <h3>Niveau du chef</h3>
+          <p class="overview-value" id="overviewGameLevel">Level 1</p>
+          <p class="overview-meta">XP cumulée en jeu</p>
+        </article>
+        <article class="overview-card">
+          <h3>Énergie durable</h3>
+          <p class="overview-value" id="overviewEcoCount">0</p>
+          <p class="overview-meta">Recettes éco-responsables</p>
+        </article>
       </section>
 
-      <!-- Recipe Quest Mini-Game Section -->
-      <section class="game-container">
-        <div class="game-hud">
-          <div class="chef-avatar"></div>
-          <div class="xp-container">
-            <div class="xp-bar">
-              <div class="xp-progress"></div>
+      <section class="content-grid">
+        <article class="panel recipe-panel">
+          <header class="panel-header">
+            <div>
+              <h2>📝 Gestion des recettes</h2>
+              <p class="panel-subtitle">Créez, organisez et filtrez vos créations culinaires.</p>
             </div>
-            <span class="level" id="gameLevel">Level 1</span>
+            <div class="panel-actions">
+              <button class="btn-primary" type="submit" form="recipeForm">💾 Sauvegarder</button>
+              <button class="btn-secondary" type="button" onclick="generateSmartRecipe()">🧠 Idée IA</button>
+            </div>
+          </header>
+
+          <form id="recipeForm" class="recipe-form" onsubmit="saveRecipe(event)">
+            <div class="form-grid">
+              <label>
+                <span>Titre de la recette</span>
+                <input type="text" id="recipeTitle" placeholder="Titre de la recette" required pattern="[A-Za-zÀ-ÿ0-9 ]{5,50}">
+              </label>
+              <label>
+                <span>Catégorie</span>
+                <select id="recipeCategory">
+                  <option value="entrée">Entrée</option>
+                  <option value="plat">Plat Principal</option>
+                  <option value="dessert">Dessert</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              <span>Ingrédients et instructions</span>
+              <textarea id="recipeContent" placeholder="Ingrédients et instructions..." required></textarea>
+            </label>
+          </form>
+
+          <div class="recipe-toolbar" aria-label="Outils de recette">
+            <div class="toolbar-group" role="group" aria-label="Filtres">
+              <button type="button" class="chip active" data-filter="all">Toutes</button>
+              <button type="button" class="chip" data-filter="entrée">Entrées</button>
+              <button type="button" class="chip" data-filter="plat">Plats</button>
+              <button type="button" class="chip" data-filter="dessert">Desserts</button>
+            </div>
+            <div class="toolbar-group" role="group" aria-label="Tri">
+              <button type="button" class="chip active" data-sort="recent">Récent</button>
+              <button type="button" class="chip" data-sort="title">Titre</button>
+            </div>
           </div>
-          <div class="currency">
-            <span class="gold" id="goldCount">★ 0</span>
-            <span class="gems" id="gemsCount">♦ 0</span>
+
+          <div class="experience-controls">
+            <h3>⚡ Expérience active</h3>
+            <div class="control-grid" role="group" aria-label="Expérience">
+              <button type="button" class="toggle-btn" data-toggle="focus">Mode Focus</button>
+              <button type="button" class="toggle-btn" data-toggle="compact">Vue Compacte</button>
+              <button type="button" class="toggle-btn" data-toggle="ambient">Ambiance Animée</button>
+            </div>
+            <p class="control-hint">Activez des animations et des modes de lecture adaptés à un usage quotidien.</p>
           </div>
-        </div>
-        <!-- Recipe Creation Mini-Game -->
-        <div class="recipe-game">
-          <div class="ingredient-slots">
-            <div class="slot" data-ingredient=""></div>
-            <div class="slot" data-ingredient=""></div>
-            <div class="slot" data-ingredient=""></div>
+
+          <div class="recipe-grid" id="recipeContainer"></div>
+        </article>
+
+        <article class="panel game-panel">
+          <header class="panel-header">
+            <div>
+              <h2>🎮 Recipe Quest</h2>
+              <p class="panel-subtitle">Mini-jeu pour booster la créativité.</p>
+            </div>
+            <div class="panel-actions">
+              <button type="button" class="btn-ghost" id="shuffleIngredients">🔀 Mélanger</button>
+              <button type="button" class="btn-secondary" id="autoCook">⚡ Auto-cuire</button>
+            </div>
+          </header>
+          <div class="game-hud">
+            <div class="chef-avatar"></div>
+            <div class="xp-container">
+              <div class="xp-bar">
+                <div class="xp-progress"></div>
+              </div>
+              <span class="level" id="gameLevel">Level 1</span>
+            </div>
+            <div class="currency">
+              <span class="gold" id="goldCount">★ 0</span>
+              <span class="gems" id="gemsCount">♦ 0</span>
+            </div>
           </div>
-          <div class="game-controls">
-            <button type="button" class="ghost-button" id="shuffleIngredients">🔀 Mélanger</button>
-            <button type="button" class="ghost-button" id="autoCook">⚡ Auto-cuire</button>
+          <div class="recipe-game">
+            <div class="ingredient-slots">
+              <div class="slot" data-ingredient=""></div>
+              <div class="slot" data-ingredient=""></div>
+              <div class="slot" data-ingredient=""></div>
+            </div>
+            <button class="cook-button">🍳 Cook!</button>
           </div>
-          <button class="cook-button">🍳 Cook!</button>
-        </div>
-        <!-- Animated Achievement Popup -->
-        <div class="achievement-popup" id="achievementPopup" style="right: -300px;">
-          <h3>🏆 Achievement Unlocked!</h3>
-          <p id="achievementText">Titre du succès</p>
-        </div>
+          <div class="achievement-popup" id="achievementPopup" style="right: -300px;">
+            <h3>🏆 Achievement Unlocked!</h3>
+            <p id="achievementText">Titre du succès</p>
+          </div>
+        </article>
       </section>
-      
-      <!-- Session Sustainability Section (Only visible when logged in) -->
-      <section id="sessionSustainability" class="sustainability-section" style="display: none;">
-        <h2>🌱 Session Sustainability</h2>
+
+      <section id="sessionSustainability" class="panel sustainability-section" style="display: none;">
+        <header class="panel-header">
+          <div>
+            <h2>🌱 Session Sustainability</h2>
+            <p class="panel-subtitle">Mesurez votre impact et vos habitudes responsables.</p>
+          </div>
+          <div class="panel-actions">
+            <button class="btn-secondary" onclick="offsetCarbon()">Compenser CO₂</button>
+          </div>
+        </header>
         <div class="sustainability-stats">
           <div class="stat-card">
             <h3>Temps de Session</h3>
@@ -159,31 +234,30 @@
           <div class="stat-card">
             <h3>Empreinte Carbone</h3>
             <p id="carbonFootprint">0 kg CO₂</p>
-            <button onclick="offsetCarbon()">Compenser</button>
           </div>
         </div>
-        
+
         <div class="sustainability-actions">
           <h3>Actions Durables</h3>
           <div class="action-grid">
             <div class="action-card">
               <h4>Recettes Locales</h4>
               <p>Utilisez des ingrédients locaux pour réduire l'empreinte carbone</p>
-              <button onclick="completeAction('local')">Compléter</button>
+              <button class="btn-secondary" onclick="completeAction('local')">Compléter</button>
             </div>
             <div class="action-card">
               <h4>Zéro Déchet</h4>
               <p>Créez des recettes qui utilisent tous les ingrédients sans gaspillage</p>
-              <button onclick="completeAction('zerowaste')">Compléter</button>
+              <button class="btn-secondary" onclick="completeAction('zerowaste')">Compléter</button>
             </div>
             <div class="action-card">
               <h4>Saisonnier</h4>
               <p>Utilisez uniquement des ingrédients de saison</p>
-              <button onclick="completeAction('seasonal')">Compléter</button>
+              <button class="btn-secondary" onclick="completeAction('seasonal')">Compléter</button>
             </div>
           </div>
         </div>
-        
+
         <div class="community-impact">
           <h3>Impact Communautaire</h3>
           <div class="impact-chart">
@@ -194,8 +268,7 @@
       </section>
     </main>
   </div>
-  
-  <!-- Login Modal -->
+
   <div id="loginModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeLoginModal()">&times;</span>
@@ -204,7 +277,7 @@
         <form id="loginForm" onsubmit="handleLogin(event)">
           <input type="email" id="email" placeholder="Email" required>
           <input type="password" id="password" placeholder="Mot de passe" required>
-          <button type="submit">Se connecter</button>
+          <button class="btn-primary" type="submit">Se connecter</button>
         </form>
         <div class="oauth-buttons">
           <button class="oauth-btn google-btn" onclick="loginWithGoogle()">
@@ -220,7 +293,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <p>Développé par <a href="https://linkedin.com/in/kevinmarville" target="_blank" rel="noopener noreferrer">Kevin Marville</a></p>
     <div class="security-links">
@@ -236,6 +308,6 @@
     </div>
   </div>
 
- <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
