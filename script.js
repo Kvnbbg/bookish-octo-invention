@@ -47,7 +47,10 @@
       syncStatus: document.getElementById('syncStatus'),
       recipeContainer: document.getElementById('recipeContainer'),
       whiteoutOverlay: document.getElementById('whiteoutOverlay'),
-      whiteoutText: document.getElementById('whiteoutText')
+      whiteoutText: document.getElementById('whiteoutText'),
+      recipeCount: document.getElementById('recipeCount'),
+      overviewGameLevel: document.getElementById('overviewGameLevel'),
+      overviewEcoCount: document.getElementById('overviewEcoCount')
     };
 
     const ingredientPool = ['Basilic', 'Tomate', 'Citron', 'Safran', 'Truffe', 'Miel', 'Piment', 'Menthe'];
@@ -224,6 +227,9 @@
           </div>
         `;
       }).join('');
+      if (dom.recipeCount) {
+        dom.recipeCount.textContent = sortedRecipes.length.toString();
+      }
     }
 
     function deleteRecipe(id) {
@@ -319,6 +325,9 @@
 
     function updateGameHUD() {
       document.getElementById('gameLevel').textContent = "Level " + game.level;
+      if (dom.overviewGameLevel) {
+        dom.overviewGameLevel.textContent = "Level " + game.level;
+      }
       document.getElementById('goldCount').textContent = "★ " + game.gold;
       document.getElementById('gemsCount').textContent = "♦ " + game.gems;
     }
@@ -608,6 +617,9 @@
       );
       
       document.getElementById('ecoRecipeCount').textContent = ecoRecipes.length;
+      if (dom.overviewEcoCount) {
+        dom.overviewEcoCount.textContent = ecoRecipes.length;
+      }
       
       // Update carbon footprint based on eco recipes
       updateCarbonFootprint(ecoRecipes.length);
