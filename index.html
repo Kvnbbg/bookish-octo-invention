@@ -69,11 +69,20 @@
           <span id="connectionStatus">Déconnecté</span>
         </div>
         <div class="connection-controls">
-          <button class="btn-primary" onclick="toggleSiebelConnection()" id="connectButton">
+          <button class="btn-primary btn-with-icon" onclick="toggleSiebelConnection()" id="connectButton">
+            <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M10 13a5 5 0 0 0 7.5 0" />
+              <path d="M14 11a5 5 0 0 0-7.5 0" />
+              <path d="M8 8a6 6 0 0 1 8.5 0" />
+            </svg>
             <span class="button-text">Connexion Siebel</span>
             <span class="loading-spinner" style="display: none;">↻</span>
           </button>
-          <button class="btn-secondary" onclick="syncWithSiebel()" id="syncButton" disabled>
+          <button class="btn-secondary btn-with-icon" onclick="syncWithSiebel()" id="syncButton" disabled>
+            <svg class="lucide-icon icon-spin" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+              <path d="M21 3v6h-6" />
+            </svg>
             Synchroniser les données
           </button>
         </div>
@@ -85,8 +94,23 @@
           <h2>Actions rapides</h2>
           <p class="panel-subtitle">Automatiser la gestion quotidienne</p>
         </div>
-        <button class="btn-secondary" onclick="simulateRandomData()">🔀 Simuler des données</button>
-        <button class="btn-secondary" onclick="generateSmartRecipe()">🧠 Générer une recette IA</button>
+        <button class="btn-secondary btn-with-icon" onclick="simulateRandomData()">
+          <svg class="lucide-icon icon-bounce" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M16 3h5v5" />
+            <path d="M4 20h5v-5" />
+            <path d="M21 8a9 9 0 0 0-15 6" />
+            <path d="M3 16a9 9 0 0 0 15-6" />
+          </svg>
+          Simuler des données
+        </button>
+        <button class="btn-secondary btn-with-icon" onclick="generateSmartRecipe()">
+          <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z" />
+            <path d="M19 14l.8 2 2 0.8-2 0.8-.8 2-.8-2-2-.8 2-.8.8-2z" />
+            <path d="M5 14l.8 2 2 0.8-2 0.8-.8 2-.8-2-2-.8 2-.8.8-2z" />
+          </svg>
+          Générer une recette IA
+        </button>
       </section>
     </aside>
 
@@ -117,8 +141,21 @@
               <p class="panel-subtitle">Créez, organisez et filtrez vos créations culinaires.</p>
             </div>
             <div class="panel-actions">
-              <button class="btn-primary" type="submit" form="recipeForm">💾 Sauvegarder</button>
-              <button class="btn-secondary" type="button" onclick="generateSmartRecipe()">🧠 Idée IA</button>
+              <button class="btn-primary btn-with-icon" type="submit" form="recipeForm">
+                <svg class="lucide-icon icon-bounce" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                  <path d="M17 21v-8H7v8" />
+                  <path d="M7 3v5h8" />
+                </svg>
+                Sauvegarder
+              </button>
+              <button class="btn-secondary btn-with-icon" type="button" onclick="generateSmartRecipe()">
+                <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z" />
+                  <path d="M19 14l.8 2 2 0.8-2 0.8-.8 2-.8-2-2-.8 2-.8.8-2z" />
+                </svg>
+                Idée IA
+              </button>
             </div>
           </header>
 
@@ -145,23 +182,92 @@
 
           <div class="recipe-toolbar" aria-label="Outils de recette">
             <div class="toolbar-group" role="group" aria-label="Filtres">
-              <button type="button" class="chip active" data-filter="all">Toutes</button>
-              <button type="button" class="chip" data-filter="entrée">Entrées</button>
-              <button type="button" class="chip" data-filter="plat">Plats</button>
-              <button type="button" class="chip" data-filter="dessert">Desserts</button>
+              <button type="button" class="chip active btn-with-icon" data-filter="all">
+                <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="3" />
+                  <circle cx="4" cy="12" r="1" />
+                  <circle cx="20" cy="12" r="1" />
+                  <circle cx="12" cy="4" r="1" />
+                  <circle cx="12" cy="20" r="1" />
+                </svg>
+                Toutes
+              </button>
+              <button type="button" class="chip btn-with-icon" data-filter="entrée">
+                <svg class="lucide-icon icon-bounce" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M4 9h16" />
+                  <path d="M4 15h16" />
+                  <path d="M10 3v18" />
+                </svg>
+                Entrées
+              </button>
+              <button type="button" class="chip btn-with-icon" data-filter="plat">
+                <svg class="lucide-icon icon-bounce" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M3 12h18" />
+                  <path d="M12 3v18" />
+                </svg>
+                Plats
+              </button>
+              <button type="button" class="chip btn-with-icon" data-filter="dessert">
+                <svg class="lucide-icon icon-bounce" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M8 4h8" />
+                  <path d="M7 8h10" />
+                  <path d="M8 12h8" />
+                  <path d="M9 16h6" />
+                  <path d="M10 20h4" />
+                </svg>
+                Desserts
+              </button>
             </div>
             <div class="toolbar-group" role="group" aria-label="Tri">
-              <button type="button" class="chip active" data-sort="recent">Récent</button>
-              <button type="button" class="chip" data-sort="title">Titre</button>
+              <button type="button" class="chip active btn-with-icon" data-sort="recent">
+                <svg class="lucide-icon icon-spin" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M3 12a9 9 0 1 0 3-6.7" />
+                  <path d="M3 3v6h6" />
+                </svg>
+                Récent
+              </button>
+              <button type="button" class="chip btn-with-icon" data-sort="title">
+                <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M4 6h16" />
+                  <path d="M4 12h10" />
+                  <path d="M4 18h7" />
+                </svg>
+                Titre
+              </button>
             </div>
           </div>
 
           <div class="experience-controls">
             <h3>⚡ Expérience active</h3>
             <div class="control-grid" role="group" aria-label="Expérience">
-              <button type="button" class="toggle-btn" data-toggle="focus">Mode Focus</button>
-              <button type="button" class="toggle-btn" data-toggle="compact">Vue Compacte</button>
-              <button type="button" class="toggle-btn" data-toggle="ambient">Ambiance Animée</button>
+              <button type="button" class="toggle-btn btn-with-icon" data-toggle="focus">
+                <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="12" cy="12" r="9" />
+                </svg>
+                Mode Focus
+              </button>
+              <button type="button" class="toggle-btn btn-with-icon" data-toggle="compact">
+                <svg class="lucide-icon icon-bounce" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M3 7h18" />
+                  <path d="M3 12h18" />
+                  <path d="M3 17h18" />
+                </svg>
+                Vue Compacte
+              </button>
+              <button type="button" class="toggle-btn btn-with-icon" data-toggle="ambient">
+                <svg class="lucide-icon icon-spin" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M12 2v4" />
+                  <path d="M12 18v4" />
+                  <path d="M4.93 4.93l2.83 2.83" />
+                  <path d="M16.24 16.24l2.83 2.83" />
+                  <path d="M2 12h4" />
+                  <path d="M18 12h4" />
+                  <path d="M4.93 19.07l2.83-2.83" />
+                  <path d="M16.24 7.76l2.83-2.83" />
+                </svg>
+                Ambiance Animée
+              </button>
             </div>
             <p class="control-hint">Activez des animations et des modes de lecture adaptés à un usage quotidien.</p>
           </div>

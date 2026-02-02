@@ -82,6 +82,43 @@ button:disabled {
   box-shadow: none;
 }
 
+.btn-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.lucide-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.icon-spin {
+  animation: iconSpin 2.2s linear infinite;
+}
+
+.icon-pulse {
+  animation: iconPulse 1.8s ease-in-out infinite;
+}
+
+.icon-bounce {
+  animation: iconBounce 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-spin,
+  .icon-pulse,
+  .icon-bounce {
+    animation: none;
+  }
+}
+
 .btn-primary {
   background: var(--accent-color);
   color: white;
@@ -113,6 +150,32 @@ button:disabled {
 
 .btn-secondary:hover {
   box-shadow: 0 12px 18px rgba(31, 42, 68, 0.25);
+}
+
+@keyframes iconSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes iconPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes iconBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
 }
 
 :is(input, textarea, select) {
