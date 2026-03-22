@@ -26,6 +26,13 @@ const logger = {
     error: (message, meta) => console.error(message, meta ?? ''),
 };
 
+const isProduction = process.env.NODE_ENV === 'production';
+const isServerlessRuntime = Boolean(
+    process.env.VERCEL
+    || process.env.NOW_REGION
+    || process.env.AWS_LAMBDA_FUNCTION_NAME
+);
+
 /**
  * Returns a session secret for signing cookies.
  * @returns {string} Session secret.
@@ -45,6 +52,7 @@ const getSessionSecret = () => {
 };
 
 const app = express();
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -52,10 +60,13 @@ app.use(express.static(path.join(__dirname, '../app/src/static')));
 
 app.use(session({
     secret: getSessionSecret(),
+    proxy: true,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: isProduction,
+        sameSite: 'lax',
+        httpOnly: true,
         maxAge: CONSTANTS.sessionMaxAgeMs,
     }
 }));
@@ -83,7 +94,9 @@ process.on('unhandledRejection', (reason, promise) => {
     logger.error('Unhandled Rejection at:', { promise, reason });
 });
 
-const shouldStartServer = process.env.NODE_ENV !== 'test' && process.env.VITEST !== 'true';
+const shouldStartServer = process.env.NODE_ENV !== 'test'
+    && process.env.VITEST !== 'true'
+    && !isServerlessRuntime;
 
 if (shouldStartServer) {
     const parsedPort = Number.parseInt(process.env.PORT ?? '', 10);
