@@ -40,7 +40,7 @@ test('vercel-style forwarded https requests can persist the session cookie', asy
     });
 
     assert.equal(response.status, 302);
-    assert.equal(response.headers.get('location'), '/signup?auth=required');
+    assert.equal(response.headers.get('location'), '/login?auth=required');
     assert.match(response.headers.get('set-cookie') ?? '', /connect\.sid=.*Secure/i);
   } finally {
     await new Promise((resolve, reject) => {
