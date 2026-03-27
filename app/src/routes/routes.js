@@ -154,7 +154,7 @@ function ensureAuthenticated(req, res, next) {
     return next();
   }
   req.session.returnTo = req.originalUrl;
-  return res.redirect('/signup?auth=required');
+  return res.redirect('/login?auth=required');
 }
 
 router.get('/about', (req, res) => {
