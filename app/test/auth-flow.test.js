@@ -46,7 +46,7 @@ test('authenticated users are redirected away from login and signup pages', asyn
 
     assert.match(sessionCookie, /^connect\.sid=/);
 
-    const [loginPageResponse, signupPageResponse] = await Promise.all([
+    const [loginPageResponse, signupPageResponse, loginPostResponse, signupPostResponse] = await Promise.all([
       fetch(`http://127.0.0.1:${port}/login`, {
         headers: {
           cookie: sessionCookie,
@@ -59,6 +59,24 @@ test('authenticated users are redirected away from login and signup pages', asyn
         },
         redirect: 'manual',
       }),
+      fetch(`http://127.0.0.1:${port}/login/password`, {
+        method: 'POST',
+        headers: {
+          cookie: sessionCookie,
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({ username: 'ignored', password: 'ignored' }),
+        redirect: 'manual',
+      }),
+      fetch(`http://127.0.0.1:${port}/signup`, {
+        method: 'POST',
+        headers: {
+          cookie: sessionCookie,
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({ username: 'ignored', password: 'ignored' }),
+        redirect: 'manual',
+      }),
     ]);
 
     assert.equal(loginPageResponse.status, 302);
@@ -66,6 +84,12 @@ test('authenticated users are redirected away from login and signup pages', asyn
 
     assert.equal(signupPageResponse.status, 302);
     assert.equal(signupPageResponse.headers.get('location'), '/app');
+
+    assert.equal(loginPostResponse.status, 302);
+    assert.equal(loginPostResponse.headers.get('location'), '/app');
+
+    assert.equal(signupPostResponse.status, 302);
+    assert.equal(signupPostResponse.headers.get('location'), '/app');
   } finally {
     await new Promise((resolve, reject) => {
       server.close((error) => (error ? reject(error) : resolve()));

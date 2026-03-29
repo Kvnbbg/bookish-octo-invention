@@ -54,7 +54,7 @@ router.get('/login', redirectIfAuthenticated, (req, res) => {
   }
 });
 
-router.post('/login/password', (req, res, next) => {
+router.post('/login/password', redirectIfAuthenticated, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
@@ -104,7 +104,7 @@ router.get('/signup', redirectIfAuthenticated, (req, res) => {
   }
 });
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', redirectIfAuthenticated, async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
