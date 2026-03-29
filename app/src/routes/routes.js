@@ -45,7 +45,7 @@ router.get('/index', ensureAuthenticated, (req, res) => {
   }
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', redirectIfAuthenticated, (req, res) => {
   try {
     res.sendFile(path.join(templateDir, 'login.html'));
   } catch (error) {
@@ -95,7 +95,7 @@ router.get('/auth/github/callback',
   })
 );
 
-router.get('/signup', (req, res) => {
+router.get('/signup', redirectIfAuthenticated, (req, res) => {
   try {
     res.sendFile(path.join(templateDir, 'signup.html'));
   } catch (error) {
@@ -155,6 +155,13 @@ function ensureAuthenticated(req, res, next) {
   }
   req.session.returnTo = req.originalUrl;
   return res.redirect('/login?auth=required');
+}
+
+function redirectIfAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/app');
+  }
+  return next();
 }
 
 router.get('/about', (req, res) => {
