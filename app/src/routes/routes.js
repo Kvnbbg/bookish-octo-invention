@@ -17,6 +17,7 @@ router.use(limiter);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const templateDir = path.resolve(__dirname, '..', 'templates');
+const DEFAULT_POST_AUTH_REDIRECT = '/app';
 
 router.get('/', (req, res) => {
   try {
@@ -55,19 +56,18 @@ router.get('/login', redirectIfAuthenticated, (req, res) => {
 });
 
 router.post('/login/password', redirectIfAuthenticated, (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
+  passport.authenticate('local', (err, user) => {
     if (err) {
       return next(err);
     }
     if (!user) {
       return res.redirect('/login?error=invalid_credentials');
     }
+    const redirectTo = consumePostAuthRedirect(req);
     return req.logIn(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      const redirectTo = req.session.returnTo || '/app';
-      delete req.session.returnTo;
       return res.redirect(redirectTo);
     });
   })(req, res, next);
@@ -79,9 +79,11 @@ router.get('/auth/google',
 
 router.get('/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/app',
     failureRedirect: '/login?error=google_auth_failed'
-  })
+  }),
+  (req, res) => {
+    res.redirect(consumePostAuthRedirect(req));
+  }
 );
 
 router.get('/auth/github',
@@ -90,9 +92,11 @@ router.get('/auth/github',
 
 router.get('/auth/github/callback',
   passport.authenticate('github', {
-    successRedirect: '/app',
     failureRedirect: '/login?error=github_auth_failed'
-  })
+  }),
+  (req, res) => {
+    res.redirect(consumePostAuthRedirect(req));
+  }
 );
 
 router.get('/signup', redirectIfAuthenticated, (req, res) => {
@@ -118,11 +122,12 @@ router.post('/signup', redirectIfAuthenticated, async (req, res) => {
 
   try {
     const user = await createUser(username, password);
+    const redirectTo = consumePostAuthRedirect(req);
     return req.logIn(user, (err) => {
       if (err) {
         return res.redirect('/login?error=login_failed');
       }
-      return res.redirect('/app');
+      return res.redirect(redirectTo);
     });
   } catch (error) {
     if (error.code === 'USERNAME_EXISTS') {
@@ -153,15 +158,41 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.session.returnTo = req.originalUrl;
+  req.session.returnTo = sanitizeReturnTo(req.originalUrl);
   return res.redirect('/login?auth=required');
 }
 
 function redirectIfAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return res.redirect('/app');
+    return res.redirect(DEFAULT_POST_AUTH_REDIRECT);
   }
   return next();
+}
+
+function sanitizeReturnTo(returnToCandidate) {
+  if (!returnToCandidate || typeof returnToCandidate !== 'string') {
+    return null;
+  }
+
+  if (!returnToCandidate.startsWith('/')) {
+    return null;
+  }
+
+  if (returnToCandidate.startsWith('//')) {
+    return null;
+  }
+
+  if (returnToCandidate.startsWith('/auth/')) {
+    return DEFAULT_POST_AUTH_REDIRECT;
+  }
+
+  return returnToCandidate;
+}
+
+function consumePostAuthRedirect(req) {
+  const safeReturnTo = sanitizeReturnTo(req.session.returnTo);
+  delete req.session.returnTo;
+  return safeReturnTo || DEFAULT_POST_AUTH_REDIRECT;
 }
 
 router.get('/about', (req, res) => {
