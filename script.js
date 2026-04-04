@@ -37,13 +37,23 @@
 
     const dom = {
       currentUser: document.getElementById('current-user'),
+      changeUserBtn: document.getElementById('changeUserBtn'),
       loginBtn: document.getElementById('loginBtn'),
       logoutBtn: document.getElementById('logoutBtn'),
+      loginForm: document.getElementById('loginForm'),
+      loginGoogleBtn: document.getElementById('loginGoogleBtn'),
+      loginGithubBtn: document.getElementById('loginGithubBtn'),
+      closeLoginModalBtn: document.getElementById('closeLoginModalBtn'),
       sessionSustainability: document.getElementById('sessionSustainability'),
       statusIndicator: document.getElementById('statusIndicator'),
       connectionStatus: document.getElementById('connectionStatus'),
       connectButton: document.getElementById('connectButton'),
       syncButton: document.getElementById('syncButton'),
+      simulateDataBtn: document.getElementById('simulateDataBtn'),
+      quickGenerateBtn: document.getElementById('quickGenerateBtn'),
+      panelGenerateBtn: document.getElementById('panelGenerateBtn'),
+      recipeForm: document.getElementById('recipeForm'),
+      offsetCarbonBtn: document.getElementById('offsetCarbonBtn'),
       syncStatus: document.getElementById('syncStatus'),
       recipeContainer: document.getElementById('recipeContainer'),
       whiteoutOverlay: document.getElementById('whiteoutOverlay'),
@@ -222,11 +232,14 @@
             <div class="recipe-meta">
               <span class="category">${safeCategory.toUpperCase()}</span>
               <span class="source">${safeSource}</span>
-              <button onclick="deleteRecipe('${safeId}')">🗑️</button>
+              <button type="button" class="delete-recipe-btn" data-recipe-id="${safeId}" aria-label="Supprimer ${safeTitle}">🗑️</button>
             </div>
           </div>
         `;
       }).join('');
+      dom.recipeContainer.querySelectorAll('.delete-recipe-btn').forEach(button => {
+        button.addEventListener('click', () => deleteRecipe(button.dataset.recipeId));
+      });
       if (dom.recipeCount) {
         dom.recipeCount.textContent = sortedRecipes.length.toString();
       }
@@ -498,12 +511,10 @@
       popup.className = 'south-popup';
       popup.innerHTML = `
         <div class="south-popup-content">
-          <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+          <span class="close south-close" role="button" tabindex="0">&times;</span>
           <h2>Découvrez le Sud</h2>
           <div class="south-content">
-            <div class="south-image">
-              <img src="https://images.unsplash.com/photo-1565113180093-077f5c4a1eda" alt="Cuisine du Sud">
-            </div>
+            <div class="south-image" aria-hidden="true">🌿</div>
             <div class="south-info">
               <h3>Cuisine Méditerranéenne</h3>
               <p>Explorez les saveurs ensoleillées de la cuisine méditerranéenne, riche en huile d'olive, herbes fraîches, et produits de la mer.</p>
@@ -512,12 +523,22 @@
                 <li>Ingrédients de saison du marché</li>
                 <li>Techniques de cuisson authentiques</li>
               </ul>
-              <button onclick="exploreSouthRecipes()">Explorer les recettes</button>
+              <button type="button" class="explore-south-btn">Explorer les recettes</button>
             </div>
           </div>
         </div>
       `;
       document.body.appendChild(popup);
+      const closeSouthPopup = () => popup.remove();
+      const closeBtn = popup.querySelector('.south-close');
+      closeBtn.addEventListener('click', closeSouthPopup);
+      closeBtn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          closeSouthPopup();
+        }
+      });
+      popup.querySelector('.explore-south-btn').addEventListener('click', exploreSouthRecipes);
     }
     
     function exploreSouthRecipes() {
@@ -770,6 +791,30 @@
           displayRecipes();
         });
       });
+
+      dom.changeUserBtn?.addEventListener('click', changeUser);
+      dom.loginBtn?.addEventListener('click', showLoginModal);
+      dom.logoutBtn?.addEventListener('click', logout);
+      dom.connectButton?.addEventListener('click', toggleSiebelConnection);
+      dom.syncButton?.addEventListener('click', syncWithSiebel);
+      dom.simulateDataBtn?.addEventListener('click', simulateRandomData);
+      dom.quickGenerateBtn?.addEventListener('click', generateSmartRecipe);
+      dom.panelGenerateBtn?.addEventListener('click', generateSmartRecipe);
+      dom.recipeForm?.addEventListener('submit', saveRecipe);
+      dom.offsetCarbonBtn?.addEventListener('click', offsetCarbon);
+      document.querySelectorAll('[data-action]').forEach(button => {
+        button.addEventListener('click', () => completeAction(button.dataset.action));
+      });
+      dom.closeLoginModalBtn?.addEventListener('click', closeLoginModal);
+      dom.closeLoginModalBtn?.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          closeLoginModal();
+        }
+      });
+      dom.loginForm?.addEventListener('submit', handleLogin);
+      dom.loginGoogleBtn?.addEventListener('click', loginWithGoogle);
+      dom.loginGithubBtn?.addEventListener('click', loginWithGithub);
 
       let savedExperience = JSON.parse(localStorage.getItem(experienceSettingsKey) || '{}');
       Object.entries(savedExperience).forEach(([key, value]) => {
