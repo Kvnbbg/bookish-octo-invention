@@ -45,13 +45,13 @@
         <div class="user-pill">
           <span class="user-label">Bienvenue,</span>
           <span id="current-user">%user%</span>
-          <button class="btn-secondary" onclick="changeUser()">Changer</button>
+          <button class="btn-secondary" id="changeUserBtn" type="button">Changer</button>
         </div>
         <div class="nav-actions">
           <button class="btn-ghost" type="button">🌙 Thème</button>
           <button class="btn-ghost" type="button">FR</button>
-          <button id="loginBtn" class="btn-primary" onclick="showLoginModal()">Se connecter</button>
-          <button id="logoutBtn" class="btn-secondary" onclick="logout()" style="display: none;">Déconnexion</button>
+          <button id="loginBtn" class="btn-primary" type="button">Se connecter</button>
+          <button id="logoutBtn" class="btn-secondary" type="button" style="display: none;">Déconnexion</button>
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@
           <span id="connectionStatus">Déconnecté</span>
         </div>
         <div class="connection-controls">
-          <button class="btn-primary btn-with-icon" onclick="toggleSiebelConnection()" id="connectButton">
+          <button class="btn-primary btn-with-icon" type="button" id="connectButton">
             <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M10 13a5 5 0 0 0 7.5 0" />
               <path d="M14 11a5 5 0 0 0-7.5 0" />
@@ -78,7 +78,7 @@
             <span class="button-text">Connexion Siebel</span>
             <span class="loading-spinner" style="display: none;">↻</span>
           </button>
-          <button class="btn-secondary btn-with-icon" onclick="syncWithSiebel()" id="syncButton" disabled>
+          <button class="btn-secondary btn-with-icon" type="button" id="syncButton" disabled>
             <svg class="lucide-icon icon-spin" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M21 12a9 9 0 1 1-2.64-6.36" />
               <path d="M21 3v6h-6" />
@@ -94,7 +94,7 @@
           <h2>Actions rapides</h2>
           <p class="panel-subtitle">Automatiser la gestion quotidienne</p>
         </div>
-        <button class="btn-secondary btn-with-icon" onclick="simulateRandomData()">
+        <button class="btn-secondary btn-with-icon" type="button" id="simulateDataBtn">
           <svg class="lucide-icon icon-bounce" aria-hidden="true" viewBox="0 0 24 24">
             <path d="M16 3h5v5" />
             <path d="M4 20h5v-5" />
@@ -103,7 +103,7 @@
           </svg>
           Simuler des données
         </button>
-        <button class="btn-secondary btn-with-icon" onclick="generateSmartRecipe()">
+        <button class="btn-secondary btn-with-icon" type="button" id="quickGenerateBtn">
           <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
             <path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z" />
             <path d="M19 14l.8 2 2 0.8-2 0.8-.8 2-.8-2-2-.8 2-.8.8-2z" />
@@ -149,7 +149,7 @@
                 </svg>
                 Sauvegarder
               </button>
-              <button class="btn-secondary btn-with-icon" type="button" onclick="generateSmartRecipe()">
+              <button class="btn-secondary btn-with-icon" type="button" id="panelGenerateBtn">
                 <svg class="lucide-icon icon-pulse" aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z" />
                   <path d="M19 14l.8 2 2 0.8-2 0.8-.8 2-.8-2-2-.8 2-.8.8-2z" />
@@ -159,7 +159,7 @@
             </div>
           </header>
 
-          <form id="recipeForm" class="recipe-form" onsubmit="saveRecipe(event)">
+          <form id="recipeForm" class="recipe-form">
             <div class="form-grid">
               <label>
                 <span>Titre de la recette</span>
@@ -321,7 +321,7 @@
             <p class="panel-subtitle">Mesurez votre impact et vos habitudes responsables.</p>
           </div>
           <div class="panel-actions">
-            <button class="btn-secondary" onclick="offsetCarbon()">Compenser CO₂</button>
+            <button class="btn-secondary" type="button" id="offsetCarbonBtn">Compenser CO₂</button>
           </div>
         </header>
         <div class="sustainability-stats">
@@ -349,17 +349,17 @@
             <div class="action-card">
               <h4>Recettes Locales</h4>
               <p>Utilisez des ingrédients locaux pour réduire l'empreinte carbone</p>
-              <button class="btn-secondary" onclick="completeAction('local')">Compléter</button>
+              <button class="btn-secondary" type="button" data-action="local">Compléter</button>
             </div>
             <div class="action-card">
               <h4>Zéro Déchet</h4>
               <p>Créez des recettes qui utilisent tous les ingrédients sans gaspillage</p>
-              <button class="btn-secondary" onclick="completeAction('zerowaste')">Compléter</button>
+              <button class="btn-secondary" type="button" data-action="zerowaste">Compléter</button>
             </div>
             <div class="action-card">
               <h4>Saisonnier</h4>
               <p>Utilisez uniquement des ingrédients de saison</p>
-              <button class="btn-secondary" onclick="completeAction('seasonal')">Compléter</button>
+              <button class="btn-secondary" type="button" data-action="seasonal">Compléter</button>
             </div>
           </div>
         </div>
@@ -377,20 +377,20 @@
 
   <div id="loginModal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <span class="close" id="closeLoginModalBtn" role="button" tabindex="0">&times;</span>
       <h2>Connexion</h2>
       <div class="login-options">
-        <form id="loginForm" onsubmit="handleLogin(event)">
+        <form id="loginForm">
           <input type="email" id="email" placeholder="Email" required>
           <input type="password" id="password" placeholder="Mot de passe" required>
           <button class="btn-primary" type="submit">Se connecter</button>
         </form>
         <div class="oauth-buttons">
-          <button class="oauth-btn google-btn" onclick="loginWithGoogle()">
+          <button class="oauth-btn google-btn" type="button" id="loginGoogleBtn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
             Continuer avec Google
           </button>
-          <button class="oauth-btn github-btn" onclick="loginWithGithub()">
+          <button class="oauth-btn github-btn" type="button" id="loginGithubBtn">
             <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
             Continuer avec GitHub
           </button>
