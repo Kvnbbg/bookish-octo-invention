@@ -1,0 +1,7 @@
+{
+  "publicPaths": ["/", "/about", "/css/**", "/js/**", "/images/**"],
+  "loginPath": "/login",
+  "logoutPath": "/logout",
+  "authenticatedByDefault": true,
+  "passwordEncoder": "BCrypt"
+}
