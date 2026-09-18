@@ -1,0 +1,20 @@
+name: Power Gate
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      - run: mvn -B test
+      - run: mvn -B package -DskipTests
+      - run: test -f Dockerfile
+      - run: test -f pom.xml
+      - run: test -f README.md
